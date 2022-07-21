@@ -15,7 +15,7 @@ public class SceneLoader : IInitializable
     
     public void Initialize()
     {
-        LoadMainMenu();
+        
     }
 
     private void LoadMainMenu()
