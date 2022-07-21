@@ -12,6 +12,7 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
     {
         public GameManager.Settings game;
         public SoundManager.Settings sound;
+        public SceneLoader.Settings scene;
     }
 
 
@@ -19,5 +20,6 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
     {
         Container.BindInstance(settings.game).IfNotBound();
         Container.BindInstance(settings.sound).IfNotBound();
+        Container.BindInstance(settings.scene).IfNotBound();
     }
 }

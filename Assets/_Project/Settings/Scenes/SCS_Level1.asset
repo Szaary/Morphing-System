@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef6f486002d2c94c8efa9f8a534bf3f, type: 3}
-  m_Name: GameSettings
+  m_Script: {fileID: 11500000, guid: bee24549001e456aa541948178ae55bc, type: 3}
+  m_Name: SCS_Level1
   m_EditorClassIdentifier: 
-  settings:
-    game:
-      level: 0
-    sound:
-      soundVolume: 5
-    scene:
-      Levels:
-      - {fileID: 11400000, guid: 1deab1ebe56efa14e820a1fd2d4769b2, type: 2}
+  sceneName: SCS_Level1
+  shortDescription: Example

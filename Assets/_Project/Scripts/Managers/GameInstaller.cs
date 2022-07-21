@@ -6,5 +6,6 @@ public class GameInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<GameManager>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<SoundManager>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<SceneLoader>().AsSingle();
     }
 }
