@@ -2,11 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CS_", menuName = "Character/Statistics")]
+//[CreateAssetMenu(fileName = "CS_", menuName = "Character/Statistics")]
 public class CharacterStatistics : ScriptableObject
 {
-    public string characterName;
-
     public List<Statistic> statistics= new List<Statistic>();
 
     public void Initialize(CharacterStatistics characterStatistics)

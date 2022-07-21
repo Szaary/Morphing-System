@@ -167,4 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895432d09201bdb4e8e966e4b29cfc01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  statistics:
+  - {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
+  - {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+  - {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
+  characterName: Adam

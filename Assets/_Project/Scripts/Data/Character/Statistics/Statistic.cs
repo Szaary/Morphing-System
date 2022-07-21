@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
+//[CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
 public class Statistic : ScriptableObject, IEquatable<Statistic>
 {
     public BaseStatistic baseStatistic;

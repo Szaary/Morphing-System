@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
+//[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
     [Header("General")]
@@ -38,6 +38,11 @@ public class Character : ScriptableObject
         return true;
     }
 
+    public void SetBaseStats(CharacterStatistics statistics)
+    {
+        baseStats = statistics;
+    }
+    
     public void DestroyBattleStats()
     {
         if (battleStats != null)
