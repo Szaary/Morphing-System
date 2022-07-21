@@ -30,7 +30,7 @@ public class CharacterCreator : MonoBehaviour
         var data = ScriptableObject.CreateInstance<CharacterData>();
         AssetDatabase.CreateAsset(data,
             "Assets/_Project/Data/Characters/" + characterName + "/CDA_" + characterName + ".asset");
-
+        
         var characterStatistics = ScriptableObject.CreateInstance<CharacterStatistics>();
         AssetDatabase.CreateAsset(characterStatistics,
             "Assets/_Project/Data/Characters/" + characterName + "/CS_" + characterName + ".asset");
@@ -45,6 +45,7 @@ public class CharacterCreator : MonoBehaviour
 
         character.SetBaseStats(characterStatistics);
         character.data=data;
+        character.data.characterName = characterName;
         character.vfx=vfx;
         character.sfx = sfx;
         
