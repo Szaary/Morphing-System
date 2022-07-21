@@ -8,15 +8,24 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     public float maxValue;
     public float minValue;
 
-    public float currentValue;
-    
+    [SerializeField] private float currentValue;
 
-    
+    public float CurrentValue
+    {
+        get => currentValue;
+        set
+        {
+            currentValue = value;
+            if (currentValue < 1) currentValue = 1;
+        }
+    }
+
+
     public void Initialize(Statistic stat)
     {
         maxValue = stat.maxValue;
         minValue = stat.minValue;
-        currentValue = stat.currentValue;
+        CurrentValue = stat.CurrentValue;
         
         baseStatistic = stat.baseStatistic;
     }
@@ -38,13 +47,13 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
             minValue = maxValue;
         }
 
-        if (currentValue > maxValue)
+        if (CurrentValue > maxValue)
         {
-            currentValue = maxValue;
+            CurrentValue = maxValue;
         }
-        else if (currentValue < minValue)
+        else if (CurrentValue < minValue)
         {
-            currentValue = minValue;
+            CurrentValue = minValue;
         }
     }
 #endif

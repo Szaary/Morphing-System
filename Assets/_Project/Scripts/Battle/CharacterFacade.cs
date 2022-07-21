@@ -11,5 +11,10 @@ public class CharacterFacade : MonoBehaviour
         var stat2 = character.currentStats.statistics[1];
         var value = stat==stat2;
         Debug.Log(value);
+
+        foreach (var statistic in character.currentStats.statistics)
+        {
+            Debug.Log(statistic.baseStatistic.statName + " " + statistic.CurrentValue);
+        }
     }
 }
