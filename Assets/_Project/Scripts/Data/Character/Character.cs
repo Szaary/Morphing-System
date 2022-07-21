@@ -14,7 +14,7 @@ public class Character : ScriptableObject
     public List<PassiveAbility> passiveAbilities;
     public List<PassiveEffect> effects;
 
-    public bool InitializeStats()
+    public bool InitializeStats(MonoBehaviour caller)
     {
         try
         {
@@ -28,8 +28,8 @@ public class Character : ScriptableObject
         }
 
 
-        if (!ApplyPassiveAbilities()) return false;
-        if (!ApplyPassiveEffects()) return false;
+        if (!ApplyPassiveAbilities(caller)) return false;
+        if (!ApplyPassiveEffects(caller)) return false;
 
         return true;
     }
@@ -39,26 +39,26 @@ public class Character : ScriptableObject
         Destroy(currentStats);
     }
 
-    private bool ApplyPassiveEffects()
+    private bool ApplyPassiveEffects(MonoBehaviour caller)
     {
         foreach (var passiveEffect in effects)
         {
             if (passiveEffect is IModifyStats passiveModifier)
             {
-                if (!passiveModifier.OnApplyStatus(this)) return false;
+                if (!passiveModifier.OnApplyStatus(this, caller)) return false;
             }
         }
 
         return true;
     }
 
-    private bool ApplyPassiveAbilities()
+    private bool ApplyPassiveAbilities(MonoBehaviour caller)
     {
         foreach (var passiveAbility in passiveAbilities)
         {
             if (passiveAbility is IModifyStats passiveModifier)
             {
-                if (!passiveModifier.OnApplyStatus(this)) return false;
+                if (!passiveModifier.OnApplyStatus(this, caller)) return false;
             }
         }
 

@@ -6,7 +6,7 @@ public class CharacterFacade : MonoBehaviour
 
     private void Start()
     {
-        character.InitializeStats();
+        character.InitializeStats(this);
         var stat = character.currentStats.statistics[0];
         var stat2 = character.currentStats.statistics[1];
         var value = stat==stat2;

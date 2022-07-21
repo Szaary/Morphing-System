@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Passive : ScriptableObject, IModifyStats
+public abstract class Passive : ScriptableObject, IModifyStats
 {
     [SerializeField] private Statistic statisticToModify;
     [SerializeField] private Modifier modifier;
