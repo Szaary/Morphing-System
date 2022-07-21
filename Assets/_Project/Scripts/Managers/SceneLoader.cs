@@ -15,7 +15,10 @@ public class SceneLoader : IInitializable
     
     public void Initialize()
     {
-        
+        if (SceneManager.sceneCount==1)
+        {
+            LoadMainMenu();
+        }
     }
 
     private void LoadMainMenu()

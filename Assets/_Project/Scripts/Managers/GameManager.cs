@@ -1,12 +1,20 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 public class GameManager : IInitializable
 {
+    private readonly SceneLoader _sceneLoader;
+
     public void Initialize()
     {
         Debug.Log("GameManager.Initialize");
+    }
+
+    public GameManager(SceneLoader sceneLoader)
+    {
+        _sceneLoader = sceneLoader;
     }
     
     [Serializable]
@@ -14,4 +22,7 @@ public class GameManager : IInitializable
     {
         public int level;
     }
+    
+    
+   
 }
