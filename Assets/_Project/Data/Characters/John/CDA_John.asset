@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5f7d8e85ad412e832149cc59cc271a, type: 3}
   m_Name: CDA_John
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: John
   description: 

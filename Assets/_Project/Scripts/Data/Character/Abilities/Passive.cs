@@ -11,7 +11,7 @@ public abstract class Passive : ScriptableObject, IModifyStats
     
     
     [Header("Statistics")]
-    [SerializeField] private Statistic statisticToModify;
+    [SerializeField] private BaseStatistic statisticToModify;
     [SerializeField] private Modifier modifier;
     [SerializeField] private List<float> amounts;
 
@@ -20,7 +20,7 @@ public abstract class Passive : ScriptableObject, IModifyStats
         get => amounts;
         set => amounts = value;
     }
-    public Statistic StatisticToModify
+    public BaseStatistic StatisticToModify
     {
         get => statisticToModify;
         set => statisticToModify = value;
