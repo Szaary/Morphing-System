@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MOD_", menuName = "Character/Modifiers/AddCurrentValueOverTime")]
+[CreateAssetMenu(fileName = "MOD_", menuName = "Modifiers/AddCurrentValueOverTime")]
 public class AddCurrentValueOverTime : AddCurrentValue
 {
     public float timeBetweenUpdates = 0.3f;

@@ -22,7 +22,4 @@ public class GameManager : IInitializable
     {
         public int level;
     }
-    
-    
-   
 }

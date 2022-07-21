@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CS_", menuName = "Character/CharacterStatistics")]
+[CreateAssetMenu(fileName = "CS_", menuName = "Character/Statistics")]
 public class CharacterStatistics : ScriptableObject
 {
     public string characterName;
@@ -16,6 +16,17 @@ public class CharacterStatistics : ScriptableObject
             var instance = CreateInstance<Statistic>();
             instance.Initialize(stat);
             statistics.Add(instance);
+        }
+    }
+
+    public void Destroy()
+    {
+        foreach (var stat in statistics)
+        {
+            if (stat != null)
+            {
+                Destroy(stat);
+            }
         }
     }
 }

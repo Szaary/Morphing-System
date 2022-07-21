@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f6361dfde2b4440b44a185786d2a3ac, type: 3}
-  m_Name: PA_Bodyguard
+  m_Script: {fileID: 11500000, guid: 4e3d6ef613674a0597c16fb55fb6b0b9, type: 3}
+  m_Name: CVFX_John
   m_EditorClassIdentifier: 
-  statisticToModify: {fileID: 11400000, guid: db9b86ae55cd9e24e80c1e4d98d12bc6, type: 2}
-  modifier: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}
-  amounts:
-  - 1
+  icon: {fileID: 0}
+  animatorOverrideController: {fileID: 0}

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MOD_", menuName = "Character/Modifiers/AddCurrentValue")]
+[CreateAssetMenu(fileName = "MOD_", menuName = "Modifiers/AddCurrentValue")]
 public class AddCurrentValue : Modifier
 {
     public override void Modify(Statistic stats, List<float> modifiers, MonoBehaviour caller)

@@ -2,24 +2,28 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Character")]
+[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
+    [Header("General")]
+    public CharacterData data;
+    public CharacterVFX vfx;
+    public CharacterSFX sfx;
+    
+    [Header("Statistics")]
     [SerializeField] private CharacterStatistics baseStats;
-    [HideInInspector] public CharacterStatistics currentStats;
-
-
     public List<ActiveAbility> activeAbilities;
-
     public List<PassiveAbility> passiveAbilities;
     public List<PassiveEffect> effects;
+    [HideInInspector] public CharacterStatistics battleStats;
 
+    
     public bool InitializeStats(MonoBehaviour caller)
     {
         try
         {
-            currentStats = CreateInstance<CharacterStatistics>();
-            currentStats.Initialize(baseStats);
+            battleStats = CreateInstance<CharacterStatistics>();
+            battleStats.Initialize(baseStats);
         }
         catch (Exception e)
         {
@@ -33,12 +37,16 @@ public class Character : ScriptableObject
 
         return true;
     }
-    
-    private void OnDestroy()
-    {
-        Destroy(currentStats);
-    }
 
+    public void DestroyBattleStats()
+    {
+        if (battleStats != null)
+        {
+            baseStats.Destroy();
+            Destroy(battleStats);
+        }
+    }
+    
     private bool ApplyPassiveEffects(MonoBehaviour caller)
     {
         foreach (var passiveEffect in effects)
@@ -63,5 +71,10 @@ public class Character : ScriptableObject
         }
 
         return true;
+    }
+    
+    private void OnDestroy()
+    {
+        DestroyBattleStats();
     }
 }

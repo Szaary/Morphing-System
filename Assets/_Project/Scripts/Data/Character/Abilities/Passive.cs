@@ -4,6 +4,13 @@ using UnityEngine;
 
 public abstract class Passive : ScriptableObject, IModifyStats
 {
+    [Header("VFX")]
+    public string skillName;
+    public Sprite icon;
+    
+    
+    
+    [Header("Statistics")]
     [SerializeField] private Statistic statisticToModify;
     [SerializeField] private Modifier modifier;
     [SerializeField] private List<float> amounts;

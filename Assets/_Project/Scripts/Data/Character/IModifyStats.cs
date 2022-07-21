@@ -9,7 +9,7 @@ public interface IModifyStats
 
     public bool OnApplyStatus(Character character, MonoBehaviour caller)
     {
-        foreach (var statistic in character.currentStats.statistics)
+        foreach (var statistic in character.battleStats.statistics)
         {
             if (StatisticToModify == statistic)
             {
@@ -22,7 +22,7 @@ public interface IModifyStats
 
     public bool OnRemoveStatus(Character character, MonoBehaviour caller)
     {
-        foreach (var statistic in character.currentStats.statistics)
+        foreach (var statistic in character.battleStats.statistics)
         {
             if (StatisticToModify == statistic)
             {
