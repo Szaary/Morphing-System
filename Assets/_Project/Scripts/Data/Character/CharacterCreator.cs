@@ -20,7 +20,11 @@ public class CharacterCreator : MonoBehaviour
             return;
         }
 
-        if (CreateFolder("Assets/_Project/Data/Characters", characterName)) return;
+        if (CreateFolder("Assets/_Project/Data/Characters", characterName))
+        {
+            characterName = "";
+            return;
+        }
 
 
         var character = ScriptableObject.CreateInstance<Character>();
@@ -30,7 +34,7 @@ public class CharacterCreator : MonoBehaviour
         var data = ScriptableObject.CreateInstance<CharacterData>();
         AssetDatabase.CreateAsset(data,
             "Assets/_Project/Data/Characters/" + characterName + "/CDA_" + characterName + ".asset");
-        
+
         var characterStatistics = ScriptableObject.CreateInstance<CharacterStatistics>();
         AssetDatabase.CreateAsset(characterStatistics,
             "Assets/_Project/Data/Characters/" + characterName + "/CS_" + characterName + ".asset");
@@ -44,17 +48,18 @@ public class CharacterCreator : MonoBehaviour
             "Assets/_Project/Data/Characters/" + characterName + "/SFX_" + characterName + ".asset");
 
         character.SetBaseStats(characterStatistics);
-        character.data=data;
+        character.data = data;
         character.data.characterName = characterName;
-        character.vfx=vfx;
+        character.vfx = vfx;
         character.sfx = sfx;
-        
+
         if (CreateFolder("Assets/_Project/Data/Characters/" + characterName, "Stats")) return;
 
         foreach (var baseStat in this.statistics)
         {
             var stat = ScriptableObject.CreateInstance<Statistic>();
-            AssetDatabase.CreateAsset(stat, "Assets/_Project/Data/Characters/" + characterName + "/Stats/STA_" + baseStat.statName + ".asset");
+            AssetDatabase.CreateAsset(stat,
+                "Assets/_Project/Data/Characters/" + characterName + "/Stats/STA_" + baseStat.statName + ".asset");
             stat.baseStatistic = baseStat;
             characterStatistics.statistics.Add(stat);
         }
@@ -64,12 +69,13 @@ public class CharacterCreator : MonoBehaviour
 
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = character;
+        characterName = "";
     }
 
 
     private bool CreateFolder(string path, string folderName)
     {
-        if (AssetDatabase.IsValidFolder(path + folderName))
+        if (AssetDatabase.IsValidFolder(path +"/"+ folderName))
         {
             Debug.LogError("Character with that name already exists");
             return true;
