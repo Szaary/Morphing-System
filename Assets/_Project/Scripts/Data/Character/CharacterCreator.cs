@@ -11,7 +11,7 @@ public class CharacterCreator : MonoBehaviour
 #if UNITY_EDITOR
     [Header("Creator Config")] public List<BaseStatistic> statistics = new List<BaseStatistic>();
     public List<Character> createdCharacters = new List<Character>();
-    
+
     [Header("Creator")] public string characterName;
 
     public void CreateCharacter()
@@ -70,10 +70,17 @@ public class CharacterCreator : MonoBehaviour
         AssetDatabase.SaveAssets();
 
         createdCharacters.Add(character);
-        
+
         EditorUtility.FocusProjectWindow();
         Selection.activeObject = character;
         characterName = "";
+
+
+        EditorUtility.SetDirty(character);
+        EditorUtility.SetDirty(data);
+        EditorUtility.SetDirty(characterStatistics);
+        EditorUtility.SetDirty(vfx);
+        EditorUtility.SetDirty(sfx);
     }
 
     private void OnValidate()
@@ -90,7 +97,7 @@ public class CharacterCreator : MonoBehaviour
 
     private bool CreateFolder(string path, string folderName)
     {
-        if (AssetDatabase.IsValidFolder(path +"/"+ folderName))
+        if (AssetDatabase.IsValidFolder(path + "/" + folderName))
         {
             Debug.LogError("Character with that name already exists");
             return true;

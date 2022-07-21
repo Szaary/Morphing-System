@@ -171,5 +171,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
   - {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   - {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
-  createdCharacters: []
-  characterName: John
+  createdCharacters:
+  - {fileID: 11400000, guid: 9c11319dc2d83e74d91a128655269046, type: 2}
+  - {fileID: 11400000, guid: a47f1132f305a554c8b7530e79d0eef8, type: 2}
+  characterName: 
