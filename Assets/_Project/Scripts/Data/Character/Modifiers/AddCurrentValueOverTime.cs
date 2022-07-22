@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MOD_", menuName = "Modifiers/AddCurrentValueOverTime")]
 public class AddCurrentValueOverTime : AddCurrentValue
 {
-    public float timeBetweenUpdates = 0.3f;
+    public float timeBetweenUpdates;
     public event Action OnValueChanged;
     
     protected override void AddValues(Statistic stats, List<float> modifiers, MonoBehaviour caller)

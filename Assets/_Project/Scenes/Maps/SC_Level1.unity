@@ -251,6 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 843518085}
   - component: {fileID: 843518084}
+  - component: {fileID: 843518086}
   m_Layer: 0
   m_Name: Installer
   m_TagString: Untagged
@@ -271,7 +272,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 843518086}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -305,6 +307,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &843518086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843518083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a82cddc7aa378fb4c9be08b6e4def55b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnStateMachineGameObject: {fileID: 446178678436344234, guid: b9e8d8cb7b3e7f64ab60c5361c063004, type: 3}
 --- !u!1 &1329463516
 GameObject:
   m_ObjectHideFlags: 0
