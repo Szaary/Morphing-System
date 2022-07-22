@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Passive : ScriptableObject, IModifyStats
 {
     [Header("VFX")]
-    public string skillName;
+    public new string name;
     public Sprite icon;
     
     
@@ -20,6 +20,7 @@ public abstract class Passive : ScriptableObject, IModifyStats
         get => amounts;
         set => amounts = value;
     }
+    
     public BaseStatistic StatisticToModify
     {
         get => statisticToModify;

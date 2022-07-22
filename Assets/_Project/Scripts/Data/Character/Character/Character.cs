@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,6 +18,9 @@ public class Character : ScriptableObject
     public List<PassiveEffect> effects;
     [HideInInspector] public CharacterStatistics battleStats;
 
+    [Header("Items")]
+    public ItemsHolder backpack;
+    public ItemsEquipment equipment;
     
     public bool InitializeStats(MonoBehaviour caller)
     {
@@ -31,10 +35,11 @@ public class Character : ScriptableObject
             return false;
         }
 
-
-        if (!ApplyPassiveAbilities(caller)) return false;
-        if (!ApplyPassiveEffects(caller)) return false;
-
+        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive)x), caller)) return false;
+        if (!ApplyPassive(effects.ConvertAll(x => (Passive)x), caller)) return false;
+        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive)x), caller)) return false;
+        
+        
         return true;
     }
 
@@ -43,41 +48,28 @@ public class Character : ScriptableObject
         baseStats = statistics;
     }
     
-    public void DestroyBattleStats()
+    private void DestroyBattleStats()
     {
         if (battleStats != null)
         {
-            baseStats.Destroy();
+            battleStats.Destroy();
             Destroy(battleStats);
         }
     }
     
-    private bool ApplyPassiveEffects(MonoBehaviour caller)
+    private bool ApplyPassive(List<Passive> passives, MonoBehaviour caller)
     {
-        foreach (var passiveEffect in effects)
+        foreach (var passiveEffect in passives)
         {
             if (passiveEffect is IModifyStats passiveModifier)
             {
                 if (!passiveModifier.OnApplyStatus(this, caller)) return false;
             }
         }
-
         return true;
     }
 
-    private bool ApplyPassiveAbilities(MonoBehaviour caller)
-    {
-        foreach (var passiveAbility in passiveAbilities)
-        {
-            if (passiveAbility is IModifyStats passiveModifier)
-            {
-                if (!passiveModifier.OnApplyStatus(this, caller)) return false;
-            }
-        }
 
-        return true;
-    }
-    
     private void OnDestroy()
     {
         DestroyBattleStats();

@@ -23,3 +23,5 @@ MonoBehaviour:
   effects:
   - {fileID: 11400000, guid: 57dc0eb02d13fe84c9f80429ebe3b005, type: 2}
   battleStats: {fileID: 0}
+  backpack: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
+  equipment: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}

@@ -36,24 +36,24 @@ public class CharacterCreator : MonoBehaviour
         var data = ScriptableObject.CreateInstance<CharacterData>();
         AssetDatabase.CreateAsset(data,
             "Assets/_Project/Data/Characters/" + characterName + "/CDA_" + characterName + ".asset");
-
+        character.data = data;
+        character.data.characterName = characterName;
+        
         var characterStatistics = ScriptableObject.CreateInstance<CharacterStatistics>();
         AssetDatabase.CreateAsset(characterStatistics,
             "Assets/_Project/Data/Characters/" + characterName + "/CS_" + characterName + ".asset");
+        character.SetBaseStats(characterStatistics);
 
         var vfx = ScriptableObject.CreateInstance<CharacterVFX>();
         AssetDatabase.CreateAsset(vfx,
             "Assets/_Project/Data/Characters/" + characterName + "/CVFX_" + characterName + ".asset");
-
+        character.vfx = vfx;
+        
         var sfx = ScriptableObject.CreateInstance<CharacterSFX>();
         AssetDatabase.CreateAsset(sfx,
             "Assets/_Project/Data/Characters/" + characterName + "/SFX_" + characterName + ".asset");
-
-        character.SetBaseStats(characterStatistics);
-        character.data = data;
-        character.data.characterName = characterName;
-        character.vfx = vfx;
         character.sfx = sfx;
+        
 
         if (CreateFolder("Assets/_Project/Data/Characters/" + characterName, "Stats")) return;
 
