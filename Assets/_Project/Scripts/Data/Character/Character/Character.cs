@@ -13,7 +13,7 @@ public class Character : ScriptableObject
     
     [Header("Statistics")]
     [SerializeField] private CharacterStatistics baseStats;
-    public List<ActiveAbility> activeAbilities;
+    public List<Active> activeAbilities;
     public List<PassiveAbility> passiveAbilities;
     public List<PassiveEffect> effects;
     [HideInInspector] public CharacterStatistics battleStats;
@@ -61,7 +61,7 @@ public class Character : ScriptableObject
     {
         foreach (var passiveEffect in passives)
         {
-            if (passiveEffect is IModifyStats passiveModifier)
+            if (passiveEffect is IApplyStatus passiveModifier)
             {
                 if (!passiveModifier.OnApplyStatus(this, caller)) return false;
             }

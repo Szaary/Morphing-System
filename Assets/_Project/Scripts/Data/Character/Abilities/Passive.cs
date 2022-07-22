@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Passive : ScriptableObject, IModifyStats
+public abstract class Passive : ScriptableObject, IApplyStatus
 {
     [Header("VFX")]
     public new string name;

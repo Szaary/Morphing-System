@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IModifyStats
+public interface IApplyStatus
 {
     public List<float> Amounts { get; set; }
     public BaseStatistic StatisticToModify { get; set; }
