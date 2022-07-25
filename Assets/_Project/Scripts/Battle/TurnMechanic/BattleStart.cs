@@ -3,22 +3,16 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class BattleStart : IState
+public class BattleStart : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
-    public List<ISubscribeToStateChanged> TickSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnEnterSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnExitSubscribers { get; }
 
     public BattleStart(TurnStateMachine turnStateMachine)
     {
         _turnStateMachine = turnStateMachine;
-        TickSubscribers = new List<ISubscribeToStateChanged>();
-        OnEnterSubscribers = new List<ISubscribeToStateChanged>();
-        OnExitSubscribers = new List<ISubscribeToStateChanged>();
     }
     
-    public virtual Task OnEnter()
+    public override Task OnEnter()
     {
         Debug.Log("Entered state: " + GetType().Name);
         foreach (var subscriber in OnEnterSubscribers)

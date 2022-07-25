@@ -2,12 +2,18 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-public interface IState
+public abstract class BaseState
 {
-    List<ISubscribeToStateChanged> TickSubscribers { get; }
-    List<ISubscribeToStateChanged> OnEnterSubscribers { get; }
-    List<ISubscribeToStateChanged> OnExitSubscribers { get; }
-    
+    public List<ISubscribeToStateChanged> TickSubscribers { get; }
+    public List<ISubscribeToStateChanged> OnEnterSubscribers { get; }
+    public List<ISubscribeToStateChanged> OnExitSubscribers { get; }
+
+    protected BaseState()
+    {
+        TickSubscribers = new List<ISubscribeToStateChanged>();
+        OnEnterSubscribers = new List<ISubscribeToStateChanged>();
+        OnExitSubscribers = new List<ISubscribeToStateChanged>();
+    }
     
     public virtual Task Tick()
     {

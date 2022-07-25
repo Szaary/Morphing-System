@@ -21,10 +21,10 @@ public class Character : ScriptableObject
     [Header("Items")] public ItemsHolder backpack;
     public ItemsEquipment equipment;
 
-    private IState _playerTurn;
+    private BaseState _playerTurn;
 
 
-    public bool InitializeStats(MonoBehaviour caller, IState playerTurn)
+    public bool InitializeStats(MonoBehaviour caller, BaseState playerTurn)
     {
         _playerTurn = playerTurn;
 
@@ -92,7 +92,7 @@ public class Character : ScriptableObject
         baseStats = statistics;
     }
 
-    public IState GetState()
+    public BaseState GetState()
     {
         return _playerTurn;
     }

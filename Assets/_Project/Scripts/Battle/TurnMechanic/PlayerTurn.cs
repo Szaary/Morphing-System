@@ -1,28 +1,22 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class PlayerTurn : IState
+public class PlayerTurn : BaseState, IDoActions
 {
     private readonly Settings _settings;
     private readonly TurnStateMachine _turnStateMachine;
 
-    public List<ISubscribeToStateChanged> TickSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnEnterSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnExitSubscribers { get; }
+    
+    public int CurrentActions { get; private set; }
 
-    public PlayerTurn(Settings settings, TurnStateMachine turnStateMachine)
+    public PlayerTurn(Settings settings, TurnStateMachine turnStateMachine) : base()
     {
         _settings = settings;
         _turnStateMachine = turnStateMachine;
-
-        TickSubscribers = new List<ISubscribeToStateChanged>();
-        OnEnterSubscribers = new List<ISubscribeToStateChanged>();
-        OnExitSubscribers = new List<ISubscribeToStateChanged>();
     }
 
-    public virtual Task Tick()
+    public override Task Tick()
     {
         foreach (var subscriber in TickSubscribers)
         {
@@ -31,10 +25,10 @@ public class PlayerTurn : IState
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _settings.currentActions = 0;
+            CurrentActions = 0;
         }
 
-        if (_settings.currentActions <= 0)
+        if (CurrentActions <= 0)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
         }
@@ -42,11 +36,23 @@ public class PlayerTurn : IState
         return Task.CompletedTask;
     }
 
+    public override Task OnEnter()
+    {
+        Debug.Log("Entered state: " + GetType().Name);
+        foreach (var subscriber in OnEnterSubscribers)
+        {
+            subscriber.OnEnter();
+        }
+        CurrentActions= _settings.maxNumberOfActions;   
+        return Task.CompletedTask;
+    }
+    
 
     [Serializable]
     public class Settings
     {
-        public int currentActions;
         public int maxNumberOfActions;
     }
+
+    
 }

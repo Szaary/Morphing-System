@@ -13,7 +13,7 @@ public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToStateCha
     [SerializeField] private bool applyOnEnterState;
     [SerializeField] private bool applyOnExitState;
     
-    public IState State { get; private set; }
+    public BaseState BaseState { get; private set; }
     
     public int DurationInTurns
     {
@@ -25,12 +25,13 @@ public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToStateCha
     public MonoBehaviour Caller { get; set; }
     public void SetState(Character character)
     {
-        State = character.GetState();
+        BaseState = character.GetState();
+        ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
     }
 
     public Task Tick()
     {
-        return null;
+        return Task.CompletedTask;
     }
     
     public async Task OnEnter()
@@ -48,12 +49,13 @@ public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToStateCha
         }
     }
     
-    private async Task ActivateEffect()
+    private Task ActivateEffect()
     {
         if (Character == null || Caller == null)
         {
             throw new Exception();
         }
         ((IApplyStatusOverTime)this).TickStatus();
+        return Task.CompletedTask;
     }
 }

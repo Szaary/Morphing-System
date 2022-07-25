@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: BattleSettingsInstaller
   m_EditorClassIdentifier: 
   playerTurnSettings:
-    numberOfActions: 1
+    currentActions: 1
+    maxNumberOfActions: 1
+  aISettings:
+    maxNumberOfActions: 1

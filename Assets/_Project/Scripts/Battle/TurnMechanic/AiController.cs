@@ -8,13 +8,15 @@ public class AiController : MonoBehaviour, ISubscribeToStateChanged, IDoActions
     private Settings _settings;
     public int CurrentActions { get; private set; }
 
-    public IState State { get; private set; }
+    public BaseState BaseState { get; private set; }
 
     [Inject]
     public void Construct(Settings settings, AiTurn aiTurn)
     {
-        State = aiTurn;
+        BaseState = aiTurn;
         _settings = settings;
+        
+        ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
     }
 
 

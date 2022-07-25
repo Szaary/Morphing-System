@@ -15,7 +15,7 @@ public class TurnStateMachine : MonoBehaviour
 
     private TurnState _currentState;
 
-    private BaseStateMachine _battleStateMachine;
+    private AsyncStateMachine _battleStateMachine;
     private BattleStart _battleStart;
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
@@ -24,7 +24,7 @@ public class TurnStateMachine : MonoBehaviour
 
     [Inject]
     public void Construct(
-        BaseStateMachine battleStateMachine,
+        AsyncStateMachine battleStateMachine,
         BattleStart battleStart,
         PlayerTurn playerTurn,
         AiTurn aiTurn,
@@ -50,7 +50,7 @@ public class TurnStateMachine : MonoBehaviour
 
         _battleStateMachine.SetState(_battleStart);
 
-        void At(IState to, IState from, Func<bool> condition) => _battleStateMachine.AddTransition(to, from, condition);
+        void At(BaseState to, BaseState from, Func<bool> condition) => _battleStateMachine.AddTransition(to, from, condition);
     }
     
     protected void Update()
