@@ -5,7 +5,7 @@ public class BattleInstaller : MonoInstaller
 {
     [SerializeField] private TurnStateMachine turnStateMachineGameObject;
     [SerializeField] private CharacterFacade characterFacadeGameObject;
-    [SerializeField] private AiController aiControllerGameObject;
+    [SerializeField] private AiTurnController aiTurnControllerGameObject;
     
     public override void InstallBindings()
     {
@@ -21,7 +21,7 @@ public class BattleInstaller : MonoInstaller
         
         
         Container.Bind<CharacterFacade>().FromComponentInNewPrefab(characterFacadeGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
-        Container.Bind<AiController>().FromComponentInNewPrefab(aiControllerGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
+        Container.Bind<AiTurnController>().FromComponentInNewPrefab(aiTurnControllerGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
     }
     
     

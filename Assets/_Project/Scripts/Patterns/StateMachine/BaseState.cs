@@ -21,7 +21,6 @@ public abstract class BaseState
         {
             subscriber.Tick();
         }
-
         return Task.CompletedTask;
     }
 

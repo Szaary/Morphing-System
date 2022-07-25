@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-public class AiController : MonoBehaviour, ISubscribeToStateChanged, IDoActions
+public class AiTurnController : MonoBehaviour, ISubscribeToStateChanged, IDoActions
 {
     private Settings _settings;
     public int CurrentActions { get; private set; }
@@ -15,10 +15,17 @@ public class AiController : MonoBehaviour, ISubscribeToStateChanged, IDoActions
     {
         BaseState = aiTurn;
         _settings = settings;
-        
+    }
+
+    private void OnEnable()
+    {
         ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
     }
 
+    private void OnDisable()
+    {
+        ((ISubscribeToStateChanged)this).UnsubscribeFromStateChanges();
+    }
 
     public Task Tick()
     {
@@ -52,9 +59,4 @@ public class AiController : MonoBehaviour, ISubscribeToStateChanged, IDoActions
     {
         public int maxNumberOfActions;
     }
-}
-
-public interface IDoActions
-{
-    public int CurrentActions { get; }
 }

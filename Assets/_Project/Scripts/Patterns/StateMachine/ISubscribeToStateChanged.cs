@@ -6,12 +6,20 @@ public interface ISubscribeToStateChanged
     
     /// <summary>
     /// To use Interface you need to call this method after you get reference to state.
+    /// ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
     /// </summary>
     void SubscribeToStateChanges()
     {
-        SubscribeToOnEnter();
         SubscribeToTick();
+        SubscribeToOnEnter();
         SubscribeToOnExit();
+    }
+
+    void UnsubscribeFromStateChanges()
+    {
+        UnsubscribeFromTick();
+        UnsubscribeFromOnEnter();
+        UnsubscribeFromOnExit();
     }
     
     Task Tick();
@@ -19,16 +27,30 @@ public interface ISubscribeToStateChanged
     Task OnExit();
     
     
-    private void SubscribeToTick()
+    public void SubscribeToTick()
     {
-        BaseState.TickSubscribers.Add(this);
+        BaseState?.TickSubscribers?.Add(this);
     }
-    private void SubscribeToOnEnter()
+    public void SubscribeToOnEnter()
     {
-        BaseState.OnEnterSubscribers.Add(this);
+        BaseState?.OnEnterSubscribers?.Add(this);
     }
-    private void SubscribeToOnExit()
+    public void SubscribeToOnExit()
     {
-        BaseState.OnExitSubscribers.Add(this);
+        BaseState?.OnExitSubscribers?.Add(this);
+    }
+    
+    
+    public void UnsubscribeFromTick()
+    {
+        BaseState?.TickSubscribers?.Remove(this);
+    }
+    public void UnsubscribeFromOnEnter()
+    {
+        BaseState?.OnEnterSubscribers?.Remove(this);
+    }
+    public void UnsubscribeFromOnExit()
+    {
+        BaseState?.OnExitSubscribers?.Remove(this);
     }
 }
