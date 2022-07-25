@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28e10d67c3747ca95c93db732cadcdc, type: 3}
   m_Name: AA_BasicAttack
   m_EditorClassIdentifier: 
-  name: 
+  name: Basic Attack
   icon: {fileID: 0}
   statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   modifier: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}
-  amounts: []
+  amounts:
+  - 3

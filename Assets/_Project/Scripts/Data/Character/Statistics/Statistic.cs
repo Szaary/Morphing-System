@@ -4,22 +4,27 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
 public class Statistic : ScriptableObject, IEquatable<Statistic>
 {
+    public enum Result
+    {
+        Success,
+        AboveMax,
+        BelowMin
+    } 
+        
+        
     public BaseStatistic baseStatistic;
     public float maxValue;
     public float minValue;
 
     [SerializeField] private float currentValue;
 
-    public float CurrentValue
+   
+    public float CurrentValue 
     {
         get => currentValue;
-        set
-        {
-            currentValue = value;
-            if (currentValue < 1) currentValue = 1;
-        }
+        private set => currentValue = value;
     }
-
+    
 
     public void Initialize(Statistic stat)
     {
@@ -58,6 +63,31 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     }
 #endif
 
+    public Result Add(float modifier)
+    {
+        if(CurrentValue + modifier > maxValue)
+        {
+            CurrentValue=maxValue;
+            return Result.AboveMax;
+        }
+        else if(CurrentValue + modifier < minValue)
+        {
+            CurrentValue = minValue;
+            return Result.BelowMin;
+        }
+        else
+        {
+            CurrentValue += modifier;
+            return Result.Success;
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     public bool Equals(Statistic other)
     {
         if (ReferenceEquals(null, other)) return false;
@@ -87,4 +117,6 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     {
         return !Equals(left, right);
     }
+
+
 }

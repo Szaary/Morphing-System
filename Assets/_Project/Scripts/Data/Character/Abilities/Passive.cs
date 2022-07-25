@@ -10,7 +10,6 @@ public abstract class Passive : ScriptableObject, IApplyStatus
     public Sprite icon;
     
     
-    
     [Header("Statistics")]
     [SerializeField] private BaseStatistic statisticToModify;
     [SerializeField] private Modifier modifier;

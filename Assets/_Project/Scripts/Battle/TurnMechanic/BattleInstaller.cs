@@ -1,10 +1,12 @@
-using System;
 using UnityEngine;
 using Zenject;
 
-public class TurnStateMachineInstaller : MonoInstaller
+public class BattleInstaller : MonoInstaller
 {
     [SerializeField] private TurnStateMachine turnStateMachineGameObject;
+    [SerializeField] private CharacterFacade characterFacadeGameObject;
+    
+    
     public override void InstallBindings()
     {
         Container.Bind<TurnStateMachine>().FromComponentInNewPrefab(turnStateMachineGameObject).UnderTransformGroup("Managers").AsSingle().NonLazy();
@@ -16,5 +18,10 @@ public class TurnStateMachineInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AiTurn>().AsSingle();
         Container.BindInterfacesAndSelfTo<Victory>().AsSingle();
         Container.BindInterfacesAndSelfTo<Defeat>().AsSingle();
+        
+        
+        Container.Bind<CharacterFacade>().FromComponentInNewPrefab(characterFacadeGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
     }
+    
+    
 }

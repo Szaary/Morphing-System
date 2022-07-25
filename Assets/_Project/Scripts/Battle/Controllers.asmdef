@@ -1,7 +1,9 @@
 {
-    "name": "Data",
+    "name": "Controllers",
     "rootNamespace": "",
     "references": [
+        "GUID:116a922c1ad32ae4481f672557633908",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
         "GUID:980d7f3ee14149e4da0f27563e65af25"
     ],
     "includePlatforms": [],

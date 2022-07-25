@@ -8,6 +8,8 @@ public class Attack : Active, IModifyStats
     [SerializeField] private BaseStatistic statisticToModify;
     [SerializeField] private Modifier modifier;
     [SerializeField] private List<float> amounts;
+
+    public int actions;
     
     public List<float> Amounts { get; set; }
     public BaseStatistic StatisticToModify { get; set; }

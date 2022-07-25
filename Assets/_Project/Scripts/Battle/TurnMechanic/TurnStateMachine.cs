@@ -4,7 +4,7 @@ using Zenject;
 
 public class TurnStateMachine : MonoBehaviour
 {
-    private enum TurnState
+    public enum TurnState
     {
         BattleStart,
         PlayerTurn,
@@ -56,7 +56,12 @@ public class TurnStateMachine : MonoBehaviour
     protected void Update()
     {
         _battleStateMachine.Tick();
-        if (Input.GetKeyDown(KeyCode.Space)) _currentState = TurnState.AiTurn;
+    }
+
+    public void SetState(TurnState state)
+    {
+        Debug.Log("Changing state to " + state);
+        _currentState = state;
     }
 
 }

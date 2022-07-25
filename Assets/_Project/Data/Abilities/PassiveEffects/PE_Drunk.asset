@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 836ed27fbc3443829fbb75065462248a, type: 3}
   m_Name: PE_Drunk
   m_EditorClassIdentifier: 
-  skillName: Drunken Bastard
+  name: 
   icon: {fileID: 0}
   statisticToModify: {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
   modifier: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}
   amounts:
   - -1
+  durationInTurns: 5
