@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-public interface ISubscribeToStateChanged
+public interface ISubscribeToBattleStateChanged
 {
     BaseState BaseState { get; }
     

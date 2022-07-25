@@ -21,4 +21,6 @@ MonoBehaviour:
       Levels:
       - {fileID: 11400000, guid: 1deab1ebe56efa14e820a1fd2d4769b2, type: 2}
       mainMenu: {fileID: 11400000, guid: 2c7b4c83edb678e468bf9a8cff6e533a, type: 2}
+      battle: {fileID: 11400000, guid: d494aef22db527148999cafc9e92dd5d, type: 2}
+      hud: {fileID: 11400000, guid: 951b46a226587bc4983183f9c0a2fabd, type: 2}
       currentLevelIndex: 0

@@ -4,15 +4,15 @@ using UnityEngine;
 
 public abstract class BaseState
 {
-    public List<ISubscribeToStateChanged> TickSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnEnterSubscribers { get; }
-    public List<ISubscribeToStateChanged> OnExitSubscribers { get; }
+    public List<ISubscribeToBattleStateChanged> TickSubscribers { get; }
+    public List<ISubscribeToBattleStateChanged> OnEnterSubscribers { get; }
+    public List<ISubscribeToBattleStateChanged> OnExitSubscribers { get; }
 
     protected BaseState()
     {
-        TickSubscribers = new List<ISubscribeToStateChanged>();
-        OnEnterSubscribers = new List<ISubscribeToStateChanged>();
-        OnExitSubscribers = new List<ISubscribeToStateChanged>();
+        TickSubscribers = new List<ISubscribeToBattleStateChanged>();
+        OnEnterSubscribers = new List<ISubscribeToBattleStateChanged>();
+        OnExitSubscribers = new List<ISubscribeToBattleStateChanged>();
     }
     
     public virtual Task Tick()

@@ -64,10 +64,18 @@ public class SceneLoader : IInitializable
     public class Settings
     {
         public List<GameScene> Levels = new();
+        
         public GameScene mainMenu;
+        public GameScene battle;
+        public GameScene hud;
         
         public int currentLevelIndex = 0;
     }
 
 
+    public void LoadBattleScenes()
+    {
+        SceneManager.LoadScene(_settings.battle.sceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(_settings.hud.sceneName, LoadSceneMode.Additive);
+    }
 }

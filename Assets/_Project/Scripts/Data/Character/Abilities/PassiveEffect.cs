@@ -7,7 +7,7 @@ using UnityEngine;
 /// Passive effect effect last for some time.
 /// </summary>
 [CreateAssetMenu(fileName = "PE_", menuName = "Abilities/Passive Effect")]
-public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToStateChanged
+public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToBattleStateChanged
 {
     [SerializeField] private int durationInTurns;
     [SerializeField] private bool applyOnEnterState;
@@ -26,7 +26,7 @@ public class PassiveEffect : Passive, IApplyStatusOverTime, ISubscribeToStateCha
     public void SetState(Character character)
     {
         BaseState = character.GetState();
-        ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
+        ((ISubscribeToBattleStateChanged)this).SubscribeToStateChanges();
     }
 
     public Task Tick()
