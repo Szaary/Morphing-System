@@ -1,5 +1,5 @@
 # TurnBasedGame
-Framework for 2d rpg game. 
+Framework for 2d rpg game. WIP.
 
 # Features
 - Basic game structure with Zenject
