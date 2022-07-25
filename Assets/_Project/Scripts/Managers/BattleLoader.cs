@@ -5,7 +5,6 @@ public class BattleLoader
     public BattleLoader(SceneLoader sceneLoader)
     {
         _sceneLoader = sceneLoader;
-        
         _sceneLoader.LoadBattleScenes();
     }
 }

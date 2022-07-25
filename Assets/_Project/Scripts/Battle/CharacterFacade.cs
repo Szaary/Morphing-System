@@ -16,10 +16,5 @@ public class CharacterFacade : MonoBehaviour
     private void Start()
     {
         character.InitializeStats(this, _playerTurn);
-
-        foreach (var statistic in character.battleStats.statistics)
-        {
-            Debug.Log(statistic.baseStatistic.statName + " " + statistic.CurrentValue);
-        }
     }
 }

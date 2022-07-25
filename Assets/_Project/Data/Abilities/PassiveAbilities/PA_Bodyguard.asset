@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f6361dfde2b4440b44a185786d2a3ac, type: 3}
   m_Name: PA_Bodyguard
   m_EditorClassIdentifier: 
-  skillName: Life is Hard
+  name: Bodyguard
   icon: {fileID: 0}
   statisticToModify: {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
   modifier: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}

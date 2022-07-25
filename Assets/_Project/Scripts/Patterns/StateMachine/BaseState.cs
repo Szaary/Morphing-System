@@ -1,9 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class BaseState
 {
+    public enum Result
+    {
+        Success,
+        ToDestroy,
+        Failed
+    }
+
     public List<ISubscribeToBattleStateChanged> TickSubscribers { get; }
     public List<ISubscribeToBattleStateChanged> OnEnterSubscribers { get; }
     public List<ISubscribeToBattleStateChanged> OnExitSubscribers { get; }
@@ -14,33 +22,41 @@ public abstract class BaseState
         OnEnterSubscribers = new List<ISubscribeToBattleStateChanged>();
         OnExitSubscribers = new List<ISubscribeToBattleStateChanged>();
     }
-    
-    public virtual Task Tick()
+
+    public virtual async Task Tick()
     {
         foreach (var subscriber in TickSubscribers)
         {
-            subscriber.Tick();
+            var result = await subscriber.Tick();
+            HandleSubscriberResult(result, subscriber);
         }
-        return Task.CompletedTask;
     }
 
-    public virtual Task OnEnter()
+    public virtual async Task OnEnter()
     {
-        Debug.Log("Entered state: " + GetType().Name);
+        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         foreach (var subscriber in OnEnterSubscribers)
         {
-            subscriber.OnEnter();
+            var result = await subscriber.OnEnter();
+            HandleSubscriberResult(result, subscriber);
         }
-        return Task.CompletedTask;
     }
 
-    public virtual Task OnExit()
+    public virtual async Task OnExit()
     {
-        Debug.Log("Exit state: " + GetType().Name);
+        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
         foreach (var subscriber in OnExitSubscribers)
         {
-            subscriber.OnExit();
+            var result =  await subscriber.OnExit();
+            HandleSubscriberResult(result, subscriber);
         }
-        return Task.CompletedTask;
+    }
+
+    protected void HandleSubscriberResult(Result result, ISubscribeToBattleStateChanged subscriber)
+    {
+        if (result == Result.ToDestroy)
+        {
+            subscriber.Destroy();
+        }
     }
 }

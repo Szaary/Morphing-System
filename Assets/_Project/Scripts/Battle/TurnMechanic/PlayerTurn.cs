@@ -16,11 +16,12 @@ public class PlayerTurn : BaseState, IDoActions
         _turnStateMachine = turnStateMachine;
     }
 
-    public override Task Tick()
+    public override async Task Tick()
     {
         foreach (var subscriber in TickSubscribers)
         {
-            subscriber.Tick();
+            var result = await subscriber.Tick();
+            HandleSubscriberResult(result, subscriber);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -32,19 +33,17 @@ public class PlayerTurn : BaseState, IDoActions
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
         }
-
-        return Task.CompletedTask;
     }
 
-    public override Task OnEnter()
+    public override async Task OnEnter()
     {
-        Debug.Log("Entered state: " + GetType().Name);
+        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         foreach (var subscriber in OnEnterSubscribers)
         {
-            subscriber.OnEnter();
+            var result =  await subscriber.OnEnter();
+            HandleSubscriberResult(result, subscriber);
         }
-        CurrentActions= _settings.maxNumberOfActions;   
-        return Task.CompletedTask;
+        CurrentActions= _settings.maxNumberOfActions;
     }
     
 

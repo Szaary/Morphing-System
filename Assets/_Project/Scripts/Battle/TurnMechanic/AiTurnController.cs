@@ -27,30 +27,37 @@ public class AiTurnController : MonoBehaviour, ISubscribeToBattleStateChanged, I
         ((ISubscribeToBattleStateChanged)this).UnsubscribeFromStateChanges();
     }
 
-    public Task Tick()
+    public async Task<BaseState.Result> Tick()
     {
-        return Task.CompletedTask;
+        return BaseState.Result.Success;
     }
 
-    public async Task OnEnter()
+    public async Task<BaseState.Result> OnEnter()
     {
         CurrentActions = _settings.maxNumberOfActions;
 
         await DoAction();
+        
+        return BaseState.Result.Success;
+    }
+
+    public Task<BaseState.Result> OnExit()
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     private async Task DoAction()
     {
-        Debug.Log("Before doing action");
+        Debug.Log("Before doing action by AI");
         await Task.Delay(1000);
 
         CurrentActions = 0;
-        Debug.Log("After doing action");
-    }
-
-    public Task OnExit()
-    {
-        return Task.CompletedTask;
+        Debug.Log("After doing action by AI");
     }
 
 

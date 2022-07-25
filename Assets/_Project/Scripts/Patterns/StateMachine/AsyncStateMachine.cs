@@ -19,8 +19,7 @@ public class AsyncStateMachine
         if (transition != null)
             SetState(transition.To);
 
-        if(_currentBaseState != null)
-            await _currentBaseState.Tick();
+        if(_currentBaseState != null) await _currentBaseState.Tick();
     }
 
     public void SetState(BaseState baseState)

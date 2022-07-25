@@ -9,13 +9,13 @@ public class AddCurrentValue : Modifier
     {
         AddValues(stats, modifiers, caller);
     }
-    
+
     public override void UnModify(Statistic stats, List<float> modifiers, MonoBehaviour caller)
     {
         RemoveValues(stats, modifiers, caller);
     }
-    
-    
+
+
     protected virtual void AddValues(Statistic stats, List<float> modifiers, MonoBehaviour caller)
     {
         foreach (var modifier in modifiers)
@@ -26,8 +26,9 @@ public class AddCurrentValue : Modifier
 
     protected virtual void AddValue(Statistic stats, List<float> modifiers, float modifier, MonoBehaviour caller)
     {
-        stats.Add(modifier);
-        Debug.Log("Added " + modifiers[0] + " to " + stats.baseStatistic.statName);
+        var result = stats.Add(modifier);
+        Debug.Log("Added " + modifiers[0] + " to " + stats.baseStatistic.statName + " from " + caller.name +
+                  ". Current value is: " + stats.CurrentValue + " with result: " + result);
     }
 
     protected virtual void RemoveValues(Statistic stats, List<float> modifiers, MonoBehaviour caller)
@@ -40,9 +41,8 @@ public class AddCurrentValue : Modifier
 
     protected virtual void RemoveValues(Statistic stats, float modifier, MonoBehaviour caller)
     {
-        stats.Add(-modifier);
-        Debug.Log("Removed " + modifier + " to " + stats.baseStatistic.statName);
+        var result = stats.Add(-modifier);
+        Debug.Log("Removed " + modifier + " from " + stats.baseStatistic.statName + ". Current value is: " +
+                  stats.CurrentValue +" with result: " + result);
     }
-
-
 }

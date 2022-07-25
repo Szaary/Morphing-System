@@ -12,33 +12,27 @@ public class AiTurn : BaseState
     {
         _turnStateMachine = turnStateMachine;
     }
-    
-    
-    public override Task Tick()
+
+
+    public override async Task Tick()
     {
-        foreach (var subscriber in TickSubscribers)
-        {
-            subscriber.Tick();
-        }
-        
         bool hasAnyoneActions = false;
-        
+
         foreach (var subscriber in TickSubscribers)
         {
-            if (subscriber is IDoActions acting)
+            var result = await subscriber.Tick();
+            HandleSubscriberResult(result, subscriber);
+
+            if (subscriber is IDoActions {CurrentActions: > 0})
             {
-                if (acting.CurrentActions > 0)
-                {
-                    hasAnyoneActions= true;
-                }
+                hasAnyoneActions = true;
             }
         }
+
 
         if (hasAnyoneActions == false)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
         }
-
-        return Task.CompletedTask;
     }
 }

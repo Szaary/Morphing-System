@@ -39,11 +39,9 @@ public class Character : ScriptableObject
             return false;
         }
 
-        effects.Clear();
-
         if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), caller)) return false;
         if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), caller)) return false;
-
+        ApplyEffects(caller);
 
         return true;
     }
@@ -72,18 +70,32 @@ public class Character : ScriptableObject
     {
         if (passiveEffect is IApplyStatus passiveModifier)
         {
+            Debug.Log("Applying: " + passiveEffect.name);
             if (passiveModifier.OnApplyStatus(this, caller) != IApplyStatus.Result.Success) return false;
         }
 
         return true;
     }
 
-    public bool ApplyEffect(MonoBehaviour caller, Passive passiveEffect)
+    private bool ApplyEffects(MonoBehaviour caller)
     {
-        if (passiveEffect is IApplyStatusOverTime passiveModifier)
+        foreach (var effect in effects)
         {
-            if (passiveModifier.OnApplyStatus(this, caller) != IApplyStatus.Result.Success) return false;
+            if (!ApplyEffect(caller, effect)) return false;
         }
+
+        return true;
+    }
+
+    public bool ApplyEffect(MonoBehaviour caller, PassiveEffect effect)
+    {
+        if (effect is IApplyStatusOverTurns)
+        {
+            var tempEffect = Instantiate(effect);
+            if (((IApplyStatusOverTurns) tempEffect).OnApplyStatus(this, caller) !=
+                IApplyStatusOverTurns.Result.Success) return false;
+        }
+
         return true;
     }
 

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STA_Agility
   m_EditorClassIdentifier: 
   baseStatistic: {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
-  maxValue: 5
+  maxValue: 10
   minValue: 1
-  currentValue: 1
+  currentValue: 8
