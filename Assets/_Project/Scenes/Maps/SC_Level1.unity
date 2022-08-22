@@ -642,8 +642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919ed12bf9edc2f46b11040b10c6b421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpawnZone: {fileID: 0}
-  enemySpawnZone: {fileID: 0}
+  playerSpawnZone: {fileID: 655829858}
+  enemySpawnZone: {fileID: 314295448}
 --- !u!1 &1845064867
 GameObject:
   m_ObjectHideFlags: 0

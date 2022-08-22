@@ -7,7 +7,10 @@ public class SpawnZone : MonoBehaviour
 {
     public List<SpawnLocation> spawnLocations= new List<SpawnLocation>();
 
-
+    public void PlaceCharacter(CharacterFacade facade)
+    {
+        facade.transform.position = transform.position;
+    }
     
     void OnDrawGizmos()
     {

@@ -5,7 +5,7 @@ public class BattleInstaller : MonoInstaller
 {
     [SerializeField] private TurnStateMachine turnStateMachineGameObject;
     [SerializeField] private CharacterFactory characterFactoryGameObject;
- 
+    [SerializeField] private CharacterFacade emptyCharacterGameObject;
     
     public override void InstallBindings()
     {
@@ -21,8 +21,6 @@ public class BattleInstaller : MonoInstaller
         
         
         Container.Bind<CharacterFactory>().FromComponentInNewPrefab(characterFactoryGameObject).UnderTransformGroup("Factories").AsSingle().NonLazy();
-       
+        Container.BindFactory<CharacterFacade, CharacterFacade.Factory>().FromComponentInNewPrefab(emptyCharacterGameObject);;
     }
-    
-    
 }

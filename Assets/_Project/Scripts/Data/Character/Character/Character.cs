@@ -7,12 +7,16 @@ using UnityEngine.SceneManagement;
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
-    [Header("General")] public CharacterData data;
+    [Header("General")] 
+    public CharacterData data;
     public CharacterVFX vfx;
     public CharacterSFX sfx;
 
-    [Header("Statistics")] [SerializeField]
-    private CharacterStatistics baseStats;
+    
+    [Header("Statistics")] 
+    public Alignment alignment;
+    
+    [SerializeField] private CharacterStatistics baseStats;
 
     public List<Active> activeAbilities;
     public List<PassiveAbility> passiveAbilities;
@@ -22,12 +26,14 @@ public class Character : ScriptableObject
     [Header("Items")] public ItemsHolder backpack;
     public ItemsEquipment equipment;
 
+    private BaseState _actionTurn;
+    
     private BaseState _playerTurn;
+    private BaseState _aiTurn;
 
-
-    public bool InitializeStats(MonoBehaviour caller, BaseState playerTurn)
+    public bool InitializeStats(InitializationArguments arguments)
     {
-        _playerTurn = playerTurn;
+        SetTurnActions(arguments);
         
         try
         {
@@ -40,11 +46,25 @@ public class Character : ScriptableObject
             return false;
         }
 
-        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), caller)) return false;
-        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), caller)) return false;
-        ApplyEffects(caller);
+        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), arguments.caller)) return false;
+        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), arguments.caller)) return false;
+        ApplyEffects(arguments.caller);
 
         return true;
+    }
+
+    private void SetTurnActions(InitializationArguments arguments)
+    {
+        if (alignment.alignment == 0)
+        {
+            _actionTurn = arguments.playerTurn;
+            _playerTurn = arguments.playerTurn;
+        }
+        else
+        {
+            _actionTurn = arguments.aiTurn;
+            _aiTurn = arguments.aiTurn;
+        }
     }
 
 
@@ -107,11 +127,18 @@ public class Character : ScriptableObject
 
     public BaseState GetState()
     {
-        return _playerTurn;
+        return _actionTurn;
     }
 
     private void OnDestroy()
     {
         DestroyBattleStats();
+    }
+    
+    public struct InitializationArguments
+    {
+        public MonoBehaviour caller;
+        public BaseState playerTurn;
+        public BaseState aiTurn;
     }
 }
