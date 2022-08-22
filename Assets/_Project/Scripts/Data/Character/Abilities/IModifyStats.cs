@@ -3,19 +3,21 @@ using UnityEngine;
 
 public interface IModifyStats
 {
-    public List<float> Amounts { get; set; }
-    public BaseStatistic StatisticToModify { get; set; }
-    public Modifier Modifier { get; set; }
+    List<Modifier> Modifiers { get; set; }
 
-    public bool OnModifyStat(Character character, MonoBehaviour caller)
+    public bool OnModifyStat(Character character, IOperateStats caller)
     {
-        foreach (var statistic in character.battleStats.statistics)
+        foreach (var modifier in Modifiers)
         {
-            if (StatisticToModify == statistic.baseStatistic)
+            foreach (var statistic in character.battleStats.statistics)
             {
-                Modifier.Modify(statistic, Amounts, caller);
+                if (modifier.statisticToModify == statistic.baseStatistic)
+                {
+                    modifier.algorithm.Modify(statistic, modifier, caller);
+                }
             }
         }
+
         return true;
     }
 }

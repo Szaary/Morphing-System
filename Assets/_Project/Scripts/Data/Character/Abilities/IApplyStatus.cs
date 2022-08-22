@@ -10,31 +10,37 @@ public interface IApplyStatus
         Resistant,
     }
     
-    List<float> Amounts { get; set; }
-    BaseStatistic StatisticToModify { get; set; }
-    Modifier Modifier { get; set; }
+    List<Modifier> Modifiers { get; set; }
 
-    Result OnApplyStatus(Character character, MonoBehaviour caller)
+    Result OnApplyStatus(Character character, IOperateStats caller)
     {
-        foreach (var statistic in character.battleStats.statistics)
+        foreach (var modifier in Modifiers)
         {
-            if (StatisticToModify == statistic.baseStatistic)
+            foreach (var statistic in character.battleStats.statistics)
             {
-                Modifier.Modify(statistic, Amounts, caller);
+                if (modifier.statisticToModify  == statistic.baseStatistic)
+                {
+                    modifier.algorithm.Modify(statistic, modifier, caller);
+                }
             }
         }
+        
 
         return Result.Success;
     }
 
-    Result OnRemoveStatus(Character character, MonoBehaviour caller)
+    Result OnRemoveStatus(Character character, IOperateStats caller)
     {
-        foreach (var statistic in character.battleStats.statistics)
+        foreach (var modifier in Modifiers)
         {
-            if (StatisticToModify == statistic.baseStatistic)
+            foreach (var statistic in character.battleStats.statistics)
             {
-                Modifier.UnModify(statistic, Amounts, caller);
+                if (modifier.statisticToModify  == statistic.baseStatistic)
+                {
+                    modifier.algorithm.UnModify(statistic, modifier, caller);
+                }
             }
+
         }
 
         return Result.Success;

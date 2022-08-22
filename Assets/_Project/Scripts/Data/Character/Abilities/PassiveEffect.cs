@@ -12,7 +12,8 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
     [SerializeField] private int durationInTurns;
     [SerializeField] private bool applyOnEnterTurnState;
     [SerializeField] private bool applyOnExitTurnState;
-
+    [SerializeField] private bool workOnOppositeTurn;
+    
     public BaseState BaseState { get; private set; }
 
     public int DurationInTurns
@@ -22,11 +23,18 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
     }
 
     public Character Character { get; set; }
-    public MonoBehaviour Caller { get; set; }
+    public IOperateStats Caller { get; set; }
 
     public void SetState(Character character)
     {
-        BaseState = character.GetState();
+        if (workOnOppositeTurn)
+        {
+            BaseState = character.alignment.alignment == 0 ? character.GetAiState() : character.GetPlayerState();
+        }
+        else
+        {
+            BaseState = character.GetState();
+        }
         ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges();
     }
 
@@ -76,7 +84,7 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
             return BaseState.Result.Failed;
         }
 
-        Debug.Log("Activating effect by " + Caller.name + " on " + Character.data.characterName);
+        Debug.Log("Activating effect by " + Caller.Caller.name + " on " + Character.data.characterName);
         var result = ((IApplyStatusOverTurns) this).TickStatus();
 
         if (result == IApplyStatusOverTurns.Result.HasEnded)

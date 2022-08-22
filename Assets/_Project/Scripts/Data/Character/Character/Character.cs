@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
-public class Character : ScriptableObject
+public class Character : ScriptableObject, IOperateStats
 {
     [Header("General")] 
     public CharacterData data;
@@ -31,11 +29,16 @@ public class Character : ScriptableObject
     
     private BaseState _playerTurn;
     private BaseState _aiTurn;
+    private MonoBehaviour _caller;
+    
+    public CharacterStatistics CharacterStatistics => baseStats != null ? battleStats : baseStats;
+    public MonoBehaviour Caller => _caller;
 
     public bool InitializeStats(InitializationArguments arguments)
     {
         SetTurnActions(arguments);
-        
+
+        _caller = arguments.caller;
         try
         {
             battleStats = CreateInstance<CharacterStatistics>();
@@ -47,9 +50,9 @@ public class Character : ScriptableObject
             return false;
         }
 
-        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), arguments.caller)) return false;
-        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), arguments.caller)) return false;
-        ApplyEffects(arguments.caller);
+        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), this)) return false;
+        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), this)) return false;
+        ApplyEffects(this);
 
         return true;
     }
@@ -78,7 +81,7 @@ public class Character : ScriptableObject
         }
     }
 
-    private bool ApplyPassive(List<Passive> passives, MonoBehaviour caller)
+    private bool ApplyPassive(List<Passive> passives, IOperateStats caller)
     {
         foreach (var passiveEffect in passives)
         {
@@ -88,7 +91,7 @@ public class Character : ScriptableObject
         return true;
     }
 
-    public bool ApplyPassive(MonoBehaviour caller, Passive passiveEffect)
+    public bool ApplyPassive(IOperateStats caller, Passive passiveEffect)
     {
         if (passiveEffect is IApplyStatus passiveModifier)
         {
@@ -99,7 +102,7 @@ public class Character : ScriptableObject
         return true;
     }
 
-    private bool ApplyEffects(MonoBehaviour caller)
+    private bool ApplyEffects(IOperateStats caller)
     {
         foreach (var effect in effects)
         {
@@ -109,7 +112,7 @@ public class Character : ScriptableObject
         return true;
     }
 
-    public bool ApplyEffect(MonoBehaviour caller, PassiveEffect effect)
+    public bool ApplyEffect(IOperateStats caller, PassiveEffect effect)
     {
         if (effect is IApplyStatusOverTurns)
         {
@@ -126,11 +129,10 @@ public class Character : ScriptableObject
         baseStats = statistics;
     }
 
-    public BaseState GetState()
-    {
-        return _actionTurn;
-    }
-
+    public BaseState GetState() => _actionTurn;
+    public BaseState GetPlayerState() => _playerTurn;
+    public BaseState GetAiState() => _aiTurn;
+    
     private void OnDestroy()
     {
         DestroyBattleStats();

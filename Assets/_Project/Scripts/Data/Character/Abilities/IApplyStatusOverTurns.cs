@@ -9,18 +9,16 @@ public interface IApplyStatusOverTurns
         Resistant,
         HasEnded
     }
-    
-    List<float> Amounts { get; set; }
-    BaseStatistic StatisticToModify { get; set; }
-    Modifier Modifier { get; set; }
-    
+
+    List<Modifier> Modifiers { get; set; }
+
     int DurationInTurns { get; set; }
     Character Character { get; set; }
-    MonoBehaviour Caller { get; set; }
+    IOperateStats Caller { get; set; }
 
     void SetState(Character character);
 
-    Result OnApplyStatus(Character character, MonoBehaviour caller)
+    Result OnApplyStatus(Character character, IOperateStats caller)
     {
         SetState(character);
 
@@ -33,14 +31,18 @@ public interface IApplyStatusOverTurns
     Result TickStatus()
     {
         Debug.Log("Status effect Tick" + this.GetType().Name);
-        foreach (var statistic in Character.battleStats.statistics)
+
+        foreach (var modifier in Modifiers)
         {
-            if (StatisticToModify == statistic.baseStatistic)
+            foreach (var statistic in Character.battleStats.statistics)
             {
-                Modifier.Modify(statistic, Amounts, Caller);
+                if (modifier.statisticToModify == statistic.baseStatistic)
+                {
+                    modifier.algorithm.Modify(statistic, modifier, Caller);
+                }
             }
         }
-        
+
         DurationInTurns--;
 
         if (DurationInTurns <= 0)
@@ -52,14 +54,17 @@ public interface IApplyStatusOverTurns
         return Result.Success;
     }
 
-    Result OnRemoveStatus(Character character, MonoBehaviour caller)
+    Result OnRemoveStatus(Character character, IOperateStats caller)
     {
         Debug.Log("Removing status " + this.GetType().Name + " from " + character.data.characterName);
-        foreach (var statistic in character.battleStats.statistics)
+        foreach (var modifier in Modifiers)
         {
-            if (StatisticToModify == statistic.baseStatistic)
+            foreach (var statistic in Character.battleStats.statistics)
             {
-                Modifier.UnModify(statistic, Amounts, caller);
+                if (modifier.statisticToModify == statistic.baseStatistic)
+                {
+                    modifier.algorithm.UnModify(statistic, modifier, Caller);
+                }
             }
         }
 

@@ -11,25 +11,10 @@ public abstract class Passive : ScriptableObject, IApplyStatus
     
     
     [Header("Statistics")]
-    [SerializeField] private BaseStatistic statisticToModify;
-    [SerializeField] private Modifier modifier;
-    [SerializeField] private List<float> amounts;
+    [SerializeField] protected List<Modifier> modifiers;
 
-    public List<float> Amounts
-    {
-        get => amounts;
-        set => amounts = value;
-    }
+
+    public List<Modifier> Modifiers { get; set; }
+
     
-    public BaseStatistic StatisticToModify
-    {
-        get => statisticToModify;
-        set => statisticToModify = value;
-    }
-
-    public Modifier Modifier
-    {
-        get => modifier;
-        set => modifier = value;
-    }
 }

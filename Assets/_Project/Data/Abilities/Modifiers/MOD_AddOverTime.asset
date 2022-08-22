@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: MOD_AddOverTime
   m_EditorClassIdentifier: 
   timeBetweenUpdates: 0.3
+  timeToEnd: 10

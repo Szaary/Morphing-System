@@ -5,14 +5,12 @@ using UnityEngine;
 public class Attack : Active, IModifyStats
 {
     [Header("Statistics")]
-    [SerializeField] private BaseStatistic statisticToModify;
-    [SerializeField] private Modifier modifier;
-    [SerializeField] private List<float> amounts;
-
+    [SerializeField] private List<Modifier> modifiers;
+   
+    [Header("Amount of action points need to use action")]
     public int actions;
-    
-    public List<float> Amounts { get; set; }
-    public BaseStatistic StatisticToModify { get; set; }
-    public Modifier Modifier { get; set; }
+
+
+    public List<Modifier> Modifiers { get; set; }
 }
 

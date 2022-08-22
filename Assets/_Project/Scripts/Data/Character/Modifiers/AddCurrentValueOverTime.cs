@@ -7,20 +7,19 @@ using UnityEngine;
 public class AddCurrentValueOverTime : AddCurrentValue
 {
     public float timeBetweenUpdates;
+    public float timeToEnd;
     public event Action OnValueChanged;
     
-    protected override void AddValues(Statistic stats, List<float> modifiers, MonoBehaviour caller)
+    protected override void AddValue(Statistic stats, Modifier modifier, IOperateStats caller)
     {
-        caller.StartCoroutine(AddValuesOverTime(stats, modifiers, caller));
+        caller.Caller.StartCoroutine(AddValuesOverTime(stats, modifier, caller));
     }
 
-    private IEnumerator AddValuesOverTime(Statistic stats, List<float> modifiers, MonoBehaviour caller)
+    private IEnumerator AddValuesOverTime(Statistic stats, Modifier modifier, IOperateStats caller)
     {
-        foreach (var modifier in modifiers)
-        {
-            AddValue(stats, modifiers, modifier, caller);
-            OnValueChanged?.Invoke();
-            yield return new WaitForSeconds(timeBetweenUpdates);
-        }
+        Debug.LogError("Not done yet");
+        base.AddValue(stats, modifier, caller);
+        OnValueChanged?.Invoke();
+        yield return new WaitForSeconds(timeBetweenUpdates);
     }
 }
