@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class SceneInitializer : MonoBehaviour
@@ -12,7 +8,6 @@ public class SceneInitializer : MonoBehaviour
     
     private SceneLoader _sceneLoader;
     private CharacterFactory _characterFactory;
-    
 
     [Inject]
     public void Construct(SceneLoader sceneLoader, CharacterFactory characterFactory)

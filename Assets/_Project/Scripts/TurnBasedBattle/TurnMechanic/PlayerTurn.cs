@@ -6,6 +6,7 @@ public class PlayerTurn : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
 
+    private bool _hasAnyoneActions;
     public PlayerTurn(TurnStateMachine turnStateMachine) : base()
     {
         _turnStateMachine = turnStateMachine;
@@ -13,7 +14,7 @@ public class PlayerTurn : BaseState
 
     public override async Task Tick()
     {
-        bool hasAnyoneActions = false;
+        _hasAnyoneActions = false;
         
         foreach (var subscriber in TickSubscribers)
         {
@@ -22,20 +23,16 @@ public class PlayerTurn : BaseState
 
             if (subscriber is IDoActions {CurrentActions: > 0})
             {
-                hasAnyoneActions = true;
+                _hasAnyoneActions = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            hasAnyoneActions=false; 
-        }
 
-        if (hasAnyoneActions == false)
+        if (_hasAnyoneActions == false)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
         }
     }
-
+    
     public override async Task OnEnter()
     {
         await OnEnterBaseImplementation();

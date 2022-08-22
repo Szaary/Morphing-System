@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bee24549001e456aa541948178ae55bc, type: 3}
-  m_Name: SCSO_Level1
+  m_Name: SCSO_Level2D
   m_EditorClassIdentifier: 
-  sceneName: SC_Level1
-  shortDescription: Example
+  sceneName: SC_Level2D
+  shortDescription: Example of settings for 2d level

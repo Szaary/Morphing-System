@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/SC_HudStandardBattle.unity
     guid: 96895427a62e3cd4980d3581e396243c
   - enabled: 1
-    path: Assets/_Project/Scenes/Maps/SC_Level1.unity
+    path: Assets/_Project/Scenes/Maps/SC_Level2D.unity
     guid: 03e97dc061bc12f47929e5318ed6f896
   - enabled: 1
     path: Assets/_Project/Scenes/SC_StandardBattle.unity
