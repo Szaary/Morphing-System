@@ -6,7 +6,7 @@ using Zenject;
 public class TurnBasedInput : MonoBehaviour
 {
     private TurnStateMachine _stateMachine;
-
+    
     [Inject]
     public void Construct(TurnStateMachine stateMachine)
     {
@@ -28,7 +28,6 @@ public class TurnBasedInput : MonoBehaviour
     {
         Debug.Log("OnTop");
     }
-
     public void OnDown()
     {
         Debug.Log("OnDown");

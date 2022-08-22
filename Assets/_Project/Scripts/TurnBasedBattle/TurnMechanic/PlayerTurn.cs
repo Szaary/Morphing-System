@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerTurn : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
-
+    private readonly TargetSelector _targetSelector;
+    
     private bool _hasAnyoneActions;
-    public PlayerTurn(TurnStateMachine turnStateMachine) : base()
+    public PlayerTurn(TurnStateMachine turnStateMachine, TargetSelector targetSelector) : base()
     {
         _turnStateMachine = turnStateMachine;
+        _targetSelector = targetSelector;
     }
 
     public override async Task Tick()
@@ -40,6 +42,7 @@ public class PlayerTurn : BaseState
 
     public override async Task OnExit()
     {
+        _targetSelector.DeSelectTarget();
         await OnExitBaseImplementation();
     }
 }

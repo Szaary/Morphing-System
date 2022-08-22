@@ -64,4 +64,8 @@ public class TurnStateMachine : MonoBehaviour
         _currentState = state;
     }
 
+    public TurnState GetCurrentState()
+    {
+        return _currentState;
+    }
 }

@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 1835526037}
   - component: {fileID: 1835526039}
   - component: {fileID: 1835526038}
+  - component: {fileID: 1835526041}
   - component: {fileID: 1835526040}
   m_Layer: 0
   m_Name: InputSystem
@@ -295,8 +296,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _components:
-  - {fileID: 1835526037}
+  - {fileID: 1835526038}
+  - {fileID: 1835526041}
   _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
+--- !u!114 &1835526041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835526036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57b6594cf8d18034a9d67ed3577a8be6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-public class CharacterFacade : MonoBehaviour
+public class CharacterFacade : MonoBehaviour, ITargetable
 {
     [SerializeField] private Character character;
     [SerializeField] private TurnController turnController;
@@ -11,7 +11,8 @@ public class CharacterFacade : MonoBehaviour
 
 
     [Inject]
-    public void Construct(PlayerTurn playerTurn, AiTurn aiTurn)
+    public void Construct(PlayerTurn playerTurn, 
+        AiTurn aiTurn)
     {
         _playerTurn = playerTurn;
         _aiTurn = aiTurn;
