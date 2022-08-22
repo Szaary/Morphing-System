@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d97e34223c0256543af872100a443df8, type: 3}
-  m_Name: BattleSettingsInstaller
+  m_Script: {fileID: 11500000, guid: 5bdab31ab8fa26d48ba89a0de16f9fb2, type: 3}
+  m_Name: SFX_Jack
   m_EditorClassIdentifier: 
-  turnController:
-    maxNumberOfActions: 1
+  attack: 
+  death: 

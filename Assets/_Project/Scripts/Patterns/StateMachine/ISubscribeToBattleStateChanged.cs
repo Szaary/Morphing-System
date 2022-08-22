@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using UnityEngine;
 
 public interface ISubscribeToBattleStateChanged
 {
@@ -10,6 +11,10 @@ public interface ISubscribeToBattleStateChanged
     /// </summary>
     void SubscribeToStateChanges()
     {
+        if (BaseState == null)
+        {
+            Debug.LogError("Base state is not set");
+        }
         SubscribeToTick();
         SubscribeToOnEnter();
         SubscribeToOnExit();

@@ -16,6 +16,7 @@ MonoBehaviour:
   vfx: {fileID: 11400000, guid: b327e067432e6704cb556899169bcdb6, type: 2}
   sfx: {fileID: 11400000, guid: 0575c4e23a44a9f4b9f3454dc5ab4abe, type: 2}
   alignment: {fileID: 11400000, guid: 489e74780685eb542bf9a2b06d6d97bd, type: 2}
+  strategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
   baseStats: {fileID: 11400000, guid: 0ca47cc376d4f43438f03bff7997a415, type: 2}
   activeAbilities:
   - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}

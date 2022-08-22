@@ -4,6 +4,7 @@ using Zenject;
 public class CharacterFacade : MonoBehaviour
 {
     [SerializeField] private Character character;
+    [SerializeField] private TurnController turnController;
     
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
@@ -23,12 +24,15 @@ public class CharacterFacade : MonoBehaviour
 
     private void Start()
     {
-        character.InitializeStats(new Character.InitializationArguments()
+        var arguments = new Character.InitializationArguments()
         {
             caller = this,
             playerTurn = _playerTurn,
             aiTurn = _aiTurn
-        });
+        };
+        
+        character.InitializeStats(arguments);
+        turnController.InitializeStrategy(arguments, character);
     }
     
     public class Factory : PlaceholderFactory<CharacterFacade>

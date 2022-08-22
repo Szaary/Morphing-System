@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -11,7 +10,7 @@ public class BattleStart : BaseState
     {
         _turnStateMachine = turnStateMachine;
     }
-    
+
     public override Task OnEnter()
     {
         Debug.Log("Entered state: " + GetType().Name);
@@ -19,7 +18,19 @@ public class BattleStart : BaseState
         {
             subscriber.OnEnter();
         }
+
         _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
         return Task.CompletedTask;
+    }
+
+
+    public override async Task Tick()
+    {
+        await TickBaseImplementation();
+    }
+
+    public override async Task OnExit()
+    {
+        await OnExitBaseImplementation();
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 
 public abstract class BaseState
@@ -9,7 +8,8 @@ public abstract class BaseState
     {
         Success,
         ToDestroy,
-        Failed
+        Failed,
+        StrategyNotSet
     }
 
     public List<ISubscribeToBattleStateChanged> TickSubscribers { get; }
@@ -23,7 +23,22 @@ public abstract class BaseState
         OnExitSubscribers = new List<ISubscribeToBattleStateChanged>();
     }
 
-    public virtual async Task Tick()
+    public abstract Task Tick();
+    public abstract Task OnEnter();
+    public abstract Task OnExit();
+
+    
+    
+    protected async Task OnExitBaseImplementation()
+    {
+        Debug.Log("Ended state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
+        foreach (var subscriber in OnExitSubscribers)
+        {
+            var result = await subscriber.OnExit();
+            HandleSubscriberResult(result, subscriber);
+        }
+    }
+    protected async Task TickBaseImplementation()
     {
         foreach (var subscriber in TickSubscribers)
         {
@@ -32,7 +47,7 @@ public abstract class BaseState
         }
     }
 
-    public virtual async Task OnEnter()
+    protected async Task OnEnterBaseImplementation()
     {
         Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         foreach (var subscriber in OnEnterSubscribers)
@@ -41,17 +56,7 @@ public abstract class BaseState
             HandleSubscriberResult(result, subscriber);
         }
     }
-
-    public virtual async Task OnExit()
-    {
-        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
-        foreach (var subscriber in OnExitSubscribers)
-        {
-            var result =  await subscriber.OnExit();
-            HandleSubscriberResult(result, subscriber);
-        }
-    }
-
+    
     protected void HandleSubscriberResult(Result result, ISubscribeToBattleStateChanged subscriber)
     {
         if (result == Result.ToDestroy)

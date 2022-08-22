@@ -15,6 +15,7 @@ public class Character : ScriptableObject
     
     [Header("Statistics")] 
     public Alignment alignment;
+    public Strategy strategy;
     
     [SerializeField] private CharacterStatistics baseStats;
 

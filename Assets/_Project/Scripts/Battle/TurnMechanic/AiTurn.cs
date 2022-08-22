@@ -28,11 +28,19 @@ public class AiTurn : BaseState
                 hasAnyoneActions = true;
             }
         }
-
-
         if (hasAnyoneActions == false)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
         }
+    }
+
+    public override async Task OnEnter()
+    {
+        await OnEnterBaseImplementation();
+    }
+
+    public override async Task OnExit()
+    {
+        await OnExitBaseImplementation();
     }
 }

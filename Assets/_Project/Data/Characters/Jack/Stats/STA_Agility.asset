@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d97e34223c0256543af872100a443df8, type: 3}
-  m_Name: BattleSettingsInstaller
+  m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
+  m_Name: STA_Agility
   m_EditorClassIdentifier: 
-  turnController:
-    maxNumberOfActions: 1
+  baseStatistic: {fileID: 0}
+  maxValue: 0
+  minValue: 0
+  currentValue: 0

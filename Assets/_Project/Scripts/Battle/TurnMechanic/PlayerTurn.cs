@@ -2,34 +2,35 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class PlayerTurn : BaseState, IDoActions
+public class PlayerTurn : BaseState
 {
-    private readonly Settings _settings;
     private readonly TurnStateMachine _turnStateMachine;
 
-    
-    public int CurrentActions { get; private set; }
-
-    public PlayerTurn(Settings settings, TurnStateMachine turnStateMachine) : base()
+    public PlayerTurn(TurnStateMachine turnStateMachine) : base()
     {
-        _settings = settings;
         _turnStateMachine = turnStateMachine;
     }
 
     public override async Task Tick()
     {
+        bool hasAnyoneActions = false;
+        
         foreach (var subscriber in TickSubscribers)
         {
             var result = await subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
-        }
 
+            if (subscriber is IDoActions {CurrentActions: > 0})
+            {
+                hasAnyoneActions = true;
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            CurrentActions = 0;
+            hasAnyoneActions=false; 
         }
 
-        if (CurrentActions <= 0)
+        if (hasAnyoneActions == false)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
         }
@@ -37,21 +38,11 @@ public class PlayerTurn : BaseState, IDoActions
 
     public override async Task OnEnter()
     {
-        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
-        foreach (var subscriber in OnEnterSubscribers)
-        {
-            var result =  await subscriber.OnEnter();
-            HandleSubscriberResult(result, subscriber);
-        }
-        CurrentActions= _settings.maxNumberOfActions;
+        await OnEnterBaseImplementation();
     }
-    
 
-    [Serializable]
-    public class Settings
+    public override async Task OnExit()
     {
-        public int maxNumberOfActions;
+        await OnExitBaseImplementation();
     }
-
-    
 }

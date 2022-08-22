@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -11,7 +8,8 @@ public class CharacterFactory : MonoBehaviour
 
     private CharacterFacade.Factory _characterFactory;
 
-    [SerializeField] private Character characterStats;
+    [SerializeField] private Character player;
+    [SerializeField] private Character enemy;
     
     [Inject]
     public void Construct(CharacterFacade.Factory characterFactory)
@@ -30,12 +28,15 @@ public class CharacterFactory : MonoBehaviour
 
     private void SpawnInitialCharacters()
     {
-        SpawnCharacter(characterStats);
+        SpawnCharacter(player);
+        SpawnCharacter(enemy);
     }
 
     private void SpawnCharacter(Character character)
     {
         var instance = _characterFactory.Create();
+        instance.transform.parent= transform;
+        instance.gameObject.name= character.name;
         instance.SetCharacter(character);
         SetSpawnZone(instance, character);
     }
