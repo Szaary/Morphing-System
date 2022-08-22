@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
@@ -27,7 +28,7 @@ public class Character : ScriptableObject
     public bool InitializeStats(MonoBehaviour caller, BaseState playerTurn)
     {
         _playerTurn = playerTurn;
-
+        
         try
         {
             battleStats = CreateInstance<CharacterStatistics>();

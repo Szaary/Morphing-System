@@ -33,7 +33,7 @@ public class AsyncStateMachine
         _transitions.TryGetValue(_currentBaseState.GetType(), out _currentTransitions);
         _currentTransitions ??= EmptyTransitions;
 
-        _currentBaseState.OnEnter();
+        _currentBaseState?.OnEnter();
     }
 
     public void AddTransition(BaseState from, BaseState to, Func<bool> predicate)

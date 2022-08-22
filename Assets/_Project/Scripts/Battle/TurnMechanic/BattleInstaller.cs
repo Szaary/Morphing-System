@@ -4,8 +4,8 @@ using Zenject;
 public class BattleInstaller : MonoInstaller
 {
     [SerializeField] private TurnStateMachine turnStateMachineGameObject;
-    [SerializeField] private CharacterFacade characterFacadeGameObject;
-    [SerializeField] private AiTurnController aiTurnControllerGameObject;
+    [SerializeField] private CharacterFactory characterFactoryGameObject;
+ 
     
     public override void InstallBindings()
     {
@@ -20,8 +20,8 @@ public class BattleInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<Defeat>().AsSingle();
         
         
-        Container.Bind<CharacterFacade>().FromComponentInNewPrefab(characterFacadeGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
-        Container.Bind<AiTurnController>().FromComponentInNewPrefab(aiTurnControllerGameObject).UnderTransformGroup("Characters").AsSingle().NonLazy();
+        Container.Bind<CharacterFactory>().FromComponentInNewPrefab(characterFactoryGameObject).UnderTransformGroup("Factories").AsSingle().NonLazy();
+       
     }
     
     

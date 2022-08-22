@@ -28,7 +28,8 @@ public class UILevelManager : MonoBehaviour
 
     private void NewGame()
     {
-        _sceneLoader.NewGame();
+        _sceneLoader.LoadBattleScenes();
+        _sceneLoader.LoadLevelWithIndex(0);
     }
 
 

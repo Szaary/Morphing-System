@@ -41,9 +41,9 @@ public class AiTurnController : MonoBehaviour, ISubscribeToBattleStateChanged, I
         return BaseState.Result.Success;
     }
 
-    public Task<BaseState.Result> OnExit()
+    public async Task<BaseState.Result> OnExit()
     {
-        throw new NotImplementedException();
+        return BaseState.Result.Success;
     }
 
     public void Destroy()

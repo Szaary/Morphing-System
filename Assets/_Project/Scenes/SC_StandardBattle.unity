@@ -204,5 +204,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnStateMachineGameObject: {fileID: 446178678436344234, guid: b9e8d8cb7b3e7f64ab60c5361c063004, type: 3}
-  characterFacadeGameObject: {fileID: 6225138458987844385, guid: bb3f5fe5aa049f14991076af78260194, type: 3}
+  characterFactoryGameObject: {fileID: 8483094306050893486, guid: bb3f5fe5aa049f14991076af78260194, type: 3}
   aiTurnControllerGameObject: {fileID: 4047333488480045152, guid: 915696e9a67cd56468865b0fc6d7ae5d, type: 3}
