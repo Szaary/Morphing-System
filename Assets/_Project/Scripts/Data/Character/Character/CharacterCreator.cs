@@ -10,9 +10,9 @@ public class CharacterCreator : MonoBehaviour
 {
 #if UNITY_EDITOR
     [Header("Creator Config")] public List<BaseStatistic> statistics = new List<BaseStatistic>();
-    
-
-    [Header("Creator")] public string characterName;
+   
+    [Header("Creator")]
+    public string characterName;
 
     public void CreateCharacter()
     {
@@ -32,7 +32,7 @@ public class CharacterCreator : MonoBehaviour
         var character = ScriptableObject.CreateInstance<Character>();
         AssetDatabase.CreateAsset(character,
             "Assets/_Project/Data/Characters/" + characterName + "/CHA_" + characterName + ".asset");
-
+        
         var data = ScriptableObject.CreateInstance<CharacterData>();
         AssetDatabase.CreateAsset(data,
             "Assets/_Project/Data/Characters/" + characterName + "/CDA_" + characterName + ".asset");

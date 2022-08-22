@@ -141,4 +141,39 @@ public class Character : ScriptableObject
         public BaseState playerTurn;
         public BaseState aiTurn;
     }
+    
+    
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (data == null)
+        {
+            Debug.LogError("No data assigned to character");
+        }
+        if(alignment == null)
+        {
+            Debug.LogError("No alignment assigned to character");
+        }
+        if (vfx == null)
+        {
+            Debug.LogError("No vfx assigned to character");
+        }
+        if( sfx == null)
+        {
+            Debug.LogError("No sfx assigned to character");
+        }
+
+        if (baseStats == null)
+        {
+            Debug.LogError("No base stats assigned to character");
+        }
+   
+        if(backpack == null)
+        {
+            Debug.LogError("No backpack assigned to character");
+        }
+    }
+#endif
+    
+    
 }

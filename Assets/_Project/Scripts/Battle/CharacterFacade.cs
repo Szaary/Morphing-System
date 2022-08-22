@@ -34,6 +34,4 @@ public class CharacterFacade : MonoBehaviour
     public class Factory : PlaceholderFactory<CharacterFacade>
     {
     }
-
-
 }
