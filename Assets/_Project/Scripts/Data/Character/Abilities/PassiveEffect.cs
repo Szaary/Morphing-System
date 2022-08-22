@@ -22,8 +22,8 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
         set => durationInTurns = value;
     }
 
-    public Character Character { get; set; }
-    public IOperateStats Caller { get; set; }
+    public Character Target { get; set; }
+    public IOperateStats User { get; set; }
 
     public void SetState(Character character)
     {
@@ -78,13 +78,13 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
 
     private BaseState.Result ActivateEffect()
     {
-        if (Character == null || Caller == null)
+        if (Target == null || User == null)
         {
             Debug.Log("Character or caller is null");
             return BaseState.Result.Failed;
         }
 
-        Debug.Log("Activating effect by " + Caller.Caller.name + " on " + Character.data.characterName);
+        Debug.Log("Activating effect by " + User.User.name + " on " + Target.data.characterName);
         var result = ((IApplyStatusOverTurns) this).TickStatus();
 
         if (result == IApplyStatusOverTurns.Result.HasEnded)

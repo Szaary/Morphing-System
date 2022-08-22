@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Interface you need to implement by effects to Over Turn status effects on target.
+/// </summary>
 public interface IApplyStatusOverTurns
 {
     public enum Result
@@ -13,8 +16,8 @@ public interface IApplyStatusOverTurns
     List<Modifier> Modifiers { get; set; }
 
     int DurationInTurns { get; set; }
-    Character Character { get; set; }
-    IOperateStats Caller { get; set; }
+    Character Target { get; set; }
+    IOperateStats User { get; set; }
 
     void SetState(Character character);
 
@@ -23,8 +26,8 @@ public interface IApplyStatusOverTurns
         SetState(character);
 
         Debug.Log("Applying status " + this.GetType().Name + " to " + character.data.characterName);
-        Character = character;
-        Caller = caller;
+        Target = character;
+        User = caller;
         return Result.Success;
     }
 
@@ -34,11 +37,11 @@ public interface IApplyStatusOverTurns
 
         foreach (var modifier in Modifiers)
         {
-            foreach (var statistic in Character.battleStats.statistics)
+            foreach (var statistic in Target.battleStats.statistics)
             {
                 if (modifier.statisticToModify == statistic.baseStatistic)
                 {
-                    modifier.algorithm.Modify(statistic, modifier, Caller);
+                    modifier.algorithm.Modify(statistic, modifier, User);
                 }
             }
         }
@@ -47,7 +50,7 @@ public interface IApplyStatusOverTurns
 
         if (DurationInTurns <= 0)
         {
-            OnRemoveStatus(Character, Caller);
+            OnRemoveStatus(Target, User);
             return Result.HasEnded;
         }
 
@@ -59,11 +62,11 @@ public interface IApplyStatusOverTurns
         Debug.Log("Removing status " + this.GetType().Name + " from " + character.data.characterName);
         foreach (var modifier in Modifiers)
         {
-            foreach (var statistic in Character.battleStats.statistics)
+            foreach (var statistic in Target.battleStats.statistics)
             {
                 if (modifier.statisticToModify == statistic.baseStatistic)
                 {
-                    modifier.algorithm.UnModify(statistic, modifier, Caller);
+                    modifier.algorithm.UnModify(statistic, modifier, User);
                 }
             }
         }

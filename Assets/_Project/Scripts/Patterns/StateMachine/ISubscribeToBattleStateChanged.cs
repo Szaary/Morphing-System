@@ -1,14 +1,16 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
 
+/// <summary>
+/// To use Interface you need to call SubscribeToStateChanges() method after you get reference to state.
+/// ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
+/// same thing with UnsubscribeFromStateChanges();
+/// can be used by any effects that operate on turns.
+/// </summary>
 public interface ISubscribeToBattleStateChanged
 {
     BaseState BaseState { get; }
 
-    /// <summary>
-    /// To use Interface you need to call this method after you get reference to state.
-    /// ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
-    /// </summary>
     void SubscribeToStateChanges()
     {
         if (BaseState == null)

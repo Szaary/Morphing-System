@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Passive : ScriptableObject, IApplyStatus
+public abstract class Passive : ScriptableObject, IApplyPersistentStatus
 {
     [Header("VFX")]
     public new string name;
@@ -14,7 +14,9 @@ public abstract class Passive : ScriptableObject, IApplyStatus
     [SerializeField] protected List<Modifier> modifiers;
 
 
-    public List<Modifier> Modifiers { get; set; }
-
-    
+    public List<Modifier> Modifiers
+    {
+        get => modifiers;
+        set => modifiers = value;
+    }
 }

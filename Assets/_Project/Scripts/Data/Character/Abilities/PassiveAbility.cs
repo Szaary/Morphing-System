@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Passive ability effect is for entire battle.
+/// Passive ability persist between battles
 /// </summary>
 [CreateAssetMenu(fileName = "PA_", menuName = "Abilities/Passive Ability")]
 public class PassiveAbility : Passive

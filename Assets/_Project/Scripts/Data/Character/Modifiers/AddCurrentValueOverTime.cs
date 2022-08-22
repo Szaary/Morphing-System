@@ -10,15 +10,15 @@ public class AddCurrentValueOverTime : AddCurrentValue
     public float timeToEnd;
     public event Action OnValueChanged;
     
-    protected override void AddValue(Statistic stats, Modifier modifier, IOperateStats caller)
+    protected override void AddValue(Statistic stats, Modifier modifier, IOperateStats user)
     {
-        caller.Caller.StartCoroutine(AddValuesOverTime(stats, modifier, caller));
+        user.User.StartCoroutine(AddValuesOverTime(stats, modifier, user));
     }
 
-    private IEnumerator AddValuesOverTime(Statistic stats, Modifier modifier, IOperateStats caller)
+    private IEnumerator AddValuesOverTime(Statistic stats, Modifier modifier, IOperateStats user)
     {
         Debug.LogError("Not done yet");
-        base.AddValue(stats, modifier, caller);
+        base.AddValue(stats, modifier, user);
         OnValueChanged?.Invoke();
         yield return new WaitForSeconds(timeBetweenUpdates);
     }

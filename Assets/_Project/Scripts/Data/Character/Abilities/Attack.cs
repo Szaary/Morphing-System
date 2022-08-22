@@ -11,6 +11,10 @@ public class Attack : Active, IModifyStats
     public int actions;
 
 
-    public List<Modifier> Modifiers { get; set; }
+    public List<Modifier> Modifiers
+    {
+        get => modifiers;
+        set => modifiers = value;
+    }
 }
 

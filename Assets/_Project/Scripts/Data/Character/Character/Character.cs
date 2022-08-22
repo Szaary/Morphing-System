@@ -31,8 +31,8 @@ public class Character : ScriptableObject, IOperateStats
     private BaseState _aiTurn;
     private MonoBehaviour _caller;
     
-    public CharacterStatistics CharacterStatistics => baseStats != null ? battleStats : baseStats;
-    public MonoBehaviour Caller => _caller;
+    public CharacterStatistics UserStatistics => baseStats != null ? battleStats : baseStats;
+    public MonoBehaviour User => _caller;
 
     public bool InitializeStats(InitializationArguments arguments)
     {
@@ -81,43 +81,43 @@ public class Character : ScriptableObject, IOperateStats
         }
     }
 
-    private bool ApplyPassive(List<Passive> passives, IOperateStats caller)
+    private bool ApplyPassive(List<Passive> passives, IOperateStats user)
     {
         foreach (var passiveEffect in passives)
         {
-            if (!ApplyPassive(caller, passiveEffect)) return false;
+            if (!ApplyPassive(user, passiveEffect)) return false;
         }
 
         return true;
     }
 
-    public bool ApplyPassive(IOperateStats caller, Passive passiveEffect)
+    public bool ApplyPassive(IOperateStats user, Passive passiveEffect)
     {
-        if (passiveEffect is IApplyStatus passiveModifier)
+        if (passiveEffect is IApplyPersistentStatus passiveModifier)
         {
             Debug.Log("Applying: " + passiveEffect.name);
-            if (passiveModifier.OnApplyStatus(this, caller) != IApplyStatus.Result.Success) return false;
+            if (passiveModifier.OnApplyStatus(this, user) != IApplyPersistentStatus.Result.Success) return false;
         }
 
         return true;
     }
 
-    private bool ApplyEffects(IOperateStats caller)
+    private bool ApplyEffects(IOperateStats user)
     {
         foreach (var effect in effects)
         {
-            if (!ApplyEffect(caller, effect)) return false;
+            if (!ApplyEffect(user, effect)) return false;
         }
 
         return true;
     }
 
-    public bool ApplyEffect(IOperateStats caller, PassiveEffect effect)
+    public bool ApplyEffect(IOperateStats user, PassiveEffect effect)
     {
         if (effect is IApplyStatusOverTurns)
         {
             var tempEffect = Instantiate(effect);
-            if (((IApplyStatusOverTurns) tempEffect).OnApplyStatus(this, caller) !=
+            if (((IApplyStatusOverTurns) tempEffect).OnApplyStatus(this, user) !=
                 IApplyStatusOverTurns.Result.Success) return false;
         }
 
