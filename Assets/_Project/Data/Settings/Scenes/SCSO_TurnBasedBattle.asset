@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bee24549001e456aa541948178ae55bc, type: 3}
-  m_Name: SCSO_HudStandardBattle
+  m_Name: SCSO_TurnBasedBattle
   m_EditorClassIdentifier: 
-  sceneName: SC_HudStandardBattle
-  shortDescription: Hud for standard Battles
+  sceneName: SC_TurnBasedBattle
+  shortDescription: Standard Battle Mechanics

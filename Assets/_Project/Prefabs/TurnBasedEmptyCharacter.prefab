@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6601822525410895446}
   - component: {fileID: 7943482331963145105}
   m_Layer: 0
-  m_Name: EmptyCharacter
+  m_Name: TurnBasedEmptyCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

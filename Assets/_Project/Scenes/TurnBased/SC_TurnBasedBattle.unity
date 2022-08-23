@@ -298,7 +298,7 @@ MonoBehaviour:
   _components:
   - {fileID: 1835526038}
   - {fileID: 1835526041}
-  _identifier: 
+  _identifier: 2D
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0

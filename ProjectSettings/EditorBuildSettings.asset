@@ -12,12 +12,12 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/SC_MainMenu.unity
     guid: d7daf79b025c73a41989a932a2e93dfa
   - enabled: 1
-    path: Assets/_Project/Scenes/SC_HudStandardBattle.unity
+    path: Assets/_Project/Scenes/TurnBased/SC_HudTurnBasedBattle.unity
     guid: 96895427a62e3cd4980d3581e396243c
   - enabled: 1
-    path: Assets/_Project/Scenes/Maps/SC_Level2D.unity
+    path: Assets/_Project/Scenes/TurnBased/SC_TurnBasedBattleLevel2D.unity
     guid: 03e97dc061bc12f47929e5318ed6f896
   - enabled: 1
-    path: Assets/_Project/Scenes/SC_StandardBattle.unity
+    path: Assets/_Project/Scenes/TurnBased/SC_TurnBasedBattle.unity
     guid: b5f9d08f40541b84e9926ab7c500352a
   m_configObjects: {}

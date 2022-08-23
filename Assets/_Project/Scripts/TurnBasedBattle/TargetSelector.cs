@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class TargetSelector : MonoBehaviour
 {
+    public enum Direction
+    {
+        Top,
+        Bottom,
+        Left,
+        Right
+    }
+    
     public ITargetable currentlyTargeted;
 
     public void SelectTarget(ITargetable target)
@@ -16,5 +24,10 @@ public class TargetSelector : MonoBehaviour
     {
         currentlyTargeted = null;
         Debug.Log("TargetDeselected");
+    }
+
+    public void Target(Direction top)
+    {
+        Debug.Log("Select "+ top);
     }
 }
