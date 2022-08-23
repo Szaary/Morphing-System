@@ -61,6 +61,10 @@ public abstract class BaseState
     {
         if (result == Result.ToDestroy)
         {
+            TickSubscribers.Remove(subscriber);
+            OnEnterSubscribers .Remove(subscriber);
+            OnExitSubscribers.Remove(subscriber);
+            Debug.Log("Destroying effect: "+ subscriber);   
             subscriber.Destroy();
         }
     }

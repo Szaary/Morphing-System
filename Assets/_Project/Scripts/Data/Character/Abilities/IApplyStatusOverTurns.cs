@@ -37,7 +37,7 @@ public interface IApplyStatusOverTurns
 
         foreach (var modifier in Modifiers)
         {
-            foreach (var statistic in Target.battleStats.statistics)
+            foreach (var statistic in Target.UserStatistics.statistics)
             {
                 if (modifier.statisticToModify == statistic.baseStatistic)
                 {
@@ -62,7 +62,7 @@ public interface IApplyStatusOverTurns
         Debug.Log("Removing status " + this.GetType().Name + " from " + character.data.characterName);
         foreach (var modifier in Modifiers)
         {
-            foreach (var statistic in Target.battleStats.statistics)
+            foreach (var statistic in Target.UserStatistics.statistics)
             {
                 if (modifier.statisticToModify == statistic.baseStatistic)
                 {

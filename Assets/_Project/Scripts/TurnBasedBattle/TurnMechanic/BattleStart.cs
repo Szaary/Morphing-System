@@ -5,32 +5,31 @@ using UnityEngine;
 public class BattleStart : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
-
+    public bool AreUnitsSpawned;
+    
     public BattleStart(TurnStateMachine turnStateMachine)
     {
         _turnStateMachine = turnStateMachine;
     }
 
-    public override Task OnEnter()
+    public override async Task OnEnter()
     {
-        Debug.Log("Entered state: " + GetType().Name);
-        foreach (var subscriber in OnEnterSubscribers)
-        {
-            subscriber.OnEnter();
-        }
-
-        _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
-        return Task.CompletedTask;
+        await TickBaseImplementation();
     }
-
-
+    
     public override async Task Tick()
     {
         await TickBaseImplementation();
+        if(AreUnitsSpawned) StartBattle();
     }
 
     public override async Task OnExit()
     {
         await OnExitBaseImplementation();
+    }
+    
+    private void StartBattle()
+    {
+        _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
     }
 }

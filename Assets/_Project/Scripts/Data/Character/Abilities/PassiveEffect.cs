@@ -29,7 +29,7 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
     {
         if (workOnOppositeTurn)
         {
-            BaseState = character.alignment.alignment == 0 ? character.GetAiState() : character.GetPlayerState();
+            BaseState = character.Alignment.Id == 0 ? character.GetAiState() : character.GetPlayerState();
         }
         else
         {
@@ -81,7 +81,7 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
         if (Target == null || User == null)
         {
             Debug.Log("Character or caller is null");
-            return BaseState.Result.Failed;
+            return BaseState.Result.ToDestroy;
         }
 
         Debug.Log("Activating effect by " + User.User.name + " on " + Target.data.characterName);

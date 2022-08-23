@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6601822525410895447}
   - component: {fileID: 6601822525410895446}
   - component: {fileID: 7943482331963145105}
+  - component: {fileID: 3507581884264148348}
   m_Layer: 0
   m_Name: TurnBasedEmptyCharacter
   m_TagString: Untagged
@@ -59,4 +60,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a9848fdc4e48d49b47b1cb5873382e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strategy: {fileID: 0}
+--- !u!114 &3507581884264148348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e648a46cb672401dbf8b9d381e106a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+  facade: {fileID: 6601822525410895446}

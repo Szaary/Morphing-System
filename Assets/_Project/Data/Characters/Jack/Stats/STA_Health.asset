@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STA_Health
   m_EditorClassIdentifier: 
   baseStatistic: {fileID: 0}
-  maxValue: 0
+  maxValue: 10
   minValue: 0
-  currentValue: 0
+  currentValue: 3

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -21,6 +22,7 @@ public class TurnStateMachine : MonoBehaviour
     private AiTurn _aiTurn;
     private Victory _victory;
     private Defeat _defeat;
+    private CharacterFactory _characterFactory;
 
     [Inject]
     public void Construct(
@@ -29,7 +31,8 @@ public class TurnStateMachine : MonoBehaviour
         PlayerTurn playerTurn,
         AiTurn aiTurn,
         Victory victory,
-        Defeat defeat)
+        Defeat defeat,
+        CharacterFactory characterFactory)
     {
         _battleStateMachine = battleStateMachine;
         _battleStart = battleStart;
@@ -37,6 +40,7 @@ public class TurnStateMachine : MonoBehaviour
         _aiTurn = aiTurn;
         _victory = victory;
         _defeat = defeat;
+        _characterFactory = characterFactory;
     }
 
     private void Start()
@@ -58,7 +62,8 @@ public class TurnStateMachine : MonoBehaviour
         _battleStateMachine.Tick();
     }
 
-    public void SetState(TurnState state)
+
+    internal void SetState(TurnState state)
     {
         Debug.Log("Changing state to " + state);
         _currentState = state;

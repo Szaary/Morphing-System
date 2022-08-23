@@ -11,7 +11,7 @@ public interface IApplyPersistentStatus : IModifyStats
     {
         foreach (var modifier in Modifiers)
         {
-            foreach (var statistic in target.battleStats.statistics)
+            foreach (var statistic in target.UserStatistics.statistics)
             {
                 if (modifier.statisticToModify == statistic.baseStatistic)
                 {

@@ -6,11 +6,14 @@ using UnityEngine;
 public class AiTurn : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
+    private readonly CharacterFactory _characterFactory;
 
 
-    public AiTurn(TurnStateMachine turnStateMachine)
+    public AiTurn(TurnStateMachine turnStateMachine,
+        CharacterFactory characterFactory)
     {
         _turnStateMachine = turnStateMachine;
+        _characterFactory = characterFactory;
     }
 
 

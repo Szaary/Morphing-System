@@ -1,10 +1,15 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 //[CreateAssetMenu(fileName = "CS_", menuName = "Character/Statistics")]
 public class CharacterStatistics : ScriptableObject
 {
+    public enum Result
+    {
+        Success,
+        Failed
+    }
+    
     public List<Statistic> statistics= new List<Statistic>();
 
     public void Initialize(CharacterStatistics characterStatistics)
@@ -26,5 +31,20 @@ public class CharacterStatistics : ScriptableObject
                 Destroy(stat);
             }
         }
+    }
+
+    public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
+    {
+        foreach (var stat in statistics)
+        {
+            if (stat.baseStatistic == baseStatistic)
+            {
+                outStat = stat;
+                return Result.Success;
+            }
+        }
+        
+        outStat = null;
+        return Result.Failed;
     }
 }

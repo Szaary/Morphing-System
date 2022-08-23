@@ -26,7 +26,7 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
 
     private void SetTurns(Character.InitializationArguments arguments, Character character)
     {
-        if (character.alignment.alignment == 0)
+        if (character.Alignment.Id == 0)
         {
             BaseState = arguments.playerTurn;
             _playerTurn = (PlayerTurn)arguments.playerTurn;

@@ -5,6 +5,8 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject, IOperateStats
 {
+    public event Action<Alignment, Alignment> AlignmentChanged;
+    
     [Header("General")] 
     public CharacterData data;
     public CharacterVFX vfx;
@@ -12,7 +14,7 @@ public class Character : ScriptableObject, IOperateStats
 
     
     [Header("Statistics")] 
-    public Alignment alignment;
+    [SerializeField] private Alignment alignment;
     public Strategy strategy;
     
     [SerializeField] private CharacterStatistics baseStats;
@@ -20,46 +22,61 @@ public class Character : ScriptableObject, IOperateStats
     public List<Active> activeAbilities;
     public List<PassiveAbility> passiveAbilities;
     public List<PassiveEffect> effects;
-    [HideInInspector] public CharacterStatistics battleStats;
-
+    
     [Header("Items")] public ItemsHolder backpack;
     public ItemsEquipment equipment;
 
+
+    public CharacterStatistics UserStatistics { get; private set; }
+    public MonoBehaviour User { get; private set; }
+
+    public Alignment Alignment
+    {
+        get => alignment;
+        set
+        {
+            AlignmentChanged?.Invoke(alignment, value);
+            alignment = value;
+        }
+    }
+
+
     private BaseState _actionTurn;
-    
     private BaseState _playerTurn;
     private BaseState _aiTurn;
-    private MonoBehaviour _caller;
-    
-    public CharacterStatistics UserStatistics => baseStats != null ? battleStats : baseStats;
-    public MonoBehaviour User => _caller;
 
-    public bool InitializeStats(InitializationArguments arguments)
+
+    public CharacterStatistics InitializeStats(InitializationArguments arguments)
     {
         SetTurnActions(arguments);
 
-        _caller = arguments.caller;
+        User = arguments.caller;
         try
         {
-            battleStats = CreateInstance<CharacterStatistics>();
-            battleStats.Initialize(baseStats);
+            UserStatistics = CreateInstance<CharacterStatistics>();
+            UserStatistics.Initialize(baseStats);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return false;
+            return null;
         }
 
-        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), this)) return false;
-        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), this)) return false;
+        if (!ApplyPassive(passiveAbilities.ConvertAll(x => (Passive) x), this)) HandlePassivesAddingError();
+        if (!ApplyPassive(equipment.items.ConvertAll(x => (Passive) x), this)) HandlePassivesAddingError();
         ApplyEffects(this);
 
-        return true;
+        return UserStatistics;
+    }
+
+    private void HandlePassivesAddingError()
+    {
+        Debug.LogError("Something went wrong with adding skills");
     }
 
     private void SetTurnActions(InitializationArguments arguments)
     {
-        if (alignment.alignment == 0)
+        if (Alignment.Id == 0)
         {
             _actionTurn = arguments.playerTurn;
             _playerTurn = arguments.playerTurn;
@@ -74,10 +91,10 @@ public class Character : ScriptableObject, IOperateStats
 
     private void DestroyBattleStats()
     {
-        if (battleStats != null)
+        if (UserStatistics != null)
         {
-            battleStats.Destroy();
-            Destroy(battleStats);
+            UserStatistics.Destroy();
+            Destroy(UserStatistics);
         }
     }
 
@@ -153,7 +170,7 @@ public class Character : ScriptableObject, IOperateStats
         {
             Debug.LogError("No data assigned to character");
         }
-        if(alignment == null)
+        if(Alignment == null)
         {
             Debug.LogError("No alignment assigned to character");
         }

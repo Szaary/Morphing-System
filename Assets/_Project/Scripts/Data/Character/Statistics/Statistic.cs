@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
 public class Statistic : ScriptableObject, IEquatable<Statistic>
 {
+    public event Action<float> OnValueChanged;
     public enum Result
     {
         Success,
@@ -17,15 +18,18 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     public float minValue;
 
     [SerializeField] private float currentValue;
-
-   
-    public float CurrentValue 
+    
+    
+    public float CurrentValue
     {
         get => currentValue;
-        private set => currentValue = value;
+        private set
+        {
+            currentValue = value;
+            OnValueChanged?.Invoke(currentValue);
+        }
     }
     
-
     public void Initialize(Statistic stat)
     {
         maxValue = stat.maxValue;
@@ -81,13 +85,8 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
             return Result.Success;
         }
     }
-    
-    
-    
-    
-    
-    
-    
+
+
     public bool Equals(Statistic other)
     {
         if (ReferenceEquals(null, other)) return false;
