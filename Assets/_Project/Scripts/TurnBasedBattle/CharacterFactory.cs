@@ -11,17 +11,16 @@ public class CharacterFactory : MonoBehaviour
     public int PlayerCharacters { get; private set; }
     public int AiCharacters { get; private set; }
 
+    public bool SpawnedAllCharacters { get; private set; }
 
     private SpawnZone _enemySpawnZone;
     private SpawnZone _playerSpawnZone;
     private CharacterFacade.Factory _characterFactory;
     private readonly List<CharacterFacade> _spawnedCharacters = new();
-    private BattleStart _battleStart;
 
     [Inject]
-    public void Construct(CharacterFacade.Factory characterFactory, BattleStart battleStart)
+    public void Construct(CharacterFacade.Factory characterFactory)
     {
-        _battleStart = battleStart;
         _characterFactory = characterFactory;
     }
 
@@ -39,7 +38,7 @@ public class CharacterFactory : MonoBehaviour
         SpawnCharacter(player);
         SpawnCharacter(enemy);
 
-        _battleStart.AreUnitsSpawned = true;
+        SpawnedAllCharacters = true;
     }
 
     private void SpawnCharacter(Character character)

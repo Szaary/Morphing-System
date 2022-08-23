@@ -5,11 +5,12 @@ using UnityEngine;
 public class BattleStart : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
-    public bool AreUnitsSpawned;
-    
-    public BattleStart(TurnStateMachine turnStateMachine)
+    private readonly CharacterFactory _characterFactory;
+
+    public BattleStart(TurnStateMachine turnStateMachine, CharacterFactory characterFactory)
     {
         _turnStateMachine = turnStateMachine;
+        _characterFactory = characterFactory;
     }
 
     public override async Task OnEnter()
@@ -20,7 +21,7 @@ public class BattleStart : BaseState
     public override async Task Tick()
     {
         await TickBaseImplementation();
-        if(AreUnitsSpawned) StartBattle();
+        if(_characterFactory.SpawnedAllCharacters) StartBattle();
     }
 
     public override async Task OnExit()
