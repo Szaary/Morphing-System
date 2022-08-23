@@ -209,7 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _components:
   - {fileID: 272948635}
-  _identifier: 2D
+  _identifier: 
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0

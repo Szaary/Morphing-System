@@ -8,7 +8,7 @@ public class PlayerTurn : BaseState
     private readonly TargetSelector _targetSelector;
     
     private bool _hasAnyoneActions;
-    public PlayerTurn(TurnStateMachine turnStateMachine, TargetSelector targetSelector) : base()
+    public PlayerTurn(TurnStateMachine turnStateMachine, TargetSelector targetSelector)
     {
         _turnStateMachine = turnStateMachine;
         _targetSelector = targetSelector;
