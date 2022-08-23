@@ -4,7 +4,8 @@ public class StatisticMonitor : MonoBehaviour
 {
     [SerializeField] protected BaseStatistic statistic;
     [SerializeField] protected CharacterFacade facade;
-
+    [SerializeField] protected bool isSilent = true;
+    
     protected Statistic chosenStat;
     protected void Awake()
     {

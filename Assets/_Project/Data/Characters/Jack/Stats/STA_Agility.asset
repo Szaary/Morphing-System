@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
   m_Name: STA_Agility
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 0}
+  baseStatistic: {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
   maxValue: 10
   minValue: 1
   currentValue: 5

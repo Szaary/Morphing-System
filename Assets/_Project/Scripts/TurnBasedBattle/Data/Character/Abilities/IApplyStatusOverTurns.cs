@@ -25,7 +25,7 @@ public interface IApplyStatusOverTurns
     {
         SetState(character);
 
-        Debug.Log("Applying status " + this.GetType().Name + " to " + character.data.characterName);
+        Debug.Log("Applying status " + this + " to " + character.data.characterName);
         Target = character;
         User = caller;
         return Result.Success;
@@ -33,7 +33,7 @@ public interface IApplyStatusOverTurns
 
     Result TickStatus()
     {
-        Debug.Log("Status effect Tick" + this.GetType().Name);
+        Debug.Log("Status effect Tick" + GetType().Name);
 
         foreach (var modifier in Modifiers)
         {

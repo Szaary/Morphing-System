@@ -40,4 +40,16 @@ public class CharactersLibrary
         var enemies =_spawnedCharacters.Where(x => x.Alignment.id != userAlignment.id).ToList();
         return enemies;
     }
+
+    public List<CharacterFacade> SelectAllAllies(Alignment userAlignment)
+    {
+        var allies =_spawnedCharacters.Where(x => x.Alignment.id == userAlignment.id).ToList();
+        return allies;
+    }
+
+
+    public List<CharacterFacade> SelectAll()
+    {
+        return _spawnedCharacters;
+    }
 }

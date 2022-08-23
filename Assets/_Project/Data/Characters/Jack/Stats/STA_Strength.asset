@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
   m_Name: STA_Strength
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 0}
+  baseStatistic: {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
   maxValue: 20
   minValue: 1
-  currentValue: 3
+  currentValue: 1

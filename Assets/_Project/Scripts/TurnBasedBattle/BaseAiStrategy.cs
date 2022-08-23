@@ -5,22 +5,18 @@ using UnityEngine;
 //CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/BaseAiStrategy")]
 public class BaseAiStrategy : Strategy
 {
-    public override async Task OnEnter(ChangeActionPointsDelegate removeActionPointsDelegate,
-        CurrentFightState currentFightState)
+    public override async Task OnEnter(CurrentFightState currentFightState)
     {
-        TacticLibrary.RandomAttack(removeActionPointsDelegate, currentFightState);
+        TacticsLibrary.RandomAttack(currentFightState);
     }
 
-    public override Task OnExit(ChangeActionPointsDelegate endTurn, CurrentFightState currentFightState)
+    public override Task OnExit(CurrentFightState currentFightState)
     {
         return Task.CompletedTask;
     }
 
-    public override Task Tick(ChangeActionPointsDelegate endTurn, CurrentFightState currentFightState)
+    public override Task Tick()
     {
         return Task.CompletedTask;
     }
-    
-    
-    
 }

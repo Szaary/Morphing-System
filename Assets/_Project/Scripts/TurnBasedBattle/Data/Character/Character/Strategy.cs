@@ -5,15 +5,16 @@ using UnityEngine;
 
 public abstract class Strategy : ScriptableObject
 {
-    public abstract Task OnEnter(ChangeActionPointsDelegate removeActionPointsDelegate,
-        CurrentFightState currentFightState);
-    public abstract Task OnExit(ChangeActionPointsDelegate endTurn, CurrentFightState currentFightState);
-    public abstract Task Tick(ChangeActionPointsDelegate endTurn, CurrentFightState currentFightState);
+    public abstract Task OnEnter(CurrentFightState currentFightState);
+    public abstract Task OnExit(CurrentFightState currentFightState);
+    public abstract Task Tick();
 
     public struct CurrentFightState
     {
         public CharacterFacade Character;
         public int Points;
         public CharactersLibrary Library;
+        public Action Reset;
+        public ChangeActionPointsDelegate ChangeActionPoints;
     }
 }

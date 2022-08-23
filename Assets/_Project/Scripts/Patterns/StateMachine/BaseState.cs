@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class BaseState
 {
+    private bool isSilent = true;
     public enum Result
     {
         Success,
@@ -31,7 +32,7 @@ public abstract class BaseState
     
     protected async Task OnExitBaseImplementation()
     {
-        Debug.Log("Ended state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
+        if(!isSilent) Debug.Log("Ended state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
         foreach (var subscriber in OnExitSubscribers)
         {
             var result = await subscriber.OnExit();
@@ -49,7 +50,7 @@ public abstract class BaseState
 
     protected async Task OnEnterBaseImplementation()
     {
-        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
+        if(!isSilent) Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         foreach (var subscriber in OnEnterSubscribers)
         {
             var result = await subscriber.OnEnter();
@@ -64,7 +65,7 @@ public abstract class BaseState
             TickSubscribers.Remove(subscriber);
             OnEnterSubscribers .Remove(subscriber);
             OnExitSubscribers.Remove(subscriber);
-            Debug.Log("Destroying effect: "+ subscriber);   
+            if(!isSilent) Debug.Log("Destroying effect: "+ subscriber);   
             subscriber.Destroy();
         }
     }

@@ -1,15 +1,19 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+
 public delegate void ChangeActionPointsDelegate(int points = TurnController.Settings.MAXActionPoints);
+
+public delegate Strategy.CurrentFightState GetFightStateDelegate();
 
 public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDoActions
 {
-    
     private ChangeActionPointsDelegate _changeActionPointsDelegate;
-    
-    
+    private GetFightStateDelegate _getCurrentFightState;
+
     private Settings _settings;
     public int ActionPoints { get; private set; }
 
@@ -32,19 +36,43 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         if (_strategy is PlayerStrategy player)
         {
             _input.playerStrategy = player;
+            _input.ActivateAction = Activate;
         }
+    }
+
+
+    private void Activate(Active active, List<CharacterFacade> targets, int chosenTarget)
+    {
+        int points = 0;
+        if (active.IsMultiTarget())
+        {
+            foreach (var target in targets)
+            {
+                Debug.Log("Activating effect: "+ active+ " on " + target + " by " + facade);
+                points = active.ActivateEffect(target.GetCharacter(), facade.GetCharacter());
+            }
+        }
+        else
+        {
+            var target = targets.First(x => x.zoneIndex == chosenTarget);
+            Debug.Log("Activating effect: "+ active+ "on " + target);
+            points = active.ActivateEffect(target.GetCharacter(), facade.GetCharacter());
+            
+        }
+
+        ActionPoints -= points;
     }
 
     private void Awake()
     {
         facade = GetComponent<CharacterFacade>();
-        _changeActionPointsDelegate  = ChangePointsPoints;
+        _changeActionPointsDelegate = ChangePointsPoints;
+        _getCurrentFightState = CreateFightState;
     }
 
     private void ChangePointsPoints(int points)
     {
         ActionPoints -= points;
-        Debug.Log("Changed action points to: "+ ActionPoints);
     }
 
 
@@ -84,24 +112,32 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStateChanges();
     }
 
-
-  
-
     public async Task<BaseState.Result> Tick()
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
 
-        await _strategy.Tick(_changeActionPointsDelegate, CreateFightState());
+        await _strategy.Tick();
         return BaseState.Result.Success;
     }
 
     public async Task<BaseState.Result> OnEnter()
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
-
         ActionPoints = _settings.maxNumberOfActions;
 
-        await _strategy.OnEnter(_changeActionPointsDelegate, CreateFightState());
+        await _strategy.OnEnter(CreateFightState());
+
+        if (_strategy is PlayerStrategy player)
+        {
+            if (player.GetPossibleActions(_getCurrentFightState, out var active, out var targets) ==
+                PlayerStrategy.Result.Success)
+            {
+                _input.possibleActives = active;
+                _input.possibleTargets = targets;
+                _input.ResetInputs();
+            }
+        }
+
         return BaseState.Result.Success;
     }
 
@@ -109,7 +145,7 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
 
-        await _strategy.OnExit(_changeActionPointsDelegate, CreateFightState());
+        await _strategy.OnExit(CreateFightState());
         return BaseState.Result.Success;
     }
 
@@ -125,7 +161,9 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         {
             Character = facade,
             Points = ActionPoints,
-            Library = _library
+            Library = _library,
+            Reset = _input.ResetInputs,
+            ChangeActionPoints = _changeActionPointsDelegate
         };
     }
 
@@ -133,9 +171,8 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
     [Serializable]
     public class Settings
     {
-        public const int MAXActionPoints = 100; 
-        
-        [Range(1, MAXActionPoints)]
-        public int maxNumberOfActions;
+        public const int MAXActionPoints = 100;
+
+        [Range(1, MAXActionPoints)] public int maxNumberOfActions;
     }
 }

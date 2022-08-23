@@ -18,14 +18,14 @@ public class AddCurrentValue : Algorithm
 
     protected virtual void AddValue(Statistic stats, Modifier modifier, IOperateStats user)
     {
-        var result = stats.Add(modifier.GetAmount(user));
-        Debug.Log("Added " + modifier+ " to " + stats.baseStatistic.statName + " from " + user.User.name +
+        var result = stats.Add(modifier.GetAmount());
+        Debug.Log("Changed " + modifier + " by "+ modifier.GetAmount() + " on stat: " +  stats.baseStatistic.statName + " by " + user.User.name +
                   ". Current value is: " + stats.CurrentValue + " with result: " + result);
     }
 
     protected virtual void RemoveValues(Statistic stats, Modifier modifier, IOperateStats user)
     {
-        var result = stats.Add(-modifier.GetAmount(user));
+        var result = stats.Add(-modifier.GetAmount());
         Debug.Log("Removed " + modifier + " from " + stats.baseStatistic.statName + ". Current value is: " +
                   stats.CurrentValue +" with result: " + result);
     }

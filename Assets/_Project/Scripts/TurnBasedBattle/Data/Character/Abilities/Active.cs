@@ -7,25 +7,31 @@ public abstract class Active : ScriptableObject
     public new string name;
     public Sprite icon;
 
-    public Target target;
+    public TargetType targetType;
     [Header("Amount of action points need to use action")]
     public int actions;
 
+    public int IndexOnBar { get; set; }
+    
     public abstract int ActivateEffect(Character target, IOperateStats user);
     
-    public bool IsAttack(Active active)
+    public bool IsAttack()
     {
-        if (target is Target.Enemies or Target.Enemy or Target.All) return true;
-        return false;
+        return targetType is TargetType.Enemies or TargetType.Enemy or TargetType.All;
     }
-
+    public bool IsDefensive()
+    {
+        return targetType is TargetType.Self or TargetType.Ally or TargetType.Allies or TargetType.All ;
+    }
+    
+    
     public bool IsMultiTarget()
     {
-        if (target is Target.Enemies or Target.All or Target.Allies) return true;
+        if (targetType is TargetType.Enemies or TargetType.All or TargetType.Allies) return true;
         return false;
     }
     
-    public enum Target
+    public enum TargetType
     {
         Enemy,
         Enemies,

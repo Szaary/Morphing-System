@@ -17,6 +17,8 @@ public class CharacterFacade : MonoBehaviour, ITargetable
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
     private CharacterStatistics _statistics;
+    public int zoneIndex;
+
     public CharacterStatistics Statistics
     {
         get => _statistics;

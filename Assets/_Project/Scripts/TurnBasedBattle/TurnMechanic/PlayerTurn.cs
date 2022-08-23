@@ -5,17 +5,14 @@ using UnityEngine;
 public class PlayerTurn : BaseState
 {
     private readonly TurnStateMachine _turnStateMachine;
-    private readonly TargetSelector _targetSelector;
-    
+
     private bool _hasAnyoneActions;
     private readonly CharactersLibrary _charactersLibrary;
 
-    public PlayerTurn(TurnStateMachine turnStateMachine, 
-        TargetSelector targetSelector,
+    public PlayerTurn(TurnStateMachine turnStateMachine,
         CharactersLibrary charactersLibrary)
     {
         _turnStateMachine = turnStateMachine;
-        _targetSelector = targetSelector;
         _charactersLibrary = charactersLibrary;
     }
 
@@ -60,7 +57,6 @@ public class PlayerTurn : BaseState
 
     public override async Task OnExit()
     {
-        _targetSelector.DeSelectTarget();
         await OnExitBaseImplementation();
     }
 }

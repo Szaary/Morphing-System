@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
@@ -5,16 +8,24 @@ using Zenject;
 public class TurnBasedInput : MonoBehaviour
 {
     private TurnStateMachine _stateMachine;
-    private TargetSelector _selector;
     public PlayerStrategy playerStrategy;
+
+    public Action<Active, List<CharacterFacade>, int> ActivateAction;
+    
+    private int _lastAction=-1;
+    
+    public List<CharacterFacade> possibleTargets = new();
+    public List<Active> possibleActives = new();
+
+    public List<CharacterFacade> chosenTargets = new();
+    private Active _chosenActive;
     
     [Inject]
-    public void Construct(TurnStateMachine stateMachine, TargetSelector selector)
+    public void Construct(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
-        _selector = selector;
     }
-    
+
     public void OnUse()
     {
         if (StopPlayerAction()) return;
@@ -30,45 +41,91 @@ public class TurnBasedInput : MonoBehaviour
     public void OnTop()
     {
         if (StopPlayerAction()) return;
-        if (SetTarget()) return;
-        Debug.Log("OnTop");
+        UseSkill(0);
     }
 
     public void OnDown()
     {
         if (StopPlayerAction()) return;
-        if (SetTarget()) return;
-        Debug.Log("OnDown");
+        UseSkill(1);
     }
+
     public void OnLeft()
     {
         if (StopPlayerAction()) return;
-        if (SetTarget()) return;
-        Debug.Log("OnDown");
+        UseSkill(2);
     }
+
     public void OnRight()
     {
         if (StopPlayerAction()) return;
-        if (SetTarget()) return;
-        
-        
-        Debug.Log("OnDown");
+        UseSkill(3);
     }
 
-    private bool SetTarget()
+    private void UseSkill(int index)
     {
-        if (_selector.currentlyTargeted == null)
+        // 1. Check possible actions based on list of targets. - show possible skills
+        // 2. Select skill - show possible targets
+        // 3. Select target based on skills
+
+        for (var i = possibleTargets.Count - 1; i >= 0; i--)
         {
-            _selector.Target(TargetSelector.Direction.Top);
+            var target = possibleTargets[i];
+            if (target == null)
+            {
+                possibleTargets.Remove(target);
+            }
+        }
+        if (possibleTargets.Count(x => x.zoneIndex == index) == 0)
+        {
+            _lastAction = -1;
+            return;
+        }
+
+
+        if (_lastAction >= 0)
+        {
+            Debug.Log("Activated skill: "+ index);
+            ActivateAction(_chosenActive, chosenTargets, index);
+            ResetInputs();
+            return;
+        }
+        
+        if (possibleActives.Count(x => x.IndexOnBar == index) == 0)
+        {
+            Debug.Log("Skill with index : "+ index + " is locked");
+            return;
+        }
+        SelectSkill(index);
+    }
+
+    private void SelectSkill(int index)
+    {
+        if (playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive, out chosenTargets) ==
+            PlayerStrategy.Result.Success)
+        {
+            _lastAction = index;
+            Debug.Log("Selected skill: " + _chosenActive);
+            return;
+        }
+        ResetInputs();
+    }
+
+ 
+    private bool StopPlayerAction()
+    {
+        if (_stateMachine.GetCurrentState() != TurnStateMachine.TurnState.PlayerTurn)
+        {
+            ResetInputs();
             return true;
         }
 
         return false;
     }
 
-    private bool StopPlayerAction()
+    public void ResetInputs()
     {
-        if (_stateMachine.GetCurrentState() != TurnStateMachine.TurnState.PlayerTurn) return true;
-        return false;
+        _lastAction = -1;
+        _chosenActive = null;
     }
 }

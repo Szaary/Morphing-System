@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
   m_Name: STA_Health
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 0}
+  baseStatistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   maxValue: 10
   minValue: 0
   currentValue: 3

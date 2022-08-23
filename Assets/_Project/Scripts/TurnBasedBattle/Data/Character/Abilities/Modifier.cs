@@ -11,27 +11,21 @@ public struct Modifier
     public Algorithm algorithm;
 
     [Header("Base flat change in stat.")] 
-    [SerializeField] private float baseAmount;
+    public float baseAmount;
 
     [Header("Statistic of ability user that increase base effect. Can be empty.")]
-    [SerializeField] private BaseStatistic modifier;
+    public BaseStatistic modifier;
 
     [Header("Set if you add modifier. Formula is baseAmount * ratio")]
-    [SerializeField] private float ratio;
+    public float ratio;
 
-    public float GetAmount(IOperateStats user)
+    public float GetAmount()
     {
-        var amount = baseAmount;
         if (modifier != null)
         {
-            foreach (var stat in user.UserStatistics.statistics)
-            {
-                if (stat.baseStatistic != modifier) continue;
-                amount += stat.CurrentValue * ratio;
-                break;
-            }
+            var amount = baseAmount * ratio;
+            return amount;
         }
-
-        return amount;
+        return baseAmount;
     }
 }

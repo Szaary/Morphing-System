@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpawnZone : MonoBehaviour
@@ -9,9 +9,12 @@ public class SpawnZone : MonoBehaviour
 
     public void PlaceCharacter(CharacterFacade facade)
     {
-        facade.transform.position = transform.position;
+        var position = spawnLocations.First(x => x.occupied == 0);
+        facade.transform.position = position.transform.position;
+        facade.zoneIndex = spawnLocations.IndexOf(position);
+        position.occupied++;
     }
-    
+
     void OnDrawGizmos()
     {
         foreach (var location in spawnLocations)
@@ -23,7 +26,7 @@ public class SpawnZone : MonoBehaviour
     }
 
     [Serializable]
-    public struct SpawnLocation
+    public class SpawnLocation
     {
         public Transform transform;
         public int occupied;

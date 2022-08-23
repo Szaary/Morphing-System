@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
@@ -10,6 +8,7 @@ public class CharacterFactory : MonoBehaviour
   
     private SpawnZone _enemySpawnZone;
     private SpawnZone _playerSpawnZone;
+    
     private CharacterFacade.Factory _characterFactory;
     private CharactersLibrary _library;
 
@@ -24,15 +23,18 @@ public class CharacterFactory : MonoBehaviour
     {
         _playerSpawnZone = playerSpawnZone;
         _enemySpawnZone = enemySpawnZone;
-        Debug.Log("Spawn zones set");
         SpawnInitialCharacters();
     }
 
     private void SpawnInitialCharacters()
     {
         SpawnCharacter(player);
+        
         SpawnCharacter(enemy);
-
+        SpawnCharacter(enemy);
+        SpawnCharacter(enemy);
+        SpawnCharacter(enemy);
+        
         _library.SpawnedAllCharacters = true;
     }
 
@@ -54,7 +56,7 @@ public class CharacterFactory : MonoBehaviour
     {
         facade.DeSpawned -= DeSpawnCharacter;
         _library.RemoveCharacter(facade);
-        Debug.Log("Destroying character: " + facade.name);
+        Debug.LogWarning("Destroying character: " + facade.name);
         Destroy(facade.gameObject);
     }
 

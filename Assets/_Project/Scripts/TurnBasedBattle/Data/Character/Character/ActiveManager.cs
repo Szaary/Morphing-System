@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -12,12 +13,12 @@ public struct ActiveManager
         ListIsEmpty,
     }
     
-    public List<Active> abilities;
-    public List<Active> abilitiesInUnitLibrary;
+    [SerializeField] private List<Active> abilities;
+    [SerializeField] private List<Active> abilitiesInUnitLibrary;
 
     public Result GetRandomAttack(int points, out Active active)
     {
-        var selected = abilities.Where(x => x.IsAttack(x) && x.actions>=points).ToList();
+        var selected = abilities.Where(x => x.IsAttack() && x.actions>=points).ToList();
         if (selected.Count == 0)
         {
             active = null;
@@ -28,7 +29,45 @@ public struct ActiveManager
         return Result.Success;
     }
 
+    public Result GetDefensive(int points, out List<Active> actives)
+    {
+        var selected = abilities.Where(x => x.IsDefensive() && x.actions>=points).ToList();
+        if (selected.Count == 0)
+        {
+            actives = new List<Active>();
+            return Result.ListIsEmpty;
+        }
+
+        actives = selected;
+        return Result.Success;
+    }
     
+    public Result GetAttacks(int points, out List<Active> actives)
+    {
+        var selected = abilities.Where(x => x.IsAttack() && x.actions>=points).ToList();
+        if (selected.Count == 0)
+        {
+            actives = new List<Active>();
+            return Result.ListIsEmpty;
+        }
+
+        actives = selected;
+        return Result.Success;
+    }
+    
+    public Result GetActions(int points, out List<Active> actives)
+    {
+        var selected = abilities.Where(x => x.actions>=points).ToList();
+        if (selected.Count == 0)
+        {
+            actives = new List<Active>();
+            return Result.ListIsEmpty;
+        }
+
+        actives = selected;
+        return Result.Success;
+    }
+
     public void Validate()
     {
         if (abilities.Count > 4)
@@ -36,12 +75,14 @@ public struct ActiveManager
             abilities.RemoveRange(4, abilities.Count-4);
         }
 
-        foreach (var ability in abilities)
+        for (var index = 0; index < abilities.Count; index++)
         {
+            var ability = abilities[index];
             if (!abilitiesInUnitLibrary.Contains(ability))
             {
                 abilitiesInUnitLibrary.Add(ability);
             }
+            ability.IndexOnBar = index;
         }
 
         for (var index = abilitiesInUnitLibrary.Count - 1; index >= 0; index--)
