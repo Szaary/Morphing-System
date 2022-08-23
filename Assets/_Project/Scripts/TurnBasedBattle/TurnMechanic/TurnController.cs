@@ -2,10 +2,11 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
+public delegate void ChangeActionPointsDelegate(int points = TurnController.Settings.MAXActionPoints);
 
 public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDoActions
 {
-    public delegate void ChangeActionPointsDelegate(int points = Settings.MAXActionPoints);
+    
     private ChangeActionPointsDelegate _changeActionPointsDelegate;
     
     
@@ -122,9 +123,9 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
     {
         return new Strategy.CurrentFightState()
         {
-            character = facade,
+            Character = facade,
             Points = ActionPoints,
-            library = _library
+            Library = _library
         };
     }
 
