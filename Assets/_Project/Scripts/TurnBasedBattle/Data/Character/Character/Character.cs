@@ -19,7 +19,8 @@ public class Character : ScriptableObject, IOperateStats
     
     [SerializeField] private CharacterStatistics baseStats;
 
-    public List<Active> activeAbilities;
+    public ActiveManager active; 
+    
     public List<PassiveAbility> passiveAbilities;
     public List<PassiveEffect> effects;
     
@@ -192,8 +193,9 @@ public class Character : ScriptableObject, IOperateStats
         {
             Debug.LogError("No backpack assigned to character");
         }
+
+        active.Validate();
+        
     }
 #endif
-    
-    
 }

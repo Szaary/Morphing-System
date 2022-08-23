@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +6,8 @@ public class TurnBasedInput : MonoBehaviour
 {
     private TurnStateMachine _stateMachine;
     private TargetSelector _selector;
-
+    public PlayerStrategy playerStrategy;
+    
     [Inject]
     public void Construct(TurnStateMachine stateMachine, TargetSelector selector)
     {

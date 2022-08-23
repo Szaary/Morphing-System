@@ -62,7 +62,6 @@ public class TurnStateMachine : MonoBehaviour
         _battleStateMachine.Tick();
     }
 
-
     internal void SetState(TurnState state)
     {
         Debug.Log("Changing state to " + state);

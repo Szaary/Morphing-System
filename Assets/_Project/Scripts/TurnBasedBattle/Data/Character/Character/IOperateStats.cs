@@ -7,4 +7,5 @@ public interface IOperateStats
 {
     public CharacterStatistics UserStatistics { get; }
     public MonoBehaviour User { get; }
+    public Alignment Alignment { get; }
 }

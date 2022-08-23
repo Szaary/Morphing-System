@@ -8,6 +8,7 @@ public class CharacterFacade : MonoBehaviour, ITargetable
     public event Action<CharacterFacade> DeSpawned;
     public void InvokeDeSpawnedCharacter() => DeSpawned?.Invoke(this);
  
+    
 
 
     [SerializeField] private Character character;
@@ -25,9 +26,12 @@ public class CharacterFacade : MonoBehaviour, ITargetable
             StatisticSet?.Invoke(_statistics);
         }
     }
+
+    public ActiveManager Active => character.active;
+    
     public Alignment Alignment => character.Alignment;
-    
-    
+
+    public Character GetCharacter() => character;
     public void SetCharacter(Character character)
     {
         this.character = character.Clone();

@@ -18,8 +18,8 @@ public class BattleInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AiTurn>().AsSingle();
         Container.BindInterfacesAndSelfTo<Victory>().AsSingle();
         Container.BindInterfacesAndSelfTo<Defeat>().AsSingle();
-        
-        
+        Container.BindInterfacesAndSelfTo<CharactersLibrary>().AsSingle();
+
         Container.Bind<CharacterFactory>().FromComponentInNewPrefab(characterFactoryGameObject).UnderTransformGroup("Factories").AsSingle().NonLazy();
         Container.BindFactory<CharacterFacade, CharacterFacade.Factory>().FromComponentInNewPrefab(emptyCharacterGameObject);;
     }

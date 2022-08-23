@@ -1,7 +1,9 @@
 {
-    "name": "Data",
+    "name": "TurnBasedBattle",
     "rootNamespace": "",
     "references": [
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:106ede541b3490a4c8b706ffd9926ce8",
         "GUID:980d7f3ee14149e4da0f27563e65af25"
     ],
     "includePlatforms": [],

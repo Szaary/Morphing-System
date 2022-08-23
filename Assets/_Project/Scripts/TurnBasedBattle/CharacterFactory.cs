@@ -7,21 +7,17 @@ public class CharacterFactory : MonoBehaviour
 {
     [SerializeField] private Character player;
     [SerializeField] private Character enemy;
-
-    public int PlayerCharacters { get; private set; }
-    public int AiCharacters { get; private set; }
-
-    public bool SpawnedAllCharacters { get; private set; }
-
+  
     private SpawnZone _enemySpawnZone;
     private SpawnZone _playerSpawnZone;
     private CharacterFacade.Factory _characterFactory;
-    private readonly List<CharacterFacade> _spawnedCharacters = new();
+    private CharactersLibrary _library;
 
     [Inject]
-    public void Construct(CharacterFacade.Factory characterFactory)
+    public void Construct(CharacterFacade.Factory characterFactory, CharactersLibrary library)
     {
         _characterFactory = characterFactory;
+        _library = library;
     }
 
     public void SetSpawnZones(SpawnZone playerSpawnZone, SpawnZone enemySpawnZone)
@@ -29,7 +25,6 @@ public class CharacterFactory : MonoBehaviour
         _playerSpawnZone = playerSpawnZone;
         _enemySpawnZone = enemySpawnZone;
         Debug.Log("Spawn zones set");
-
         SpawnInitialCharacters();
     }
 
@@ -38,7 +33,7 @@ public class CharacterFactory : MonoBehaviour
         SpawnCharacter(player);
         SpawnCharacter(enemy);
 
-        SpawnedAllCharacters = true;
+        _library.SpawnedAllCharacters = true;
     }
 
     private void SpawnCharacter(Character character)
@@ -52,34 +47,18 @@ public class CharacterFactory : MonoBehaviour
 
         facade.DeSpawned += DeSpawnCharacter;
 
-        AddCharacter(facade);
+        _library.AddCharacter(facade);
     }
 
     private void DeSpawnCharacter(CharacterFacade facade)
     {
         facade.DeSpawned -= DeSpawnCharacter;
-        RemoveCharacter(facade);
+        _library.RemoveCharacter(facade);
         Debug.Log("Destroying character: " + facade.name);
         Destroy(facade.gameObject);
     }
 
-    private void AddCharacter(CharacterFacade facade)
-    {
-        _spawnedCharacters.Add(facade);
-        CountCharacters();
-    }
-
-    private void RemoveCharacter(CharacterFacade facade)
-    {
-        _spawnedCharacters.Remove(facade);
-        CountCharacters();
-    }
-
-    private void CountCharacters()
-    {
-        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.id == 0).ToList().Count;
-        AiCharacters = _spawnedCharacters.Where(x => x.Alignment.id != 0).ToList().Count;
-    }
+   
 
     private void SetSpawnZone(CharacterFacade facade, Character character)
     {

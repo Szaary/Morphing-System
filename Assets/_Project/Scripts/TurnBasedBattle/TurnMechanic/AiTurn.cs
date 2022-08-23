@@ -26,11 +26,12 @@ public class AiTurn : BaseState
             var result = await subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-            if (subscriber is IDoActions {CurrentActions: > 0})
+            if (subscriber is IDoActions {ActionPoints: > 0})
             {
                 hasAnyoneActions = true;
             }
         }
+
         if (hasAnyoneActions == false)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);

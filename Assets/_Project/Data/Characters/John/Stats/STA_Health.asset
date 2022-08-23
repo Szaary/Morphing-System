@@ -15,4 +15,4 @@ MonoBehaviour:
   baseStatistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   maxValue: 20
   minValue: 0
-  currentValue: 3
+  currentValue: 20

@@ -5,19 +5,58 @@ using Zenject;
 
 public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDoActions
 {
+    public delegate void ChangeActionPointsDelegate(int points = Settings.MAXActionPoints);
+    private ChangeActionPointsDelegate _changeActionPointsDelegate;
+    
+    
     private Settings _settings;
-    public int CurrentActions { get; private set; }
+    public int ActionPoints { get; private set; }
+
     public BaseState BaseState { get; private set; }
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
-    
+
     private Strategy _strategy;
+    private TurnBasedInput _input;
+    private CharactersLibrary _library;
+    private CharacterFacade facade;
+
+
     public void InitializeStrategy(Character.InitializationArguments arguments, Character character)
     {
         SetTurns(arguments, character);
         SetStrategy(character);
-        ((ISubscribeToBattleStateChanged)this).SubscribeToStateChanges();
+        ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges();
+
+        if (_strategy is PlayerStrategy player)
+        {
+            _input.playerStrategy = player;
+        }
     }
+
+    private void Awake()
+    {
+        facade = GetComponent<CharacterFacade>();
+        _changeActionPointsDelegate  = ChangePointsPoints;
+    }
+
+    private void ChangePointsPoints(int points)
+    {
+        ActionPoints -= points;
+        Debug.Log("Changed action points to: "+ ActionPoints);
+    }
+
+
+    [Inject]
+    public void Construct(Settings settings,
+        TurnBasedInput input,
+        CharactersLibrary library)
+    {
+        _settings = settings;
+        _input = input;
+        _library = library;
+    }
+
 
     private void SetStrategy(Character character)
     {
@@ -29,53 +68,47 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         if (character.Alignment.Id == 0)
         {
             BaseState = arguments.playerTurn;
-            _playerTurn = (PlayerTurn)arguments.playerTurn;
+            _playerTurn = (PlayerTurn) arguments.playerTurn;
         }
         else
         {
             BaseState = arguments.aiTurn;
-            _aiTurn = (AiTurn)arguments.aiTurn;
+            _aiTurn = (AiTurn) arguments.aiTurn;
         }
     }
 
-    
-    [Inject]
-    public void Construct(Settings settings)
-    {
-        _settings = settings;
-    }
 
     private void OnDisable()
     {
-        ((ISubscribeToBattleStateChanged)this).UnsubscribeFromStateChanges();
+        ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStateChanges();
     }
 
 
-    public void EndTurn() => CurrentActions = 0;
-    
+  
+
     public async Task<BaseState.Result> Tick()
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
-        
-        await _strategy.Tick(EndTurn);
+
+        await _strategy.Tick(_changeActionPointsDelegate, CreateFightState());
         return BaseState.Result.Success;
     }
 
     public async Task<BaseState.Result> OnEnter()
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
-        
-        CurrentActions = _settings.maxNumberOfActions;
 
-        await _strategy.OnEnter(EndTurn);
+        ActionPoints = _settings.maxNumberOfActions;
+
+        await _strategy.OnEnter(_changeActionPointsDelegate, CreateFightState());
         return BaseState.Result.Success;
     }
 
     public async Task<BaseState.Result> OnExit()
     {
         if (_strategy == null) return BaseState.Result.StrategyNotSet;
-        
-        await _strategy.OnExit(EndTurn);
+
+        await _strategy.OnExit(_changeActionPointsDelegate, CreateFightState());
         return BaseState.Result.Success;
     }
 
@@ -84,12 +117,24 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         Destroy(gameObject);
     }
 
-   
-    [Serializable]
-    public class Settings
+
+    private Strategy.CurrentFightState CreateFightState()
     {
-        public int maxNumberOfActions;
+        return new Strategy.CurrentFightState()
+        {
+            character = facade,
+            Points = ActionPoints,
+            library = _library
+        };
     }
 
 
+    [Serializable]
+    public class Settings
+    {
+        public const int MAXActionPoints = 100; 
+        
+        [Range(1, MAXActionPoints)]
+        public int maxNumberOfActions;
+    }
 }

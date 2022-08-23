@@ -8,15 +8,15 @@ public class PlayerTurn : BaseState
     private readonly TargetSelector _targetSelector;
     
     private bool _hasAnyoneActions;
-    private readonly CharacterFactory _characterFactory;
+    private readonly CharactersLibrary _charactersLibrary;
 
     public PlayerTurn(TurnStateMachine turnStateMachine, 
         TargetSelector targetSelector,
-        CharacterFactory characterFactory)
+        CharactersLibrary charactersLibrary)
     {
         _turnStateMachine = turnStateMachine;
         _targetSelector = targetSelector;
-        _characterFactory = characterFactory;
+        _charactersLibrary = charactersLibrary;
     }
 
     public override async Task Tick()
@@ -28,19 +28,19 @@ public class PlayerTurn : BaseState
             var result = await subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-            if (subscriber is IDoActions {CurrentActions: > 0})
+            if (subscriber is IDoActions {ActionPoints: > 0})
             {
                 _hasAnyoneActions = true;
             }
         }
 
-        if (_characterFactory.PlayerCharacters == 0)
+        if (_charactersLibrary.PlayerCharacters == 0)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.Defeat);
             return;
         }
         
-        if (_characterFactory.AiCharacters == 0)
+        if (_charactersLibrary.AiCharacters == 0)
         {
             _turnStateMachine.SetState(TurnStateMachine.TurnState.Victory);
             return;

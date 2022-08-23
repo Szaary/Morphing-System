@@ -1,4 +1,4 @@
 ﻿public interface IDoActions
 {
-    public int CurrentActions { get; }
+    public int ActionPoints { get; }
 }
