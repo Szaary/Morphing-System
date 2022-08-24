@@ -28,7 +28,7 @@ public class Effect : Status
         return target.UnModify(user, Modifiers);
     }
 
-    
+
     public Result ActivateEffect()
     {
         if (Target == null || User == null)
@@ -37,7 +37,7 @@ public class Effect : Status
             return Result.ToDestroy;
         }
 
-        Debug.Log("Activating effect by " + User.name + " on " + Target);
+        Debug.Log("Activating effect: " + name + " by " + User.name + " on " + Target);
         var result = TickStatus();
 
         if (result == Result.HasEnded)
@@ -51,7 +51,7 @@ public class Effect : Status
 
     private Result TickStatus()
     {
-        Debug.Log("Status effect Tick" + name);
+        Debug.Log("Status effect Tick: " + name);
         foreach (var modifier in Modifiers)
         {
             Target.GetStatistic(modifier.statisticToModify, out var statistic);

@@ -14,18 +14,20 @@ public class HealthMonitor : StatisticMonitor
     protected override void OnValueChanged(float modifier, float current)
     {
         if(!isSilent) Debug.Log("Health changed to: "+ current);
+        _eventsHandler.HealthChanged?.Invoke(new HealthChanged()
+        {
+            Modifier = modifier,
+            Current = current,
+            Position = transform.position
+        });
+        ChosenStat.OnValueChanged -= OnValueChanged;
+        
         if (current <= 0)
         {
-            ChosenStat.OnValueChanged -= OnValueChanged;
-            Facade.InvokeDeSpawnedCharacter();
-            
-            _eventsHandler.HealthChanged?.Invoke(new HealthChanged()
-            {
-                Modifier = modifier,
-                Current = current,
-                Position = transform.position
-            });
+            Facade.DeSpawnCharacter();
         }
     }
+
+   
 }
 

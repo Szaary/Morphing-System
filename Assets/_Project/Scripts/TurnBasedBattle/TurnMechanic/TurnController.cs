@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 public delegate void ChangeActionPointsDelegate(int points = Character.MAXActionPoints);
 
@@ -15,9 +13,6 @@ public class TurnController : TurnsSubscriber, IDoActions
     private GetFightStateDelegate _getCurrentFightState;
 
     public int ActionPoints { get; private set; }
-
-    private PlayerTurn _playerTurn;
-    private AiTurn _aiTurn;
     private CharacterFacade _facade;
 
     private void Awake()
@@ -30,16 +25,13 @@ public class TurnController : TurnsSubscriber, IDoActions
     {
         _facade = character;
         if (character.Alignment.Id == 0)
-            SubscribeToState(_playerTurn);
+            SubscribeToState(_facade.Turns.PlayerTurn);
         else
-            SubscribeToState(_aiTurn);
-    }
-
-    private void Start()
-    {
+            SubscribeToState(_facade.Turns.AiTurn);
+        
         SetStrategy(_facade);
     }
-
+ 
     private void SubscribeToState(BaseState state)
     {
         SubscribeToStateChanges(state);
@@ -68,6 +60,10 @@ public class TurnController : TurnsSubscriber, IDoActions
                 _facade.playerInput.possibleActives = active;
                 _facade.playerInput.possibleTargets = targets;
                 _facade.playerInput.ResetInputs();
+            }
+            else
+            {
+                Debug.Log("Player have no possible actions");
             }
         }
 
@@ -118,7 +114,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         {
             Character = _facade,
             Points = ActionPoints,
-            Library = _facade.library,
+            Library = _facade.Library,
             Reset = _facade.playerInput.ResetInputs,
             ChangeActionPoints = _changeActionPointsDelegate
         };

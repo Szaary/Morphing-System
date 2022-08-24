@@ -9,7 +9,6 @@ public class PlayerStrategy : Strategy
     public override Task OnEnter(CurrentFightState currentFightState)
     {
         currentFightState.Reset();
-
         
         return Task.CompletedTask;
     }

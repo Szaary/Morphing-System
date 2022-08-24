@@ -16,20 +16,18 @@ public class Adding : Algorithm
 
     protected virtual Result ChangeValues(Statistic targetStatsToModify, Modifier userModifier, CharacterFacade user)
     {
+        ReportBeforeChange(targetStatsToModify);
         var result = targetStatsToModify.Add(userModifier.GetAmount(user));
-        Debug.Log("Changed " + userModifier.statisticToModify.statName + " by " + userModifier.GetAmount(user) +
-                  " stat: " + targetStatsToModify.baseStatistic.statName + " by " + user +
-                  ". Current value is: " + targetStatsToModify.CurrentValue + " with result: " + result);
+        ReportChange(targetStatsToModify, userModifier, user, result);
         return result;
     }
 
     protected virtual Result RemoveChangedValues(Statistic targetStatsToModify, Modifier userModifier,
         CharacterFacade user)
     {
+        ReportBeforeChange(targetStatsToModify);
         var result = targetStatsToModify.Subtract(userModifier.GetAmount(user));
-        Debug.Log("Changed " + userModifier.statisticToModify.statName + " by " + userModifier.GetAmount(user) +
-                  " stat: " + targetStatsToModify.baseStatistic.statName + " by " + user +
-                  ". Current value is: " + targetStatsToModify.CurrentValue + " with result: " + result);
+        ReportChange(targetStatsToModify, userModifier, user, result);
         return result;
     }
 }

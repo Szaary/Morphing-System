@@ -9,6 +9,11 @@ public abstract class TurnsSubscriber : MonoBehaviour
     
     protected void SubscribeToStateChanges(BaseState state)
     {
+        if (state == null)
+        {
+            Debug.Log("Subscribing : " + name + " to empty state");
+        }
+        
         SubscribeToTick(state);
         SubscribeToOnEnter(state);
         SubscribeToOnExit(state);

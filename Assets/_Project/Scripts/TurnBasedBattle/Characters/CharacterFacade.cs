@@ -7,16 +7,12 @@ public class CharacterFacade : MonoBehaviour
 {
     public TurnController turnController;
     public CharacterManager manager;
-
-    public event Action<Statistic> StatisticSet;
-    public event Action<CharacterFacade> DeSpawned;
-    public void InvokeDeSpawnedCharacter() => DeSpawned?.Invoke(this);
-
-
+    public HealthMonitor healthMonitor;
+    
     public TurnReferences Turns;
     
-    public TurnBasedInput playerInput;
-    public CharactersLibrary library;
+    [HideInInspector] public TurnBasedInput playerInput;
+    public CharactersLibrary Library;
 
     [Inject]
     public void Construct(Character characterTemplate, TurnReferences turns, 
@@ -25,11 +21,11 @@ public class CharacterFacade : MonoBehaviour
     {
         Turns = turns;
         playerInput = input;
-        this.library = library;
+        Library = library;
         
         manager.SetCharacter(characterTemplate);
         turnController.Initialize(this);
-
+        healthMonitor.Initialize(this);
     }
 
 
@@ -47,6 +43,14 @@ public class CharacterFacade : MonoBehaviour
     public void SetZoneIndex(int index) => manager.character.zoneIndex = index;
 
     public int GetActionPoints() => manager.character.maxNumberOfActions;
+    
+    public void DeSpawnCharacter()
+    {
+        Library.RemoveCharacter(this);
+        Debug.Log("Destroying character: " + name);
+        Destroy(gameObject);
+    }
+
     public class Factory : PlaceholderFactory<Character, CharacterFacade>
     {
     }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
 using Zenject;
 
@@ -29,7 +28,6 @@ public class TurnBasedInput : MonoBehaviour
     public void OnUse()
     {
         if (StopPlayerAction()) return;
-        Debug.Log("OnUse");
     }
 
     public void OnManageTurn()
@@ -85,7 +83,6 @@ public class TurnBasedInput : MonoBehaviour
 
         if (_lastAction >= 0)
         {
-            Debug.Log("Activated skill: "+ index);
             ActivateAction(_chosenActive, chosenTargets, index);
             ResetInputs();
             return;

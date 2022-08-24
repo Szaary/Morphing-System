@@ -26,9 +26,9 @@ public class Modifier
 
     public float GetAmount(CharacterFacade user)
     {
-        user.GetStatistic(statisticToModify, out var userStat);
         if (modifierStatistic != null)
         {
+            user.GetStatistic(modifierStatistic, out var userStat);
             var amount = baseAmount + ratio * userStat.CurrentValue;
             return amount;
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class BaseState
 {
     protected readonly TurnStateMachine _stateMachine;
-    private bool isSilent = true;
+    private bool isSilent = false;
 
     public List<TurnsSubscriber> TickSubscribers { get; }
     public List<TurnsSubscriber> OnEnterSubscribers { get; }

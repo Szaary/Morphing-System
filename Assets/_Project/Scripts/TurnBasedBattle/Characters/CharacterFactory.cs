@@ -45,16 +45,7 @@ public class CharacterFactory : MonoBehaviour
         facade.gameObject.name = character.name;
         
         SetSpawnZone(facade);
-        facade.DeSpawned += DeSpawnCharacter;
         _library.AddCharacter(facade);
-    }
-
-    private void DeSpawnCharacter(CharacterFacade facade)
-    {
-        facade.DeSpawned -= DeSpawnCharacter;
-        _library.RemoveCharacter(facade);
-        Debug.LogWarning("Destroying character: " + facade.name);
-        Destroy(facade.gameObject);
     }
 
     private void SetSpawnZone(CharacterFacade facade)

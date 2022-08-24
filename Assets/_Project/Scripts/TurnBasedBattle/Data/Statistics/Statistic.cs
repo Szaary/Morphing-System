@@ -75,7 +75,7 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
 
     public Result Subtract(float modifier)
     {
-        if (modifier > 0) return Result.PositiveModifier;
+        if (modifier < 0) return Result.NegativeModifier;
 
         if (CurrentValue - modifier > maxValue)
         {
