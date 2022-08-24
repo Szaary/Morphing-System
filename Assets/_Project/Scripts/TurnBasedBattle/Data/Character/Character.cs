@@ -26,9 +26,9 @@ public class Character : ScriptableObject
     [Header("Abilities")] public ActiveManager active;
 
     [SerializeField] private List<PassiveAbility> passiveAbilitiesTemplate;
-    [SerializeField] private List<PassiveEffect> effectsTemplate;
-
     [HideInInspector] public List<PassiveAbility> passiveAbilities;
+    
+    [SerializeField] private List<PassiveEffect> effectsTemplate;
     [HideInInspector] public List<PassiveEffect> effects;
 
     [Header("Items")] [SerializeField] private ItemsHolder backpackTemplate;

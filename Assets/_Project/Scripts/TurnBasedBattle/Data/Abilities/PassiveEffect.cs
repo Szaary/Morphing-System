@@ -65,10 +65,7 @@ public class PassiveEffect : Passive, ISubscribeToBattleStateChanged
         return result;
     }
 
-    public void Destroy()
-    {
-        Destroy(this);
-    }
+
 
     private Result ActivateEffect()
     {
@@ -108,7 +105,11 @@ public class PassiveEffect : Passive, ISubscribeToBattleStateChanged
 
         return Result.Success;
     }
-
+    public void Destroy()
+    {
+        Destroy(this);
+    }
+    
     private Result OnRemoveStatus(CharacterFacade target, CharacterFacade user)
     {
         return target.UnModify(user, Modifiers);
