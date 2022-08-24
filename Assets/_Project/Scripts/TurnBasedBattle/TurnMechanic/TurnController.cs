@@ -5,38 +5,51 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-public delegate void ChangeActionPointsDelegate(int points = TurnController.Settings.MAXActionPoints);
+public delegate void ChangeActionPointsDelegate(int points = Character.MAXActionPoints);
 
 public delegate Strategy.CurrentFightState GetFightStateDelegate();
 
 public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDoActions
 {
+    public List<BaseState> SubscribedTo { get; set; }
+    
     private ChangeActionPointsDelegate _changeActionPointsDelegate;
     private GetFightStateDelegate _getCurrentFightState;
 
-    private Settings _settings;
     public int ActionPoints { get; private set; }
 
-    public BaseState BaseState { get; private set; }
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
+    private CharacterFacade _facade;
 
-    private Strategy _strategy;
-    private TurnBasedInput _input;
-    private CharactersLibrary _library;
-    private CharacterFacade facade;
-
-
-    public void InitializeStrategy(Character.InitializationArguments arguments, Character character)
+    private void Awake()
     {
-        SetTurns(arguments, character);
-        SetStrategy(character);
-        ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges();
+        _changeActionPointsDelegate = ChangePointsPoints;
+        _getCurrentFightState = CreateFightState;
+    }
+    
+    public void Initialize(CharacterFacade character)
+    {
+        _facade = character;
+        if (character.Alignment.Id == 0)
+            SubscribeToState(_playerTurn);
+        else
+            SubscribeToState(_aiTurn);
+        
+        SetStrategy(_facade);
+    }
 
-        if (_strategy is PlayerStrategy player)
+    private void SubscribeToState(BaseState state)
+    {
+        ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges(state);
+    }
+
+    private void SetStrategy(CharacterFacade character)
+    {
+        if (character.GetStrategy() is PlayerStrategy player)
         {
-            _input.playerStrategy = player;
-            _input.ActivateAction = Activate;
+            _facade.playerInput.playerStrategy = player;
+            _facade.playerInput.ActivateAction = Activate;
         }
     }
 
@@ -48,26 +61,25 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         {
             foreach (var target in targets)
             {
-                Debug.Log("Activating effect: "+ active+ " on " + target + " by " + facade);
-                points = active.ActivateEffect(target.GetCharacter(), facade.GetCharacter());
+                Debug.Log("Activating effect: " + active + " on " + target + " by " + _facade);
+                points = active.ActivateEffect(target, _facade);
             }
         }
         else
         {
-            var target = targets.First(x => x.zoneIndex == chosenTarget);
-            Debug.Log("Activating effect: "+ active+ "on " + target);
-            points = active.ActivateEffect(target.GetCharacter(), facade.GetCharacter());
-            
+            var target = targets.First(x => x.GetZoneIndex() == chosenTarget);
+            Debug.Log("Activating effect: " + active + "on " + target);
+            points = active.ActivateEffect(target, _facade);
         }
 
         ActionPoints -= points;
     }
 
-    private void Awake()
+  
+
+    private void OnDestroy()
     {
-        facade = GetComponent<CharacterFacade>();
-        _changeActionPointsDelegate = ChangePointsPoints;
-        _getCurrentFightState = CreateFightState;
+        ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStates();
     }
 
     private void ChangePointsPoints(int points)
@@ -75,78 +87,38 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
         ActionPoints -= points;
     }
 
-
-    [Inject]
-    public void Construct(Settings settings,
-        TurnBasedInput input,
-        CharactersLibrary library)
+    public async Task<Result> Tick()
     {
-        _settings = settings;
-        _input = input;
-        _library = library;
+        await _facade.GetStrategy().Tick();
+        return Result.Success;
     }
 
-
-    private void SetStrategy(Character character)
+    public async Task<Result> OnEnter()
     {
-        _strategy = character.strategy;
-    }
+        ActionPoints = _facade.GetActionPoints();
 
-    private void SetTurns(Character.InitializationArguments arguments, Character character)
-    {
-        if (character.Alignment.Id == 0)
-        {
-            BaseState = arguments.playerTurn;
-            _playerTurn = (PlayerTurn) arguments.playerTurn;
-        }
-        else
-        {
-            BaseState = arguments.aiTurn;
-            _aiTurn = (AiTurn) arguments.aiTurn;
-        }
-    }
+        await _facade.GetStrategy().OnEnter(CreateFightState());
 
-
-    private void OnDisable()
-    {
-        ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStateChanges();
-    }
-
-    public async Task<BaseState.Result> Tick()
-    {
-        if (_strategy == null) return BaseState.Result.StrategyNotSet;
-
-        await _strategy.Tick();
-        return BaseState.Result.Success;
-    }
-
-    public async Task<BaseState.Result> OnEnter()
-    {
-        if (_strategy == null) return BaseState.Result.StrategyNotSet;
-        ActionPoints = _settings.maxNumberOfActions;
-
-        await _strategy.OnEnter(CreateFightState());
-
-        if (_strategy is PlayerStrategy player)
+        if (_facade.GetStrategy() is PlayerStrategy player)
         {
             if (player.GetPossibleActions(_getCurrentFightState, out var active, out var targets) ==
                 PlayerStrategy.Result.Success)
             {
-                _input.possibleActives = active;
-                _input.possibleTargets = targets;
-                _input.ResetInputs();
+                _facade.playerInput.possibleActives = active;
+                _facade.playerInput.possibleTargets = targets;
+                _facade.playerInput.ResetInputs();
             }
         }
 
-        return BaseState.Result.Success;
+        return Result.Success;
     }
 
-    public async Task<BaseState.Result> OnExit()
+    public async Task<Result> OnExit()
     {
-        if (_strategy == null) return BaseState.Result.StrategyNotSet;
+        if (_facade.GetStrategy() == null) return Result.StrategyNotSet;
 
-        await _strategy.OnExit(CreateFightState());
-        return BaseState.Result.Success;
+        await _facade.GetStrategy().OnExit(CreateFightState());
+        return Result.Success;
     }
 
     public void Destroy()
@@ -159,20 +131,11 @@ public class TurnController : MonoBehaviour, ISubscribeToBattleStateChanged, IDo
     {
         return new Strategy.CurrentFightState()
         {
-            Character = facade,
+            Character = _facade,
             Points = ActionPoints,
-            Library = _library,
-            Reset = _input.ResetInputs,
+            Library = _facade.library,
+            Reset = _facade.playerInput.ResetInputs,
             ChangeActionPoints = _changeActionPointsDelegate
         };
-    }
-
-
-    [Serializable]
-    public class Settings
-    {
-        public const int MAXActionPoints = 100;
-
-        [Range(1, MAXActionPoints)] public int maxNumberOfActions;
     }
 }

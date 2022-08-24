@@ -21,13 +21,13 @@ public static class TacticsLibrary
                 var targets = currentFightState.Library.SelectAllEnemies(currentFightState.Character.Alignment);
                 foreach (var target in targets)
                 {
-                    skill.ActivateEffect(target.GetCharacter(), currentFightState.Character.GetCharacter());
+                    skill.ActivateEffect(target, currentFightState.Character);
                 }
             }
             else
             {
                 var target = currentFightState.Library.SelectRandomEnemy(currentFightState.Character.Alignment);
-                skill.ActivateEffect(target.GetCharacter(), currentFightState.Character.GetCharacter());
+                skill.ActivateEffect(target, currentFightState.Character);
             }
 
             currentFightState.ChangeActionPoints(skill.actions);

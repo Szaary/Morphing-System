@@ -40,15 +40,12 @@ public class CharacterFactory : MonoBehaviour
 
     private void SpawnCharacter(Character character)
     {
-        var facade = _characterFactory.Create();
+        var facade = _characterFactory.Create(character);
         facade.transform.parent = transform;
         facade.gameObject.name = character.name;
-        facade.SetCharacter(character);
-        SetSpawnZone(facade, character);
-
-
+        
+        SetSpawnZone(facade);
         facade.DeSpawned += DeSpawnCharacter;
-
         _library.AddCharacter(facade);
     }
 
@@ -60,17 +57,9 @@ public class CharacterFactory : MonoBehaviour
         Destroy(facade.gameObject);
     }
 
-   
-
-    private void SetSpawnZone(CharacterFacade facade, Character character)
+    private void SetSpawnZone(CharacterFacade facade)
     {
-        if (character.Alignment.Id == 0)
-        {
-            _playerSpawnZone.PlaceCharacter(facade);
-        }
-        else
-        {
-            _enemySpawnZone.PlaceCharacter(facade);
-        }
+        if (facade.Alignment.Id == 0) _playerSpawnZone.PlaceCharacter(facade);
+        else _enemySpawnZone.PlaceCharacter(facade);
     }
 }

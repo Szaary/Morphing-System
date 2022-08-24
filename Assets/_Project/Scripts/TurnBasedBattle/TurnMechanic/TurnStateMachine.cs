@@ -1,19 +1,9 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using Zenject;
 
 public class TurnStateMachine : MonoBehaviour
 {
-    public enum TurnState
-    {
-        BattleStart,
-        PlayerTurn,
-        AiTurn,
-        Victory,
-        Defeat
-    }
-
     private TurnState _currentState;
 
     private AsyncStateMachine _battleStateMachine;
@@ -22,7 +12,7 @@ public class TurnStateMachine : MonoBehaviour
     private AiTurn _aiTurn;
     private Victory _victory;
     private Defeat _defeat;
-    private CharacterFactory _characterFactory;
+    
 
     [Inject]
     public void Construct(
@@ -31,8 +21,7 @@ public class TurnStateMachine : MonoBehaviour
         PlayerTurn playerTurn,
         AiTurn aiTurn,
         Victory victory,
-        Defeat defeat,
-        CharacterFactory characterFactory)
+        Defeat defeat)
     {
         _battleStateMachine = battleStateMachine;
         _battleStart = battleStart;
@@ -40,7 +29,6 @@ public class TurnStateMachine : MonoBehaviour
         _aiTurn = aiTurn;
         _victory = victory;
         _defeat = defeat;
-        _characterFactory = characterFactory;
     }
 
     private void Start()

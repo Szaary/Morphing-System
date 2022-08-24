@@ -1,73 +1,53 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
-    public event Action<CharacterStatistics> StatisticSet;
+    public TurnController turnController;
+    public CharacterManager manager;
+
+    public event Action<Statistic> StatisticSet;
     public event Action<CharacterFacade> DeSpawned;
     public void InvokeDeSpawnedCharacter() => DeSpawned?.Invoke(this);
- 
+
+
+    public TurnReferences _turns;
     
-
-
-    [SerializeField] private Character character;
-    [SerializeField] private TurnController turnController;
-    
-    private PlayerTurn _playerTurn;
-    private AiTurn _aiTurn;
-    private CharacterStatistics _statistics;
-    public int zoneIndex;
-
-    public CharacterStatistics Statistics
-    {
-        get => _statistics;
-        set
-        {
-            _statistics = value;
-            StatisticSet?.Invoke(_statistics);
-        }
-    }
-
-    public ActiveManager Active => character.active;
-    
-    public Alignment Alignment => character.Alignment;
-
-    public Character GetCharacter() => character;
-    public void SetCharacter(Character character)
-    {
-        this.character = character.Clone();
-    }
+    public TurnBasedInput playerInput;
+    public CharactersLibrary library;
 
     [Inject]
-    public void Construct(PlayerTurn playerTurn, 
-        AiTurn aiTurn)
+    public void Construct(Character characterTemplate, TurnReferences turns, 
+        TurnBasedInput input,
+        CharactersLibrary library)
     {
-        _playerTurn = playerTurn;
-        _aiTurn = aiTurn;
-    }
-
-    private void Start()
-    {
-        var arguments = new Character.InitializationArguments()
-        {
-            caller = this,
-            playerTurn = _playerTurn,
-            aiTurn = _aiTurn
-        };
+        _turns = turns;
+        playerInput = input;
+        this.library = library;
         
-        Statistics = character.InitializeStats(arguments);
-        turnController.InitializeStrategy(arguments, character);
+        manager.SetCharacter(characterTemplate);
+        turnController.Initialize(this);
+
     }
 
 
-    private void OnDestroy()
-    {
-        Destroy(character);
-    }
+    public BaseState GetPlayTurn(bool workOnOppositeTurn) => _turns.GetPlayTurn(this, workOnOppositeTurn);
+    
+    public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat) =>
+        manager.GetStatistic(baseStatistic, out outStat);
+    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
+    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
+    public Alignment Alignment => manager.character.alignment;
+    public ActiveManager Active => manager.character.active;
+    public Character GetCharacter() => manager.character;
+    public Strategy GetStrategy() => manager.character.strategy;
+    public int GetZoneIndex() => manager.character.zoneIndex;
+    public void SetZoneIndex(int index) => manager.character.zoneIndex = index;
 
-
-    public class Factory : PlaceholderFactory<CharacterFacade>
+    public int GetActionPoints() => manager.character.maxNumberOfActions;
+    public class Factory : PlaceholderFactory<Character, CharacterFacade>
     {
     }
 }

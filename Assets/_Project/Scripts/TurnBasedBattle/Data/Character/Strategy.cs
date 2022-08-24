@@ -12,8 +12,9 @@ public abstract class Strategy : ScriptableObject
     public struct CurrentFightState
     {
         public CharacterFacade Character;
-        public int Points;
         public CharactersLibrary Library;
+        
+        public int Points;
         public Action Reset;
         public ChangeActionPointsDelegate ChangeActionPoints;
     }

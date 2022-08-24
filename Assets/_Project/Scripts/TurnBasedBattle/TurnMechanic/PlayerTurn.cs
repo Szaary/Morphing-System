@@ -1,18 +1,12 @@
-using System;
 using System.Threading.Tasks;
-using UnityEngine;
 
 public class PlayerTurn : BaseState
 {
-    private readonly TurnStateMachine _turnStateMachine;
-
     private bool _hasAnyoneActions;
     private readonly CharactersLibrary _charactersLibrary;
 
-    public PlayerTurn(TurnStateMachine turnStateMachine,
-        CharactersLibrary charactersLibrary)
+    public PlayerTurn(TurnStateMachine stateMachine, CharactersLibrary charactersLibrary) : base(stateMachine)
     {
-        _turnStateMachine = turnStateMachine;
         _charactersLibrary = charactersLibrary;
     }
 
@@ -33,19 +27,19 @@ public class PlayerTurn : BaseState
 
         if (_charactersLibrary.PlayerCharacters == 0)
         {
-            _turnStateMachine.SetState(TurnStateMachine.TurnState.Defeat);
+            _stateMachine.SetState(TurnState.Defeat);
             return;
         }
         
         if (_charactersLibrary.AiCharacters == 0)
         {
-            _turnStateMachine.SetState(TurnStateMachine.TurnState.Victory);
+            _stateMachine.SetState(TurnState.Victory);
             return;
         }
         
         if (_hasAnyoneActions == false)
         {
-            _turnStateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
+            _stateMachine.SetState(TurnState.AiTurn);
             return;
         }
     }

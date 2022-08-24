@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class BattleStart : BaseState
 {
-    private readonly TurnStateMachine _turnStateMachine;
     private readonly CharactersLibrary _charactersLibrary;
 
-    public BattleStart(TurnStateMachine turnStateMachine, CharactersLibrary charactersLibrary)
+    public BattleStart(TurnStateMachine turnStateMachine, CharactersLibrary charactersLibrary) : base(turnStateMachine)
     {
-        _turnStateMachine = turnStateMachine;
         _charactersLibrary = charactersLibrary;
     }
 
@@ -31,6 +29,6 @@ public class BattleStart : BaseState
     
     private void StartBattle()
     {
-        _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
+        _stateMachine.SetState(TurnState.PlayerTurn);
     }
 }

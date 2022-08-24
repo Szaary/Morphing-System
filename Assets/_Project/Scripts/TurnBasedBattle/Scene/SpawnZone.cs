@@ -11,7 +11,7 @@ public class SpawnZone : MonoBehaviour
     {
         var position = spawnLocations.First(x => x.occupied == 0);
         facade.transform.position = position.transform.position;
-        facade.zoneIndex = spawnLocations.IndexOf(position);
+        facade.SetZoneIndex(spawnLocations.IndexOf(position));
         position.occupied++;
     }
 

@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Zenject;
 
 [RequireComponent(typeof(CharacterFacade))]
 public abstract class StatisticMonitor : MonoBehaviour
@@ -9,30 +9,26 @@ public abstract class StatisticMonitor : MonoBehaviour
     
     protected CharacterFacade Facade;
     protected Statistic ChosenStat;
-    
-    protected virtual void Awake()
+
+    protected void Awake()
     {
         Facade = GetComponent<CharacterFacade>();
         Facade.StatisticSet += StatisticsSet;
     }
 
-    private void StatisticsSet(CharacterStatistics statistics)
+    private void StatisticsSet(Statistic changedStatistic)
     {
-        if (statistics.GetStatistic(statistic, out ChosenStat) == CharacterStatistics.Result.Success)
+        if (statistic == changedStatistic.baseStatistic)
         {
             ChosenStat.OnValueChanged -= OnValueChanged;
             ChosenStat.OnValueChanged += OnValueChanged;
         }
     }
 
-    protected abstract void OnValueChanged(float modifier, float current);
+    protected abstract void OnValueChanged(float modifier, float currentValue);
 
-    protected void OnValidate()
-    {
-        if(statistic==null) Debug.LogError("You need to set statistic monitor want to watch.");
-    }
 
-    protected virtual void OnDestroy()
+    protected void OnDestroy()
     {
         Facade.StatisticSet -= StatisticsSet;
         if(ChosenStat!=null) ChosenStat.OnValueChanged -= OnValueChanged;

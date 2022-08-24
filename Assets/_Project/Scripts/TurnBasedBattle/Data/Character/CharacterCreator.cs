@@ -38,11 +38,6 @@ public class CharacterCreator : MonoBehaviour
             "Assets/_Project/Data/Characters/" + characterName + "/CDA_" + characterName + ".asset");
         character.data = data;
         character.data.characterName = characterName;
-        
-        var characterStatistics = ScriptableObject.CreateInstance<CharacterStatistics>();
-        AssetDatabase.CreateAsset(characterStatistics,
-            "Assets/_Project/Data/Characters/" + characterName + "/CS_" + characterName + ".asset");
-        character.SetBaseStats(characterStatistics);
 
         var vfx = ScriptableObject.CreateInstance<CharacterVFX>();
         AssetDatabase.CreateAsset(vfx,
@@ -63,7 +58,6 @@ public class CharacterCreator : MonoBehaviour
             AssetDatabase.CreateAsset(stat,
                 "Assets/_Project/Data/Characters/" + characterName + "/Stats/STA_" + baseStat.statName + ".asset");
             stat.baseStatistic = baseStat;
-            characterStatistics.statistics.Add(stat);
         }
 
 
@@ -77,7 +71,6 @@ public class CharacterCreator : MonoBehaviour
 
         EditorUtility.SetDirty(character);
         EditorUtility.SetDirty(data);
-        EditorUtility.SetDirty(characterStatistics);
         EditorUtility.SetDirty(vfx);
         EditorUtility.SetDirty(sfx);
     }

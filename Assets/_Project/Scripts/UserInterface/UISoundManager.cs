@@ -8,6 +8,6 @@ public class UISoundManager : MonoBehaviour
     [Inject]
     public void Construct(SoundManager soundManager, SoundManager.Settings settings)
     {
-        Debug.Log("Got sound manager");
+        
     }
 }

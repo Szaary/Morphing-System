@@ -16,14 +16,23 @@ MonoBehaviour:
   vfx: {fileID: 11400000, guid: 658b32f0034441341a6eaa1cc916ba98, type: 2}
   sfx: {fileID: 11400000, guid: 99b64adf42798ab42b42fa95e7d5d500, type: 2}
   alignment: {fileID: 11400000, guid: 1db1abac2da571c41885d66506e0c1c8, type: 2}
+  zoneIndex: 0
   strategy: {fileID: 11400000, guid: 6e47fa2090a40b44d91c3fb9a92b5a27, type: 2}
-  baseStats: {fileID: 11400000, guid: 6e37219e5b7ed124e94fc55c7f4f9994, type: 2}
+  statisticsTemplate:
+  - {fileID: 11400000, guid: 0b2139d13b8aa9b4586ff75a60f9e5d2, type: 2}
+  - {fileID: 11400000, guid: 8ecc125f24ec04447a8e070d8f5c7dfe, type: 2}
+  - {fileID: 11400000, guid: fbbee6f2c212cd54197571debe3d0310, type: 2}
+  statistics: []
   active:
     abilities:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
     abilitiesInUnitLibrary:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+  passiveAbilitiesTemplate: []
+  effectsTemplate: []
   passiveAbilities: []
   effects: []
+  backpackTemplate: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
+  equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
   backpack: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
   equipment: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}

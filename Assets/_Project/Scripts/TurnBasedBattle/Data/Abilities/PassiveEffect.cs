@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -7,14 +7,14 @@ using UnityEngine;
 /// Passive effect effect last X number of turns.
 /// </summary>
 [CreateAssetMenu(fileName = "PE_", menuName = "Abilities/Passive Effect")]
-public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleStateChanged
+public class PassiveEffect : Passive, ISubscribeToBattleStateChanged
 {
+    public List<BaseState> SubscribedTo { get; set; }
+
     [SerializeField] private int durationInTurns;
     [SerializeField] private bool applyOnEnterTurnState;
     [SerializeField] private bool applyOnExitTurnState;
     [SerializeField] private bool workOnOppositeTurn;
-    
-    public BaseState BaseState { get; private set; }
 
     public int DurationInTurns
     {
@@ -22,30 +22,24 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
         set => durationInTurns = value;
     }
 
-    public Character Target { get; set; }
-    public IOperateStats User { get; set; }
+    private CharacterFacade Target { get; set; }
+    private CharacterFacade User { get; set; }
 
-    public void SetState(Character character)
+    public Result ApplyStatus(CharacterFacade target, CharacterFacade user)
     {
-        if (workOnOppositeTurn)
-        {
-            BaseState = character.Alignment.Id == 0 ? character.GetAiState() : character.GetPlayerState();
-        }
-        else
-        {
-            BaseState = character.GetState();
-        }
-        ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges();
+        Target = target;
+        User = user;
+
+        ((ISubscribeToBattleStateChanged) this).SubscribeToStateChanges(user.GetPlayTurn(workOnOppositeTurn));
+
+        Debug.Log("Applying status " + this + " to " + target);
+        return Result.Success;
     }
 
-    private void OnDisable()
-    {
-        ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStateChanges();
-    }
 
-    public async Task<BaseState.Result> OnEnter()
+    public async Task<Result> OnEnter()
     {
-        var result = BaseState.Result.Success;
+        var result = Result.Success;
         if (applyOnEnterTurnState)
         {
             result = ActivateEffect();
@@ -53,15 +47,15 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
 
         return result;
     }
-    
-    public async Task<BaseState.Result> Tick()
+
+    public async Task<Result> Tick()
     {
-        return BaseState.Result.Success;
+        return Result.Success;
     }
 
-    public async Task<BaseState.Result> OnExit()
+    public async Task<Result> OnExit()
     {
-        var result = BaseState.Result.Success;
+        var result = Result.Success;
 
         if (applyOnExitTurnState)
         {
@@ -76,23 +70,52 @@ public class PassiveEffect : Passive, IApplyStatusOverTurns, ISubscribeToBattleS
         Destroy(this);
     }
 
-    private BaseState.Result ActivateEffect()
+    private Result ActivateEffect()
     {
         if (Target == null || User == null)
         {
             Debug.Log("Character or caller is null");
-            return BaseState.Result.ToDestroy;
+            return Result.ToDestroy;
         }
 
-        Debug.Log("Activating effect by " + User.User.name + " on " + Target.data.characterName);
-        var result = ((IApplyStatusOverTurns) this).TickStatus();
+        Debug.Log("Activating effect by " + User.name + " on " + Target);
+        var result = TickStatus();
 
-        if (result == IApplyStatusOverTurns.Result.HasEnded)
+        if (result == Result.HasEnded)
         {
-            ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStateChanges();
-            return BaseState.Result.ToDestroy;
+            ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStates();
+            return Result.ToDestroy;
         }
 
-        return BaseState.Result.Success;
+        return Result.Success;
+    }
+
+    private Result TickStatus()
+    {
+        Debug.Log("Status effect Tick" + GetType().Name);
+        foreach (var modifier in Modifiers)
+        {
+            Target.GetStatistic(modifier.statisticToModify, out var statistic);
+            modifier.algorithm.Modify(statistic, modifier, User);
+        }
+
+        DurationInTurns--;
+        if (DurationInTurns <= 0)
+        {
+            OnRemoveStatus(Target, User);
+            return Result.HasEnded;
+        }
+
+        return Result.Success;
+    }
+
+    private Result OnRemoveStatus(CharacterFacade target, CharacterFacade user)
+    {
+        return target.UnModify(user, Modifiers);
+    }
+
+    private void OnDisable()
+    {
+        ((ISubscribeToBattleStateChanged) this).UnsubscribeFromStates();
     }
 }

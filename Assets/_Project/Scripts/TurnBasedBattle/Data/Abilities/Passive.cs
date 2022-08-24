@@ -13,7 +13,6 @@ public abstract class Passive : ScriptableObject, IApplyPersistentStatus
     [Header("Statistics")]
     [SerializeField] protected List<Modifier> modifiers;
 
-
     public List<Modifier> Modifiers
     {
         get => modifiers;

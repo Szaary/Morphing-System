@@ -5,17 +5,9 @@ using UnityEngine;
 
 public class AiTurn : BaseState
 {
-    private readonly TurnStateMachine _turnStateMachine;
-    private readonly CharacterFactory _characterFactory;
-
-
-    public AiTurn(TurnStateMachine turnStateMachine,
-        CharacterFactory characterFactory)
+    public AiTurn(TurnStateMachine turnStateMachine) : base(turnStateMachine)
     {
-        _turnStateMachine = turnStateMachine;
-        _characterFactory = characterFactory;
     }
-
 
     public override async Task Tick()
     {
@@ -34,7 +26,7 @@ public class AiTurn : BaseState
 
         if (hasAnyoneActions == false)
         {
-            _turnStateMachine.SetState(TurnStateMachine.TurnState.PlayerTurn);
+            _stateMachine.SetState(TurnState.PlayerTurn);
         }
     }
 

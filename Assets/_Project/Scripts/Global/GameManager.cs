@@ -9,7 +9,7 @@ public class GameManager : IInitializable
 
     public void Initialize()
     {
-        Debug.Log("GameManager.Initialize");
+        
     }
 
     public GameManager(SceneLoader sceneLoader)

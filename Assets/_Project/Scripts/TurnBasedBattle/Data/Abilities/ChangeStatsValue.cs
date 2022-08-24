@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AA_", menuName = "Abilities/Active Ability/ChangeStatsValue")]
@@ -13,10 +14,10 @@ public class ChangeStatsValue : Active, IModifyStats
         set => modifiers = value;
     }
 
-    public override int ActivateEffect(Character target, IOperateStats user)
+    public override int ActivateEffect(CharacterFacade target, CharacterFacade user)
     {
         var result = ((IModifyStats) this).OnApplyStatus(target, user);
-        if (result != IModifyStats.Result.Success)
+        if (result != Result.Success)
         {
             Debug.LogError(typeof(ChangeStatsValue) + " result: " + result);
         }

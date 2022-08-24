@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 [CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
 public class Statistic : ScriptableObject, IEquatable<Statistic>
@@ -8,38 +9,20 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     /// Modifier, Current
     /// </summary>
     public event Action<float, float> OnValueChanged;
-    public enum Result
-    {
-        Success,
-        AboveMax,
-        BelowMin
-    } 
-        
-        
+
     public BaseStatistic baseStatistic;
     public float maxValue;
     public float minValue;
 
     [SerializeField] private float currentValue;
-    
-    
+
+
     public float CurrentValue
     {
         get => currentValue;
         private set => currentValue = value;
     }
-    
-    public void Initialize(Statistic stat)
-    {
-        maxValue = stat.maxValue;
-        minValue = stat.minValue;
-        CurrentValue = stat.CurrentValue;
-        
-        baseStatistic = stat.baseStatistic;
-    }
-    
-       
-    
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -68,13 +51,15 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
 
     public Result Add(float modifier)
     {
-        if(CurrentValue + modifier > maxValue)
+        if (modifier < 0) return Result.NegativeModifier;
+
+        if (CurrentValue + modifier > maxValue)
         {
-            CurrentValue=maxValue;
+            CurrentValue = maxValue;
             OnValueChanged?.Invoke(modifier, currentValue);
             return Result.AboveMax;
         }
-        else if(CurrentValue + modifier < minValue)
+        else if (CurrentValue + modifier < minValue)
         {
             CurrentValue = minValue;
             OnValueChanged?.Invoke(modifier, currentValue);
@@ -83,6 +68,30 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
         else
         {
             CurrentValue += modifier;
+            OnValueChanged?.Invoke(modifier, currentValue);
+            return Result.Success;
+        }
+    }
+
+    public Result Subtract(float modifier)
+    {
+        if (modifier > 0) return Result.PositiveModifier;
+
+        if (CurrentValue - modifier > maxValue)
+        {
+            CurrentValue = maxValue;
+            OnValueChanged?.Invoke(modifier, currentValue);
+            return Result.AboveMax;
+        }
+        else if (CurrentValue - modifier < minValue)
+        {
+            CurrentValue = minValue;
+            OnValueChanged?.Invoke(modifier, currentValue);
+            return Result.BelowMin;
+        }
+        else
+        {
+            CurrentValue -= modifier;
             OnValueChanged?.Invoke(modifier, currentValue);
             return Result.Success;
         }
@@ -118,6 +127,4 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     {
         return !Equals(left, right);
     }
-
-
 }

@@ -1,25 +1,10 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
-
 /// <summary>
 /// Interface you need to implement by persistent effects to apply status effects on target.
 /// </summary>
 public interface IApplyPersistentStatus : IModifyStats
 {
-    Result OnRemoveStatus(Character target, IOperateStats user)
+    Result OnRemoveStatus(CharacterFacade target, CharacterFacade user)
     {
-        foreach (var modifier in Modifiers)
-        {
-            foreach (var statistic in target.UserStatistics.statistics)
-            {
-                if (modifier.statisticToModify == statistic.baseStatistic)
-                {
-                    modifier.algorithm.UnModify(statistic, modifier, user);
-                }
-            }
-        }
-
-        return Result.Success;
+        return target.UnModify(user, Modifiers);;
     }
 }

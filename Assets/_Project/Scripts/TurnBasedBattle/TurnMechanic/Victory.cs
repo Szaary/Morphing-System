@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 
 public class Victory : BaseState
 {
+    public Victory(TurnStateMachine stateMachine) : base(stateMachine)
+    {
+    }
+    
     public override async Task Tick()
     {
         await TickBaseImplementation();
@@ -17,4 +21,6 @@ public class Victory : BaseState
     {
         await OnExitBaseImplementation();
     }
+
+
 }

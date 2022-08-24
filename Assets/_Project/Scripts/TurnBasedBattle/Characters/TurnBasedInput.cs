@@ -35,7 +35,7 @@ public class TurnBasedInput : MonoBehaviour
     public void OnManageTurn()
     {
         Debug.Log("OnManageTurn");
-        _stateMachine.SetState(TurnStateMachine.TurnState.AiTurn);
+        _stateMachine.SetState(TurnState.AiTurn);
     }
 
     public void OnTop()
@@ -76,7 +76,7 @@ public class TurnBasedInput : MonoBehaviour
                 possibleTargets.Remove(target);
             }
         }
-        if (possibleTargets.Count(x => x.zoneIndex == index) == 0)
+        if (possibleTargets.Count(x => x.GetZoneIndex() == index) == 0)
         {
             _lastAction = -1;
             return;
@@ -114,7 +114,7 @@ public class TurnBasedInput : MonoBehaviour
  
     private bool StopPlayerAction()
     {
-        if (_stateMachine.GetCurrentState() != TurnStateMachine.TurnState.PlayerTurn)
+        if (_stateMachine.GetCurrentState() != TurnState.PlayerTurn)
         {
             ResetInputs();
             return true;

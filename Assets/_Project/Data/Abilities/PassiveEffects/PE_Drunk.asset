@@ -15,9 +15,9 @@ MonoBehaviour:
   name: Drunk
   icon: {fileID: 0}
   modifiers:
-  - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+  - statisticToModify: {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
     algorithm: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}
-    baseAmount: -2
+    baseAmount: -1
     modifier: {fileID: 0}
     ratio: 0
   durationInTurns: 5

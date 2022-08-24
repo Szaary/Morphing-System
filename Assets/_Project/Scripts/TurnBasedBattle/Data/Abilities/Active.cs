@@ -13,7 +13,7 @@ public abstract class Active : ScriptableObject
 
     public int IndexOnBar { get; set; }
     
-    public abstract int ActivateEffect(Character target, IOperateStats user);
+    public abstract int ActivateEffect(CharacterFacade target, CharacterFacade user);
     
     public bool IsAttack()
     {
