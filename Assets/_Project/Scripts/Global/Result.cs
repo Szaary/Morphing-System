@@ -10,5 +10,8 @@
     AboveMax,
     BelowMin,
     NegativeModifier,
-    PositiveModifier
+    PositiveModifier,
+    NotEnoughEnergy,
+    NoTarget,
+    NoSkill
 }

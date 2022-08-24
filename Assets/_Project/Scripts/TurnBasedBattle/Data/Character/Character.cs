@@ -25,11 +25,11 @@ public class Character : ScriptableObject
 
     [Header("Abilities")] public ActiveManager active;
 
-    [SerializeField] private List<PassiveAbility> passiveAbilitiesTemplate;
-    [HideInInspector] public List<PassiveAbility> passiveAbilities;
+    public List<Passive> templatePassives;
+    public List<Effect> templateEffects;
     
-    [SerializeField] private List<PassiveEffect> effectsTemplate;
-    [HideInInspector] public List<PassiveEffect> effects;
+    private readonly List<Passive> _passives = new();
+    private readonly List<Effect> _effects = new();
 
     [Header("Items")] [SerializeField] private ItemsHolder backpackTemplate;
     [SerializeField] private ItemsEquipment equipmentTemplate;
@@ -48,24 +48,13 @@ public class Character : ScriptableObject
         Debug.LogWarning("Check if Items are instantiated");
         backpack = backpackTemplate.Clone();
         equipment = equipmentTemplate.Clone();
-
-        foreach (var stat in passiveAbilitiesTemplate)
-        {
-            var clone = stat.Clone();
-            passiveAbilities.Add(clone);
-        }
-
-        foreach (var stat in effectsTemplate)
-        {
-            var clone = stat.Clone();
-            effects.Add(clone);
-        }
     }
 
     public void RemoveInstances()
     {
-        foreach (var stat in statistics)
+        for (var index = statistics.Count - 1; index >= 0; index--)
         {
+            var stat = statistics[index];
             statistics.Remove(stat);
             Destroy(stat);
         }
@@ -73,22 +62,29 @@ public class Character : ScriptableObject
         backpack = backpackTemplate.Clone();
         equipment = equipmentTemplate.Clone();
 
-        for (var index = passiveAbilities.Count - 1; index >= 0; index--)
+        for (var index = _passives.Count - 1; index >= 0; index--)
         {
-            var stat = passiveAbilities[index];
-            passiveAbilities.Remove(stat);
+            var stat = _passives[index];
+            _passives.Remove(stat);
             Destroy(stat);
         }
 
-        for (var index = effects.Count - 1; index >= 0; index--)
+        for (var index = _effects.Count - 1; index >= 0; index--)
         {
-            var stat = effects[index];
-            effects.Remove(stat);
+            var stat = _effects[index];
+            _effects.Remove(stat);
             Destroy(stat);
         }
     }
 
-
+    public void AddPassive(Passive passive) => _passives.Add(passive);
+    public void AddEffect(Effect status) => _effects.Add(status);
+    public void RemovePassive(Passive passive) => _passives.Remove(passive);
+    public void RemoveEffect(Effect status) => _effects.Remove(status);
+    public List<Effect> Effect => _effects;
+    public List<Passive> Passives => _passives;
+    
+    
 #if UNITY_EDITOR
     private void OnValidate()
     {

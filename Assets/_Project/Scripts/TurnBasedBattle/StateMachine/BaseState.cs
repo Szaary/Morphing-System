@@ -7,16 +7,16 @@ public abstract class BaseState
     protected readonly TurnStateMachine _stateMachine;
     private bool isSilent = true;
 
-    public List<ISubscribeToBattleStateChanged> TickSubscribers { get; }
-    public List<ISubscribeToBattleStateChanged> OnEnterSubscribers { get; }
-    public List<ISubscribeToBattleStateChanged> OnExitSubscribers { get; }
+    public List<TurnsSubscriber> TickSubscribers { get; }
+    public List<TurnsSubscriber> OnEnterSubscribers { get; }
+    public List<TurnsSubscriber> OnExitSubscribers { get; }
 
     protected BaseState(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
-        TickSubscribers = new List<ISubscribeToBattleStateChanged>();
-        OnEnterSubscribers = new List<ISubscribeToBattleStateChanged>();
-        OnExitSubscribers = new List<ISubscribeToBattleStateChanged>();
+        TickSubscribers = new List<TurnsSubscriber>();
+        OnEnterSubscribers = new List<TurnsSubscriber>();
+        OnExitSubscribers = new List<TurnsSubscriber>();
     }
 
     public abstract Task Tick();
@@ -55,7 +55,7 @@ public abstract class BaseState
         }
     }
 
-    protected void HandleSubscriberResult(Result result, ISubscribeToBattleStateChanged subscriber)
+    protected void HandleSubscriberResult(Result result, TurnsSubscriber subscriber)
     {
         if (result == Result.ToDestroy)
         {
@@ -64,7 +64,6 @@ public abstract class BaseState
             OnExitSubscribers.Remove(subscriber);
             if (subscriber == null) return;
             if (!isSilent) Debug.Log("Destroying effect: " + subscriber);
-            subscriber.Destroy();
         }
     }
 }

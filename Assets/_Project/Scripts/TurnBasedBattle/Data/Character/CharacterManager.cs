@@ -1,20 +1,89 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class CharacterManager : MonoBehaviour
+public class CharacterManager : TurnsSubscriber
 {
     [SerializeField] private CharacterFacade facade;
-    [HideInInspector] public Character character;
+
+    [Header("Do not set anything here, will be changed ad app start.")]
+    public Character character;
 
     public void SetCharacter(Character characterTemplate)
     {
         character = characterTemplate.Clone();
         character.CreateInstances();
 
-        ApplyPassiveAbilities();
+        ApplyStartupPassives();
         ApplyStartupEffects();
         ApplyStartupItems();
+
+        SubscribeToStateChanges(facade.Turns.PlayerTurn);
+        SubscribeToStateChanges(facade.Turns.AiTurn);
+    }
+
+
+    public override async Task<Result> OnEnter()
+    {
+        var result = Result.Success;
+        for (var index = character.Effect.Count - 1; index >= 0; index--)
+        {
+            var effect = character.Effect[index];
+            if (effect.applyOnEnterTurnState)
+            {
+                result = ActivateEffect(effect, result);
+            }
+        }
+
+        return result;
+    }
+
+    public override async Task<Result> Tick()
+    {
+        return Result.Success;
+    }
+
+    public override async Task<Result> OnExit()
+    {
+        var result = Result.Success;
+
+        for (var index = character.Effect.Count - 1; index >= 0; index--)
+        {
+            var effect = character.Effect[index];
+            if (effect.applyOnExitTurnState)
+            {
+                result = ActivateEffect(effect, result);
+            }
+        }
+
+        return result;
+    }
+
+
+
+    public void ApplyEffect(Effect effect)
+    {
+        var status = effect.Clone();
+        
+        character.AddEffect(status);
+        var result = status.ApplyStatus(facade, facade);
+        if (result != Result.Success)
+        {
+            HandlePassivesAddingError(result);
+        }
+    }
+
+    public void ApplyPassive(Passive passive)
+    {
+        var status = passive.Clone();
+        
+        character.AddPassive(status);
+        var result = status.ApplyStatus(facade, facade);
+        if (result != Result.Success)
+        {
+            HandlePassivesAddingError(result);
+        }
     }
 
     public Result Modify(CharacterFacade user, List<Modifier> modifiers)
@@ -56,52 +125,61 @@ public class CharacterManager : MonoBehaviour
 
     private void OnDestroy()
     {
+        UnsubscribeFromStates();
         character.RemoveInstances();
         Destroy(character);
     }
 
-
-    private Result ApplyPassiveAbilities()
-    {
-        foreach (var passiveEffect in character.passiveAbilities)
-        {
-            var result = ((IApplyPersistentStatus) passiveEffect).OnApplyStatus(facade, facade);
-            if (result != Result.Success)
-            {
-                HandlePassivesAddingError(result);
-            }
-        }
-
-        return Result.Success;
-    }
     private Result ApplyStartupItems()
     {
         foreach (var item in character.equipment.items)
         {
-            var result = ((IApplyPersistentStatus) item).OnApplyStatus(facade, facade);
+            var result = item.ApplyStatus(facade, facade);
             if (result != Result.Success)
             {
                 HandlePassivesAddingError(result);
             }
         }
+
         return Result.Success;
     }
 
+    
+    private Result ActivateEffect(Effect effect, Result result)
+    {
+        if (facade.Turns.ShouldWork(facade, effect.workOnOppositeTurn))
+        {
+            result = effect.ActivateEffect();
+            if (result == Result.ToDestroy)
+            {
+                character.RemoveEffect(effect);
+                Destroy(effect);
+                result = Result.Success;
+            }
+        }
+        return result;
+    }
     
     private Result ApplyStartupEffects()
     {
-        foreach (var effect in character.effects)
+        foreach (var effect in character.templateEffects)
         {
-            var result = effect.ApplyStatus(facade, facade);
-            if (result != Result.Success)
-            {
-                HandlePassivesAddingError(result);
-            }
+            ApplyEffect(effect);
         }
+        return Result.Success;
+    }
 
+    
+    private Result ApplyStartupPassives()
+    {
+        foreach (var passive in character.templatePassives)
+        {
+            ApplyPassive(passive);
+        }
         return Result.Success;
     }
     
+
     private void HandlePassivesAddingError(Result result)
     {
         Debug.LogError(typeof(CharacterManager) + " apply passive result: " + result);

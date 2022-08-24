@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 
-/// <summary>
-/// To use Interface you need to call SubscribeToStateChanges() method after you get reference to state.
-/// ((ISubscribeToStateChanged)this).SubscribeToStateChanges();
-/// same thing with UnsubscribeFromStateChanges();
-/// can be used by any effects that operate on turns.
-/// list of subscriptions : public List<BaseState> SubscribedTo { get; } = new();
-/// </summary>
-public interface ISubscribeToBattleStateChanged
+
+public abstract class TurnsSubscriber : MonoBehaviour
 {
     List<BaseState> SubscribedTo { get; set; }
     
-    void SubscribeToStateChanges(BaseState state)
+    protected void SubscribeToStateChanges(BaseState state)
     {
         SubscribeToTick(state);
         SubscribeToOnEnter(state);
@@ -22,11 +17,10 @@ public interface ISubscribeToBattleStateChanged
         SubscribedTo.Add(state);
     }
 
-    Task<Result> Tick();
-    Task<Result> OnEnter();
-    Task<Result> OnExit();
+    public abstract Task<Result> Tick();
+    public abstract Task<Result> OnEnter();
+    public abstract Task<Result> OnExit();
 
-    void Destroy();
 
     public void UnsubscribeFromStates()
     {

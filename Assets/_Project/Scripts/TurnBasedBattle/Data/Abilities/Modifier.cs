@@ -30,15 +30,8 @@ public class Modifier
         if (modifierStatistic != null)
         {
             var amount = baseAmount + ratio * userStat.CurrentValue;
-
-            Debug.Log("Base amount: " + baseAmount);
-            Debug.Log("Bonus: " + ratio * userStat.CurrentValue);
-            Debug.Log("All: " + amount);
             return amount;
         }
-
-        Debug.Log("Only base amount: " + baseAmount);
-
         return baseAmount;
     }
 }

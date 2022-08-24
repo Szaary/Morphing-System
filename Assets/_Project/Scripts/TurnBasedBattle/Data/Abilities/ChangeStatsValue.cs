@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "AA_", menuName = "Abilities/Active Ability/ChangeStatsValue")]
-public class ChangeStatsValue : Active, IModifyStats
+public class ChangeStatsValue : Active
 {
     [Header("Statistics")] [SerializeField]
     private List<Modifier> modifiers;
@@ -16,11 +16,16 @@ public class ChangeStatsValue : Active, IModifyStats
 
     public override int ActivateEffect(CharacterFacade target, CharacterFacade user)
     {
-        var result = ((IModifyStats) this).OnApplyStatus(target, user);
+        var result = OnApplyStatus(target, user);
         if (result != Result.Success)
         {
             Debug.LogError(typeof(ChangeStatsValue) + " result: " + result);
         }
         return actions;
+    }
+    
+    Result OnApplyStatus(CharacterFacade target, CharacterFacade user)
+    {
+        return target.Modify(user, Modifiers);
     }
 }

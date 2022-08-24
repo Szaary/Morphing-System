@@ -13,7 +13,7 @@ public class CharacterFacade : MonoBehaviour
     public void InvokeDeSpawnedCharacter() => DeSpawned?.Invoke(this);
 
 
-    public TurnReferences _turns;
+    public TurnReferences Turns;
     
     public TurnBasedInput playerInput;
     public CharactersLibrary library;
@@ -23,7 +23,7 @@ public class CharacterFacade : MonoBehaviour
         TurnBasedInput input,
         CharactersLibrary library)
     {
-        _turns = turns;
+        Turns = turns;
         playerInput = input;
         this.library = library;
         
@@ -33,7 +33,7 @@ public class CharacterFacade : MonoBehaviour
     }
 
 
-    public BaseState GetPlayTurn(bool workOnOppositeTurn) => _turns.GetPlayTurn(this, workOnOppositeTurn);
+    public BaseState GetPlayTurn(bool workOnOppositeTurn) => Turns.GetPlayTurn(this, workOnOppositeTurn);
     
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat) =>
         manager.GetStatistic(baseStatistic, out outStat);

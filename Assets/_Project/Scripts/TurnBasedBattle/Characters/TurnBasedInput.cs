@@ -102,7 +102,7 @@ public class TurnBasedInput : MonoBehaviour
     private void SelectSkill(int index)
     {
         if (playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive, out chosenTargets) ==
-            PlayerStrategy.Result.Success)
+            Result.Success)
         {
             _lastAction = index;
             Debug.Log("Selected skill: " + _chosenActive);

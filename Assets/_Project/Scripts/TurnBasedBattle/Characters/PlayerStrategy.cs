@@ -6,14 +6,6 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/PlayerStrategy")]
 public class PlayerStrategy : Strategy
 {
-    public enum Result
-    {
-        Success,
-        NotEnoughEnergy,
-        NoTarget,
-        NoSkill
-    }
-    
     public override Task OnEnter(CurrentFightState currentFightState)
     {
         currentFightState.Reset();
