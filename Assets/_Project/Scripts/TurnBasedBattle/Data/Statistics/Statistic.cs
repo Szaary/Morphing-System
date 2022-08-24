@@ -4,7 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "STA_", menuName = "Statistics/Statistic")]
 public class Statistic : ScriptableObject, IEquatable<Statistic>
 {
-    public event Action<float> OnValueChanged;
+    /// <summary>
+    /// Modifier, Current
+    /// </summary>
+    public event Action<float, float> OnValueChanged;
     public enum Result
     {
         Success,
@@ -23,11 +26,7 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     public float CurrentValue
     {
         get => currentValue;
-        private set
-        {
-            currentValue = value;
-            OnValueChanged?.Invoke(currentValue);
-        }
+        private set => currentValue = value;
     }
     
     public void Initialize(Statistic stat)
@@ -72,16 +71,19 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
         if(CurrentValue + modifier > maxValue)
         {
             CurrentValue=maxValue;
+            OnValueChanged?.Invoke(modifier, currentValue);
             return Result.AboveMax;
         }
         else if(CurrentValue + modifier < minValue)
         {
             CurrentValue = minValue;
+            OnValueChanged?.Invoke(modifier, currentValue);
             return Result.BelowMin;
         }
         else
         {
             CurrentValue += modifier;
+            OnValueChanged?.Invoke(modifier, currentValue);
             return Result.Success;
         }
     }

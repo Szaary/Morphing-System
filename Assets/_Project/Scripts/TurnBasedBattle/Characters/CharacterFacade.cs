@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class CharacterFacade : MonoBehaviour, ITargetable
+public class CharacterFacade : MonoBehaviour
 {
     public event Action<CharacterStatistics> StatisticSet;
     public event Action<CharacterFacade> DeSpawned;
