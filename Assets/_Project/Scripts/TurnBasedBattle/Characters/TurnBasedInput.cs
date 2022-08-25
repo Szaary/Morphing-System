@@ -11,14 +11,14 @@ public class TurnBasedInput : MonoBehaviour
 
     public Action<Active, List<CharacterFacade>, int> ActivateAction;
     private Active _chosenActive;
-    
-    
-    private int _lastAction=-1;
+
+
+    private int _lastAction = -1;
     public List<CharacterFacade> possibleTargets = new();
     public List<Active> possibleActives = new();
     public List<CharacterFacade> chosenTargets = new();
-    
-    
+
+
     [Inject]
     public void Construct(TurnStateMachine stateMachine)
     {
@@ -68,12 +68,13 @@ public class TurnBasedInput : MonoBehaviour
 
         if (_lastAction >= 0)
         {
+            if (StopWrongTarget(index)) return;
+            
             ActivateAction(_chosenActive, chosenTargets, index);
             return;
         }
-        
+
         if (StopLockedSkill(index)) return;
-        if (StopWrongTarget(index)) return;
         SelectSkill(index);
     }
 
@@ -100,7 +101,8 @@ public class TurnBasedInput : MonoBehaviour
 
     private void SelectSkill(int index)
     {
-        if (playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive, out chosenTargets) ==
+        if (playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive,
+                out chosenTargets) ==
             Result.Success)
         {
             _lastAction = index;
@@ -108,7 +110,7 @@ public class TurnBasedInput : MonoBehaviour
         }
     }
 
- 
+
     private bool StopInWrongTurn(int i)
     {
         if (_stateMachine.GetCurrentState() != TurnState.PlayerTurn)
@@ -116,6 +118,7 @@ public class TurnBasedInput : MonoBehaviour
             ResetInputs();
             return true;
         }
+
         return false;
     }
 

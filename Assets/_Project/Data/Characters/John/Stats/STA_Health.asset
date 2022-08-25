@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: STA_Health
   m_EditorClassIdentifier: 
   baseStatistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
-  maxValue: 100
+  maxValue: 150
   minValue: 0
-  currentValue: 100
+  currentValue: 150
