@@ -6,6 +6,12 @@ using Zenject;
 
 public class TurnBasedInput : MonoBehaviour
 {
+    public event Action<Result> WrongWSADPressed;
+    public event Action<List<Active>, List<CharacterFacade>, CharacterFacade, int> InputsPopulated;
+    public event Action<Active, List<CharacterFacade>> ActionSelected;
+    public event Action ActionActivated;
+    
+    
     private TurnStateMachine _stateMachine;
     public PlayerStrategy playerStrategy;
 
@@ -38,25 +44,25 @@ public class TurnBasedInput : MonoBehaviour
 
     public void OnTop()
     {
-        if (StopInWrongTurn(0)) return;
+        if (StopInWrongTurn(0)!= Result.Success) return;
         UseSkill(0);
     }
 
     public void OnDown()
     {
-        if (StopInWrongTurn(1)) return;
+        if (StopInWrongTurn(1)!= Result.Success) return;
         UseSkill(1);
     }
 
     public void OnLeft()
     {
-        if (StopInWrongTurn(2)) return;
+        if (StopInWrongTurn(2)!= Result.Success) return;
         UseSkill(2);
     }
 
     public void OnRight()
     {
-        if (StopInWrongTurn(3)) return;
+        if (StopInWrongTurn(3)!= Result.Success) return;
         UseSkill(3);
     }
 
@@ -68,59 +74,43 @@ public class TurnBasedInput : MonoBehaviour
 
         if (_lastAction >= 0)
         {
-            if (StopWrongTarget(index)) return;
+            if (StopWrongTarget(index)!= Result.Success) return;
             
             ActivateAction(_chosenActive, chosenTargets, index);
+            ActionActivated?.Invoke();
             return;
         }
 
-        if (StopLockedSkill(index)) return;
+        if (StopLockedSkill(index)!= Result.Success) return;
         SelectSkill(index);
     }
-
-    private bool StopWrongTarget(int index)
-    {
-        if (possibleTargets.Count(x => x.GetZoneIndex() == index) == 0)
-        {
-            Debug.Log("Target with index : " + index + " do not exist");
-            return true;
-        }
-        return false;
-    }
-
-    private bool StopLockedSkill(int index)
-    {
-        if (possibleActives.Count(x => x.IndexOnBar == index) == 0)
-        {
-            Debug.Log("Skill with index : " + index + " is locked");
-            return true;
-        }
-
-        return false;
-    }
+  
 
     private void SelectSkill(int index)
     {
-        if (playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive,
-                out chosenTargets) ==
-            Result.Success)
+        var result = playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive,
+            out chosenTargets);
+        if (result == Result.Success)
         {
             _lastAction = index;
             Debug.Log("Selected skill: " + _chosenActive);
+            ActionSelected?.Invoke(_chosenActive, chosenTargets);
         }
-    }
-
-
-    private bool StopInWrongTurn(int i)
-    {
-        if (_stateMachine.GetCurrentState() != TurnState.PlayerTurn)
+        else
         {
-            ResetInputs();
-            return true;
+            result = Result.NoSuitableSkillsToUse;
+            WrongWSADPressed?.Invoke(result);
         }
-
-        return false;
     }
+
+    public void PopulateCurrentState(List<Active> active, List<CharacterFacade> targets, CharacterFacade character, int points)
+    {
+        possibleActives = active;
+        possibleTargets = targets;
+        
+        InputsPopulated?.Invoke(active, targets, character, points);
+    }
+    
 
     public void ResetInputs()
     {
@@ -131,4 +121,41 @@ public class TurnBasedInput : MonoBehaviour
         possibleTargets.Clear();
         possibleActives.Clear();
     }
+
+    private Result StopInWrongTurn(int i)
+    {
+        if (_stateMachine.GetCurrentState() != TurnState.PlayerTurn)
+        {
+            ResetInputs();
+            var result = Result.AiTurn;
+            WrongWSADPressed?.Invoke(result);
+            return result;
+           
+        }
+        return Result.Success;
+    }
+    
+    private Result StopWrongTarget(int index)
+    {
+        if (possibleTargets.Count(x => x.GetZoneIndex() == index) == 0)
+        {
+            var result = Result.NoTarget;
+            WrongWSADPressed?.Invoke(result);
+            return result;
+        }
+        return Result.Success;
+    }
+
+    private Result StopLockedSkill(int index)
+    {
+        if (possibleActives.Count(x => x.IndexOnBar == index) == 0)
+        {
+            var result = Result.NoSkillAvailable;
+            WrongWSADPressed?.Invoke(result);
+            return result;
+        }
+        return Result.Success;
+    }
+
+
 }

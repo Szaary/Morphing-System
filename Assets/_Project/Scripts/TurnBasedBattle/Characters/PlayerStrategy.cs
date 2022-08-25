@@ -16,8 +16,7 @@ public class PlayerStrategy : Strategy
             Debug.Log("Sending Possible Actions data to inputs.");
             Debug.Log("Possible Actions count: "+ active.Count);
             Debug.Log("Possible Targets count: "+ targets.Count);
-            currentFightState.Inputs.possibleActives = active;
-            currentFightState.Inputs.possibleTargets = targets;
+            currentFightState.Inputs.PopulateCurrentState(active, targets, currentFightState.Character, currentFightState.Points);
         }
         else
         {

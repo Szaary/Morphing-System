@@ -13,8 +13,9 @@
     PositiveModifier,
     NotEnoughEnergy,
     NoTarget,
-    NoSkill,
+    NoSkillAvailable,
     EmptySkillList,
     NoSuitableSkillsToUse,
-    SkillsListIsEmpty
+    SkillsListIsEmpty,
+    AiTurn
 }
