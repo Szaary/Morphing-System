@@ -27,18 +27,19 @@ public class BindRepresentation
     
     public void ShowButton(Active active)
     {
-        button.gameObject.SetActive(true);
+        button.interactable= true;
         buttonText.text = active.name;
     }
     public void ShowButton(CharacterFacade possibleTarget)
     {
-        button.gameObject.SetActive(true);
+        button.interactable= true;
         buttonText.text = possibleTarget.name;
     }
 
     public void HideButton()
     {
-        button.gameObject.SetActive(false);
+        button.interactable= false;
+        buttonText.text = "";
     }
 
 

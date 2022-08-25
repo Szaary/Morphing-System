@@ -11,6 +11,7 @@ public class BaseAiStrategy : Strategy
         TacticsLibrary.RandomAttack(currentFightState);
     }
 
+
     public override Task OnExit(CurrentFightState currentFightState)
     {
         return Task.CompletedTask;

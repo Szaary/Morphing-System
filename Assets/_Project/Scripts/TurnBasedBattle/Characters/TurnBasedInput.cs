@@ -76,8 +76,8 @@ public class TurnBasedInput : MonoBehaviour
         {
             if (StopWrongTarget(index)!= Result.Success) return;
             
-            ActivateAction(_chosenActive, chosenTargets, index);
             ActionActivated?.Invoke();
+            ActivateAction(_chosenActive, chosenTargets, index);
             return;
         }
 

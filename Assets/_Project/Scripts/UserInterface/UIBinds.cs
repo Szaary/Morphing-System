@@ -53,6 +53,11 @@ public class UIBinds : MonoBehaviour
         for (var index = 0; index < binds.Count; index++)
         {
             var bind = binds[index];
+            if (possibleTargets.Count <= index)
+            {
+                bind.HideButton();
+                continue;
+            }
             if (possibleTargets.Count(x => x.GetZoneIndex() == index) > 0)
             {
                 bind.ShowButton(possibleTargets[index]);
@@ -71,6 +76,11 @@ public class UIBinds : MonoBehaviour
         for (var index = 0; index < binds.Count; index++)
         {
             var bind = binds[index];
+            if (actives.Count <= index)
+            {
+                bind.HideButton();
+                continue;
+            }
             if (actives.Count(x => x.IndexOnBar == index) > 0)
             {
                 bind.ShowButton(actives[index]);
