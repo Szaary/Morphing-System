@@ -8,6 +8,8 @@ public class CharacterFacade : MonoBehaviour
     public TurnController turnController;
     public CharacterManager manager;
     public TurnReferences Turns;
+    public Transform cameraFpsFollowPoint;
+    public Transform cameraFppFollowPoint;
     
     [HideInInspector] public TurnBasedInput playerInput;
     public CharactersLibrary Library;

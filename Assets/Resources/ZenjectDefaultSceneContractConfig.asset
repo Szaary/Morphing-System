@@ -17,3 +17,5 @@ MonoBehaviour:
     Scene: {fileID: 102900000, guid: 8c9cfa26abfee488c85f1582747f6a02, type: 3}
   - ContractName: StandardBattle
     Scene: {fileID: 102900000, guid: b5f9d08f40541b84e9926ab7c500352a, type: 3}
+  - ContractName: Cameras
+    Scene: {fileID: 102900000, guid: d0a1451e0b636b54fb254acd5549b3ae, type: 3}

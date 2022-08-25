@@ -17,6 +17,7 @@ public class SceneLoader : IInitializable
     {
         if (SceneManager.sceneCount == 1)
         {
+            LoadCameras();
             LoadMainMenu();
         }
     }
@@ -24,13 +25,15 @@ public class SceneLoader : IInitializable
     public void LoadBattleScenes()
     {
         UnloadMainMenu();
-
+        
         SceneManager.LoadScene(_settings.battle.sceneName, LoadSceneMode.Additive);
         SceneManager.LoadScene(_settings.hud.sceneName, LoadSceneMode.Additive);
     }
 
     private void LoadMainMenu()
     {
+        SceneManager.LoadSceneAsync(_settings.terrain.sceneName, LoadSceneMode.Additive);
+        SceneManager.LoadScene(_settings.cameras.sceneName, LoadSceneMode.Additive);
         SceneManager.LoadSceneAsync(_settings.mainMenu.sceneName, LoadSceneMode.Additive);
     }
 
@@ -38,7 +41,7 @@ public class SceneLoader : IInitializable
     {
         SceneManager.UnloadSceneAsync(_settings.mainMenu.sceneName);
     }
-
+    
     public void LoadLevelWithIndex(int index)
     {
         if (SceneManager.GetActiveScene().name == _settings.Levels[index].sceneName)
@@ -57,6 +60,14 @@ public class SceneLoader : IInitializable
         }
     }
 
+    public void LoadCameras()
+    {
+        if (!SceneManager.GetSceneByName(_settings.cameras.sceneName).isSubScene)
+        {
+            SceneManager.LoadScene(_settings.cameras.sceneName, LoadSceneMode.Additive);
+        }
+    }
+
     public void SetActiveScene(Scene scene)
     {
         SceneManager.SetActiveScene(scene);
@@ -70,7 +81,9 @@ public class SceneLoader : IInitializable
         public GameScene mainMenu;
         public GameScene battle;
         public GameScene hud;
-
+        public GameScene cameras;
+        public GameScene terrain;
         public int currentLevelIndex = 0;
+        
     }
 }

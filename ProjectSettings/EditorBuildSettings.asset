@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/TurnBased/SC_TurnBasedBattle.unity
     guid: b5f9d08f40541b84e9926ab7c500352a
+  - enabled: 1
+    path: Assets/_Project/Scenes/SC_Cameras.unity
+    guid: d0a1451e0b636b54fb254acd5549b3ae
+  - enabled: 1
+    path: Assets/_Project/Scenes/SC_Terrain.unity
+    guid: 521030fb638080549a6d1a10c079bf3a
   m_configObjects: {}

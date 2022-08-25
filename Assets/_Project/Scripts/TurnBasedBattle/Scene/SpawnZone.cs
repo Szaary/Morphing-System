@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class SpawnZone : MonoBehaviour
 {
+    [SerializeField] private Mesh basicPlayerModel;
     public List<SpawnLocation> spawnLocations= new List<SpawnLocation>();
 
+    
     public void PlaceCharacter(CharacterFacade facade)
     {
         var position = spawnLocations.First(x => x.occupied == 0);
@@ -21,7 +23,7 @@ public class SpawnZone : MonoBehaviour
         {
             if (location.transform == null) return;
             Gizmos.color = location.occupied == 0 ? Color.cyan : Color.red;
-            Gizmos.DrawWireSphere(location.transform.position, 0.3f);
+            Gizmos.DrawMesh(basicPlayerModel, location.transform.position);
         }
     }
 

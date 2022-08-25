@@ -23,4 +23,6 @@ MonoBehaviour:
       mainMenu: {fileID: 11400000, guid: 2c7b4c83edb678e468bf9a8cff6e533a, type: 2}
       battle: {fileID: 11400000, guid: d494aef22db527148999cafc9e92dd5d, type: 2}
       hud: {fileID: 11400000, guid: 951b46a226587bc4983183f9c0a2fabd, type: 2}
+      cameras: {fileID: 11400000, guid: 9d5a0ca13e084d54abdfe88b0a379b0d, type: 2}
+      terrain: {fileID: 11400000, guid: 210e9e0ec1303aa4e8a4bf8e66562888, type: 2}
       currentLevelIndex: 0
