@@ -592,7 +592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 4
   SprintSpeed: 6
-  RotationSpeed: 4
+  RotationSpeedX: 15
+  RotationSpeedY: 5
   SpeedChangeRate: 10
   JumpHeight: 1.2
   Gravity: -15
