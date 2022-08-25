@@ -41,3 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: UserInterface
+    uniqueID: 1194202021
+    locked: 0

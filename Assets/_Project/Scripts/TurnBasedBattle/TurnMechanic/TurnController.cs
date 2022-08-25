@@ -82,7 +82,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         }
         else
         {
-            var target = targets.First(x => x.GetZoneIndex() == chosenTarget);
+            var target = targets.First(x => x.Position == chosenTarget);
             Debug.Log("Activating effect: " + active + "on " + target);
             points = active.ActivateEffect(target, _facade);
         }

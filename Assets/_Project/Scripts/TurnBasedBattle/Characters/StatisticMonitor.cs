@@ -1,24 +1,23 @@
 using UnityEngine;
 
-[RequireComponent(typeof(CharacterFacade))]
 public abstract class StatisticMonitor : MonoBehaviour
 {
     [SerializeField] protected BaseStatistic statistic;
+    [SerializeField] protected CharacterFacade Facade;
     [SerializeField] protected bool isSilent = false;
 
     protected Statistic ChosenStat;
-    protected CharacterFacade Facade;
     
-    public void Initialize(CharacterFacade characterFacade)
+    
+    public virtual void Start()
     {
-        Facade = characterFacade;
-        characterFacade.GetStatistic(statistic, out ChosenStat);
+        Facade.GetStatistic(statistic, out ChosenStat);
         
         ChosenStat.OnValueChanged -= OnValueChanged;
         ChosenStat.OnValueChanged += OnValueChanged;
     }
     
-    protected abstract void OnValueChanged(float modifier, float currentValue, Result result);
+    protected abstract void OnValueChanged(float modifier, float currentValue, float maxValue, Result result);
     
     protected void OnDestroy()
     {

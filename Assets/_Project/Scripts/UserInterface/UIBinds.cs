@@ -58,7 +58,7 @@ public class UIBinds : MonoBehaviour
                 bind.HideButton();
                 continue;
             }
-            if (possibleTargets.Count(x => x.GetZoneIndex() == index) > 0)
+            if (possibleTargets.Count(x => x.Position == index) > 0)
             {
                 bind.ShowButton(possibleTargets[index]);
             }

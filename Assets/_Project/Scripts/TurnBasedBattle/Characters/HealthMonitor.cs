@@ -11,7 +11,7 @@ public class HealthMonitor : StatisticMonitor
         _eventsHandler = eventsHandler;
     }
     
-    protected override void OnValueChanged(float modifier, float current, Result result)
+    protected override void OnValueChanged(float modifier, float current, float maxValue, Result result)
     {
         Debug.Log("Health changed to: "+ current+ " result: "+ result);
         _eventsHandler.HealthChanged?.Invoke(new HealthChanged()

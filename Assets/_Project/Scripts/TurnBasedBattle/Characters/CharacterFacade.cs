@@ -7,8 +7,6 @@ public class CharacterFacade : MonoBehaviour
 {
     public TurnController turnController;
     public CharacterManager manager;
-    public HealthMonitor healthMonitor;
-    
     public TurnReferences Turns;
     
     [HideInInspector] public TurnBasedInput playerInput;
@@ -25,7 +23,6 @@ public class CharacterFacade : MonoBehaviour
         
         manager.SetCharacter(characterTemplate);
         turnController.Initialize(this);
-        healthMonitor.Initialize(this);
     }
 
 
@@ -37,11 +34,11 @@ public class CharacterFacade : MonoBehaviour
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
     public Alignment Alignment => manager.character.alignment;
     public ActiveManager ActiveSkillsManager => manager.character.active;
-    public Character GetCharacter() => manager.character;
     public Strategy GetStrategy() => manager.character.strategy;
-    public int GetZoneIndex() => manager.character.zoneIndex;
-    public void SetZoneIndex(int index) => manager.character.zoneIndex = index;
+    public int Position => manager.character.position;
+    public void SetZoneIndex(int index) => manager.character.position = index;
 
+    public string Name => manager.character.data.characterName;
     public int GetActionPoints() => manager.character.maxNumberOfActions;
     
     public void DeSpawnCharacter()

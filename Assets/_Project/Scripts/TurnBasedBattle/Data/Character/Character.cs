@@ -12,7 +12,7 @@ public class Character : ScriptableObject
 
     [Header("Basic")] public Alignment alignment;
     [Header("Do not set anything here, zone will change in playmode")]
-    public int zoneIndex;
+    public int position;
     public Strategy strategy;
     
     [Range(1, MAXActionPoints)] public int maxNumberOfActions;
@@ -124,7 +124,7 @@ public class Character : ScriptableObject
             Debug.LogError("No backpack assigned to character");
         }
 
-        if (zoneIndex is < 0 or > 3)
+        if (position is < 0 or > 3)
         {
             Debug.LogError("Wrong zone");
         }
