@@ -8,7 +8,7 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     /// <summary>
     /// Modifier, Current
     /// </summary>
-    public event Action<float, float> OnValueChanged;
+    public event Action<float, float, Result> OnValueChanged;
 
     public BaseStatistic baseStatistic;
     public float maxValue;
@@ -56,19 +56,19 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
         if (CurrentValue + modifier > maxValue)
         {
             CurrentValue = maxValue;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, currentValue, Result.AboveMax);
             return Result.AboveMax;
         }
         else if (CurrentValue + modifier < minValue)
         {
             CurrentValue = minValue;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, currentValue, Result.BelowMin);
             return Result.BelowMin;
         }
         else
         {
             CurrentValue += modifier;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, currentValue, Result.Success);
             return Result.Success;
         }
     }
@@ -80,19 +80,19 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
         if (CurrentValue - modifier > maxValue)
         {
             CurrentValue = maxValue;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, CurrentValue, Result.AboveMax);
             return Result.AboveMax;
         }
         else if (CurrentValue - modifier < minValue)
         {
             CurrentValue = minValue;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, CurrentValue, Result.BelowMin);
             return Result.BelowMin;
         }
         else
         {
             CurrentValue -= modifier;
-            OnValueChanged?.Invoke(modifier, currentValue);
+            OnValueChanged?.Invoke(modifier, CurrentValue, Result.Success);
             return Result.Success;
         }
     }

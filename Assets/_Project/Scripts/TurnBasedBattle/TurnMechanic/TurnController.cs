@@ -14,15 +14,12 @@ public class TurnController : TurnsSubscriber, IDoActions
 
     public int ActionPoints { get; private set; }
     private CharacterFacade _facade;
-
-    private void Awake()
-    {
-        _changeActionPointsDelegate = ChangePointsPoints;
-        _getCurrentFightState = CreateFightState;
-    }
     
     public void Initialize(CharacterFacade character)
     {
+        _changeActionPointsDelegate = ChangePointsPoints;
+        _getCurrentFightState = CreateFightState;
+        
         _facade = character;
         if (character.Alignment.Id == 0)
             SubscribeToState(_facade.Turns.PlayerTurn);
@@ -51,21 +48,6 @@ public class TurnController : TurnsSubscriber, IDoActions
         ActionPoints = _facade.GetActionPoints();
 
         await _facade.GetStrategy().OnEnter(CreateFightState());
-
-        if (_facade.GetStrategy() is PlayerStrategy player)
-        {
-            if (player.GetPossibleActions(_getCurrentFightState, out var active, out var targets) ==
-                Result.Success)
-            {
-                _facade.playerInput.possibleActives = active;
-                _facade.playerInput.possibleTargets = targets;
-                _facade.playerInput.ResetInputs();
-            }
-            else
-            {
-                Debug.Log("Player have no possible actions");
-            }
-        }
 
         return Result.Success;
     }
@@ -115,7 +97,7 @@ public class TurnController : TurnsSubscriber, IDoActions
             Character = _facade,
             Points = ActionPoints,
             Library = _facade.Library,
-            Reset = _facade.playerInput.ResetInputs,
+            Inputs = _facade.playerInput,
             ChangeActionPoints = _changeActionPointsDelegate
         };
     }

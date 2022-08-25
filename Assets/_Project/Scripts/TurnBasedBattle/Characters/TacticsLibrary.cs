@@ -4,17 +4,10 @@ using UnityEngine;
 
 public static class TacticsLibrary
 {
-    public enum Result
-    {
-        Success,
-        EmptySkillList,
-        EmptyTargetList
-    }
-    
     public static void RandomAttack(Strategy.CurrentFightState currentFightState)
     {
-        if (currentFightState.Character.Active.GetRandomAttack(currentFightState.Points, out Active skill) ==
-            ActiveManager.Result.Success)
+        var result = currentFightState.Character.ActiveSkillsManager.GetRandomAttack(currentFightState.Points, out Active skill);
+        if (result == Result.Success)
         {
             if (skill.IsMultiTarget())
             {
@@ -29,11 +22,11 @@ public static class TacticsLibrary
                 var target = currentFightState.Library.SelectRandomEnemy(currentFightState.Character.Alignment);
                 skill.ActivateEffect(target, currentFightState.Character);
             }
-
             currentFightState.ChangeActionPoints(skill.actions);
         }
         else
         {
+            Debug.Log(result);
             currentFightState.ChangeActionPoints();
         }
     }
@@ -51,48 +44,59 @@ public static class TacticsLibrary
         return new List<CharacterFacade>();
     }
     
-    public static Result GetPossibleActions(Strategy.CurrentFightState currentFightState, out List<Active> actives,  out List<CharacterFacade> targets)
+    public static Result GetPossibleActionsToTakeByPlayer(Strategy.CurrentFightState currentFightState, out List<Active> actives,  out List<CharacterFacade> targets)
     {
-        if (currentFightState.Library.AiCharacters == 0)
-        {
-            if (currentFightState.Character.Active.GetDefensive(currentFightState.Points, out var defense) ==
-                ActiveManager.Result.Success)
-            {
-                Debug.Log("Found skills");
-                targets = currentFightState.Library.SelectAllAllies(currentFightState.Character.Alignment);
-                actives = defense;
-                return Result.Success;
-            }
-            return ReportError(out actives, out targets, Result.EmptySkillList);
-        }
+        var offensiveSkillsResult = currentFightState.Character.ActiveSkillsManager.GetAttacks(currentFightState.Points, out var offense);
+        var defensiveSkillsResult = currentFightState.Character.ActiveSkillsManager.GetDefensive(currentFightState.Points, out var defense);
+        var allSkillsResult = currentFightState.Character.ActiveSkillsManager.GetActions(currentFightState.Points, out var all);
 
-        if (currentFightState.Library.AiCharacters == 0)
-        {
-            if (currentFightState.Character.Active.GetAttacks(currentFightState.Points, out var offense) ==
-                ActiveManager.Result.Success)
-            {
-                targets = currentFightState.Library.SelectAllEnemies(currentFightState.Character.Alignment);
-                actives = offense;
-                return Result.Success;
-            }
-            return ReportError(out actives, out targets, Result.EmptySkillList);
-        }
 
-        if (currentFightState.Character.Active.GetActions(currentFightState.Points, out var all) ==
-            ActiveManager.Result.Success)
+        var offensiveSkillsArePresent = offensiveSkillsResult == Result.Success;
+        var defensiveSkillsArePresent = defensiveSkillsResult == Result.Success;
+        var allSkillsArePresent = offensiveSkillsArePresent && defensiveSkillsArePresent;
+        var anySkillsArePresent = allSkillsResult == Result.Success;
+        
+        
+        var enemiesArePresent = currentFightState.Library.AiCharacters != 0;
+        var alliesArePresent = currentFightState.Library.PlayerCharacters != 0;
+        var bothEnemiesAndAllies = enemiesArePresent && alliesArePresent;
+
+        if (!anySkillsArePresent) ReportError(out actives, out targets, Result.SkillsListIsEmpty);
+        if (!bothEnemiesAndAllies) ReportError(out actives, out targets, Result.NoSuitableSkillsToUse);
+
+        if (allSkillsArePresent && bothEnemiesAndAllies)
         {
             targets = currentFightState.Library.SelectAll();
             actives = all;
+            Debug.Log("Selected tactic for targets: " + targets.Count + ". Skills count: " + actives.Count);
             return Result.Success;
         }
-        return ReportError(out actives, out targets, Result.EmptyTargetList);
+
+        if (offensiveSkillsArePresent && enemiesArePresent)
+        {
+            Debug.Log("No allies found, selecting only offensive skills");
+            targets = currentFightState.Library.SelectAllEnemies(currentFightState.Character.Alignment);
+            actives = offense;
+            return Result.Success;
+        }
+
+        if (alliesArePresent && defensiveSkillsArePresent)
+        {
+            Debug.Log("No enemies found, selecting only defensive skills");
+            targets = currentFightState.Library.SelectAllAllies(currentFightState.Character.Alignment);
+            actives = defense;
+            return Result.Success;
+        }
+
+        return ReportError(out actives, out targets, Result.NoSuitableSkillsToUse);
     }
 
-    private static Result ReportError(out List<Active> actives, out List<CharacterFacade> targets, Result emptyTargetList)
+    private static Result ReportError(out List<Active> actives, out List<CharacterFacade> targets, Result result)
     {
+        Debug.Log("Tactic was not chosen, result: "+ result);
         targets = new List<CharacterFacade>();
         actives = new List<Active>();
-        return emptyTargetList ;
+        return result ;
     }
 
  

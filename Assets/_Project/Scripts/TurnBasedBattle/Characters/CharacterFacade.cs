@@ -36,7 +36,7 @@ public class CharacterFacade : MonoBehaviour
     public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
     public Alignment Alignment => manager.character.alignment;
-    public ActiveManager Active => manager.character.active;
+    public ActiveManager ActiveSkillsManager => manager.character.active;
     public Character GetCharacter() => manager.character;
     public Strategy GetStrategy() => manager.character.strategy;
     public int GetZoneIndex() => manager.character.zoneIndex;

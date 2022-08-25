@@ -10,14 +10,14 @@ public class TurnBasedInput : MonoBehaviour
     public PlayerStrategy playerStrategy;
 
     public Action<Active, List<CharacterFacade>, int> ActivateAction;
+    private Active _chosenActive;
+    
     
     private int _lastAction=-1;
-    
     public List<CharacterFacade> possibleTargets = new();
     public List<Active> possibleActives = new();
-
     public List<CharacterFacade> chosenTargets = new();
-    private Active _chosenActive;
+    
     
     [Inject]
     public void Construct(TurnStateMachine stateMachine)
@@ -27,7 +27,7 @@ public class TurnBasedInput : MonoBehaviour
 
     public void OnUse()
     {
-        if (StopPlayerAction()) return;
+        //if (StopPlayerAction()) return;
     }
 
     public void OnManageTurn()
@@ -38,25 +38,25 @@ public class TurnBasedInput : MonoBehaviour
 
     public void OnTop()
     {
-        if (StopPlayerAction()) return;
+        if (StopInWrongTurn(0)) return;
         UseSkill(0);
     }
 
     public void OnDown()
     {
-        if (StopPlayerAction()) return;
+        if (StopInWrongTurn(1)) return;
         UseSkill(1);
     }
 
     public void OnLeft()
     {
-        if (StopPlayerAction()) return;
+        if (StopInWrongTurn(2)) return;
         UseSkill(2);
     }
 
     public void OnRight()
     {
-        if (StopPlayerAction()) return;
+        if (StopInWrongTurn(3)) return;
         UseSkill(3);
     }
 
@@ -66,34 +66,36 @@ public class TurnBasedInput : MonoBehaviour
         // 2. Select skill - show possible targets
         // 3. Select target based on skills
 
-        for (var i = possibleTargets.Count - 1; i >= 0; i--)
-        {
-            var target = possibleTargets[i];
-            if (target == null)
-            {
-                possibleTargets.Remove(target);
-            }
-        }
-        if (possibleTargets.Count(x => x.GetZoneIndex() == index) == 0)
-        {
-            _lastAction = -1;
-            return;
-        }
-
-
         if (_lastAction >= 0)
         {
             ActivateAction(_chosenActive, chosenTargets, index);
-            ResetInputs();
             return;
         }
         
+        if (StopLockedSkill(index)) return;
+        if (StopWrongTarget(index)) return;
+        SelectSkill(index);
+    }
+
+    private bool StopWrongTarget(int index)
+    {
+        if (possibleTargets.Count(x => x.GetZoneIndex() == index) == 0)
+        {
+            Debug.Log("Target with index : " + index + " do not exist");
+            return true;
+        }
+        return false;
+    }
+
+    private bool StopLockedSkill(int index)
+    {
         if (possibleActives.Count(x => x.IndexOnBar == index) == 0)
         {
-            Debug.Log("Skill with index : "+ index + " is locked");
-            return;
+            Debug.Log("Skill with index : " + index + " is locked");
+            return true;
         }
-        SelectSkill(index);
+
+        return false;
     }
 
     private void SelectSkill(int index)
@@ -103,26 +105,27 @@ public class TurnBasedInput : MonoBehaviour
         {
             _lastAction = index;
             Debug.Log("Selected skill: " + _chosenActive);
-            return;
         }
-        ResetInputs();
     }
 
  
-    private bool StopPlayerAction()
+    private bool StopInWrongTurn(int i)
     {
         if (_stateMachine.GetCurrentState() != TurnState.PlayerTurn)
         {
             ResetInputs();
             return true;
         }
-
         return false;
     }
 
     public void ResetInputs()
     {
+        Debug.Log("Resetting inputs");
         _lastAction = -1;
         _chosenActive = null;
+        chosenTargets.Clear();
+        possibleTargets.Clear();
+        possibleActives.Clear();
     }
 }

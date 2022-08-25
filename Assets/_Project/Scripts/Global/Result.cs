@@ -13,5 +13,8 @@
     PositiveModifier,
     NotEnoughEnergy,
     NoTarget,
-    NoSkill
+    NoSkill,
+    EmptySkillList,
+    NoSuitableSkillsToUse,
+    SkillsListIsEmpty
 }

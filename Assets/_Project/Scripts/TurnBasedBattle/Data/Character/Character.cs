@@ -11,7 +11,8 @@ public class Character : ScriptableObject
     public CharacterSFX sfx;
 
     [Header("Basic")] public Alignment alignment;
-    [HideInInspector] public int zoneIndex;
+    [Header("Do not set anything here, zone will change in playmode")]
+    public int zoneIndex;
     public Strategy strategy;
     
     [Range(1, MAXActionPoints)] public int maxNumberOfActions;
@@ -19,7 +20,8 @@ public class Character : ScriptableObject
     [Header("Statistics")] [SerializeField]
     private List<Statistic> statisticsTemplate;
 
-    [HideInInspector] public List<Statistic> statistics;
+    [Header("Do not set anything here, stats will change in playmode")]
+    public List<Statistic> statistics;
 
 
     [Header("Abilities")] public ActiveManager active;

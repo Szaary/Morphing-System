@@ -29,10 +29,8 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
     abilitiesInUnitLibrary:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
-  templatePassives:
-  - {fileID: 11400000, guid: bbfc7e85ff1090e4792e61d4d3b0afb3, type: 2}
-  templateEffects:
-  - {fileID: 11400000, guid: 57dc0eb02d13fe84c9f80429ebe3b005, type: 2}
+  templatePassives: []
+  templateEffects: []
   backpackTemplate: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
   equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
   backpack: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}

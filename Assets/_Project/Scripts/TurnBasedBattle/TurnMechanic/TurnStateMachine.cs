@@ -52,7 +52,6 @@ public class TurnStateMachine : MonoBehaviour
 
     internal void SetState(TurnState state)
     {
-        Debug.Log("Changing state to " + state);
         _currentState = state;
     }
 

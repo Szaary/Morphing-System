@@ -7,12 +7,6 @@ using Random = UnityEngine.Random;
 [Serializable]
 public struct ActiveManager
 {
-    public enum Result
-    {
-        Success,
-        ListIsEmpty,
-    }
-    
     [SerializeField] private List<Active> abilities;
     [SerializeField] private List<Active> abilitiesInUnitLibrary;
 
@@ -22,7 +16,7 @@ public struct ActiveManager
         if (selected.Count == 0)
         {
             active = null;
-            return Result.ListIsEmpty;
+            return Result.SkillsListIsEmpty;
         }
         var index = Random.Range(0, selected.Count);
         active = selected[index];
@@ -35,7 +29,7 @@ public struct ActiveManager
         if (selected.Count == 0)
         {
             actives = new List<Active>();
-            return Result.ListIsEmpty;
+            return Result.SkillsListIsEmpty;
         }
 
         actives = selected;
@@ -48,7 +42,7 @@ public struct ActiveManager
         if (selected.Count == 0)
         {
             actives = new List<Active>();
-            return Result.ListIsEmpty;
+            return Result.SkillsListIsEmpty;
         }
 
         actives = selected;
@@ -61,7 +55,7 @@ public struct ActiveManager
         if (selected.Count == 0)
         {
             actives = new List<Active>();
-            return Result.ListIsEmpty;
+            return Result.SkillsListIsEmpty;
         }
 
         actives = selected;

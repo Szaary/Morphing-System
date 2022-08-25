@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class StatisticMonitor : MonoBehaviour
 {
     [SerializeField] protected BaseStatistic statistic;
-    [SerializeField] protected bool isSilent = true;
+    [SerializeField] protected bool isSilent = false;
 
     protected Statistic ChosenStat;
     protected CharacterFacade Facade;
@@ -18,7 +18,7 @@ public abstract class StatisticMonitor : MonoBehaviour
         ChosenStat.OnValueChanged += OnValueChanged;
     }
     
-    protected abstract void OnValueChanged(float modifier, float currentValue);
+    protected abstract void OnValueChanged(float modifier, float currentValue, Result result);
     
     protected void OnDestroy()
     {

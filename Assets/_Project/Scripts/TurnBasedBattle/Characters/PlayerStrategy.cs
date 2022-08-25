@@ -8,8 +8,21 @@ public class PlayerStrategy : Strategy
 {
     public override Task OnEnter(CurrentFightState currentFightState)
     {
-        currentFightState.Reset();
-        
+        Debug.Log("Entered Player turn, selecting move.");
+        currentFightState.Inputs.ResetInputs();
+        var result = GetPossibleActions(currentFightState, out var active, out var targets); 
+        if (result== Result.Success)
+        {
+            Debug.Log("Sending Possible Actions data to inputs.");
+            Debug.Log("Possible Actions count: "+ active.Count);
+            Debug.Log("Possible Targets count: "+ targets.Count);
+            currentFightState.Inputs.possibleActives = active;
+            currentFightState.Inputs.possibleTargets = targets;
+        }
+        else
+        {
+            Debug.Log(result);
+        }
         return Task.CompletedTask;
     }
 
@@ -23,25 +36,23 @@ public class PlayerStrategy : Strategy
         return Task.CompletedTask;
     }
 
-    public Result SelectActive(int index, List<Active> possibleActives, List<CharacterFacade> possibleTargets, out Active chosenActive, out List<CharacterFacade> chosenTargets)
+    public Result SelectActive(int index, List<Active> possibleActives, List<CharacterFacade> possibleTargets,
+        out Active chosenActive, out List<CharacterFacade> chosenTargets)
     {
         chosenActive = possibleActives.First(x => x.IndexOnBar == index);
         chosenTargets = TacticsLibrary.GetPossibleActionsByPlayer(chosenActive, possibleTargets);
-        
+
         return Result.Success;
     }
-    
-    public Result GetPossibleActions(GetFightStateDelegate getFightStateDelegate, 
+
+    public Result GetPossibleActions(CurrentFightState currentFightState,
         out List<Active> active, out List<CharacterFacade> targets)
     {
-        var state =  getFightStateDelegate();
-        if (TacticsLibrary.GetPossibleActions(state, out active, out targets) == TacticsLibrary.Result.Success)
+        var result = TacticsLibrary.GetPossibleActionsToTakeByPlayer(currentFightState, out active, out targets);
+        if (result == Result.Success)
         {
-            return Result.Success; 
+            return Result.Success;
         }
         return Result.NoTarget;
     }
-
-
-
 }

@@ -15,7 +15,7 @@ public abstract class Strategy : ScriptableObject
         public CharactersLibrary Library;
         
         public int Points;
-        public Action Reset;
         public ChangeActionPointsDelegate ChangeActionPoints;
+        public TurnBasedInput Inputs;
     }
 }
