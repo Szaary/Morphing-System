@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 4097919731416571424}
   - component: {fileID: 7943482331963145105}
   - component: {fileID: 3507581884264148348}
+  - component: {fileID: 5008308558275122848}
   m_Layer: 0
   m_Name: TurnBasedEmptyCharacter
   m_TagString: Untagged
@@ -530,6 +531,24 @@ MonoBehaviour:
   statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   Facade: {fileID: 6601822525410895446}
   isSilent: 1
+--- !u!143 &5008308558275122848
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7517928674228485717
 GameObject:
   m_ObjectHideFlags: 0
