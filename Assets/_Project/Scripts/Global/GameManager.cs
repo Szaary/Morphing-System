@@ -1,22 +1,23 @@
 using System;
+using UnityEditor;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Zenject;
 
-public class GameManager : IInitializable
+public class GameManager : MonoBehaviour
 {
-    private readonly SceneLoader _sceneLoader;
+    public Action<GameMode> GameModeChanged;
 
-    public void Initialize()
-    {
-        
-    }
+    [SerializeField] private GameMode gameMode;
+    public GameMode GameMode => gameMode;
 
-    public GameManager(SceneLoader sceneLoader)
-    {
-        _sceneLoader = sceneLoader;
-    }
     
+    public void ChangeGameMode(GameMode newMode)
+    {
+        gameMode = newMode;
+        GameModeChanged?.Invoke(gameMode);
+    }
+
+    
+
     [Serializable]
     public class Settings
     {

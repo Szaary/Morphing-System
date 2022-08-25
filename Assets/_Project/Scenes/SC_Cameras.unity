@@ -246,7 +246,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 215
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -375,10 +375,8 @@ MonoBehaviour:
   cameras:
   - camera: {fileID: 2123812424938300865}
   - camera: {fileID: 272948635}
-  fpsCamera:
-    camera: {fileID: 2123812424938300865}
-  turnBasedCamera:
-    camera: {fileID: 272948635}
+  fpsCamera: {fileID: 2123812424938300865}
+  turnBasedCamera: {fileID: 272948635}
 --- !u!1 &1195633555
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +390,7 @@ GameObject:
   - component: {fileID: 1195633559}
   m_Layer: 0
   m_Name: HUDCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

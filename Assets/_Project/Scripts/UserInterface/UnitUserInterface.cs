@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,13 +6,19 @@ public class UnitUserInterface : StatisticMonitor
 {
     [SerializeField] private TextMeshPro statText;
     [SerializeField] private TextMeshPro characterName;
-    
-    
+    [SerializeField] private Transform pivot;
+
     public override void Start()
     {
         base.Start();
         characterName.text = Facade.Name;
         SetBar(ChosenStat.CurrentValue, ChosenStat.maxValue);
+    }
+
+    private void Update()
+    {
+        transform.rotation =
+            Quaternion.LookRotation(pivot.position - Facade.cameraManager.MainCamera.transform.position);
     }
 
     protected override void OnValueChanged(float modifier, float currentValue, float maxValue, Result result)

@@ -10,9 +10,18 @@ public class BindRepresentation
     [SerializeField] private TextMeshProUGUI buttonText;
     [SerializeField] private TextMeshProUGUI bindText;
 
+    [SerializeField] private RectTransform statTextPosition;
+    [SerializeField] private RectTransform outPosition;
+    
+    private Vector2 _startingPosition;
+    private Vector2 _outPosition;
+    
     public void Initialize()
     {
         button.onClick.AddListener(OnButtonClicked);
+        
+        _startingPosition = statTextPosition.anchoredPosition;
+        _outPosition = outPosition.anchoredPosition;
     }
 
     private void OnButtonClicked()
@@ -43,5 +52,9 @@ public class BindRepresentation
     }
 
 
-
+    public void ChangePositions(GameMode gameMode)
+    {
+        Debug.Log("Changing position");
+        UiExtensions.ChangeTurnBasedPosition(statTextPosition, _startingPosition, _outPosition, gameMode);
+    }
 }
