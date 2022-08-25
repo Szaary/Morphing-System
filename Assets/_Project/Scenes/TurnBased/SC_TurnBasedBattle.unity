@@ -206,7 +206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnStateMachineGameObject: {fileID: 446178678436344234, guid: b9e8d8cb7b3e7f64ab60c5361c063004, type: 3}
   characterFactoryGameObject: {fileID: 8483094306050893486, guid: bb3f5fe5aa049f14991076af78260194, type: 3}
-  emptyCharacterGameObject: {fileID: 6601822525410895446, guid: 3a679f741f523644aa196392dc185a30, type: 3}
+  emptyCharacterGameObject: {fileID: 214732092336691124, guid: 3a679f741f523644aa196392dc185a30, type: 3}
 --- !u!1 &1835526036
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,9 +216,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1835526037}
-  - component: {fileID: 1835526039}
   - component: {fileID: 1835526038}
   - component: {fileID: 1835526040}
+  - component: {fileID: 1835526041}
   m_Layer: 0
   m_Name: InputSystem
   m_TagString: Untagged
@@ -257,7 +257,25 @@ MonoBehaviour:
   possibleTargets: []
   possibleActives: []
   chosenTargets: []
---- !u!114 &1835526039
+--- !u!114 &1835526040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1835526036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 1835526038}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
+--- !u!114 &1835526041
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,21 +305,3 @@ MonoBehaviour:
   m_DefaultActionMap: TurnBasedInput
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1835526040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1835526036}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _components:
-  - {fileID: 1835526038}
-  _identifier: 
-  _useSceneContext: 0
-  _context: {fileID: 0}
-  _bindType: 0

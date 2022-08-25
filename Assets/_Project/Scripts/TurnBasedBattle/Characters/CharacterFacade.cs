@@ -5,6 +5,7 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
+    public ModeSwitcher switcher;
     public TurnController turnController;
     public CharacterManager manager;
     public TurnReferences Turns;

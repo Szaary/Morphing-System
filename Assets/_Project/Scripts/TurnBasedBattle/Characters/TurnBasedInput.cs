@@ -13,7 +13,7 @@ public class TurnBasedInput : MonoBehaviour
     
     
     private TurnStateMachine _stateMachine;
-    public PlayerStrategy playerStrategy;
+    [HideInInspector] public PlayerStrategy playerStrategy;
 
     public Action<Active, List<CharacterFacade>, int> ActivateAction;
     private Active _chosenActive;
@@ -37,6 +37,11 @@ public class TurnBasedInput : MonoBehaviour
     }
 
     public void OnManageTurn()
+    {
+        EndTurn();
+    }
+
+    private void EndTurn()
     {
         Debug.Log("OnManageTurn");
         _stateMachine.SetState(TurnState.AiTurn);

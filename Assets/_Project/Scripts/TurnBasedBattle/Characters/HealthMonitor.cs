@@ -18,7 +18,7 @@ public class HealthMonitor : StatisticMonitor
         {
             Modifier = modifier,
             Current = current,
-            Position = transform.position
+            Position = Facade.transform.position
         });
         
         

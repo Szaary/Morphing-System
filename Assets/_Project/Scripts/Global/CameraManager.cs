@@ -13,14 +13,14 @@ public class CameraManager : MonoBehaviour
 
     [SerializeField] private List<Settings> cameras;
 
-    [SerializeField] private Settings fpsCamera;
-    [SerializeField] private Settings turnBasedCamera;
+    [SerializeField] private CinemachineVirtualCamera fpsCamera;
+    [SerializeField] private CinemachineVirtualCamera turnBasedCamera;
     
     public void SetFpsCamera(Transform cameraTarget)
     {
         foreach (var cam in cameras)
         {
-            if (cam.camera == fpsCamera.camera)
+            if (cam.camera == fpsCamera)
             {
                 cam.camera.Priority = MaxCameraPriority;
                 SetupCameraAfterTarget(cam.camera, cameraTarget);
