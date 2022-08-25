@@ -70,7 +70,7 @@ namespace StarterAssets
 		private PlayerInput _playerInput;
 #endif
 		[SerializeField] private CharacterController controller;
-		private StarterAssetsInputs _input;
+		private FpsInput _input;
 		private GameObject _mainCamera;
 
 		private const float _threshold = 0.01f;

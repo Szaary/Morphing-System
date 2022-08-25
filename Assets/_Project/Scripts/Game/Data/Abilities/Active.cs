@@ -11,7 +11,7 @@ public abstract class Active : ScriptableObject
     [Header("Amount of action points need to use action")]
     public int actions;
 
-    public int IndexOnBar { get; set; }
+    public int position { get; set; }
     
     public abstract int ActivateEffect(CharacterFacade target, CharacterFacade user);
     

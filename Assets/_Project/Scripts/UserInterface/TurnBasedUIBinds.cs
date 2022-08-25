@@ -29,12 +29,13 @@ public class TurnBasedUIBinds : MonoBehaviour
         _input.InputsPopulated += OnInputsPopulated;
         _input.ActionSelected += OnActionSelected;
         _input.ActionActivated += OnActionActivated;
-        
-        foreach (var bind in binds)
+
+        for (var index = 0; index < binds.Count; index++)
         {
-            bind.Initialize();
+            var bind = binds[index];
+            bind.Initialize(index);
         }
-        
+
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;
     }
@@ -74,21 +75,14 @@ public class TurnBasedUIBinds : MonoBehaviour
     private void OnActionSelected(Active skill, List<CharacterFacade> possibleTargets)
     {
         HideBinds();
-        for (var index = 0; index < binds.Count; index++)
+        foreach (var target in possibleTargets)
         {
-            var bind = binds[index];
-            if (possibleTargets.Count <= index)
+            foreach (var bind in binds)
             {
-                bind.HideButton();
-                continue;
-            }
-            if (possibleTargets.Count(x => x.Position == index) > 0)
-            {
-                bind.ShowButton(possibleTargets[index]);
-            }
-            else
-            {
-                bind.HideButton();
+                if (bind.position == target.Position)
+                {
+                    bind.ShowButton(target);
+                }
             }
         }
     }
@@ -97,21 +91,14 @@ public class TurnBasedUIBinds : MonoBehaviour
         int comboPoints)
     {
         HideBinds();
-        for (var index = 0; index < binds.Count; index++)
+        foreach (var active in actives)
         {
-            var bind = binds[index];
-            if (actives.Count <= index)
+            foreach (var bind in binds)
             {
-                bind.HideButton();
-                continue;
-            }
-            if (actives.Count(x => x.IndexOnBar == index) > 0)
-            {
-                bind.ShowButton(actives[index]);
-            }
-            else
-            {
-                bind.HideButton();
+                if (bind.position == active.position)
+                {
+                    bind.ShowButton(active);
+                }
             }
         }
     }

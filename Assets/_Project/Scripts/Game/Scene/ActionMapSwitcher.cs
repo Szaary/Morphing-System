@@ -7,7 +7,7 @@ using Zenject;
 public class ActionMapSwitcher : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private StarterAssetsInputs fpsInputs; 
+    [SerializeField] private FpsInput fpsInputs; 
     
     
     private GameManager _gameManager;

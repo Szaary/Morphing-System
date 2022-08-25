@@ -8,7 +8,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private float fireCooldown = 0.2f;
     
     
-    private StarterAssetsInputs _input;
+    private FpsInput _input;
     private float _shootTimeoutDelta;
     private Camera _mainCamera;
 

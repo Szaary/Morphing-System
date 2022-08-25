@@ -12,14 +12,15 @@ public class BindRepresentation
 
     [SerializeField] private RectTransform statTextPosition;
     [SerializeField] private RectTransform outPosition;
-    
+
+    public int position;
     private Vector2 _startingPosition;
     private Vector2 _outPosition;
     
-    public void Initialize()
+    public void Initialize(int buttonPosition)
     {
         button.onClick.AddListener(OnButtonClicked);
-        
+        this.position = buttonPosition;
         _startingPosition = statTextPosition.anchoredPosition;
         _outPosition = outPosition.anchoredPosition;
     }

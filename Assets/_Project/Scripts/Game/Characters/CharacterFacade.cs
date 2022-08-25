@@ -20,7 +20,7 @@ public class CharacterFacade : MonoBehaviour
     public CharactersLibrary Library;
     [HideInInspector] public CameraManager cameraManager;
     [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public StarterAssetsInputs starterInputs;
+    [HideInInspector] public FpsInput starterInputs;
 
     [HideInInspector] public bool isControlled;
     [HideInInspector] public GameManager gameManager;
@@ -28,7 +28,7 @@ public class CharacterFacade : MonoBehaviour
     [Inject]
     public void Construct(Character characterTemplate, TurnReferences turns, 
         TurnBasedInput turnBasedInput, CharactersLibrary library, CameraManager cameraManager,
-        PlayerInput playerInput, StarterAssetsInputs starterInputs, GameManager gameManager)
+        PlayerInput playerInput, FpsInput starterInputs, GameManager gameManager)
     {
         this.starterInputs = starterInputs;
         this.playerInput = playerInput;
