@@ -55,7 +55,6 @@ public class BindRepresentation
 
     public void ChangePositions(GameMode gameMode)
     {
-        Debug.Log("Changing position");
         UiExtensions.ChangeTurnBasedPosition(statTextPosition, _startingPosition, _outPosition, gameMode);
     }
 }

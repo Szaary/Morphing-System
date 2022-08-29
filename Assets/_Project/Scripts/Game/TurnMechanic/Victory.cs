@@ -18,8 +18,7 @@ public class Victory : BaseState
     public override async Task OnEnter()
     {
         await OnEnterBaseImplementation();
-
-        _gameManager.GameModeChanged(GameMode.Fps);
+        _gameManager.ChangeGameMode(GameMode.Fps);
     }
 
     public override async Task OnExit()

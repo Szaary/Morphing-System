@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TurnBasedInput : MonoBehaviour
+public class TurnBasedInput : BaseInput
 {
     public event Action<Result> WrongWSADPressed;
     public event Action<List<Active>, List<CharacterFacade>, CharacterFacade, int> InputsPopulated;
     public event Action<Active, List<CharacterFacade>> ActionSelected;
     public event Action ActionActivated;
-    
+
     [HideInInspector] public PlayerStrategy playerStrategy;
 
     public Action<Active, List<CharacterFacade>, int> ActivateAction;
@@ -45,25 +45,25 @@ public class TurnBasedInput : MonoBehaviour
 
     public void OnTop()
     {
-        if (StopInWrongTurn(0)!= Result.Success) return;
+        if (StopInWrongTurn(0) != Result.Success) return;
         UseSkill(0);
     }
 
     public void OnDown()
     {
-        if (StopInWrongTurn(1)!= Result.Success) return;
+        if (StopInWrongTurn(1) != Result.Success) return;
         UseSkill(1);
     }
 
     public void OnLeft()
     {
-        if (StopInWrongTurn(2)!= Result.Success) return;
+        if (StopInWrongTurn(2) != Result.Success) return;
         UseSkill(2);
     }
 
     public void OnRight()
     {
-        if (StopInWrongTurn(3)!= Result.Success) return;
+        if (StopInWrongTurn(3) != Result.Success) return;
         UseSkill(3);
     }
 
@@ -75,17 +75,17 @@ public class TurnBasedInput : MonoBehaviour
 
         if (_lastAction >= 0)
         {
-            if (StopWrongTarget(index)!= Result.Success) return;
-            
+            if (StopWrongTarget(index) != Result.Success) return;
+
             ActionActivated?.Invoke();
             ActivateAction(_chosenActive, chosenTargets, index);
             return;
         }
 
-        if (StopLockedSkill(index)!= Result.Success) return;
+        if (StopLockedSkill(index) != Result.Success) return;
         SelectSkill(index);
     }
-  
+
 
     private void SelectSkill(int index)
     {
@@ -104,14 +104,15 @@ public class TurnBasedInput : MonoBehaviour
         }
     }
 
-    public void PopulateCurrentState(List<Active> active, List<CharacterFacade> targets, CharacterFacade character, int points)
+    public void PopulateCurrentState(List<Active> active, List<CharacterFacade> targets, CharacterFacade character,
+        int points)
     {
         possibleActives = active;
         possibleTargets = targets;
-        
+
         InputsPopulated?.Invoke(active, targets, character, points);
     }
-    
+
 
     public void ResetInputs()
     {
@@ -131,11 +132,11 @@ public class TurnBasedInput : MonoBehaviour
             var result = Result.AiTurn;
             WrongWSADPressed?.Invoke(result);
             return result;
-           
         }
+
         return Result.Success;
     }
-    
+
     private Result StopWrongTarget(int index)
     {
         if (possibleTargets.Count(x => x.Position == index) == 0)
@@ -144,6 +145,7 @@ public class TurnBasedInput : MonoBehaviour
             WrongWSADPressed?.Invoke(result);
             return result;
         }
+
         return Result.Success;
     }
 
@@ -155,9 +157,7 @@ public class TurnBasedInput : MonoBehaviour
             WrongWSADPressed?.Invoke(result);
             return result;
         }
+
         return Result.Success;
     }
-
-
- 
 }

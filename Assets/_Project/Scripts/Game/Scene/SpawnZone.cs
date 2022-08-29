@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class SpawnZone : MonoBehaviour
+public class SpawnZone : BaseSpawnZone
 {
     [SerializeField] private Mesh basicPlayerModel;
-    public List<SpawnLocation> spawnLocations= new List<SpawnLocation>();
+    public List<SpawnLocation> spawnLocations = new List<SpawnLocation>();
 
-    
+
     public void PlaceCharacter(CharacterFacade facade)
     {
         var position = spawnLocations.First(x => x.occupied == 0);
@@ -23,7 +23,7 @@ public class SpawnZone : MonoBehaviour
         {
             if (location.transform == null) return;
             var loc = location.transform.position;
-            var drawLocation = new Vector3(loc.x, loc.y+1, loc.z);
+            var drawLocation = new Vector3(loc.x, loc.y + 1, loc.z);
             Gizmos.color = location.occupied == 0 ? Color.cyan : Color.red;
             Gizmos.DrawMesh(basicPlayerModel, drawLocation);
         }

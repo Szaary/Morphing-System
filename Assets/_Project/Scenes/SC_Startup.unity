@@ -380,7 +380,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: TurnBasedInput
+  m_DefaultActionMap: cde6a0d2-e408-4019-9042-a0801f9c7a14
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &1835526042

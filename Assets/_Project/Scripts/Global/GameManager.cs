@@ -1,10 +1,9 @@
 using System;
-using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public Action<GameMode> GameModeChanged;
+    public event Action<GameMode> GameModeChanged;
 
     [SerializeField] private GameMode gameMode;
     public GameMode GameMode => gameMode;
@@ -12,6 +11,7 @@ public class GameManager : MonoBehaviour
     
     public void ChangeGameMode(GameMode newMode)
     {
+        Debug.Log("Game Mode Changed");
         gameMode = newMode;
         GameModeChanged?.Invoke(gameMode);
     }
