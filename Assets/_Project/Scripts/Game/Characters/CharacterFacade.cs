@@ -13,17 +13,23 @@ public class CharacterFacade : MonoBehaviour
     
     [Header("Turn Based Logic")]
     public TurnController turnController;
-    public TurnBasedCharacterManager turnBasedCharacterManager;
+    public TurnStatsManager turnStatsManager;
     public TurnReferences Turns;
-        
+    
+    
+    [Header("Realtime Logic")]
+    public RealtimeController realTimeController;
+    public RealTimeStatsManager realTimeStatsManager;
+
+
     #region 2D Logic
     public int GetActionPoints() => manager.character.maxNumberOfActions;
     public void SetZoneIndex(int index) => manager.character.position = index;
     public int Position => manager.character.position;
     public Strategy GetStrategy() => manager.character.strategy;
     public ActiveManager ActiveSkillsManager => manager.character.active;
-    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => turnBasedCharacterManager.Modify(user, modifiers);
-    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => turnBasedCharacterManager.UnModify(user, modifiers);
+    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
+    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
     #endregion
 
     
@@ -56,12 +62,16 @@ public class CharacterFacade : MonoBehaviour
         this.gameManager = gameManager;
         
         
-        manager.SetCharacter(characterTemplate);
+        manager.SetCharacter(this, characterTemplate);
         
-        turnBasedCharacterManager.SetCharacter(this);
-        
+        turnStatsManager.SetCharacter(this);
         turnController.Initialize(this);
+        
+        
         fpsController.Initialize(this);
+        realTimeController.Initialize(this);
+        realTimeStatsManager.Initialize(this);
+        
         switcher.Initialize(this);
         
         Library.AddCharacter(this);

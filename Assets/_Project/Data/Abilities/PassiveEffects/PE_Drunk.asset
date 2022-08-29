@@ -20,7 +20,7 @@ MonoBehaviour:
     baseAmount: 1
     modifierStatistic: {fileID: 0}
     ratio: 0
-  durationInTurns: 4
-  applyOnEnterTurnState: 1
-  applyOnExitTurnState: 0
+  duration: 4
+  applyOnEnterCycle: 1
+  applyOnExitCycle: 0
   workOnOppositeTurn: 0

@@ -216,8 +216,9 @@ GameObject:
   - component: {fileID: 2358441028739116888}
   - component: {fileID: 1959792052876407223}
   - component: {fileID: 1462264925995999626}
+  - component: {fileID: 2923400799277201985}
   m_Layer: 0
-  m_Name: FpsLogic
+  m_Name: RealTime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -262,6 +263,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 211b6b3ca5f12ce4c8dd64b268abcaa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2923400799277201985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800808036578180981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: defd9917744f472a97d288e17546d02a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4321229638209817328
@@ -550,7 +563,9 @@ MonoBehaviour:
   switcher: {fileID: 9005226597631413570}
   manager: {fileID: 1259435931573632364}
   turnController: {fileID: 5442887917984048192}
-  turnBasedCharacterManager: {fileID: 2121771255006102466}
+  turnStatsManager: {fileID: 2121771255006102466}
+  realTimeController: {fileID: 1462264925995999626}
+  realTimeStatsManager: {fileID: 2923400799277201985}
   cameraFpsFollowPoint: {fileID: 1316086466229198396}
   cameraFppFollowPoint: {fileID: 5311619985307657427}
   fpsController: {fileID: 4493743734719873271}

@@ -4,5 +4,6 @@
     PlayerTurn,
     AiTurn,
     Victory,
-    Defeat
+    Defeat,
+    Paused
 }

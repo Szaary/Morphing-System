@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -6,9 +7,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PE_", menuName = "Abilities/Passive Effect")]
 public class Effect : Status
 {
-    public int durationInTurns;
-    public bool applyOnEnterTurnState;
-    public bool applyOnExitTurnState;
+    [Header("In turns or cycles")]
+    public int duration;
+    
+    public bool applyOnEnterCycle;
+    public bool applyOnExitCycle;
+    
+    
+    [Header("Setting for turn based mode.")]
     public bool workOnOppositeTurn;
 
     private CharacterFacade Target { get; set; }
@@ -58,13 +64,21 @@ public class Effect : Status
             modifier.algorithm.Modify(statistic, modifier, User);
         }
 
-        durationInTurns--;
-        if (durationInTurns <= 0)
+        duration--;
+        if (duration <= 0)
         {
             RemoveStatus(Target, User);
             return Result.HasEnded;
         }
 
         return Result.Success;
+    }
+
+    private void OnValidate()
+    {
+        if ((applyOnEnterCycle || applyOnExitCycle) == false)
+        {
+            Debug.LogError("Skill need to have apply cycle");;
+        }
     }
 }

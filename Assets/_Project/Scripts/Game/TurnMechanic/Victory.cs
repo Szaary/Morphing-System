@@ -25,6 +25,4 @@ public class Victory : BaseState
     {
         OnExitBaseImplementation();
     }
-
-
 }

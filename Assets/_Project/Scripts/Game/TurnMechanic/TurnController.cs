@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public delegate void ChangeActionPointsDelegate(int points = Character.MAXActionPoints);
@@ -85,7 +83,6 @@ public class TurnController : TurnsSubscriber, IDoActions
             Debug.Log("Activating effect: " + active + "on " + target);
             points = active.ActivateEffect(target, _facade);
         }
-
         ActionPoints -= points;
     }
     
