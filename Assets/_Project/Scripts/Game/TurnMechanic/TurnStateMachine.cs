@@ -12,10 +12,12 @@ public class TurnStateMachine : MonoBehaviour
     private AiTurn _aiTurn;
     private Victory _victory;
     private Defeat _defeat;
-    
+    private GameManager _gameManager;
+
 
     [Inject]
     public void Construct(
+        GameManager gameManager,
         AsyncStateMachine battleStateMachine,
         BattleStart battleStart,
         PlayerTurn playerTurn,
@@ -23,6 +25,7 @@ public class TurnStateMachine : MonoBehaviour
         Victory victory,
         Defeat defeat)
     {
+        _gameManager = gameManager;
         _battleStateMachine = battleStateMachine;
         _battleStart = battleStart;
         _playerTurn = playerTurn;
@@ -47,7 +50,8 @@ public class TurnStateMachine : MonoBehaviour
     
     protected void Update()
     {
-        _battleStateMachine.Tick();
+        if(_gameManager.GameMode== GameMode.TurnBasedFight )
+            _battleStateMachine.Tick();
     }
 
     internal void SetState(TurnState state)
