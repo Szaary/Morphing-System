@@ -11,6 +11,9 @@ public class CharacterFacade : MonoBehaviour
     public StatisticsManager manager;
     public NavMeshController navMeshController;
     
+    [Header("Weapons")]
+    public MeleeWeaponController meleeWeaponController;
+    public RangedWeaponController rangedWeaponController;
     
     [Header("Turn Based Logic")]
     public TurnController turnController;
@@ -40,7 +43,7 @@ public class CharacterFacade : MonoBehaviour
     public Transform cameraFpsFollowPoint;
     public Transform cameraFppFollowPoint;
     public FirstPersonController fpsController;
-    public Gun characterGun;
+    
     
     [HideInInspector] public TurnBasedInput turnBasedInput;
     public CharactersLibrary Library;
@@ -70,14 +73,14 @@ public class CharacterFacade : MonoBehaviour
         turnStatsManager.SetCharacter(this);
         turnController.Initialize(this);
         
-        
+        rangedWeaponController.Initialize(this);
+        meleeWeaponController.Initialize(this);
         fpsController.Initialize(this);
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
         switcher.Initialize(this);
         
         Library.AddCharacter(this);
-        characterGun.Initialize(this);
     }
     public void SetPosition(BaseSpawnZone.SpawnLocation position)
     {

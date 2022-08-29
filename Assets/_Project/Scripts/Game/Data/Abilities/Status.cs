@@ -16,6 +16,7 @@ public abstract class Status : ScriptableObject
         get => modifiers;
         set => modifiers = value;
     }
+    
     public virtual Result ApplyStatus(CharacterFacade target, CharacterFacade user)
     {
         return target.Modify(user, Modifiers);

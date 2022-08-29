@@ -14,7 +14,6 @@ public class StatisticsManager : MonoBehaviour
         character = template.Clone();
         character.CreateInstances();
         
-        
         ApplyStartupPassives();
         ApplyStartupEffects();
         ApplyStartupItems();
