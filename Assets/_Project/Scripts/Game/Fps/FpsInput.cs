@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 namespace StarterAssets
 {
-	public class FpsInput : BaseInput
+	public class FpsInput : MonoBehaviour
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;

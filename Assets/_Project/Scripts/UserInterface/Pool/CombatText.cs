@@ -80,7 +80,6 @@ public class CombatTextFactory : IInitializable, IDisposable
 
     void OnHealthChanged(HealthChanged args)
     {
-        Debug.Log(args.Position);
         Add(args.Modifier, args.Position);
     }
 }

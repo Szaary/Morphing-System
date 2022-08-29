@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Zenject;
 
-public class TurnBasedInput : BaseInput
+public class TurnBasedInput : MonoBehaviour
 {
     public event Action<Result> WrongWSADPressed;
     public event Action<List<Active>, List<CharacterFacade>, CharacterFacade, int> InputsPopulated;
@@ -39,13 +39,7 @@ public class TurnBasedInput : BaseInput
     {
         EndTurn();
     }
-
-    private void EndTurn()
-    {
-        Debug.Log("OnManageTurn");
-        _stateMachine.SetState(TurnState.AiTurn);
-    }
-
+    
     public void OnTop()
     {
         if (StopInWrongTurn(0) != Result.Success) return;
@@ -162,5 +156,11 @@ public class TurnBasedInput : BaseInput
         }
 
         return Result.Success;
+    }
+    
+    private void EndTurn()
+    {
+        Debug.Log("OnManageTurn");
+        _stateMachine.SetState(TurnState.AiTurn);
     }
 }

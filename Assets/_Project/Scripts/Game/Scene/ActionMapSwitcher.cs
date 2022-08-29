@@ -12,8 +12,10 @@ public class ActionMapSwitcher : MonoBehaviour
     
     
     private GameManager _gameManager;
-    private InputActionMap _turnBasedInput;
+    
+    private InputActionMap _turnBased;
     private InputActionMap _fpsInput;
+    private InputActionMap _universal;
     private InputActionMap _menu;
 
     private readonly List<InputActionMap> _actionMaps=new();
@@ -26,13 +28,16 @@ public class ActionMapSwitcher : MonoBehaviour
 
     private void Start()
     {
-        _turnBasedInput= playerInput.actions.FindActionMap("TurnBasedInput");
+        _turnBased= playerInput.actions.FindActionMap("TurnBasedInput");
         _fpsInput =  playerInput.actions.FindActionMap("FpsInput");
         _menu =  playerInput.actions.FindActionMap("UI");
+        _universal = playerInput.actions.FindActionMap("Universal");
         
-        _actionMaps.Add(_turnBasedInput);
+        _actionMaps.Add(_turnBased);
         _actionMaps.Add(_fpsInput);
         _actionMaps.Add(_menu);
+        
+        _universal.Enable();
         
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;
@@ -42,7 +47,7 @@ public class ActionMapSwitcher : MonoBehaviour
     {
         if (newMode == GameMode.TurnBasedFight)
         {
-            SelectActionMap(_turnBasedInput);
+            SelectActionMap(_turnBased);
             SetCursorState(false);
         }
         else if (newMode== GameMode.Fps)
