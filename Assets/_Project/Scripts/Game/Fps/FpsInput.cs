@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -21,8 +22,7 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		[HideInInspector] public bool cursorInputForLook = true;
 
-		
-		
+
 #if ENABLE_INPUT_SYSTEM 
 		public void OnMove(InputValue value)
 		{

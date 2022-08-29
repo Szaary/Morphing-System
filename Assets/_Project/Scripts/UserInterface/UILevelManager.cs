@@ -9,11 +9,13 @@ public class UILevelManager : MonoBehaviour
 {
     [SerializeField] private Settings settings;
     private SceneLoader _sceneLoader;
+    private GameManager _gameManager;
 
     [Inject]
-    public void Construct(SceneLoader sceneLoader)
+    public void Construct(SceneLoader sceneLoader, GameManager gameManager)
     {
         _sceneLoader = sceneLoader;
+        _gameManager = gameManager;
     }
 
     void Start()
@@ -28,6 +30,7 @@ public class UILevelManager : MonoBehaviour
 
     private void NewGame()
     {
+        _gameManager.GameModeChanged(GameMode.TurnBasedFight);
         _sceneLoader.LoadBattleScenes();
         _sceneLoader.LoadLevelWithIndex(0);
     }

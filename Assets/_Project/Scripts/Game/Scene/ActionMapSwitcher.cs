@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,9 +12,12 @@ public class ActionMapSwitcher : MonoBehaviour
     
     
     private GameManager _gameManager;
-
     private InputActionMap _turnBasedInput;
     private InputActionMap _fpsInput;
+    private InputActionMap _menu;
+
+    private readonly List<InputActionMap> _actionMaps=new();
+    
     [Inject]
     public void Construct(GameManager gameManager)
     {
@@ -24,6 +28,11 @@ public class ActionMapSwitcher : MonoBehaviour
     {
         _turnBasedInput= playerInput.actions.FindActionMap("TurnBasedInput");
         _fpsInput =  playerInput.actions.FindActionMap("FpsInput");
+        _menu =  playerInput.actions.FindActionMap("UI");
+        
+        _actionMaps.Add(_turnBasedInput);
+        _actionMaps.Add(_fpsInput);
+        _actionMaps.Add(_menu);
         
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;
@@ -33,20 +42,35 @@ public class ActionMapSwitcher : MonoBehaviour
     {
         if (newMode == GameMode.TurnBasedFight)
         {
-            _fpsInput.Disable();
-            _turnBasedInput.Enable();
+            SelectActionMap(_turnBasedInput);
             SetCursorState(false);
         }
         else if (newMode== GameMode.Fps)
         {
-            _turnBasedInput.Disable(); 
-            _fpsInput.Enable();
+            SelectActionMap(_fpsInput);
             SetCursorState(true);
-            
+        }
+        else if (newMode == GameMode.InMenu)
+        {
+            SelectActionMap(_menu);
+            SetCursorState(false);
         }
     }
 
-    
+    private void SelectActionMap(InputActionMap selected)
+    {
+        foreach (var map in _actionMaps)
+        {
+            if (map == selected)
+            {
+                map.Enable();
+                continue;
+            }
+            map.Disable();
+        }
+    }
+
+
     private void SetCursorState(bool newState)
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
