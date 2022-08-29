@@ -18,7 +18,7 @@ public class Victory : BaseState
     public override void OnEnter()
     {
         OnEnterBaseImplementation();
-        _gameManager.ChangeGameMode(GameMode.Fps);
+        _gameManager.SetGameMode(GameMode.Fps);
     }
 
     public override void OnExit()

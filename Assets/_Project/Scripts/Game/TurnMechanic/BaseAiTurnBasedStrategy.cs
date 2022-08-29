@@ -1,9 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 //CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/BaseAiStrategy")]
-public class BaseAiStrategy : Strategy
+public class BaseAiTurnBasedStrategy : TurnBasedStrategy
 {
     public override Result OnEnter(CurrentFightState currentFightState)
     {

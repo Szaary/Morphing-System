@@ -9,6 +9,7 @@ public class CharacterFacade : MonoBehaviour
 {
     public CharacterModeSwitcher switcher;
     public StatisticsManager manager;
+    public NavMeshController navMeshController;
     
     
     [Header("Turn Based Logic")]
@@ -24,9 +25,11 @@ public class CharacterFacade : MonoBehaviour
 
     #region 2D Logic
     public int GetActionPoints() => manager.character.maxNumberOfActions;
-    public void SetZoneIndex(int index) => manager.character.position = index;
-    public int Position => manager.character.position;
-    public Strategy GetStrategy() => manager.character.strategy;
+    
+    public BaseSpawnZone.SpawnLocation GetPosition() => manager.character.position;
+    public int PositionIndex => manager.character.position.index;
+    public TurnBasedStrategy GetTurnBasedStrategy() => manager.character.turnBasedStrategy;
+    public RealTimeStrategy GetRealTimeStrategy() => manager.character.realTimeStrategy;
     public ActiveManager ActiveSkillsManager => manager.character.active;
     public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
@@ -71,12 +74,17 @@ public class CharacterFacade : MonoBehaviour
         fpsController.Initialize(this);
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-        
         switcher.Initialize(this);
         
         Library.AddCharacter(this);
         characterGun.Initialize(this);
     }
+    public void SetPosition(BaseSpawnZone.SpawnLocation position)
+    {
+        manager.character.position = position;
+        navMeshController.Initialize(this);
+    }
+
 
     public void GainControl()
     {

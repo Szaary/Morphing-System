@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class CharacterModeSwitcher : MonoBehaviour
 {
-    [SerializeField] private FirstPersonController fpsController;
     [SerializeField] private GameObject fpsLogic;
-
     [SerializeField] private GameObject logic2D;
+    
+    [SerializeField] private FirstPersonController fpsController;
+   
     
     private CharacterFacade _facade;
 
@@ -41,7 +42,6 @@ public class CharacterModeSwitcher : MonoBehaviour
 
     private void SetFps(bool isEnabled)
     {
-        fpsController.enabled = isEnabled;
         fpsLogic.SetActive(isEnabled);
     }
 
@@ -52,6 +52,7 @@ public class CharacterModeSwitcher : MonoBehaviour
         {
             SetFps(false);
             SetTurnBased(true);
+           
         }
         else if (gameMode == GameMode.Fps)
         {

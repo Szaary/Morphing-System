@@ -9,8 +9,10 @@ public class GameManager : MonoBehaviour
     public GameMode GameMode => gameMode;
 
     
-    public void ChangeGameMode(GameMode newMode)
+    public void SetGameMode(GameMode newMode)
     {
+        if (gameMode == newMode) return;
+        
         Debug.Log("Game Mode Changed");
         gameMode = newMode;
         GameModeChanged?.Invoke(gameMode);

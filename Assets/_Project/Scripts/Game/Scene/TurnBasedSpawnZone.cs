@@ -10,7 +10,8 @@ public class TurnBasedSpawnZone : BaseSpawnZone
     {
         var position = spawnLocations.First(x => x.occupied == 0);
         facade.transform.position = position.transform.position;
-        facade.SetZoneIndex(spawnLocations.IndexOf(position));
+        facade.SetPosition(position);
+        position.index = spawnLocations.IndexOf(position);
         position.occupied++;
     }
 }

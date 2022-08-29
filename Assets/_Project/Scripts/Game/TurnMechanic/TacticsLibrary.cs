@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TacticsLibrary
 {
-    public static void RandomAttack(Strategy.CurrentFightState currentFightState)
+    public static void RandomAttack(TurnBasedStrategy.CurrentFightState currentFightState)
     {
         var result = currentFightState.Character.ActiveSkillsManager.GetRandomAttack(currentFightState.Points, out Active skill);
         if (result == Result.Success)
@@ -44,7 +44,7 @@ public static class TacticsLibrary
         return new List<CharacterFacade>();
     }
     
-    public static Result GetPossibleActionsToTakeByPlayer(Strategy.CurrentFightState currentFightState, out List<Active> actives,  out List<CharacterFacade> targets)
+    public static Result GetPossibleActionsToTakeByPlayer(TurnBasedStrategy.CurrentFightState currentFightState, out List<Active> actives,  out List<CharacterFacade> targets)
     {
         var offensiveSkillsResult = currentFightState.Character.ActiveSkillsManager.GetAttacks(currentFightState.Points, out var offense);
         var defensiveSkillsResult = currentFightState.Character.ActiveSkillsManager.GetDefensive(currentFightState.Points, out var defense);

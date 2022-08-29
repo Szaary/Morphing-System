@@ -11,21 +11,16 @@ public class Character : ScriptableObject
     public CharacterSFX sfx;
 
     [Header("Basic")] public Alignment alignment;
-    [Header("Do not set anything here, zone will change in playmode")]
-    public int position;
-    public Strategy strategy;
+
+    public TurnBasedStrategy turnBasedStrategy;
+    public RealTimeStrategy realTimeStrategy;
     
     [Range(1, MAXActionPoints)] public int maxNumberOfActions;
     
     [Header("Statistics")] [SerializeField]
     private List<Statistic> statisticsTemplate;
 
-    [Header("Do not set anything here, stats will change in playmode")]
-    public List<Statistic> statistics;
-
-
     [Header("Abilities")] public ActiveManager active;
-
     public List<Passive> templatePassives;
     public List<Effect> templateEffects;
     
@@ -38,6 +33,11 @@ public class Character : ScriptableObject
     [HideInInspector] public ItemsEquipment equipment;
 
 
+    [Header("Do not set anything here, zone will change in playmode")]
+    public BaseSpawnZone.SpawnLocation position;
+    public List<Statistic> statistics;
+    
+    
     public void CreateInstances()
     {
         foreach (var stat in statisticsTemplate)
@@ -114,7 +114,7 @@ public class Character : ScriptableObject
             Debug.LogError("No base stats assigned to character");
         }
 
-        if (strategy == null)
+        if (turnBasedStrategy == null)
         {
             Debug.LogError("No strategy assigned to character");
         }
@@ -124,10 +124,14 @@ public class Character : ScriptableObject
             Debug.LogError("No backpack assigned to character");
         }
 
-        if (position is < 0 or > 3)
+        if (position != null)
         {
-            Debug.LogError("Wrong zone");
+            if (position.index is < 0 or > 3)
+            {
+                Debug.LogError("Wrong zone");
+            }
         }
+ 
 
         active.Validate();
     }

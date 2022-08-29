@@ -30,7 +30,7 @@ public class UILevelManager : MonoBehaviour
 
     private void NewGame()
     {
-        _gameManager.ChangeGameMode(GameMode.TurnBasedFight);
+        _gameManager.SetGameMode(GameMode.TurnBasedFight);
         _sceneLoader.LoadGameState();
     }
 

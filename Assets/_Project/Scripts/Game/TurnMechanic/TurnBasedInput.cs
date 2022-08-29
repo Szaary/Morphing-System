@@ -11,7 +11,7 @@ public class TurnBasedInput : MonoBehaviour
     public event Action<Active, List<CharacterFacade>> ActionSelected;
     public event Action ActionActivated;
 
-    [HideInInspector] public PlayerStrategy playerStrategy;
+    [HideInInspector] public PlayerTurnBasedStrategy playerTurnBasedStrategy;
 
     public Action<Active, List<CharacterFacade>, int> ActivateAction;
     private Active _chosenActive;
@@ -86,7 +86,7 @@ public class TurnBasedInput : MonoBehaviour
 
     private void SelectSkill(int index)
     {
-        var result = playerStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive,
+        var result = playerTurnBasedStrategy.SelectActive(index, possibleActives, possibleTargets, out _chosenActive,
             out chosenTargets);
         if (result == Result.Success)
         {
@@ -136,7 +136,7 @@ public class TurnBasedInput : MonoBehaviour
 
     private Result StopWrongTarget(int index)
     {
-        if (possibleTargets.Count(x => x.Position == index) == 0)
+        if (possibleTargets.Count(x => x.PositionIndex == index) == 0)
         {
             var result = Result.NoTarget;
             WrongWSADPressed?.Invoke(result);

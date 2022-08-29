@@ -31,9 +31,9 @@ public class TurnController : TurnsSubscriber, IDoActions
 
     private void SetInputStrategy(CharacterFacade character)
     {
-        if (character.GetStrategy() is PlayerStrategy player)
+        if (character.GetTurnBasedStrategy() is PlayerTurnBasedStrategy player)
         {
-            _facade.turnBasedInput.playerStrategy = player;
+            _facade.turnBasedInput.playerTurnBasedStrategy = player;
             _facade.turnBasedInput.ActivateAction = Activate;
         }
     }
@@ -42,7 +42,7 @@ public class TurnController : TurnsSubscriber, IDoActions
     {
         ActionPoints = _facade.GetActionPoints();
 
-        _facade.GetStrategy().OnEnter(CreateFightState());
+        _facade.GetTurnBasedStrategy().OnEnter(CreateFightState());
 
         return Result.Success;
     }
@@ -50,16 +50,16 @@ public class TurnController : TurnsSubscriber, IDoActions
 
     public override Result Tick()
     {
-        _facade.GetStrategy().Tick();
+        _facade.GetTurnBasedStrategy().Tick();
         return Result.Success;
     }
 
 
     public override Result OnExit()
     {
-        if (_facade.GetStrategy() == null) return Result.StrategyNotSet;
+        if (_facade.GetTurnBasedStrategy() == null) return Result.StrategyNotSet;
 
-        _facade.GetStrategy().OnExit(CreateFightState());
+        _facade.GetTurnBasedStrategy().OnExit(CreateFightState());
         return Result.Success;
     }
 
@@ -78,7 +78,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         }
         else
         {
-            var target = targets.First(x => x.Position == chosenTarget);
+            var target = targets.First(x => x.PositionIndex == chosenTarget);
             _facade.LookAt(target.transform);
             Debug.Log("Activating effect: " + active + "on " + target);
             points = active.ActivateEffect(target, _facade);
@@ -86,9 +86,9 @@ public class TurnController : TurnsSubscriber, IDoActions
         ActionPoints -= points;
     }
     
-    private Strategy.CurrentFightState CreateFightState()
+    private TurnBasedStrategy.CurrentFightState CreateFightState()
     {
-        return new Strategy.CurrentFightState()
+        return new TurnBasedStrategy.CurrentFightState()
         {
             Character = _facade,
             Points = ActionPoints,

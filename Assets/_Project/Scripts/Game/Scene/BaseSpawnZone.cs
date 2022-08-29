@@ -49,6 +49,7 @@ public abstract class BaseSpawnZone : MonoBehaviour
     {
         public Transform transform;
         public int occupied;
+        public int index;
     }
 
 }    

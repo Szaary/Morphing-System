@@ -500,11 +500,13 @@ GameObject:
   - component: {fileID: 9005226597631413570}
   - component: {fileID: 214732092336691124}
   - component: {fileID: 1259435931573632364}
-  - component: {fileID: 6897832791358184220}
-  - component: {fileID: 4493743734719873271}
   - component: {fileID: 2664621455847046236}
   - component: {fileID: 6504654723094879010}
   - component: {fileID: 6314677222074484137}
+  - component: {fileID: 6897832791358184220}
+  - component: {fileID: 847348799244175616}
+  - component: {fileID: 3584495357984487962}
+  - component: {fileID: 6031405076436071490}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -545,9 +547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607bd62d4f01419b8b2aa29f45bac347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsController: {fileID: 4493743734719873271}
   fpsLogic: {fileID: 3800808036578180981}
   logic2D: {fileID: 7304164659668813759}
+  fpsController: {fileID: 3584495357984487962}
 --- !u!114 &214732092336691124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,13 +564,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switcher: {fileID: 9005226597631413570}
   manager: {fileID: 1259435931573632364}
+  navMeshController: {fileID: 847348799244175616}
   turnController: {fileID: 5442887917984048192}
   turnStatsManager: {fileID: 2121771255006102466}
   realTimeController: {fileID: 1462264925995999626}
   realTimeStatsManager: {fileID: 2923400799277201985}
   cameraFpsFollowPoint: {fileID: 1316086466229198396}
   cameraFppFollowPoint: {fileID: 5311619985307657427}
-  fpsController: {fileID: 4493743734719873271}
+  fpsController: {fileID: 3584495357984487962}
   characterGun: {fileID: 1959792052876407223}
   turnBasedInput: {fileID: 0}
   cameraManager: {fileID: 0}
@@ -589,55 +592,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 0}
---- !u!143 &6897832791358184220
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6601822525410895441}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.25
-  m_SkinWidth: 0.02
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.93, z: 0}
---- !u!114 &4493743734719873271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6601822525410895441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11cc77576986ff9498c2af4bac2570c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoveSpeed: 4
-  SprintSpeed: 6
-  RotationSpeedX: 15
-  RotationSpeedY: 5
-  SpeedChangeRate: 10
-  JumpHeight: 1.2
-  Gravity: -15
-  JumpTimeout: 0.1
-  FallTimeout: 0.15
-  Grounded: 1
-  GroundedOffset: -0.14
-  GroundedRadius: 0.5
-  GroundLayers:
-    serializedVersion: 2
-    m_Bits: 129
-  CinemachineCameraTarget: {fileID: 5639113781509705887}
-  TopClamp: 90
-  BottomClamp: -90
-  controller: {fileID: 6897832791358184220}
 --- !u!114 &2664621455847046236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -684,6 +638,92 @@ MonoBehaviour:
   statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   Facade: {fileID: 214732092336691124}
   isSilent: 1
+--- !u!143 &6897832791358184220
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.25
+  m_SkinWidth: 0.02
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.93, z: 0}
+--- !u!114 &847348799244175616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81fb9035bcacafc49aaac42986e2c8f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 6031405076436071490}
+  fpsController: {fileID: 3584495357984487962}
+  controller: {fileID: 6897832791358184220}
+--- !u!114 &3584495357984487962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11cc77576986ff9498c2af4bac2570c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 4
+  SprintSpeed: 6
+  RotationSpeedX: 15
+  RotationSpeedY: 5
+  SpeedChangeRate: 10
+  JumpHeight: 1.2
+  Gravity: -15
+  JumpTimeout: 0.1
+  FallTimeout: 0.15
+  Grounded: 1
+  GroundedOffset: -0.14
+  GroundedRadius: 0.5
+  GroundLayers:
+    serializedVersion: 2
+    m_Bits: 129
+  CinemachineCameraTarget: {fileID: 5639113781509705887}
+  TopClamp: 90
+  BottomClamp: -90
+  controller: {fileID: 6897832791358184220}
+--- !u!195 &6031405076436071490
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Enabled: 0
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &7304164659668813759
 GameObject:
   m_ObjectHideFlags: 0

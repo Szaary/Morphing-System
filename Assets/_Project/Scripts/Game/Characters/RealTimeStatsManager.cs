@@ -1,6 +1,4 @@
-﻿using System;
-using UnityEngine;
-
+﻿
 public class RealTimeStatsManager : RealtimeSubscriber
 {
     private CharacterFacade _facade;

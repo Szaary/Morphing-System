@@ -1,9 +1,7 @@
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 
-public abstract class Strategy : ScriptableObject
+public abstract class TurnBasedStrategy : ScriptableObject
 {
     public abstract Result OnEnter(CurrentFightState currentFightState);
     public abstract Result OnExit(CurrentFightState currentFightState);

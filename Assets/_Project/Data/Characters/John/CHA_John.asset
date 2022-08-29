@@ -16,14 +16,13 @@ MonoBehaviour:
   vfx: {fileID: 11400000, guid: b327e067432e6704cb556899169bcdb6, type: 2}
   sfx: {fileID: 11400000, guid: 0575c4e23a44a9f4b9f3454dc5ab4abe, type: 2}
   alignment: {fileID: 11400000, guid: 489e74780685eb542bf9a2b06d6d97bd, type: 2}
-  zoneIndex: 0
-  strategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
+  turnBasedStrategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
+  realTimeStrategy: {fileID: 11400000, guid: 4d29961f8c742214f9f22692509c8fe3, type: 2}
   maxNumberOfActions: 1
   statisticsTemplate:
   - {fileID: 11400000, guid: 0c89c7bc5baea454c83ff38ad69680ad, type: 2}
   - {fileID: 11400000, guid: 37f76fcf5f0cb764a8cf2cff708928d6, type: 2}
   - {fileID: 11400000, guid: cb724057c40be4f4d976ee1984d9da3e, type: 2}
-  statistics: []
   active:
     abilities:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
@@ -35,3 +34,5 @@ MonoBehaviour:
   equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
   backpack: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
   equipment: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
+  position: 0
+  statistics: []
