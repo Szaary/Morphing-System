@@ -1,9 +1,12 @@
-# TurnBasedGame
-Framework for 2d rpg game. WIP.
+# Morphing System
+Morph is a game with many control systems that you can switch between at any time.
+
+Currently implemented:
+ - Jrpg turn based rpg,
+ - Fps
 
 # Features
 - Basic game structure with Zenject
 - Fully customizable statistics. To add "inteligence" to character stats just create stat scriptable object "inteligence" and add to character statistics list.
-- Turn based system with "ISubscribeToBattleStateChanged" interface, anything can subscribe to it to extend gameplay without changing base code.
 - Multi Scene usage. Every terrain is scene, battle types are different scenes, hud is another. You can start game from any scene in editor. 
 - GUI Creators for characters etc.
