@@ -11,9 +11,16 @@ public abstract class Active : ScriptableObject
     [Header("Amount of action points need to use action")]
     public int actions;
 
-    public int position { get; set; }
+    public float distance;
+    
+    public int Position { get; set; }
     
     public abstract int ActivateEffect(CharacterFacade target, CharacterFacade user);
+
+    public bool IsRanged()
+    {
+        return distance > 1.5f;
+    }
     
     public bool IsAttack()
     {
@@ -23,8 +30,6 @@ public abstract class Active : ScriptableObject
     {
         return targetType is TargetType.Self or TargetType.Ally or TargetType.Allies or TargetType.All ;
     }
-    
-    
     public bool IsMultiTarget()
     {
         if (targetType is TargetType.Enemies or TargetType.All or TargetType.Allies) return true;

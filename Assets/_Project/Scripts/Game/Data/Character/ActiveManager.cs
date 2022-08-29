@@ -76,7 +76,7 @@ public struct ActiveManager
             {
                 abilitiesInUnitLibrary.Add(ability);
             }
-            ability.position = index;
+            ability.Position = index;
         }
 
         for (var index = abilitiesInUnitLibrary.Count - 1; index >= 0; index--)

@@ -39,7 +39,7 @@ public class PlayerTurnBasedStrategy : TurnBasedStrategy
     public Result SelectActive(int index, List<Active> possibleActives, List<CharacterFacade> possibleTargets,
         out Active chosenActive, out List<CharacterFacade> chosenTargets)
     {
-        chosenActive = possibleActives.First(x => x.position == index);
+        chosenActive = possibleActives.First(x => x.Position == index);
         chosenTargets = TacticsLibrary.GetPossibleActionsByPlayer(chosenActive, possibleTargets);
 
         return Result.Success;

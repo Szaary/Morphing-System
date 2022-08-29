@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e28e10d67c3747ca95c93db732cadcdc, type: 3}
-  m_Name: AA_BasicAttack
+  m_Name: AA_Punch
   m_EditorClassIdentifier: 
-  name: Basic Attack
+  name: Punch
   icon: {fileID: 0}
   targetType: 0
   actions: 1
+  distance: 1
   modifiers:
   - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
     algorithm: {fileID: 11400000, guid: 698039638b6859d4180403253b302e56, type: 2}

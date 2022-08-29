@@ -148,7 +148,7 @@ public class TurnBasedInput : MonoBehaviour
 
     private Result StopLockedSkill(int index)
     {
-        if (possibleActives.Count(x => x.position == index) == 0)
+        if (possibleActives.Count(x => x.Position == index) == 0)
         {
             var result = Result.NoSkillAvailable;
             WrongWSADPressed?.Invoke(result);
