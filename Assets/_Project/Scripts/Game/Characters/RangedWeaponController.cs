@@ -17,12 +17,8 @@ public class RangedWeaponController : WeaponController
 
         if (Input.shoot && ShootTimeoutDelta <= 0.0f)
         {
-            var position = MainCamera.transform.position + MainCamera.transform.forward;
-            var direction = MainCamera.transform.forward;
+            FireWeapon();
 
-
-            Use(position, direction);
-            
             ShootTimeoutDelta = 1 / rangedWeapon.attacksPerSecond;
             Input.shoot = false;
         }
@@ -33,14 +29,15 @@ public class RangedWeaponController : WeaponController
         }
     }
 
-    private void Use(Vector3 position, Vector3 direction)
+    public void FireWeapon()
     {
+        var position = MainCamera.transform.position + MainCamera.transform.forward;
+        var direction = MainCamera.transform.forward;
         var newProjectile = Instantiate(rangedWeapon.projectile, position, Quaternion.identity);
-
         newProjectile.Fire(direction, Facade, rangedWeapon.Modifiers);
-
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
+
 
     private IEnumerator DestroyAfterTime(Projectile projectile)
     {
