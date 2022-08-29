@@ -961,7 +961,7 @@ GameObject:
   m_Component:
   - component: {fileID: 804710557}
   - component: {fileID: 804710556}
-  - component: {fileID: 804710558}
+  - component: {fileID: 804710559}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -982,7 +982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
-  _monoInstallers: []
+  _monoInstallers:
+  - {fileID: 804710559}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1001,7 +1002,6 @@ MonoBehaviour:
   _contractNames: []
   _parentContractNames:
   - Startup
-  - StandardBattle
 --- !u!4 &804710557
 Transform:
   m_ObjectHideFlags: 0
@@ -1017,7 +1017,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &804710558
+--- !u!114 &804710559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1026,9 +1026,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 804710555}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 715c50f5d912df545a4760d55f3b3199, type: 3}
+  m_Script: {fileID: 11500000, guid: e67553e18be140f1bc2868c4a6fe693b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  combatTextPrefab: {fileID: 4771126812271000802, guid: 391584525cec5b94f9050578751455a1, type: 3}
 --- !u!1 &866179424
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,7 +2394,7 @@ GameObject:
   - component: {fileID: 1772981366}
   - component: {fileID: 1772981365}
   m_Layer: 0
-  m_Name: CanvasScripts
+  m_Name: Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2453,21 +2454,25 @@ MonoBehaviour:
     bindText: {fileID: 1521466883}
     statTextPosition: {fileID: 1348679402}
     outPosition: {fileID: 724133156}
+    position: 0
   - button: {fileID: 129494185}
     buttonText: {fileID: 1207525759}
     bindText: {fileID: 1754511263}
     statTextPosition: {fileID: 129494184}
     outPosition: {fileID: 2018016168}
+    position: 0
   - button: {fileID: 361915788}
     buttonText: {fileID: 873248300}
     bindText: {fileID: 326468586}
     statTextPosition: {fileID: 361915787}
     outPosition: {fileID: 326930698}
+    position: 0
   - button: {fileID: 2144856896}
     buttonText: {fileID: 1640394748}
     bindText: {fileID: 90700862}
     statTextPosition: {fileID: 2144856895}
     outPosition: {fileID: 1724851114}
+    position: 0
 --- !u!114 &1772981367
 MonoBehaviour:
   m_ObjectHideFlags: 0

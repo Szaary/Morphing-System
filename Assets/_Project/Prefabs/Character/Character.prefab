@@ -215,6 +215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2358441028739116888}
   - component: {fileID: 1959792052876407223}
+  - component: {fileID: 1462264925995999626}
   m_Layer: 0
   m_Name: FpsLogic
   m_TagString: Untagged
@@ -235,7 +236,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 5
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1959792052876407223
 MonoBehaviour:
@@ -251,6 +252,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 4860517555801637927, guid: 9cc037181f081894e8dc7eedf38a2fe7, type: 3}
   fireCooldown: 0.2
+--- !u!114 &1462264925995999626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3800808036578180981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211b6b3ca5f12ce4c8dd64b268abcaa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4321229638209817328
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +296,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2238426440925773989
 MeshFilter:
@@ -378,7 +391,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5003552823743456079
 GameObject:
@@ -411,7 +424,7 @@ Transform:
   m_Children:
   - {fileID: 3817940531714133315}
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7432231356829620007
 MonoBehaviour:
@@ -460,7 +473,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6601822525410895441
 GameObject:
@@ -473,11 +486,12 @@ GameObject:
   - component: {fileID: 6601822525410895447}
   - component: {fileID: 9005226597631413570}
   - component: {fileID: 214732092336691124}
-  - component: {fileID: 8514412696744817227}
+  - component: {fileID: 1259435931573632364}
   - component: {fileID: 6897832791358184220}
   - component: {fileID: 4493743734719873271}
   - component: {fileID: 2664621455847046236}
   - component: {fileID: 6504654723094879010}
+  - component: {fileID: 6314677222074484137}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -497,12 +511,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4152399743341485977}
+  - {fileID: 2358441028739116888}
   - {fileID: 7146918007781491897}
   - {fileID: 5339377492413421161}
   - {fileID: 1316086466229198396}
   - {fileID: 5311619985307657427}
-  - {fileID: 4152399743341485977}
-  - {fileID: 2358441028739116888}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -534,8 +548,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   switcher: {fileID: 9005226597631413570}
+  manager: {fileID: 1259435931573632364}
   turnController: {fileID: 5442887917984048192}
-  manager: {fileID: 8514412696744817227}
+  turnBasedCharacterManager: {fileID: 2121771255006102466}
   cameraFpsFollowPoint: {fileID: 1316086466229198396}
   cameraFppFollowPoint: {fileID: 5311619985307657427}
   fpsController: {fileID: 4493743734719873271}
@@ -546,7 +561,7 @@ MonoBehaviour:
   starterInputs: {fileID: 0}
   isControlled: 0
   gameManager: {fileID: 0}
---- !u!114 &8514412696744817227
+--- !u!114 &1259435931573632364
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -555,10 +570,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6601822525410895441}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04e47081ba827754f84e667d475cbb48, type: 3}
+  m_Script: {fileID: 11500000, guid: 4597f4219d9390c44b1acaaa397a622e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facade: {fileID: 214732092336691124}
   character: {fileID: 0}
 --- !u!143 &6897832791358184220
 CharacterController:
@@ -640,6 +654,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   Facade: {fileID: 214732092336691124}
+--- !u!114 &6314677222074484137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601822525410895441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e648a46cb672401dbf8b9d381e106a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+  Facade: {fileID: 214732092336691124}
+  isSilent: 1
 --- !u!1 &7304164659668813759
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4152399743341485977}
   - component: {fileID: 5442887917984048192}
-  - component: {fileID: 7784369891397661410}
+  - component: {fileID: 2121771255006102466}
   m_Layer: 0
   m_Name: 2DLogic
   m_TagString: Untagged
@@ -671,7 +700,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6601822525410895447}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5442887917984048192
 MonoBehaviour:
@@ -685,7 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a9848fdc4e48d49b47b1cb5873382e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7784369891397661410
+--- !u!114 &2121771255006102466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -694,12 +723,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7304164659668813759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e648a46cb672401dbf8b9d381e106a11, type: 3}
+  m_Script: {fileID: 11500000, guid: 04e47081ba827754f84e667d475cbb48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
-  Facade: {fileID: 214732092336691124}
-  isSilent: 1
 --- !u!1 &7517928674228485717
 GameObject:
   m_ObjectHideFlags: 0

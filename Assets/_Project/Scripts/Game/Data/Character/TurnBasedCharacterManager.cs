@@ -3,33 +3,29 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class CharacterManager : TurnsSubscriber
+public class TurnBasedCharacterManager : TurnsSubscriber
 {
-    [SerializeField] private CharacterFacade facade;
+    private CharacterFacade _facade;
 
-    [Header("Do not set anything here, will be changed ad app start.")]
-    public Character character;
-
-    public void SetCharacter(Character characterTemplate)
+    public void SetCharacter(CharacterFacade characterFacade)
     {
-        character = characterTemplate.Clone();
-        character.CreateInstances();
+        _facade = characterFacade;
 
+        SubscribeToStateChanges(_facade.Turns.PlayerTurn);
+        SubscribeToStateChanges(_facade.Turns.AiTurn);
+        
         ApplyStartupPassives();
         ApplyStartupEffects();
         ApplyStartupItems();
-
-        SubscribeToStateChanges(facade.Turns.PlayerTurn);
-        SubscribeToStateChanges(facade.Turns.AiTurn);
     }
 
 
     public override async Task<Result> OnEnter()
     {
         var result = Result.Success;
-        for (var index = character.Effect.Count - 1; index >= 0; index--)
+        for (var index = _facade.manager.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = character.Effect[index];
+            var effect = _facade.manager.character.Effect[index];
             if (effect.applyOnEnterTurnState)
             {
                 result = ActivateEffect(effect, result);
@@ -48,9 +44,9 @@ public class CharacterManager : TurnsSubscriber
     {
         var result = Result.Success;
 
-        for (var index = character.Effect.Count - 1; index >= 0; index--)
+        for (var index = _facade.manager.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = character.Effect[index];
+            var effect = _facade.manager.character.Effect[index];
             if (effect.applyOnExitTurnState)
             {
                 result = ActivateEffect(effect, result);
@@ -61,13 +57,12 @@ public class CharacterManager : TurnsSubscriber
     }
 
 
-
     public void ApplyEffect(Effect effect)
     {
         var status = effect.Clone();
-        
-        character.AddEffect(status);
-        var result = status.ApplyStatus(facade, facade);
+
+        _facade.manager.character.AddEffect(status);
+        var result = status.ApplyStatus(_facade, _facade);
         if (result != Result.Success)
         {
             HandlePassivesAddingError(result);
@@ -77,9 +72,9 @@ public class CharacterManager : TurnsSubscriber
     public void ApplyPassive(Passive passive)
     {
         var status = passive.Clone();
-        
-        character.AddPassive(status);
-        var result = status.ApplyStatus(facade, facade);
+
+        _facade.manager.character.AddPassive(status);
+        var result = status.ApplyStatus(_facade, _facade);
         if (result != Result.Success)
         {
             HandlePassivesAddingError(result);
@@ -90,7 +85,7 @@ public class CharacterManager : TurnsSubscriber
     {
         foreach (var modifier in modifiers)
         {
-            GetStatistic(modifier.statisticToModify, out var statistic);
+            _facade.manager. GetStatistic(modifier.statisticToModify, out var statistic);
             modifier.algorithm.Modify(statistic, modifier, user);
         }
 
@@ -101,40 +96,24 @@ public class CharacterManager : TurnsSubscriber
     {
         foreach (var modifier in modifiers)
         {
-            GetStatistic(modifier.statisticToModify, out var statistic);
+            _facade.manager.GetStatistic(modifier.statisticToModify, out var statistic);
             modifier.algorithm.UnModify(statistic, modifier, user);
         }
 
         return Result.Success;
     }
 
-    public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
-    {
-        foreach (var stat in character.statistics)
-        {
-            if (stat.baseStatistic == baseStatistic)
-            {
-                outStat = stat;
-                return Result.Success;
-            }
-        }
-
-        outStat = null;
-        return Result.Failed;
-    }
 
     private void OnDestroy()
     {
         UnsubscribeFromStates();
-        character.RemoveInstances();
-        Destroy(character);
     }
 
     private Result ApplyStartupItems()
     {
-        foreach (var item in character.equipment.items)
+        foreach (var item in _facade.manager.character.equipment.items)
         {
-            var result = item.ApplyStatus(facade, facade);
+            var result = item.ApplyStatus(_facade, _facade);
             if (result != Result.Success)
             {
                 HandlePassivesAddingError(result);
@@ -144,44 +123,47 @@ public class CharacterManager : TurnsSubscriber
         return Result.Success;
     }
 
-    
+
     private Result ActivateEffect(Effect effect, Result result)
     {
-        if (facade.Turns.ShouldWork(facade, effect.workOnOppositeTurn))
+        if (_facade.Turns.ShouldWork(_facade, effect.workOnOppositeTurn))
         {
             result = effect.ActivateEffect();
             if (result == Result.ToDestroy)
             {
-                character.RemoveEffect(effect);
+                _facade.manager.character.RemoveEffect(effect);
                 Destroy(effect);
                 result = Result.Success;
             }
         }
+
         return result;
     }
-    
+
     private Result ApplyStartupEffects()
     {
-        foreach (var effect in character.templateEffects)
+        foreach (var effect in _facade.manager.character.templateEffects)
         {
             ApplyEffect(effect);
         }
+
         return Result.Success;
     }
 
-    
+
     private Result ApplyStartupPassives()
     {
-        foreach (var passive in character.templatePassives)
+        foreach (var passive in _facade.manager.character.templatePassives)
         {
             ApplyPassive(passive);
         }
+
         return Result.Success;
     }
-    
+
 
     private void HandlePassivesAddingError(Result result)
     {
-        Debug.LogError(typeof(CharacterManager) + " apply passive result: " + result);
+        Debug.LogError(typeof(TurnBasedCharacterManager) + " apply passive result: " + result);
     }
 }

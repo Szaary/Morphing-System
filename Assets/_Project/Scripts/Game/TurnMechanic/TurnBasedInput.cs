@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class TurnBasedInput : BaseInput
 {
@@ -20,9 +21,11 @@ public class TurnBasedInput : BaseInput
     public List<CharacterFacade> possibleTargets = new();
     public List<Active> possibleActives = new();
     public List<CharacterFacade> chosenTargets = new();
+
     private TurnStateMachine _stateMachine;
 
-    public void SetStateMachine(TurnStateMachine stateMachine)
+    [Inject]
+    public void Construct(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
     }

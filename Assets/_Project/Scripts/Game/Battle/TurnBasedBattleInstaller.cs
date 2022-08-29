@@ -1,11 +1,7 @@
-using UnityEngine;
 using Zenject;
 
-public class BattleInstaller : MonoInstaller
+public class TurnBasedBattleInstaller : MonoInstaller
 {
-    [SerializeField] private CharacterFactory characterFactoryGameObject;
-    [SerializeField] private CharacterFacade emptyCharacterGameObject;
-
     public override void InstallBindings()
     {
         Container.BindInterfacesAndSelfTo<AsyncStateMachine>().AsSingle();
@@ -17,11 +13,5 @@ public class BattleInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<Defeat>().AsSingle();
         Container.BindInterfacesAndSelfTo<TurnReferences>().AsSingle();
 
-
-        Container.Bind<CharacterFactory>().FromComponentInNewPrefab(characterFactoryGameObject)
-            .UnderTransformGroup("Factories").AsSingle().NonLazy();
-        Container.BindFactory<Character, CharacterFacade, CharacterFacade.Factory>()
-            .FromComponentInNewPrefab(emptyCharacterGameObject);
-        ;
     }
 }

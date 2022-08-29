@@ -5,10 +5,7 @@ public class CharacterFactory : MonoBehaviour
 {
     [SerializeField] private Character player;
     [SerializeField] private Character enemy;
-  
-    private SpawnZone _enemySpawnZone;
-    private SpawnZone _playerSpawnZone;
-    
+
     private CharacterFacade.Factory _characterFactory;
     private CharactersLibrary _library;
 
@@ -19,37 +16,30 @@ public class CharacterFactory : MonoBehaviour
         _library = library;
     }
 
-    public void SetSpawnZones(SpawnZone playerSpawnZone, SpawnZone enemySpawnZone)
+    public void SpawnInitialCharacters(BaseSpawnZone turnBasedSpawnZone)
     {
-        _playerSpawnZone = playerSpawnZone;
-        _enemySpawnZone = enemySpawnZone;
-        SpawnInitialCharacters();
-    }
-
-    private void SpawnInitialCharacters()
-    {
-        SpawnCharacter(player);
+        SpawnCharacter(player, turnBasedSpawnZone);
         
-        SpawnCharacter(enemy);
-        SpawnCharacter(enemy);
-        SpawnCharacter(enemy);
-        SpawnCharacter(enemy);
+        SpawnCharacter(enemy, turnBasedSpawnZone);
+        SpawnCharacter(enemy, turnBasedSpawnZone);
+        SpawnCharacter(enemy, turnBasedSpawnZone);
+        SpawnCharacter(enemy, turnBasedSpawnZone);
         
         _library.SpawnedAllCharacters = true;
     }
 
-    private void SpawnCharacter(Character character)
+    private void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone)
     {
         var facade = _characterFactory.Create(character);
         facade.transform.parent = transform;
         facade.gameObject.name = character.name;
         
-        SetSpawnZone(facade);
+        SetSpawnZone(facade, turnBasedSpawnZone);
     }
 
-    private void SetSpawnZone(CharacterFacade facade)
+    private void SetSpawnZone(CharacterFacade facade, BaseSpawnZone battleSpawnZone)
     {
-        if (facade.Alignment.Id == 0) _playerSpawnZone.PlaceCharacter(facade);
-        else _enemySpawnZone.PlaceCharacter(facade);
+        if (facade.Alignment.Id == 0) battleSpawnZone.PlaceCharacter(facade);
+        else battleSpawnZone.PlaceCharacter(facade);
     }
 }

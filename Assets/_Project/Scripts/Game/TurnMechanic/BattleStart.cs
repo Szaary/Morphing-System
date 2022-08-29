@@ -7,16 +7,14 @@ public class BattleStart : BaseState
     private readonly CharactersLibrary _charactersLibrary;
     private readonly TurnBasedInput _turnBasedInput;
 
-    public BattleStart(TurnStateMachine turnStateMachine, CharactersLibrary charactersLibrary, TurnBasedInput turnBasedInput) : base(turnStateMachine)
+    public BattleStart(TurnStateMachine turnStateMachine, CharactersLibrary charactersLibrary) : base(turnStateMachine)
     {
         _charactersLibrary = charactersLibrary;
-        _turnBasedInput = turnBasedInput;
     }
 
     public override async Task OnEnter()
     {
-        _turnBasedInput.SetStateMachine(_stateMachine);
-        await TickBaseImplementation();
+       await TickBaseImplementation();
     }
     
     public override async Task Tick()

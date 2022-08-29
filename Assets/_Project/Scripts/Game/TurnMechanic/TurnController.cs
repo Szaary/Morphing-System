@@ -6,8 +6,6 @@ using UnityEngine;
 
 public delegate void ChangeActionPointsDelegate(int points = Character.MAXActionPoints);
 
-public delegate Strategy.CurrentFightState GetFightStateDelegate();
-
 public class TurnController : TurnsSubscriber, IDoActions
 {
     private ChangeActionPointsDelegate _changeActionPointsDelegate;
@@ -25,7 +23,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         else
             SubscribeToState(_facade.Turns.AiTurn);
         
-        SetStrategy(_facade);
+        SetInputStrategy(_facade);
     }
  
     private void SubscribeToState(BaseState state)
@@ -33,7 +31,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         SubscribeToStateChanges(state);
     }
 
-    private void SetStrategy(CharacterFacade character)
+    private void SetInputStrategy(CharacterFacade character)
     {
         if (character.GetStrategy() is PlayerStrategy player)
         {

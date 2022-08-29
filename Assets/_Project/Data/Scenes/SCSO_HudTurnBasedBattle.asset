@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee24549001e456aa541948178ae55bc, type: 3}
   m_Name: SCSO_HudTurnBasedBattle
   m_EditorClassIdentifier: 
-  sceneName: SC_HudTurnBasedBattle
-  shortDescription: Hud for standard Battles
+  sceneName: SC_HUD
+  shortDescription: Player user interface ingame

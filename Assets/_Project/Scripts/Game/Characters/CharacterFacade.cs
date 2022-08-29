@@ -8,9 +8,26 @@ using Zenject;
 public class CharacterFacade : MonoBehaviour
 {
     public CharacterModeSwitcher switcher;
+    public StatisticsManager manager;
+    
+    
+    [Header("Turn Based Logic")]
     public TurnController turnController;
-    public CharacterManager manager;
+    public TurnBasedCharacterManager turnBasedCharacterManager;
     public TurnReferences Turns;
+        
+    #region 2D Logic
+    public int GetActionPoints() => manager.character.maxNumberOfActions;
+    public void SetZoneIndex(int index) => manager.character.position = index;
+    public int Position => manager.character.position;
+    public Strategy GetStrategy() => manager.character.strategy;
+    public ActiveManager ActiveSkillsManager => manager.character.active;
+    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => turnBasedCharacterManager.Modify(user, modifiers);
+    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => turnBasedCharacterManager.UnModify(user, modifiers);
+    #endregion
+
+    
+    [Header("Fps Logic")]
     public Transform cameraFpsFollowPoint;
     public Transform cameraFppFollowPoint;
     public FirstPersonController fpsController;
@@ -38,7 +55,10 @@ public class CharacterFacade : MonoBehaviour
         this.cameraManager = cameraManager;
         this.gameManager = gameManager;
         
+        
         manager.SetCharacter(characterTemplate);
+        
+        turnBasedCharacterManager.SetCharacter(this);
         
         turnController.Initialize(this);
         fpsController.Initialize(this);
@@ -58,23 +78,8 @@ public class CharacterFacade : MonoBehaviour
         manager.GetStatistic(baseStatistic, out outStat);
     public Alignment Alignment => manager.character.alignment;
     public string Name => manager.character.data.characterName;
+    public void LookAt(Transform position) => transform.LookAt(position);
 
-    public void LookAt(Transform position)
-    {
-        transform.LookAt(position);
-    }
-    
-    #region 2D Logic
-    public int GetActionPoints() => manager.character.maxNumberOfActions;
-    public void SetZoneIndex(int index) => manager.character.position = index;
-    public int Position => manager.character.position;
-    public Strategy GetStrategy() => manager.character.strategy;
-    public ActiveManager ActiveSkillsManager => manager.character.active;
-    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
-    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
-    #endregion
-    
-    
     public void DeSpawnCharacter()
     {
         Library.RemoveCharacter(this);

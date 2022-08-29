@@ -3,8 +3,7 @@ using Zenject;
 
 public class TurnBasedGameInitializer : MonoBehaviour
 {
-    [SerializeField] private SpawnZone playerSpawnZone; 
-    [SerializeField] private SpawnZone enemySpawnZone;
+    [SerializeField] private TurnBasedSpawnZone battleSpawnZone; 
     
     private CharacterFactory _characterFactory;
 
@@ -16,6 +15,6 @@ public class TurnBasedGameInitializer : MonoBehaviour
 
     private void Start()
     {
-        _characterFactory.SetSpawnZones(playerSpawnZone, enemySpawnZone);
+        _characterFactory.SpawnInitialCharacters(battleSpawnZone);
     }
 }
