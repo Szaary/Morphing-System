@@ -40,28 +40,28 @@ public class TurnController : TurnsSubscriber, IDoActions
         }
     }
 
-    public override async Task<Result> OnEnter()
+    public override Result OnEnter()
     {
         ActionPoints = _facade.GetActionPoints();
 
-        await _facade.GetStrategy().OnEnter(CreateFightState());
+        _facade.GetStrategy().OnEnter(CreateFightState());
 
         return Result.Success;
     }
 
 
-    public override async Task<Result> Tick()
+    public override Result Tick()
     {
-        await _facade.GetStrategy().Tick();
+        _facade.GetStrategy().Tick();
         return Result.Success;
     }
 
 
-    public override async Task<Result> OnExit()
+    public override Result OnExit()
     {
         if (_facade.GetStrategy() == null) return Result.StrategyNotSet;
 
-        await _facade.GetStrategy().OnExit(CreateFightState());
+        _facade.GetStrategy().OnExit(CreateFightState());
         return Result.Success;
     }
 

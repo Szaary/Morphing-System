@@ -19,38 +19,38 @@ public abstract class BaseState
         OnExitSubscribers = new List<TurnsSubscriber>();
     }
 
-    public abstract Task Tick();
-    public abstract Task OnEnter();
-    public abstract Task OnExit();
+    public abstract void Tick();
+    public abstract void OnEnter();
+    public abstract void OnExit();
 
 
-    protected async Task OnExitBaseImplementation()
+    protected void OnExitBaseImplementation()
     {
         if (!isSilent)
             Debug.Log("Ended state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
         foreach (var subscriber in OnExitSubscribers)
         {
-            var result = await subscriber.OnExit();
+            var result = subscriber.OnExit();
             HandleSubscriberResult(result, subscriber);
         }
     }
 
-    protected async Task TickBaseImplementation()
+    protected void TickBaseImplementation()
     {
         foreach (var subscriber in TickSubscribers)
         {
-            var result = await subscriber.Tick();
+            var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
         }
     }
 
-    protected async Task OnEnterBaseImplementation()
+    protected void OnEnterBaseImplementation()
     {
         if (!isSilent)
             Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         foreach (var subscriber in OnEnterSubscribers)
         {
-            var result = await subscriber.OnEnter();
+            var result = subscriber.OnEnter();
             HandleSubscriberResult(result, subscriber);
         }
     }

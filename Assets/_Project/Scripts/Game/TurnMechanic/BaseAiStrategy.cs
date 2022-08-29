@@ -5,20 +5,21 @@ using UnityEngine;
 //CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/BaseAiStrategy")]
 public class BaseAiStrategy : Strategy
 {
-    public override async Task OnEnter(CurrentFightState currentFightState)
+    public override Result OnEnter(CurrentFightState currentFightState)
     {
         Debug.Log("Entered Ai turn, selecting move.");
         TacticsLibrary.RandomAttack(currentFightState);
+        return Result.Success;
     }
 
 
-    public override Task OnExit(CurrentFightState currentFightState)
+    public override Result OnExit(CurrentFightState currentFightState)
     {
-        return Task.CompletedTask;
+        return Result.Success;
     }
 
-    public override Task Tick()
+    public override Result Tick()
     {
-        return Task.CompletedTask;
+        return Result.Success;
     }
 }

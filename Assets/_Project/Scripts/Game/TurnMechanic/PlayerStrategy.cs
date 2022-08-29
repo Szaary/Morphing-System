@@ -6,7 +6,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/PlayerStrategy")]
 public class PlayerStrategy : Strategy
 {
-    public override Task OnEnter(CurrentFightState currentFightState)
+    public override Result OnEnter(CurrentFightState currentFightState)
     {
         currentFightState.Character.GainControl();
         Debug.Log("Entered Player turn, selecting move.");
@@ -23,17 +23,18 @@ public class PlayerStrategy : Strategy
         {
             Debug.Log(result);
         }
-        return Task.CompletedTask;
+
+        return result;
     }
 
-    public override Task OnExit(CurrentFightState currentFightState)
+    public override Result OnExit(CurrentFightState currentFightState)
     {
-        return Task.CompletedTask;
+        return Result.Success;
     }
 
-    public override Task Tick()
+    public override Result Tick()
     {
-        return Task.CompletedTask;
+        return Result.Success;
     }
 
     public Result SelectActive(int index, List<Active> possibleActives, List<CharacterFacade> possibleTargets,

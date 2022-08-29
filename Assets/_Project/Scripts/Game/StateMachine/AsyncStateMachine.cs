@@ -13,13 +13,13 @@ public class AsyncStateMachine
     private readonly List<Transition> _anyTransitions = new List<Transition>();
     private static readonly List<Transition> EmptyTransitions = new List<Transition>(0);
 
-    public async Task Tick()
+    public void Tick()
     {
         var transition = GetTransition();
         if (transition != null)
             SetState(transition.To);
 
-        if(_currentBaseState != null) await _currentBaseState.Tick();
+        _currentBaseState?.Tick();
     }
 
     public void SetState(BaseState baseState)

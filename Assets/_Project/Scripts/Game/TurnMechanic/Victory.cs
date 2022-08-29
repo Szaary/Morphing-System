@@ -10,20 +10,20 @@ public class Victory : BaseState
         _gameManager = gameManager;
     }
     
-    public override async Task Tick()
+    public override void Tick()
     {
-        await TickBaseImplementation();
+        TickBaseImplementation();
     }
 
-    public override async Task OnEnter()
+    public override void OnEnter()
     {
-        await OnEnterBaseImplementation();
+        OnEnterBaseImplementation();
         _gameManager.ChangeGameMode(GameMode.Fps);
     }
 
-    public override async Task OnExit()
+    public override void OnExit()
     {
-        await OnExitBaseImplementation();
+        OnExitBaseImplementation();
     }
 
 

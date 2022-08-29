@@ -10,13 +10,13 @@ public class PlayerTurn : BaseState
         _charactersLibrary = charactersLibrary;
     }
 
-    public override async Task Tick()
+    public override void Tick()
     {
         _hasAnyoneActions = false;
         
         foreach (var subscriber in TickSubscribers)
         {
-            var result = await subscriber.Tick();
+            var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
             if (subscriber is IDoActions {ActionPoints: > 0})
@@ -44,13 +44,13 @@ public class PlayerTurn : BaseState
         }
     }
     
-    public override async Task OnEnter()
+    public override void OnEnter()
     {
-        await OnEnterBaseImplementation();
+        OnEnterBaseImplementation();
     }
 
-    public override async Task OnExit()
+    public override void OnExit()
     {
-        await OnExitBaseImplementation();
+        OnExitBaseImplementation();
     }
 }

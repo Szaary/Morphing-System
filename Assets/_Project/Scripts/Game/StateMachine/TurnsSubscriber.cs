@@ -22,9 +22,9 @@ public abstract class TurnsSubscriber : MonoBehaviour
         SubscribedTo.Add(state);
     }
 
-    public abstract Task<Result> Tick();
-    public abstract Task<Result> OnEnter();
-    public abstract Task<Result> OnExit();
+    public abstract Result Tick();
+    public abstract Result OnEnter();
+    public abstract Result OnExit();
 
 
     public void UnsubscribeFromStates()

@@ -7,19 +7,19 @@ public class Defeat : BaseState
     {
     }
     
-    public override async Task Tick()
+    public override void Tick()
     {
-        await  TickBaseImplementation();
+        TickBaseImplementation();
     }
 
-    public override async Task OnEnter()
+    public override void OnEnter()
     {
-        await OnEnterBaseImplementation();
+        OnEnterBaseImplementation();
     }
 
-    public override async Task OnExit()
+    public override void OnExit()
     {
-        await OnExitBaseImplementation();
+        OnExitBaseImplementation();
     }
 
    

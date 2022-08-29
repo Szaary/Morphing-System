@@ -5,9 +5,9 @@ using UnityEngine;
 
 public abstract class Strategy : ScriptableObject
 {
-    public abstract Task OnEnter(CurrentFightState currentFightState);
-    public abstract Task OnExit(CurrentFightState currentFightState);
-    public abstract Task Tick();
+    public abstract Result OnEnter(CurrentFightState currentFightState);
+    public abstract Result OnExit(CurrentFightState currentFightState);
+    public abstract Result Tick();
 
     public struct CurrentFightState
     {

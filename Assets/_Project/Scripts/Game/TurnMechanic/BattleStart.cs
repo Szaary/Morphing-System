@@ -12,20 +12,20 @@ public class BattleStart : BaseState
         _charactersLibrary = charactersLibrary;
     }
 
-    public override async Task OnEnter()
+    public override void OnEnter()
     {
-       await TickBaseImplementation();
+       TickBaseImplementation();
     }
     
-    public override async Task Tick()
+    public override void Tick()
     {
-        await TickBaseImplementation();
+        TickBaseImplementation();
         if(_charactersLibrary.SpawnedAllCharacters) StartBattle();
     }
 
-    public override async Task OnExit()
+    public override void OnExit()
     {
-        await OnExitBaseImplementation();
+        OnExitBaseImplementation();
     }
     
     private void StartBattle()

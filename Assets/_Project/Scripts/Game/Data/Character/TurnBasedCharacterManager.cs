@@ -20,7 +20,7 @@ public class TurnBasedCharacterManager : TurnsSubscriber
     }
 
 
-    public override async Task<Result> OnEnter()
+    public override Result OnEnter()
     {
         var result = Result.Success;
         for (var index = _facade.manager.character.Effect.Count - 1; index >= 0; index--)
@@ -35,12 +35,12 @@ public class TurnBasedCharacterManager : TurnsSubscriber
         return result;
     }
 
-    public override async Task<Result> Tick()
+    public override Result Tick()
     {
         return Result.Success;
     }
 
-    public override async Task<Result> OnExit()
+    public override Result OnExit()
     {
         var result = Result.Success;
 
