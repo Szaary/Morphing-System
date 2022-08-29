@@ -14,6 +14,11 @@ public class Character : ScriptableObject
 
     public TurnBasedStrategy turnBasedStrategy;
     public RealTimeStrategy realTimeStrategy;
+
+    [Header("Movement")] 
+    public MovementSettings fpsMovement;
+    public MovementSettings turnBasedMovement;
+    
     
     [Range(1, MAXActionPoints)] public int maxNumberOfActions;
     
