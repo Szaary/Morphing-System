@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -8,25 +9,36 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    private readonly Dictionary<IUseTimescale, float> timescaleExclusions = new();
+    private readonly Dictionary<IExcludeFromTimeScale, float> timescaleExclusions = new();
 
     [SerializeField] private float currentlySetTimescale = 1;
     [SerializeField] private float slowDownAnimationTime = 0.3f;
-    public void AddToTimescaleExclusions(IUseTimescale user, float relativeToRealTime = 1)
+
+    public void AddToTimescaleExclusions(IExcludeFromTimeScale user, float relativeToRealTime = 1)
     {
         var relative = Mathf.Clamp(relativeToRealTime, 0f, 1f);
         if (timescaleExclusions.ContainsKey(user)) timescaleExclusions[user] = relative;
         else timescaleExclusions.Add(user, relative);
     }
 
-    public void Slow(float requestedTimeScale)
+    public void Slow(float requestedTimeScale, float slowDuration = 0)
     {
-        DOTween.To(value => Time.timeScale = value, currentlySetTimescale, requestedTimeScale, slowDownAnimationTime).OnUpdate(() =>
-        {
-            if (Time.timeScale < 0.001f)
-                Time.timeScale = 0;
-        }).SetEase(Ease.InCubic);
+        DOTween.To(value => Time.timeScale = value, currentlySetTimescale, requestedTimeScale, slowDownAnimationTime)
+            .OnUpdate(() =>
+            {
+                if (Time.timeScale < 0.001f)
+                    Time.timeScale = 0;
+            }).SetEase(Ease.InCubic);
         currentlySetTimescale = requestedTimeScale;
+
+        if (slowDuration == 0) return;
+        StartCoroutine(ReturnToNormal(slowDuration));
+    }
+
+    private IEnumerator ReturnToNormal(float slowDuration)
+    {
+        yield return new WaitForSecondsRealtime(slowDuration);
+        Return();
     }
 
     public void Return()
@@ -42,7 +54,7 @@ public class TimeManager : MonoBehaviour
     }
 
 
-    public float GetDeltaTime(IUseTimescale user)
+    public float GetDeltaTime(IExcludeFromTimeScale user)
     {
         if (timescaleExclusions.ContainsKey(user)) return timescaleExclusions[user];
         return Time.deltaTime;
@@ -58,6 +70,6 @@ public class TimeManager : MonoBehaviour
     }
 }
 
-public interface IUseTimescale
+public interface IExcludeFromTimeScale
 {
 }

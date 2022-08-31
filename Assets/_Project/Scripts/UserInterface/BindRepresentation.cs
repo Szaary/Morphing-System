@@ -16,7 +16,7 @@ public class BindRepresentation
     public int position;
     private Vector2 _startingPosition;
     private Vector2 _outPosition;
-    
+
     public void Initialize(int buttonPosition)
     {
         button.onClick.AddListener(OnButtonClicked);
@@ -34,21 +34,22 @@ public class BindRepresentation
     {
         button.onClick.Invoke();
     }
-    
+
     public void ShowButton(Active active)
     {
-        button.interactable= true;
+        button.interactable = true;
         buttonText.text = active.name;
     }
+
     public void ShowButton(CharacterFacade possibleTarget)
     {
-        button.interactable= true;
+        button.interactable = true;
         buttonText.text = possibleTarget.name;
     }
 
     public void HideButton()
     {
-        button.interactable= false;
+        button.interactable = false;
         buttonText.text = "";
     }
 

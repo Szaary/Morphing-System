@@ -6,8 +6,8 @@ using Zenject;
 
 public class CameraManager : MonoBehaviour
 {
-    private const int MaxCameraPriority = 30; 
-    private const int UsualCameraPriority = 15; 
+    private const int MaxCameraPriority = 30;
+    private const int UsualCameraPriority = 15;
 
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Camera uiCamera;
@@ -22,8 +22,8 @@ public class CameraManager : MonoBehaviour
 
     private GameManager _gameManager;
     private CharactersLibrary _library;
-    
-    
+
+
     [Inject]
     public void Construct(GameManager gameManager, CharactersLibrary library)
     {
@@ -64,13 +64,17 @@ public class CameraManager : MonoBehaviour
         }
 
         var cameraFpsFollowPoint = facade.cameraFpsFollowPoint;
-        
+
         foreach (var cam in cameras)
         {
             if (cam.camera == fpsCamera)
             {
                 cam.camera.Priority = MaxCameraPriority;
                 SetupCameraAfterTarget(cam.camera, cameraFpsFollowPoint);
+                if (_library.SelectRandomEnemy(0) != null)
+                {
+                    facade.LookAt(_library.SelectRandomEnemy(0).transform);
+                }
             }
             else
             {
@@ -78,7 +82,7 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
-    
+
     public void SetTurnBasedCamera()
     {
         foreach (var cam in cameras)
@@ -93,8 +97,8 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
-    
-    
+
+
     private void SetupCameraAfterTarget(CinemachineVirtualCamera cam, Transform cameraTarget)
     {
         cam.Follow = cameraTarget;

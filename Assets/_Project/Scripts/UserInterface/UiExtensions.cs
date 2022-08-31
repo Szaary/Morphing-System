@@ -10,12 +10,12 @@ public static class UiExtensions
     {
         if (newMode == GameMode.TurnBasedFight)
         {
-            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc);
-            
+            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
+
         }
         else if (newMode == GameMode.Fps)
         {
-            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc);
+            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
         }
     }
     
@@ -23,12 +23,12 @@ public static class UiExtensions
     {
         if (newMode == GameMode.Fps)
         {
-            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc);
+            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
             
         }
         else if (newMode == GameMode.TurnBasedFight)
         {
-            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc);
+            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
         }
     }
 }

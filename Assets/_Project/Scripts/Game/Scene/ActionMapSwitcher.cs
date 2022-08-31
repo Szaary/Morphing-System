@@ -1,56 +1,46 @@
-using System;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
-public class ActionMapSwitcher : MonoBehaviour
+public class ActionMapSwitcher : GameModeSwitcherMono
 {
     [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private FpsInput fpsInputs; 
-    
-    
-    private GameManager _gameManager;
-    
+    [SerializeField] private FpsInput fpsInputs;
+
+
     private InputActionMap _turnBased;
     private InputActionMap _fpsInput;
     private InputActionMap _universal;
     private InputActionMap _menu;
 
-    private readonly List<InputActionMap> _actionMaps=new();
-    
-    [Inject]
-    public void Construct(GameManager gameManager)
-    {
-        _gameManager = gameManager;
-    }
+    private readonly List<InputActionMap> _actionMaps = new();
 
-    private void Start()
+
+    protected override void Start()
     {
-        _turnBased= playerInput.actions.FindActionMap("TurnBasedInput");
-        _fpsInput =  playerInput.actions.FindActionMap("FpsInput");
-        _menu =  playerInput.actions.FindActionMap("UI");
+        _turnBased = playerInput.actions.FindActionMap("TurnBasedInput");
+        _fpsInput = playerInput.actions.FindActionMap("FpsInput");
+        _menu = playerInput.actions.FindActionMap("UI");
         _universal = playerInput.actions.FindActionMap("Universal");
-        
+
         _actionMaps.Add(_turnBased);
         _actionMaps.Add(_fpsInput);
         _actionMaps.Add(_menu);
-        
+
         _universal.Enable();
-        
-        OnGameModeChanged(_gameManager.GameMode);
-        _gameManager.GameModeChanged += OnGameModeChanged;
+
+        base.Start();
     }
 
-    private void OnGameModeChanged(GameMode newMode)
+    protected override void OnGameModeChanged(GameMode newMode)
     {
         if (newMode == GameMode.TurnBasedFight)
         {
             SelectActionMap(_turnBased);
             SetCursorState(false);
         }
-        else if (newMode== GameMode.Fps)
+        else if (newMode == GameMode.Fps)
         {
             SelectActionMap(_fpsInput);
             SetCursorState(true);
@@ -71,6 +61,7 @@ public class ActionMapSwitcher : MonoBehaviour
                 map.Enable();
                 continue;
             }
+
             map.Disable();
         }
     }
@@ -80,10 +71,5 @@ public class ActionMapSwitcher : MonoBehaviour
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
         fpsInputs.cursorInputForLook = newState;
-    }
-    
-    private void OnDestroy()
-    {
-        _gameManager.GameModeChanged -= OnGameModeChanged;
     }
 }

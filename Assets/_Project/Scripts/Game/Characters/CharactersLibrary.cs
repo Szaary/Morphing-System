@@ -54,9 +54,9 @@ public class CharactersLibrary
         AiCharacters = _spawnedCharacters.Where(x => x.Alignment.id != 0).ToList().Count;
     }
 
-    public CharacterFacade SelectRandomEnemy(Alignment userAlignment)
+    public CharacterFacade SelectRandomEnemy(int userAlignmentId)
     {
-        var enemies = _spawnedCharacters.Where(x => x.Alignment.id != userAlignment.id).ToList();
+        var enemies = _spawnedCharacters.Where(x => x.Alignment.id != userAlignmentId).ToList();
         var index = Random.Range(0, enemies.Count);
         return enemies[index];
     }
