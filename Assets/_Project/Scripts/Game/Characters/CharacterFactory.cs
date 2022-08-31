@@ -1,39 +1,19 @@
 using UnityEngine;
 using Zenject;
 
-public class CharacterFactory : MonoBehaviour
+public class CharacterFactory: ICharacterFactory
 {
-    [SerializeField] private Character player;
-    [SerializeField] private Character enemy;
+    private readonly CharacterFacade.Factory _characterFactory;
 
-    private CharacterFacade.Factory _characterFactory;
-    private CharactersLibrary _library;
-
-    [Inject]
-    public void Construct(CharacterFacade.Factory characterFactory, CharactersLibrary library)
+    public CharacterFactory(CharacterFacade.Factory characterFactory)
     {
         _characterFactory = characterFactory;
-        _library = library;
     }
 
-    public void SpawnInitialCharacters(BaseSpawnZone turnBasedSpawnZone)
+    public void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone)
     {
-        SpawnCharacter(player, turnBasedSpawnZone);
-        
-        SpawnCharacter(enemy, turnBasedSpawnZone);
-        SpawnCharacter(enemy, turnBasedSpawnZone);
-        SpawnCharacter(enemy, turnBasedSpawnZone);
-        SpawnCharacter(enemy, turnBasedSpawnZone);
-        
-        _library.SpawnedAllCharacters = true;
-    }
-
-    private void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone)
-    {
-        var facade = _characterFactory.Create(character);
-        facade.transform.parent = transform;
+        var facade = _characterFactory.Create(character.prefab, character);
         facade.gameObject.name = character.name;
-        
         SetSpawnZone(facade, turnBasedSpawnZone);
     }
 
@@ -42,4 +22,9 @@ public class CharacterFactory : MonoBehaviour
         if (facade.Alignment.Id == 0) battleSpawnZone.PlaceCharacter(facade);
         else battleSpawnZone.PlaceCharacter(facade);
     }
+}
+
+public interface ICharacterFactory
+{
+    void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone);
 }

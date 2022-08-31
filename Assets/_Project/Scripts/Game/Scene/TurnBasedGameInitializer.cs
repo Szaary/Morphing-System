@@ -4,17 +4,34 @@ using Zenject;
 public class TurnBasedGameInitializer : MonoBehaviour
 {
     [SerializeField] private TurnBasedSpawnZone battleSpawnZone; 
+    [SerializeField] private Character player;
+    [SerializeField] private Character enemy;
+
     
-    private CharacterFactory _characterFactory;
+    private CharactersLibrary _library;
+    private ICharacterFactory _characterFactory;
 
     [Inject]
-    public void Construct(CharacterFactory characterFactory)
+    public void Construct(ICharacterFactory characterFactory, CharactersLibrary library)
     {
         _characterFactory = characterFactory;
+        _library = library;
     }
 
     private void Start()
     {
-        _characterFactory.SpawnInitialCharacters(battleSpawnZone);
+        SpawnInitialCharacters(battleSpawnZone);
     }
+    public void SpawnInitialCharacters(BaseSpawnZone turnBasedSpawnZone)
+    {
+        _characterFactory.SpawnCharacter(player, turnBasedSpawnZone);
+        
+        _characterFactory.SpawnCharacter(enemy, turnBasedSpawnZone);
+        _characterFactory.SpawnCharacter(enemy, turnBasedSpawnZone);
+        _characterFactory.SpawnCharacter(enemy, turnBasedSpawnZone);
+        _characterFactory.SpawnCharacter(enemy, turnBasedSpawnZone);
+        
+        _library.SpawnedAllCharacters = true;
+    }
+
 }

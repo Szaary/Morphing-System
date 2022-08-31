@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
   m_Name: CHA_John
   m_EditorClassIdentifier: 
+  prefab: {fileID: 214732092336691124, guid: 3a679f741f523644aa196392dc185a30, type: 3}
   data: {fileID: 11400000, guid: 2806f04c1bad6434ea92c1e8c6c14970, type: 2}
   vfx: {fileID: 11400000, guid: b327e067432e6704cb556899169bcdb6, type: 2}
   sfx: {fileID: 11400000, guid: 0575c4e23a44a9f4b9f3454dc5ab4abe, type: 2}

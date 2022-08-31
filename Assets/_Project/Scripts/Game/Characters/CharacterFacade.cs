@@ -114,8 +114,9 @@ public class CharacterFacade : MonoBehaviour
         Debug.Log("Destroying character: " + name);
         Destroy(gameObject);
     }
-
-    public class Factory : PlaceholderFactory<Character, CharacterFacade>
+    
+    public class Factory : PlaceholderFactory<UnityEngine.Object, Character, CharacterFacade>
     {
     }
+
 }

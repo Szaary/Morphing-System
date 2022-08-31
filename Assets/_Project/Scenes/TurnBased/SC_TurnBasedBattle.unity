@@ -493,21 +493,29 @@ MonoBehaviour:
   playerCharactersSpawnLocations:
   - transform: {fileID: 711319765}
     occupied: 0
+    index: 0
   - transform: {fileID: 1906416042}
     occupied: 0
+    index: 0
   - transform: {fileID: 231667294}
     occupied: 0
+    index: 0
   - transform: {fileID: 791380032}
     occupied: 0
+    index: 0
   enemySpawnLocations:
   - transform: {fileID: 1382923782}
     occupied: 0
+    index: 0
   - transform: {fileID: 16808457}
     occupied: 0
+    index: 0
   - transform: {fileID: 224423966}
     occupied: 0
+    index: 0
   - transform: {fileID: 912442627}
     occupied: 0
+    index: 0
 --- !u!114 &1457399898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,6 +529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleSpawnZone: {fileID: 1457399897}
+  player: {fileID: 11400000, guid: 9c11319dc2d83e74d91a128655269046, type: 2}
+  enemy: {fileID: 11400000, guid: e0967da552ef58642af15d76270c5c75, type: 2}
 --- !u!114 &1457399899
 MonoBehaviour:
   m_ObjectHideFlags: 0
