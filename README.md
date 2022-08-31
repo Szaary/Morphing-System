@@ -6,12 +6,13 @@ Currently implemented:
  - Fps
 
 
-# Features
+# Basic Structure
 - Basic game structure with Zenject
 - Fully customizable statistics. To add "inteligence" to character stats just create stat scriptable object "inteligence" and add to character statistics list.
-- Multi Scene usage. Every terrain is scene, battle types are different scenes, hud is another. You can start game from any scene in editor. 
+- Multi Scene usage. Every terrain is scene, battle types are different scenes, hud is another. 
 - GUI Creators for characters etc.
 
 
 Latest changes on development branch.
-Project GDD: https://github.com/Szaary/Morphing-System/edit/main/GDD.md
+
+- Project GDD: https://github.com/Szaary/Morphing-System/blob/main/GDD.md
