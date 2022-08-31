@@ -23,7 +23,8 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        if (canMove) transform.Translate(_direction * speed * Time.deltaTime);
+        var delta = Time.deltaTime;
+        if (canMove) transform.Translate(_direction * speed * delta);
     }
     
     public void OnTriggerEnter(Collider other)

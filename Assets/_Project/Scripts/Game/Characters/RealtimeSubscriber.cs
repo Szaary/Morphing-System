@@ -7,7 +7,9 @@ public abstract class RealtimeSubscriber : MonoBehaviour
 
     private void Update()
     {
-        _elapsedTime += Time.deltaTime;
+        var delta = Time.deltaTime;
+            
+        _elapsedTime += delta;
         if (_elapsedTime >= CycleTime)
         {
             _elapsedTime = 0;

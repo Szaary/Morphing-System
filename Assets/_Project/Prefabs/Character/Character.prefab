@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372212559082860049}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.28816086, y: 0.95463353, z: 5.2182307}
+  m_LocalPosition: {x: 0, y: 1.28, z: 1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -594,7 +594,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fpsLogic: {fileID: 3800808036578180981}
   logic2D: {fileID: 7304164659668813759}
-  fpsController: {fileID: 3584495357984487962}
 --- !u!114 &214732092336691124
 MonoBehaviour:
   m_ObjectHideFlags: 0

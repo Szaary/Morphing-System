@@ -6,5 +6,5 @@ using UnityEngine;
 public abstract class Weapon : Item
 {
     public float attacksPerSecond = 1f;
-    public float distance = 1.5f;
+    public float range = 1.5f;
 }

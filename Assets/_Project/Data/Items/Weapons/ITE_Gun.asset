@@ -24,5 +24,5 @@ MonoBehaviour:
   slot: {fileID: 11400000, guid: 7c62da09a178a814fa71004166d79199, type: 2}
   weight: 3
   attacksPerSecond: 10
-  distance: 5
+  range: 50
   projectile: {fileID: 4860517555801637927, guid: 9cc037181f081894e8dc7eedf38a2fe7, type: 3}

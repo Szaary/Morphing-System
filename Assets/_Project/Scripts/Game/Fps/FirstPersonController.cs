@@ -100,9 +100,11 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			JumpAndGravity();
+			var delta = Time.deltaTime;
+			
+			JumpAndGravity(delta);
 			GroundedCheck();
-			Move();
+			Move(delta);
 		}
 
 		private void LateUpdate()
@@ -122,7 +124,7 @@ namespace StarterAssets
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
-				//Don't multiply mouse input by Time.deltaTime
+				//Don't multiply mouse input by delta
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
 				_cinemachineTargetPitch += _input.look.y * RotationSpeedY * deltaTimeMultiplier;
@@ -139,7 +141,7 @@ namespace StarterAssets
 			}
 		}
 
-		private void Move()
+		private void Move(float delta)
 		{
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
@@ -161,7 +163,7 @@ namespace StarterAssets
 			{
 				// creates curved result rather than a linear one giving a more organic speed change
 				// note T in Lerp is clamped, so we don't need to clamp our speed
-				_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, Time.deltaTime * SpeedChangeRate);
+				_speed = Mathf.Lerp(currentHorizontalSpeed, targetSpeed * inputMagnitude, delta * SpeedChangeRate);
 
 				// round speed to 3 decimal places
 				_speed = Mathf.Round(_speed * 1000f) / 1000f;
@@ -183,10 +185,10 @@ namespace StarterAssets
 			}
 
 			// move the player
-			controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			controller.Move(inputDirection.normalized * (_speed * delta) + new Vector3(0.0f, _verticalVelocity, 0.0f) * delta);
 		}
 
-		private void JumpAndGravity()
+		private void JumpAndGravity(float delta)
 		{
 			if (Grounded)
 			{
@@ -209,7 +211,7 @@ namespace StarterAssets
 				// jump timeout
 				if (_jumpTimeoutDelta >= 0.0f)
 				{
-					_jumpTimeoutDelta -= Time.deltaTime;
+					_jumpTimeoutDelta -= delta;
 				}
 			}
 			else
@@ -220,7 +222,7 @@ namespace StarterAssets
 				// fall timeout
 				if (_fallTimeoutDelta >= 0.0f)
 				{
-					_fallTimeoutDelta -= Time.deltaTime;
+					_fallTimeoutDelta -= delta;
 				}
 
 				// if we are not grounded, do not jump
@@ -230,7 +232,7 @@ namespace StarterAssets
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
 			{
-				_verticalVelocity += Gravity * Time.deltaTime;
+				_verticalVelocity += Gravity * delta;
 			}
 		}
 

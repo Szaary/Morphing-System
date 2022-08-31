@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class RangedWeaponController : WeaponController
@@ -7,14 +8,8 @@ public class RangedWeaponController : WeaponController
 
     private void Update()
     {
-#if UNITY_EDITOR
-        if (MainCamera != null)
-        {
-            Debug.DrawRay(MainCamera.transform.position, MainCamera.transform.forward, Color.green,
-                rangedWeapon.distance);
-        }
-#endif
-
+        var delta = Time.deltaTime;
+        
         if (Input.shoot && ShootTimeoutDelta <= 0.0f)
         {
             FireWeapon();
@@ -25,7 +20,7 @@ public class RangedWeaponController : WeaponController
 
         if (ShootTimeoutDelta >= 0.0f)
         {
-            ShootTimeoutDelta -= Time.deltaTime;
+            ShootTimeoutDelta -= delta;
         }
     }
 
@@ -38,10 +33,18 @@ public class RangedWeaponController : WeaponController
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
 
-
     private IEnumerator DestroyAfterTime(Projectile projectile)
     {
         yield return new WaitForSeconds(3);
         Destroy(projectile);
     }
+
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawRay(transform.position, transform.forward * rangedWeapon.range);
+    }
+#endif
 }

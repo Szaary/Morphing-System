@@ -12,12 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1adc873de998f54ea8a746c28e5f761, type: 3}
   m_Name: ITE_Fists
   m_EditorClassIdentifier: 
-  name: 
+  name: Fist
   icon: {fileID: 0}
-  modifiers: []
+  modifiers:
+  - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+    algorithm: {fileID: 11400000, guid: 698039638b6859d4180403253b302e56, type: 2}
+    baseAmount: 3
+    modifierStatistic: {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
+    ratio: 1
   materials: []
-  slot: {fileID: 0}
+  slot: {fileID: 11400000, guid: dc5583a670f4322428413293432469a2, type: 2}
   weight: 0
-  projectile: {fileID: 0}
-  damage: 2
   attacksPerSecond: 1
+  range: 1.5
