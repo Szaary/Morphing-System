@@ -8,17 +8,13 @@ using Zenject;
 public class ActionMapSwitcher : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
-<<<<<<< Updated upstream
-    [SerializeField] private FpsInput fpsInputs; 
     
     
     private GameManager _gameManager;
     
-=======
+
     [SerializeField] private MovementInput movementInputs;
 
-
->>>>>>> Stashed changes
     private InputActionMap _turnBased;
     private InputActionMap _fpsInput;
     private InputActionMap _universal;

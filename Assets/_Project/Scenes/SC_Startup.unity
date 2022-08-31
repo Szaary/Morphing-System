@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073cdd808d609f74abb9b7b378fd5c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerStrategy: {fileID: 0}
+  playerTurnBasedStrategy: {fileID: 0}
   possibleTargets: []
   possibleActives: []
   chosenTargets: []
@@ -400,6 +400,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   shoot: 0
+  melee: 0
   analogMovement: 0
   cursorInputForLook: 0
 --- !u!114 &1835526043
@@ -415,7 +416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 1835526041}
-  fpsInputs: {fileID: 1835526042}
+  movementInputs: {fileID: 1835526042}
 --- !u!114 &1835526044
 MonoBehaviour:
   m_ObjectHideFlags: 0

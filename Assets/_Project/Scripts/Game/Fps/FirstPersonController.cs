@@ -67,14 +67,11 @@ namespace StarterAssets
 		private PlayerInput _playerInput;
 #endif
 		[SerializeField] private CharacterController controller;
-<<<<<<< Updated upstream
-		private FpsInput _input;
-		private GameObject _mainCamera;
 
-=======
+		private GameObject _mainCamera;
 		private MovementInput _input;
 		
->>>>>>> Stashed changes
+
 		private const float _threshold = 0.01f;
 
 		private bool IsCurrentDeviceMouse

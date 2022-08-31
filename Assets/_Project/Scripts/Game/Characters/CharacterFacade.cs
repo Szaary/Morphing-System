@@ -56,11 +56,6 @@ public class CharacterFacade : MonoBehaviour
     [HideInInspector] public GameManager gameManager;
 
     [Inject]
-<<<<<<< Updated upstream
-    public void Construct(Character characterTemplate, TurnReferences turns, 
-        TurnBasedInput turnBasedInput, CharactersLibrary library, CameraManager cameraManager,
-        PlayerInput playerInput, FpsInput starterInputs, GameManager gameManager)
-=======
     public void Construct(Character characterTemplate,
         TurnReferences turns,
         TurnBasedInput turnBasedInput,
@@ -70,7 +65,6 @@ public class CharacterFacade : MonoBehaviour
         MovementInput starterInputs,
         GameManager gameManager,
         TimeManager timeManager)
->>>>>>> Stashed changes
     {
         this.starterInputs = starterInputs;
         this.playerInput = playerInput;
