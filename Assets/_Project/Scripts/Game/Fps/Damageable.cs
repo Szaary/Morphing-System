@@ -1,19 +1,13 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] protected BaseStatistic statistic;
     [SerializeField] protected CharacterFacade Facade;
-
-    private Statistic _chosenStat;
-    public virtual void Start()
+ 
+    public void TakeDamage(CharacterFacade shooter, List<Modifier> modifiers)
     {
-        Facade.GetStatistic(statistic, out _chosenStat);
-    }
-
-    public void TakeDamage(float damage, Vector3 vector3)
-    {
-        _chosenStat.Subtract(damage);
+        Facade.Modify(shooter, modifiers);
     }
 }

@@ -5,6 +5,5 @@ public class ItemSlot : ScriptableObject
 {
     public string slotName;
     public int maxStack;
-    public int currentStack;
     public int maxWearSlots;
 }

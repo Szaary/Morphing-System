@@ -44,6 +44,7 @@ public class NavMeshController : MonoBehaviour
             {
                 fpsController.enabled = true;
                 controller.enabled = true;
+                agent.enabled = false;
             }
             else
             {

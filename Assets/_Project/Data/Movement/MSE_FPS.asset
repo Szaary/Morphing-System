@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9af3948a7b764cf2863fe9c050116aa9, type: 3}
-  m_Name: ITS_Head
+  m_Script: {fileID: 11500000, guid: c89039b601e548d4a93fa4d39a55fa77, type: 3}
+  m_Name: MSE_FPS
   m_EditorClassIdentifier: 
-  slotName: MeeleWeapon
-  maxStack: 1
-  currentStack: 0
-  maxWearSlots: 1
+  speed: 3.5
+  acceleration: 8
+  radius: 0.5
+  height: 2
+  sprintSpeed: 6

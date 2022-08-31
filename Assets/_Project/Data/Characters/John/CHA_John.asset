@@ -18,6 +18,8 @@ MonoBehaviour:
   alignment: {fileID: 11400000, guid: 489e74780685eb542bf9a2b06d6d97bd, type: 2}
   turnBasedStrategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
   realTimeStrategy: {fileID: 11400000, guid: 4d29961f8c742214f9f22692509c8fe3, type: 2}
+  fpsMovement: {fileID: 11400000, guid: 2279fdf3e9ddcf243897d7fda76655d9, type: 2}
+  turnBasedMovement: {fileID: 11400000, guid: 1d4f2d37d91be284d8c7c36089e99270, type: 2}
   maxNumberOfActions: 1
   statisticsTemplate:
   - {fileID: 11400000, guid: 0c89c7bc5baea454c83ff38ad69680ad, type: 2}
@@ -34,5 +36,8 @@ MonoBehaviour:
   equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
   backpack: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
   equipment: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
-  position: 0
+  position:
+    transform: {fileID: 0}
+    occupied: 0
+    index: 0
   statistics: []

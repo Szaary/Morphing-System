@@ -15,6 +15,8 @@ namespace StarterAssets
 		public bool sprint;
 
 		public bool shoot;
+		public bool melee;
+
 		
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -22,6 +24,7 @@ namespace StarterAssets
 		[Header("Mouse Cursor Settings")]
 		[HideInInspector] public bool cursorInputForLook = true;
 
+		
 
 #if ENABLE_INPUT_SYSTEM 
 		public void OnMove(InputValue value)
@@ -52,9 +55,20 @@ namespace StarterAssets
 			ShootInput(value.isPressed);
 		}
 
+		public void OnMelee(InputValue value)
+		{
+			MeleeInput(value.isPressed);
+		}
+
+
 
 #endif
 
+		private void MeleeInput(bool valueIsPressed)
+		{
+			melee = valueIsPressed;
+		}
+		
 		private void ShootInput(bool newShootState)
 		{
 			shoot = newShootState;
