@@ -24,9 +24,11 @@ public class RelativeController : MonoBehaviour
     private float? jumpButtonPressedTime;
 
     private MovementInput _input;
-    
+    private CharacterFacade _facade;
+
     public void Initialize(CharacterFacade characterFacade)
     {
+        _facade = characterFacade;
         cameraTransform = characterFacade.cameraManager.MainCamera.transform;
         _input = characterFacade.movementInput;
     }
@@ -41,6 +43,8 @@ public class RelativeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        var delta = _facade.timeManager.GetDeltaTime(this);
+        
         float horizontalInput = _input.move.x;// Input.GetAxis("Horizontal");
         float verticalInput = _input.move.y;//Input.GetAxis("Vertical");
 
@@ -56,7 +60,7 @@ public class RelativeController : MonoBehaviour
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
 
-        ySpeed += Physics.gravity.y * Time.deltaTime;
+        ySpeed += Physics.gravity.y * delta;
 
         if (characterController.isGrounded)
         {
@@ -88,13 +92,13 @@ public class RelativeController : MonoBehaviour
         Vector3 velocity = movementDirection * speed;
         velocity.y = ySpeed;
 
-        characterController.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * delta);
 
         if (movementDirection != Vector3.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * delta);
         }        
     }
 

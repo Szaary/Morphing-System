@@ -152,7 +152,7 @@
             ]
         },
         {
-            "name": "FpsInput",
+            "name": "Movement",
             "id": "72e39983-66f5-4701-a97a-453004332a8a",
             "actions": [
                 {
@@ -186,6 +186,15 @@
                     "name": "Melee",
                     "type": "Button",
                     "id": "6e0d217b-45f6-4727-972e-27c8d6991a6a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "91e80e68-7dfb-4014-a998-2f035687890f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -421,6 +430,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Melee",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ab658c3-b32d-4bc9-9fe8-fa98ae1cb7cf",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,7 +12,7 @@ public class ActionMapSwitcher : AbstractGameModeSwitcherMono
     [SerializeField] private MovementInput movementInputs;
 
     private InputActionMap _turnBased;
-    private InputActionMap _fpsInput;
+    private InputActionMap _movementInput;
     private InputActionMap _universal;
     private InputActionMap _menu;
 
@@ -22,12 +22,12 @@ public class ActionMapSwitcher : AbstractGameModeSwitcherMono
     protected override void Start()
     {
         _turnBased = playerInput.actions.FindActionMap("TurnBasedInput");
-        _fpsInput = playerInput.actions.FindActionMap("FpsInput");
+        _movementInput = playerInput.actions.FindActionMap("Movement");
         _menu = playerInput.actions.FindActionMap("UI");
         _universal = playerInput.actions.FindActionMap("Universal");
 
         _actionMaps.Add(_turnBased);
-        _actionMaps.Add(_fpsInput);
+        _actionMaps.Add(_movementInput);
         _actionMaps.Add(_menu);
 
         _universal.Enable();
@@ -44,7 +44,7 @@ public class ActionMapSwitcher : AbstractGameModeSwitcherMono
         }
         else if (newMode == GameMode.Fps)
         {
-            SelectActionMap(_fpsInput);
+            SelectActionMap(_movementInput);
             SetCursorState(true);
         }
         else if (newMode == GameMode.InMenu)
