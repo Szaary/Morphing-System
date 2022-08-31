@@ -9,12 +9,12 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    private readonly Dictionary<IExcludeFromTimeScale, float> timescaleExclusions = new();
+    private readonly Dictionary<MonoBehaviour, float> timescaleExclusions = new();
 
     [SerializeField] private float currentlySetTimescale = 1;
     [SerializeField] private float slowDownAnimationTime = 0.3f;
 
-    public void AddToTimescaleExclusions(IExcludeFromTimeScale user, float relativeToRealTime = 1)
+    public void AddToTimescaleExclusions(MonoBehaviour user, float relativeToRealTime = 1)
     {
         var relative = Mathf.Clamp(relativeToRealTime, 0f, 1f);
         if (timescaleExclusions.ContainsKey(user)) timescaleExclusions[user] = relative;
@@ -54,7 +54,7 @@ public class TimeManager : MonoBehaviour
     }
 
 
-    public float GetDeltaTime(IExcludeFromTimeScale user)
+    public float GetDeltaTime(MonoBehaviour user)
     {
         if (timescaleExclusions.ContainsKey(user)) return timescaleExclusions[user];
         return Time.deltaTime;
@@ -68,8 +68,4 @@ public class TimeManager : MonoBehaviour
     {
         return Time.unscaledDeltaTime;
     }
-}
-
-public interface IExcludeFromTimeScale
-{
 }

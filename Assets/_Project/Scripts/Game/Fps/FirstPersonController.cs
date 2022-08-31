@@ -61,15 +61,14 @@ namespace StarterAssets
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
-
+		private CharacterFacade _facade;
 	
 #if ENABLE_INPUT_SYSTEM 
 		private PlayerInput _playerInput;
 #endif
 		[SerializeField] private CharacterController controller;
 		private FpsInput _input;
-		private GameObject _mainCamera;
-
+		
 		private const float _threshold = 0.01f;
 
 		private bool IsCurrentDeviceMouse
@@ -85,12 +84,14 @@ namespace StarterAssets
 		}
 		public void Initialize(CharacterFacade characterFacade)
 		{
-			_mainCamera = characterFacade.cameraManager.MainCamera.gameObject;
+			_facade = characterFacade;
 			_playerInput = characterFacade.playerInput;
 			_input = characterFacade.starterInputs;
 			
 		}
-	
+
+		
+
 		private void Start()
 		{
 			// reset our timeouts on start
@@ -100,7 +101,7 @@ namespace StarterAssets
 
 		private void Update()
 		{
-			var delta = Time.deltaTime;
+			var delta = _facade.timeManager.GetDeltaTime(this);
 			
 			JumpAndGravity(delta);
 			GroundedCheck();
@@ -125,7 +126,7 @@ namespace StarterAssets
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
 				//Don't multiply mouse input by delta
-				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
+				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : _facade.timeManager.GetUnscaledDeltaTime();
 				
 				_cinemachineTargetPitch += _input.look.y * RotationSpeedY * deltaTimeMultiplier;
 				_rotationVelocity = _input.look.x * RotationSpeedX * deltaTimeMultiplier;

@@ -16,7 +16,4 @@ public abstract class WeaponController : MonoBehaviour
         Input = characterFacade.starterInputs;
         MainCamera = characterFacade.cameraManager.MainCamera;
     }
-
-   
-    
 }

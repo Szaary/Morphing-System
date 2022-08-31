@@ -8,7 +8,7 @@ public class MeleeWeaponController : WeaponController
     
     private void Update()
     {
-        var delta = Time.deltaTime;
+        var delta = Facade.timeManager.GetDeltaTime(this);
         
         if (Input.melee && ShootTimeoutDelta <= 0.0f)
         {

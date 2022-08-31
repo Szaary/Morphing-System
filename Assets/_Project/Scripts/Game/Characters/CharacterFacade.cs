@@ -53,11 +53,18 @@ public class CharacterFacade : MonoBehaviour
 
     [HideInInspector] public bool isControlled;
     [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public TimeManager timeManager;
 
     [Inject]
-    public void Construct(Character characterTemplate, TurnReferences turns, 
-        TurnBasedInput turnBasedInput, CharactersLibrary library, CameraManager cameraManager,
-        PlayerInput playerInput, FpsInput starterInputs, GameManager gameManager)
+    public void Construct(Character characterTemplate,
+        TurnReferences turns,
+        TurnBasedInput turnBasedInput,
+        CharactersLibrary library,
+        CameraManager cameraManager,
+        PlayerInput playerInput,
+        FpsInput starterInputs,
+        GameManager gameManager,
+        TimeManager timeManager)
     {
         this.starterInputs = starterInputs;
         this.playerInput = playerInput;
@@ -66,7 +73,7 @@ public class CharacterFacade : MonoBehaviour
         Library = library;
         this.cameraManager = cameraManager;
         this.gameManager = gameManager;
-        
+        this.timeManager = timeManager;
         
         manager.SetCharacter(this, characterTemplate);
         

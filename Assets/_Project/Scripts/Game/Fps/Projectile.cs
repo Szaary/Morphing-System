@@ -11,10 +11,13 @@ public class Projectile : MonoBehaviour
 
     private CharacterFacade _facade;
     private List<Modifier> _modifiers;
+    private TimeManager _timeManager;
 
 
-    public void Fire(Vector3 direction, CharacterFacade shooterFacade, List<Modifier> rangedWeaponModifiers)
+    public void Fire(Vector3 direction, CharacterFacade shooterFacade, List<Modifier> rangedWeaponModifiers,
+        TimeManager timeManager)
     {
+        _timeManager = timeManager;
         _facade = shooterFacade;
         _direction = direction;
         canMove = true;
@@ -23,16 +26,20 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
-        var delta = Time.deltaTime;
-        if (canMove) transform.Translate(_direction * speed * delta);
+        if (canMove)
+        {
+            var delta = _timeManager.GetDeltaTime(this);
+            transform.Translate(_direction * speed * delta);
+        }
     }
-    
+
     public void OnTriggerEnter(Collider other)
     {
         if (other.transform.parent == null)
         {
             return;
         }
+
         if (other.transform.parent.TryGetComponent(out Damageable damageable))
         {
             damageable.TakeDamage(_facade, _modifiers);
