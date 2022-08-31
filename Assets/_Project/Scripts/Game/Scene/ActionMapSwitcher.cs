@@ -8,11 +8,17 @@ using Zenject;
 public class ActionMapSwitcher : MonoBehaviour
 {
     [SerializeField] private PlayerInput playerInput;
+<<<<<<< Updated upstream
     [SerializeField] private FpsInput fpsInputs; 
     
     
     private GameManager _gameManager;
     
+=======
+    [SerializeField] private MovementInput movementInputs;
+
+
+>>>>>>> Stashed changes
     private InputActionMap _turnBased;
     private InputActionMap _fpsInput;
     private InputActionMap _universal;
@@ -79,7 +85,7 @@ public class ActionMapSwitcher : MonoBehaviour
     private void SetCursorState(bool newState)
     {
         Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-        fpsInputs.cursorInputForLook = newState;
+        movementInputs.cursorInputForLook = newState;
     }
     
     private void OnDestroy()

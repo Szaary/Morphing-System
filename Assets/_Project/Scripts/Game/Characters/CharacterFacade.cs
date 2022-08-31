@@ -10,6 +10,7 @@ public class CharacterFacade : MonoBehaviour
     public CharacterModeSwitcher switcher;
     public StatisticsManager manager;
     public NavMeshController navMeshController;
+    public RelativeController relativeController;
     
     [Header("Weapons")]
     public MeleeWeaponController meleeWeaponController;
@@ -49,15 +50,27 @@ public class CharacterFacade : MonoBehaviour
     public CharactersLibrary Library;
     [HideInInspector] public CameraManager cameraManager;
     [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public FpsInput starterInputs;
+    [HideInInspector] public MovementInput starterInputs;
 
     [HideInInspector] public bool isControlled;
     [HideInInspector] public GameManager gameManager;
 
     [Inject]
+<<<<<<< Updated upstream
     public void Construct(Character characterTemplate, TurnReferences turns, 
         TurnBasedInput turnBasedInput, CharactersLibrary library, CameraManager cameraManager,
         PlayerInput playerInput, FpsInput starterInputs, GameManager gameManager)
+=======
+    public void Construct(Character characterTemplate,
+        TurnReferences turns,
+        TurnBasedInput turnBasedInput,
+        CharactersLibrary library,
+        CameraManager cameraManager,
+        PlayerInput playerInput,
+        MovementInput starterInputs,
+        GameManager gameManager,
+        TimeManager timeManager)
+>>>>>>> Stashed changes
     {
         this.starterInputs = starterInputs;
         this.playerInput = playerInput;
@@ -72,6 +85,7 @@ public class CharacterFacade : MonoBehaviour
         
         turnStatsManager.SetCharacter(this);
         turnController.Initialize(this);
+        relativeController.Initialize(this);
         
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);

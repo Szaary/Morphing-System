@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class WeaponController : MonoBehaviour
 {
-    protected FpsInput Input;
+    protected MovementInput Input;
     protected float ShootTimeoutDelta;
     protected Camera MainCamera;
     protected CharacterFacade Facade;
