@@ -17,6 +17,7 @@ public abstract class BaseState
         TickSubscribers = new List<TurnsSubscriber>();
         OnEnterSubscribers = new List<TurnsSubscriber>();
         OnExitSubscribers = new List<TurnsSubscriber>();
+        stateMachine.States.Add(this);
     }
 
     public abstract void Tick();

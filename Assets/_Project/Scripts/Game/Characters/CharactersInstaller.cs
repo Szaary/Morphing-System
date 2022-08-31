@@ -3,14 +3,10 @@ using Zenject;
 
 public class CharactersInstaller : MonoInstaller
 {
-    [SerializeField] private CharacterFactory characterFactoryGameObject;
-    [SerializeField] private CharacterFacade emptyCharacterGameObject;
 
     public override void InstallBindings()
     {
-        Container.Bind<CharacterFactory>().FromComponentInNewPrefab(characterFactoryGameObject)
-            .UnderTransformGroup("Factories").AsSingle().NonLazy();
-        Container.BindFactory<Character, CharacterFacade, CharacterFacade.Factory>()
-            .FromComponentInNewPrefab(emptyCharacterGameObject);
+        Container.BindFactory<Object, Character, CharacterFacade, CharacterFacade.Factory>().FromFactory<PrefabFactory<Character, CharacterFacade>>();
+        Container.Bind<ICharacterFactory>().To<CharacterFactory>().AsSingle();
     }
 }

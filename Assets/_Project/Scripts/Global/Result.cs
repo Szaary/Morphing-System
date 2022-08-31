@@ -17,5 +17,6 @@
     EmptySkillList,
     NoSuitableSkillsToUse,
     SkillsListIsEmpty,
-    AiTurn
+    AiTurn,
+    NoUser
 }

@@ -69,4 +69,9 @@ public class SceneLoader : IInitializable
         public GameScene cameras;
         public GameScene terrain;
     }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("SC_Startup");
+    }
 }

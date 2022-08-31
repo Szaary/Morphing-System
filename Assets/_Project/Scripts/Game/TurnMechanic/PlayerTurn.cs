@@ -25,18 +25,6 @@ public class PlayerTurn : BaseState
             }
         }
 
-        if (_charactersLibrary.PlayerCharacters == 0)
-        {
-            _stateMachine.SetState(TurnState.Defeat);
-            return;
-        }
-        
-        if (_charactersLibrary.AiCharacters == 0)
-        {
-            _stateMachine.SetState(TurnState.Victory);
-            return;
-        }
-        
         if (_hasAnyoneActions == false)
         {
             _stateMachine.SetState(TurnState.AiTurn);

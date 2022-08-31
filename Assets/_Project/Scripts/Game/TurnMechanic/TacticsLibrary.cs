@@ -19,7 +19,7 @@ public static class TacticsLibrary
             }
             else
             {
-                var target = currentFightState.Library.SelectRandomEnemy(currentFightState.Character.Alignment);
+                var target = currentFightState.Library.SelectRandomEnemy(currentFightState.Character.Alignment.id);
                 skill.ActivateEffect(target, currentFightState.Character);
             }
             currentFightState.ChangeActionPoints(skill.actions);

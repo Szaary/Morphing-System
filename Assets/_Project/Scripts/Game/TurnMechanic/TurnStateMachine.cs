@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ public class TurnStateMachine : MonoBehaviour
 {
     private TurnState _currentState;
 
-    private AsyncStateMachine _battleStateMachine;
+    private StateMachine _battleStateMachine;
     private BattleStart _battleStart;
     private PlayerTurn _playerTurn;
     private AiTurn _aiTurn;
@@ -16,11 +17,13 @@ public class TurnStateMachine : MonoBehaviour
     private Victory _paused;
 
     private TurnState _lastState;
+
+    public List<BaseState> States = new List<BaseState>();
     
     [Inject]
     public void Construct(
         GameManager gameManager,
-        AsyncStateMachine battleStateMachine,
+        StateMachine battleStateMachine,
         BattleStart battleStart,
         PlayerTurn playerTurn,
         AiTurn aiTurn,
@@ -94,4 +97,6 @@ public class TurnStateMachine : MonoBehaviour
     {
         return _currentState;
     }
+
+    
 }

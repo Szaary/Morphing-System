@@ -17,15 +17,21 @@ public class ChangeStatsValue : Active
     public override int ActivateEffect(CharacterFacade target, CharacterFacade user)
     {
         var result = OnApplyStatus(target, user);
-        if (result != Result.Success)
+        if (result == Result.Success)
         {
-            Debug.LogError(typeof(ChangeStatsValue) + " result: " + result);
+            return actions;
         }
-        return actions;
+        else
+        {
+            return 0;
+        }
     }
-    
+
     Result OnApplyStatus(CharacterFacade target, CharacterFacade user)
     {
+        if (target == null) return Result.NoTarget;
+        if (user == null) return Result.NoUser;
+        
         return target.Modify(user, Modifiers);
     }
 }

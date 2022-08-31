@@ -10,6 +10,7 @@ public class NavMeshController : MonoBehaviour
     [SerializeField] private CharacterController controller;
     
     private CharacterFacade _facade;
+    private GameManager _gameManager;
 
     public void SetDestination(Vector3 transformPosition)
     {
@@ -20,14 +21,14 @@ public class NavMeshController : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
-        
-        OnGameModeChanged(_facade.gameManager.GameMode);
-        _facade.gameManager.GameModeChanged += OnGameModeChanged;
+        _gameManager = _facade.gameManager;
+        OnGameModeChanged(_gameManager.GameMode);
+        _gameManager.GameModeChanged += OnGameModeChanged;
     }
 
     private void OnDisable()
     {
-        _facade.gameManager.GameModeChanged -= OnGameModeChanged;
+        _gameManager.GameModeChanged -= OnGameModeChanged;
     }
 
     private void OnGameModeChanged(GameMode newMode)

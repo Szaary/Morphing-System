@@ -4,6 +4,8 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
+    public CharacterFacade prefab;
+    
     public const int MAXActionPoints = 100;
     
     [Header("General")] public CharacterData data;
@@ -41,8 +43,9 @@ public class Character : ScriptableObject
     [Header("Do not set anything here, zone will change in playmode")]
     public BaseSpawnZone.SpawnLocation position;
     public List<Statistic> statistics;
-    
-    
+
+
+
     public void CreateInstances()
     {
         foreach (var stat in statisticsTemplate)

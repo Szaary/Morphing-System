@@ -29,7 +29,6 @@ public class CharacterFacade : MonoBehaviour
 
     #region 2D Logic
     public int GetActionPoints() => manager.character.maxNumberOfActions;
-    
     public BaseSpawnZone.SpawnLocation GetPosition() => manager.character.position;
     public int PositionIndex => manager.character.position.index;
     public TurnBasedStrategy GetTurnBasedStrategy() => manager.character.turnBasedStrategy;
@@ -54,6 +53,7 @@ public class CharacterFacade : MonoBehaviour
 
     [HideInInspector] public bool isControlled;
     [HideInInspector] public GameManager gameManager;
+    [HideInInspector] public TimeManager timeManager;
 
     [Inject]
     public void Construct(Character characterTemplate,
@@ -73,7 +73,7 @@ public class CharacterFacade : MonoBehaviour
         Library = library;
         this.cameraManager = cameraManager;
         this.gameManager = gameManager;
-        
+        this.timeManager = timeManager;
         
         manager.SetCharacter(this, characterTemplate);
         
@@ -112,11 +112,13 @@ public class CharacterFacade : MonoBehaviour
     public void DeSpawnCharacter()
     {
         Library.RemoveCharacter(this);
+        GetPosition().occupied -= 1;
         Debug.Log("Destroying character: " + name);
         Destroy(gameObject);
     }
-
-    public class Factory : PlaceholderFactory<Character, CharacterFacade>
+    
+    public class Factory : PlaceholderFactory<UnityEngine.Object, Character, CharacterFacade>
     {
     }
+
 }
