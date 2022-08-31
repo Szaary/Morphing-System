@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-public class AsyncStateMachine
+public class StateMachine
 {
     private BaseState _currentBaseState;
 

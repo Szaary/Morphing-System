@@ -4,7 +4,7 @@ public class TurnBasedBattleInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<AsyncStateMachine>().AsSingle();
+        Container.BindInterfacesAndSelfTo<StateMachine>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<BattleStart>().AsSingle();
         Container.BindInterfacesAndSelfTo<PlayerTurn>().AsSingle();

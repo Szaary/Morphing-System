@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TimeSwitcher : GameModeSwitcherMono
+public class TimeSwitcher : AbstractGameModeSwitcherMono
 {
     [SerializeField] private TimeManager timeManager;
 

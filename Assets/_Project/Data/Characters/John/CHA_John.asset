@@ -26,11 +26,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c89c7bc5baea454c83ff38ad69680ad, type: 2}
   - {fileID: 11400000, guid: 37f76fcf5f0cb764a8cf2cff708928d6, type: 2}
   - {fileID: 11400000, guid: cb724057c40be4f4d976ee1984d9da3e, type: 2}
+  - {fileID: 11400000, guid: a017ddc90f2169344b215a99628f2767, type: 2}
   active:
     abilities:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+    - {fileID: 11400000, guid: c0c922d9a619a4d4fae9e890c3c8f2cb, type: 2}
     abilitiesInUnitLibrary:
     - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+    - {fileID: 11400000, guid: c0c922d9a619a4d4fae9e890c3c8f2cb, type: 2}
   templatePassives: []
   templateEffects: []
   backpackTemplate: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}

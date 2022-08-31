@@ -28,7 +28,6 @@ public class CharacterFacade : MonoBehaviour
 
     #region 2D Logic
     public int GetActionPoints() => manager.character.maxNumberOfActions;
-    
     public BaseSpawnZone.SpawnLocation GetPosition() => manager.character.position;
     public int PositionIndex => manager.character.position.index;
     public TurnBasedStrategy GetTurnBasedStrategy() => manager.character.turnBasedStrategy;
@@ -111,6 +110,7 @@ public class CharacterFacade : MonoBehaviour
     public void DeSpawnCharacter()
     {
         Library.RemoveCharacter(this);
+        GetPosition().occupied -= 1;
         Debug.Log("Destroying character: " + name);
         Destroy(gameObject);
     }

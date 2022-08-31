@@ -3,7 +3,7 @@ using StarterAssets;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ActionMapSwitcher : GameModeSwitcherMono
+public class ActionMapSwitcher : AbstractGameModeSwitcherMono
 {
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private FpsInput fpsInputs;

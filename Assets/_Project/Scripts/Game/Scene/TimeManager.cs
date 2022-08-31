@@ -23,6 +23,7 @@ public class TimeManager : MonoBehaviour
 
     public void Slow(float requestedTimeScale, float slowDuration = 0)
     {
+        Debug.Log("Slowing time");
         DOTween.To(value => Time.timeScale = value, currentlySetTimescale, requestedTimeScale, slowDownAnimationTime)
             .OnUpdate(() =>
             {
@@ -38,6 +39,7 @@ public class TimeManager : MonoBehaviour
     private IEnumerator ReturnToNormal(float slowDuration)
     {
         yield return new WaitForSecondsRealtime(slowDuration);
+        Debug.Log("Returning time to normal");
         Return();
     }
 

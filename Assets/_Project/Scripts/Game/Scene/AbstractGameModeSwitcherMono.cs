@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using Zenject;
 
-public abstract class GameModeSwitcherMono : MonoBehaviour
+public abstract class AbstractGameModeSwitcherMono : MonoBehaviour
 {
-    private GameManager gameManager;
+    protected GameManager GameManager;
 
     [Inject]
     public void Construct(GameManager manager)
     {
-        gameManager = manager;
+        GameManager = manager;
     }
 
     protected virtual void Start()
@@ -18,14 +18,14 @@ public abstract class GameModeSwitcherMono : MonoBehaviour
 
     private void SubscribeToGameModeChange()
     {
-        OnGameModeChanged(gameManager.GameMode);
-        gameManager.GameModeChanged += OnGameModeChanged;
+        OnGameModeChanged(GameManager.GameMode);
+        GameManager.GameModeChanged += OnGameModeChanged;
     }
 
     protected abstract void OnGameModeChanged(GameMode newMode);
 
     protected virtual void OnDestroy()
     {
-        gameManager.GameModeChanged -= OnGameModeChanged;
+        GameManager.GameModeChanged -= OnGameModeChanged;
     }
 }

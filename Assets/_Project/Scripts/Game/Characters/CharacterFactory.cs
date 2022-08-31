@@ -17,7 +17,7 @@ public class CharacterFactory: ICharacterFactory
         SetSpawnZone(facade, turnBasedSpawnZone);
     }
 
-    private void SetSpawnZone(CharacterFacade facade, BaseSpawnZone battleSpawnZone)
+    public void SetSpawnZone(CharacterFacade facade, BaseSpawnZone battleSpawnZone)
     {
         if (facade.Alignment.Id == 0) battleSpawnZone.PlaceCharacter(facade);
         else battleSpawnZone.PlaceCharacter(facade);
