@@ -15,4 +15,4 @@ Currently implemented:
 
 Latest changes on development branch.
 
-# Project GDD: https://github.com/Szaary/Morphing-System/edit/main/GDD.md
+- Project GDD: https://github.com/Szaary/Morphing-System/edit/main/GDD.md
