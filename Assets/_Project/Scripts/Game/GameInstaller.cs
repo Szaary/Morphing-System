@@ -9,5 +9,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<SceneLoader>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<ToUiEventsHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<CharactersLibrary>().AsSingle();
+        Container.BindInterfacesAndSelfTo<TimeManager>().AsSingle();
     }
 }
