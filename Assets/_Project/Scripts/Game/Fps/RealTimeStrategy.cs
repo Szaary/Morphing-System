@@ -11,6 +11,6 @@ public abstract class RealTimeStrategy : ScriptableObject
     {
         public CharacterFacade Character;
         public CharactersLibrary Library;
-        public NavMeshController Agent;
+        public NavMeshAgent Agent;
     }
 }

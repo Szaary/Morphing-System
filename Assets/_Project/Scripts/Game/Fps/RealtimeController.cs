@@ -25,9 +25,7 @@ public class RealtimeController : RealtimeSubscriber
         {
             Character = Facade,
             Library = Facade.Library,
-            Agent = Facade.navMeshController
+            Agent = Facade.switcher.agent
         };
     }
-
-  
 }

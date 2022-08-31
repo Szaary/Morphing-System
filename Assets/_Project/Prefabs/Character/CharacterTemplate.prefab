@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 1462264925995999626}
   - component: {fileID: 2923400799277201985}
   m_Layer: 0
-  m_Name: RealTime
+  m_Name: RealTimeLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -548,7 +548,6 @@ GameObject:
   - component: {fileID: 6504654723094879010}
   - component: {fileID: 6314677222074484137}
   - component: {fileID: 6897832791358184220}
-  - component: {fileID: 847348799244175616}
   - component: {fileID: 3584495357984487962}
   - component: {fileID: 6031405076436071490}
   - component: {fileID: 1712917721253687271}
@@ -593,8 +592,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 607bd62d4f01419b8b2aa29f45bac347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsLogic: {fileID: 3800808036578180981}
-  logic2D: {fileID: 7304164659668813759}
+  realtime: {fileID: 3800808036578180981}
+  turnBased: {fileID: 7304164659668813759}
+  agent: {fileID: 6031405076436071490}
+  fps: {fileID: 3584495357984487962}
+  relative: {fileID: 1712917721253687271}
+  controller: {fileID: 6897832791358184220}
 --- !u!114 &214732092336691124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +612,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switcher: {fileID: 9005226597631413570}
   manager: {fileID: 1259435931573632364}
-  navMeshController: {fileID: 847348799244175616}
   relativeController: {fileID: 1712917721253687271}
   meleeWeaponController: {fileID: 5418746722112883352}
   rangedWeaponController: {fileID: 1261785493945104080}
@@ -623,7 +625,7 @@ MonoBehaviour:
   turnBasedInput: {fileID: 0}
   cameraManager: {fileID: 0}
   playerInput: {fileID: 0}
-  starterInputs: {fileID: 0}
+  movementInput: {fileID: 0}
   isControlled: 0
   gameManager: {fileID: 0}
   timeManager: {fileID: 0}
@@ -694,7 +696,7 @@ CharacterController:
   m_GameObject: {fileID: 6601822525410895441}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -703,21 +705,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!114 &847348799244175616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6601822525410895441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81fb9035bcacafc49aaac42986e2c8f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 6031405076436071490}
-  fpsController: {fileID: 3584495357984487962}
-  controller: {fileID: 6897832791358184220}
 --- !u!114 &3584495357984487962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,8 +770,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab142966fd3b1c74ebc19fc4a0ce8951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumSpeed: 10
-  rotationSpeed: 80
+  maximumSpeed: 4
+  rotationSpeed: 15
   jumpSpeed: 5
   jumpButtonGracePeriod: 0.01
 --- !u!1 &7304164659668813759
@@ -799,7 +786,7 @@ GameObject:
   - component: {fileID: 5442887917984048192}
   - component: {fileID: 2121771255006102466}
   m_Layer: 0
-  m_Name: 2DLogic
+  m_Name: TurnBasedLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

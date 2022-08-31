@@ -28,6 +28,7 @@ public class RelativeController : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         cameraTransform = characterFacade.cameraManager.MainCamera.transform;
+        _input = characterFacade.movementInput;
     }
     
     // Start is called before the first frame update
@@ -40,16 +41,16 @@ public class RelativeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+        float horizontalInput = _input.move.x;// Input.GetAxis("Horizontal");
+        float verticalInput = _input.move.y;//Input.GetAxis("Vertical");
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         
-        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            inputMagnitude /= 2;
-        }
+        // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+        // {
+        //     inputMagnitude /= 2;
+        // }
 
         float speed = inputMagnitude * maximumSpeed;
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
@@ -62,7 +63,7 @@ public class RelativeController : MonoBehaviour
             lastGroundedTime = Time.time;
         }
 
-        if (Input.GetButtonDown("Jump"))
+        if (_input.jump)
         {
             jumpButtonPressedTime = Time.time;
         }

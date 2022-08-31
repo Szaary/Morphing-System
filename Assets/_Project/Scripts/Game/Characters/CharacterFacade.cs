@@ -9,7 +9,6 @@ public class CharacterFacade : MonoBehaviour
 {
     public CharacterModeSwitcher switcher;
     public StatisticsManager manager;
-    public NavMeshController navMeshController;
     public RelativeController relativeController;
     
     [Header("Weapons")]
@@ -49,7 +48,7 @@ public class CharacterFacade : MonoBehaviour
     public CharactersLibrary Library;
     [HideInInspector] public CameraManager cameraManager;
     [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public MovementInput starterInputs;
+    [HideInInspector] public MovementInput movementInput;
 
     [HideInInspector] public bool isControlled;
     [HideInInspector] public GameManager gameManager;
@@ -66,7 +65,7 @@ public class CharacterFacade : MonoBehaviour
         GameManager gameManager,
         TimeManager timeManager)
     {
-        this.starterInputs = starterInputs;
+        this.movementInput = starterInputs;
         this.playerInput = playerInput;
         Turns = turns;
         this.turnBasedInput = turnBasedInput;
@@ -86,16 +85,15 @@ public class CharacterFacade : MonoBehaviour
         fpsController.Initialize(this);
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-        switcher.Initialize(this);
+        
         
         Library.AddCharacter(this);
     }
     public void SetPosition(BaseSpawnZone.SpawnLocation position)
     {
         manager.character.position = position;
-        navMeshController.Initialize(this);
+        switcher.Initialize(this);
     }
-
 
     public void GainControl()
     {
