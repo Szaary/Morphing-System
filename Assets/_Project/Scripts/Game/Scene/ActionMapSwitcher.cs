@@ -42,7 +42,7 @@ public class ActionMapSwitcher : AbstractGameModeSwitcherMono
             SelectActionMap(_turnBased);
             SetCursorState(false);
         }
-        else if (newMode == GameMode.Fps)
+        else if (newMode is GameMode.Fps or GameMode.Platform or GameMode.Tpp)
         {
             SelectActionMap(_movementInput);
             SetCursorState(true);

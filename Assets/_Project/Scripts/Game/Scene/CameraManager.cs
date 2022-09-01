@@ -14,13 +14,13 @@ public class CameraManager : MonoBehaviour
     
     [SerializeField] private List<Settings> cameras;
 
-    [SerializeField] private CinemachineVirtualCamera fpsCamera;
-    [SerializeField] private CinemachineVirtualCamera turnBasedCamera;
-    [SerializeField] private CinemachineVirtualCamera platformCamera;
+    [SerializeField] private CinemachineVirtualCameraBase fpsCamera;
+    [SerializeField] private CinemachineVirtualCameraBase turnBasedCamera;
+    [SerializeField] private CinemachineVirtualCameraBase platformCamera;
+    [SerializeField] private CinemachineVirtualCameraBase fppCamera;
+    
     
     public Camera MainCamera => mainCamera;
-    public CinemachineVirtualCamera FpsCamera => fpsCamera;
-
     private GameManager _gameManager;
     private CharactersLibrary _library;
 
@@ -50,9 +50,15 @@ public class CameraManager : MonoBehaviour
         }
         else if (newMode == GameMode.Platform)
         {
-            SetPlatformCamera();
+            SetFollowLookCamera(platformCamera);
+        }
+        else if (newMode == GameMode.Tpp)
+        {
+            SetFollowLookCamera(fppCamera);
         }
     }
+
+
 
     private void OnDestroy()
     {
@@ -87,7 +93,7 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
-    public void SetPlatformCamera()
+    public void SetFollowLookCamera(CinemachineVirtualCameraBase cameraToSet)
     {
         var result = _library.GetControlledCharacter(out CharacterFacade facade);
         if (result != Result.Success)
@@ -99,7 +105,7 @@ public class CameraManager : MonoBehaviour
 
         foreach (var cam in cameras)
         {
-            if (cam.camera == platformCamera)
+            if (cam.camera == cameraToSet)
             {
                 cam.camera.Priority = MaxCameraPriority;
                 cam.camera.LookAt = cameraFpsFollowPoint;
@@ -111,6 +117,8 @@ public class CameraManager : MonoBehaviour
             }
         }
     }
+
+
     public void SetTurnBasedCamera()
     {
         foreach (var cam in cameras)
@@ -127,7 +135,7 @@ public class CameraManager : MonoBehaviour
     }
 
 
-    private void SetupCameraAfterTarget(CinemachineVirtualCamera cam, Transform cameraTarget)
+    private void SetupCameraAfterTarget(CinemachineVirtualCameraBase cam, Transform cameraTarget)
     {
         cam.Follow = cameraTarget;
     }
@@ -135,6 +143,6 @@ public class CameraManager : MonoBehaviour
     [Serializable]
     public struct Settings
     {
-        public CinemachineVirtualCamera camera;
+        public CinemachineVirtualCameraBase camera;
     }
 }

@@ -360,7 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeManager: {fileID: 1762760445}
   timeScale: 0.2
-  slowDuration: 3
+  slowDuration: 1
 --- !u!1 &1835526036
 GameObject:
   m_ObjectHideFlags: 0

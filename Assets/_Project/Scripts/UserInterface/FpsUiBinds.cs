@@ -39,10 +39,16 @@ public class FpsUiBinds : MonoBehaviour
 
     private void OnGameModeChanged(GameMode obj)
     {
-        if (obj == GameMode.Fps) cross.gameObject.SetActive(true);
-        if (obj == GameMode.TurnBasedFight) cross.gameObject.SetActive(false);
-        
-        UiExtensions.ChangeFpsPosition(statTextPosition, _startingPosition, _outPosition, obj);
+        if (obj == GameMode.Fps)
+        {
+            cross.gameObject.SetActive(true);
+            UiExtensions.ChangePosition(statTextPosition, _startingPosition);
+        }
+        else
+        {
+            cross.gameObject.SetActive(false);
+            UiExtensions.ChangePosition(statTextPosition, _outPosition);
+        }
     }
 
     private void OnControlledCharacterChanged(CharacterFacade facade)

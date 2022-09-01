@@ -56,6 +56,13 @@ public class BindRepresentation
 
     public void ChangePositions(GameMode gameMode)
     {
-        UiExtensions.ChangeTurnBasedPosition(statTextPosition, _startingPosition, _outPosition, gameMode);
+        if (gameMode == GameMode.TurnBasedFight)
+        {
+            UiExtensions.ChangePosition(statTextPosition, _startingPosition);
+        }
+        else
+        {
+            UiExtensions.ChangePosition(statTextPosition, _outPosition);
+        }
     }
 }
