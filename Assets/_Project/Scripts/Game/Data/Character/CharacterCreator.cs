@@ -14,16 +14,14 @@ public class CharacterCreator : MonoBehaviour
 {
 #if UNITY_EDITOR
 
-    
-    
+
     [Header("Creator configuration data")] [SerializeField]
     private CharacterConfiguratorData config;
-    
 
-    [Header("Character creator")] 
-    public string characterName;
+
+    [Header("Character creator")] public string characterName;
     public GameObject characterFbxModel;
-    
+
     public void CreateCharacter()
     {
         var folderPath = "Assets/_Project/Characters";
@@ -35,8 +33,6 @@ public class CharacterCreator : MonoBehaviour
         if (GenerateFolders(folderPath, characterFolder)) return;
 
         var prefabVariant = CreatePrefabVariantFromModel(characterFolder);
-
-
         CreateScriptableObjects(characterFolder, dataFolder, statsFolder, prefabVariant);
     }
 
@@ -46,23 +42,24 @@ public class CharacterCreator : MonoBehaviour
         var character = ScriptableObject.CreateInstance<Character>();
         AssetDatabase.CreateAsset(character, characterFolder + "/CHA_" + characterName + ".asset");
 
-        character.prefab = prefabVariant;
-
-        
 
         var data = ScriptableObject.CreateInstance<CharacterData>();
         AssetDatabase.CreateAsset(data, dataFolder + "/CDA_" + characterName + ".asset");
-        character.data = data;
-        character.data.characterName = characterName;
+
 
         var vfx = ScriptableObject.CreateInstance<CharacterVFX>();
         AssetDatabase.CreateAsset(vfx, dataFolder + "/CVFX_" + characterName + ".asset");
-        character.vfx = vfx;
+
 
         var sfx = ScriptableObject.CreateInstance<CharacterSFX>();
         AssetDatabase.CreateAsset(sfx, dataFolder + "/SFX_" + characterName + ".asset");
-        character.sfx = sfx;
 
+
+        character.prefab = prefabVariant;
+        character.data = data;
+        character.data.characterName = characterName;
+        character.vfx = vfx;
+        character.sfx = sfx;
 
         foreach (var baseStat in config.statistics)
         {
@@ -71,9 +68,6 @@ public class CharacterCreator : MonoBehaviour
             stat.baseStatistic = baseStat;
             character.statisticsTemplate.Add(stat);
         }
-
-
-        AssetDatabase.SaveAssets();
 
 
         UnityEditorUtility(character, data, vfx, sfx);
@@ -85,7 +79,7 @@ public class CharacterCreator : MonoBehaviour
         Selection.activeObject = character;
         characterName = "";
 
-
+        AssetDatabase.SaveAssets();
         EditorUtility.SetDirty(character);
         EditorUtility.SetDirty(data);
         EditorUtility.SetDirty(vfx);
@@ -107,7 +101,7 @@ public class CharacterCreator : MonoBehaviour
         uiModule.transform.parent = objSource.transform;
 
         objSource.GetComponent<Animator>().runtimeAnimatorController = config.animator;
-        
+
         var prefabVariant =
             PrefabUtility.SaveAsPrefabAsset(objSource, characterFolder + "/" + characterName + ".prefab");
         DestroyImmediate(objSource);
@@ -118,16 +112,16 @@ public class CharacterCreator : MonoBehaviour
         var fps = prefabVariant.AddComponent<FirstPersonController>();
         var agent = prefabVariant.AddComponent<NavMeshAgent>();
         var relative = prefabVariant.AddComponent<RelativeController>();
-        var animatorMovementController =prefabVariant.AddComponent<AnimatorMovementController>();
+        var animatorMovementController = prefabVariant.AddComponent<AnimatorMovementController>();
         prefabVariant.AddComponent<BasicRigidBodyPush>();
         prefabVariant.AddComponent<Damageable>();
 
         // Saving prefab variant
         var movement = prefabVariant.GetComponentInChildren<MovementManager>();
-        
+
         facade.movement = movement;
-       
-        
+
+
         movement.agent = agent;
         movement.controller = controller;
         movement.fps = fps;

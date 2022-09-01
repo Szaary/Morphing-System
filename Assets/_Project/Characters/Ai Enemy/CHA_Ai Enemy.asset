@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
+  m_Name: CHA_Ai Enemy
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1833506919222946986, guid: b2242109734b37f44a5688f1eccc169f, type: 3}
+  data: {fileID: 11400000, guid: 7f2b27e59b887644398f51b1888d4408, type: 2}
+  vfx: {fileID: 11400000, guid: 5fa6a9bfbd340d3428329e5051cc0aab, type: 2}
+  sfx: {fileID: 11400000, guid: f93d88e0f74b63b4d894e4546c7955da, type: 2}
+  alignment: {fileID: 0}
+  turnBasedStrategy: {fileID: 0}
+  realTimeStrategy: {fileID: 0}
+  maxNumberOfActions: 1
+  statisticsTemplate:
+  - {fileID: 11400000, guid: 09b6e403e7499fc4bbd439b98ab33e3e, type: 2}
+  - {fileID: 11400000, guid: 9fce7799ab178cc459ae1e2020dff6eb, type: 2}
+  - {fileID: 11400000, guid: e61ba79b1c1e91d499f894844c957509, type: 2}
+  - {fileID: 11400000, guid: 901540167ef9d55459aa452843db67f1, type: 2}
+  active:
+    abilities: []
+    abilitiesInUnitLibrary: []
+  templatePassives: []
+  templateEffects: []
+  backpackTemplate: {fileID: 0}
+  equipmentTemplate: {fileID: 0}
+  backpack: {fileID: 0}
+  equipment: {fileID: 0}
+  position:
+    transform: {fileID: 0}
+    occupied: 0
+    index: 0
+  statistics: []

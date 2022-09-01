@@ -11,7 +11,12 @@ public abstract class StatisticMonitor : MonoBehaviour
     
     public virtual void Start()
     {
-        Facade.GetStatistic(statistic, out ChosenStat);
+        OnValidate();
+        var result = Facade.GetStatistic(statistic, out ChosenStat);
+        if (result != Result.Success)
+        {
+            Debug.Log(typeof(StatisticMonitor) + " "+ result);
+        }
         
         ChosenStat.OnValueChanged -= OnValueChanged;
         ChosenStat.OnValueChanged += OnValueChanged;

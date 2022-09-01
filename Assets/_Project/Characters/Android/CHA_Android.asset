@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
   m_Name: CHA_Android
   m_EditorClassIdentifier: 
-  prefab: {fileID: 8824159725191669441, guid: 499722e166388ee4ab9ad81c8979b5a0, type: 3}
+  prefab: {fileID: 2148039263585878654, guid: 499722e166388ee4ab9ad81c8979b5a0, type: 3}
   data: {fileID: 11400000, guid: 66cd2b4a228a9fe4ba3dc852a70a403d, type: 2}
   vfx: {fileID: 11400000, guid: 77ec161d70b00e44cbd4631d19c0a888, type: 2}
   sfx: {fileID: 11400000, guid: d6e50c874b0c6de4b8e51654c19037a6, type: 2}
-  alignment: {fileID: 0}
-  turnBasedStrategy: {fileID: 0}
-  realTimeStrategy: {fileID: 0}
+  alignment: {fileID: 11400000, guid: 489e74780685eb542bf9a2b06d6d97bd, type: 2}
+  turnBasedStrategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
+  realTimeStrategy: {fileID: 11400000, guid: 4d29961f8c742214f9f22692509c8fe3, type: 2}
   maxNumberOfActions: 1
   statisticsTemplate:
   - {fileID: 11400000, guid: 80e579fa4fb8fd1478ffb2a81b923381, type: 2}
@@ -26,12 +26,16 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1025e1bb14317624d970c8e44b4944cf, type: 2}
   - {fileID: 11400000, guid: 03e042bfca191074384adc85f31c8731, type: 2}
   active:
-    abilities: []
-    abilitiesInUnitLibrary: []
+    abilities:
+    - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+    - {fileID: 11400000, guid: c0c922d9a619a4d4fae9e890c3c8f2cb, type: 2}
+    abilitiesInUnitLibrary:
+    - {fileID: 11400000, guid: c0c922d9a619a4d4fae9e890c3c8f2cb, type: 2}
+    - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
   templatePassives: []
   templateEffects: []
-  backpackTemplate: {fileID: 0}
-  equipmentTemplate: {fileID: 0}
+  backpackTemplate: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
+  equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
   backpack: {fileID: 0}
   equipment: {fileID: 0}
   position:

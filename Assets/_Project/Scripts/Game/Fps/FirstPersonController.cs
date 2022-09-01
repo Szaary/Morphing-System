@@ -44,7 +44,7 @@ namespace StarterAssets
         public float GroundedRadius = 0.5f;
 
         [Tooltip("What layers the character uses as ground")]
-        public LayerMask GroundLayers;
+        public LayerMask GroundLayers = (1 << 7);
 
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
