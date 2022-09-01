@@ -4,17 +4,19 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class CharacterModeSwitcher : MonoBehaviour
+public class MovementManager : MonoBehaviour
 {
     [Header("Logic")] [SerializeField] private GameObject realtime;
     [SerializeField] private GameObject turnBased;
 
 
-    [Header("Movement")] public NavMeshAgent agent;
-    [SerializeField] private FirstPersonController fps;
-    [SerializeField] private RelativeController relative;
-
-    [SerializeField] private CharacterController controller;
+    [Header("Movement")] 
+    public NavMeshAgent agent;
+    public CharacterController controller;
+    
+    public FirstPersonController fps;
+    public RelativeController relativeController;
+    public AnimatorMovementController animatorController;
 
     private GameManager _gameManager;
     private CharacterFacade _facade;
@@ -23,6 +25,10 @@ public class CharacterModeSwitcher : MonoBehaviour
     {
         _facade = characterFacade;
         _gameManager = _facade.gameManager;
+        
+        fps.Initialize(_facade);
+        relativeController.Initialize(_facade);
+        animatorController.Initialize(_facade);
     }
 
 
@@ -76,7 +82,7 @@ public class CharacterModeSwitcher : MonoBehaviour
             if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
             {
                 controller.enabled = true;
-                relative.enabled = true;
+                relativeController.enabled = true;
             }
             else
             {
@@ -92,7 +98,7 @@ public class CharacterModeSwitcher : MonoBehaviour
         controller.enabled = false;
 
         fps.enabled = false;
-        relative.enabled = false;
+        relativeController.enabled = false;
     }
 
     private void TurnOffCharacterControl()
@@ -101,7 +107,7 @@ public class CharacterModeSwitcher : MonoBehaviour
         controller.enabled = false;
 
         fps.enabled = false;
-        relative.enabled = false;
+        relativeController.enabled = false;
     }
 
 

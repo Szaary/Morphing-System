@@ -35,12 +35,7 @@ public class Projectile : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.transform.parent == null)
-        {
-            return;
-        }
-
-        if (other.transform.parent.TryGetComponent(out Damageable damageable))
+        if (other.TryGetComponent(out Damageable damageable))
         {
             damageable.TakeDamage(_facade, _modifiers);
         }

@@ -7,9 +7,8 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
-    public CharacterModeSwitcher switcher;
-    public StatisticsManager manager;
-    public RelativeController relativeController;
+    public MovementManager movement;
+    public StatisticsManager stats;
     
     [Header("Weapons")]
     public MeleeWeaponController meleeWeaponController;
@@ -27,22 +26,21 @@ public class CharacterFacade : MonoBehaviour
 
 
     #region 2D Logic
-    public int GetActionPoints() => manager.character.maxNumberOfActions;
-    public BaseSpawnZone.SpawnLocation GetPosition() => manager.character.position;
-    public int PositionIndex => manager.character.position.index;
-    public TurnBasedStrategy GetTurnBasedStrategy() => manager.character.turnBasedStrategy;
-    public RealTimeStrategy GetRealTimeStrategy() => manager.character.realTimeStrategy;
-    public ActiveManager ActiveSkillsManager => manager.character.active;
-    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
-    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
+    public int GetActionPoints() => stats.character.maxNumberOfActions;
+    public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
+    public int PositionIndex => stats.character.position.index;
+    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.turnBasedStrategy;
+    public RealTimeStrategy GetRealTimeStrategy() => stats.character.realTimeStrategy;
+    public ActiveManager ActiveSkillsManager => stats.character.active;
+    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => stats.Modify(user, modifiers);
+    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
     #endregion
 
     
-    [Header("Fps Logic")]
+    [Header("Camera Logic")]
     public Transform cameraFpsFollowPoint;
     public Transform cameraFppFollowPoint;
-    public FirstPersonController fpsController;
-    
+ 
     
     [HideInInspector] public TurnBasedInput turnBasedInput;
     public CharactersLibrary Library;
@@ -74,15 +72,14 @@ public class CharacterFacade : MonoBehaviour
         this.gameManager = gameManager;
         this.timeManager = timeManager;
         
-        manager.SetCharacter(this, characterTemplate);
+        stats.SetCharacter(this, characterTemplate);
         
         turnStatsManager.SetCharacter(this);
         turnController.Initialize(this);
-        relativeController.Initialize(this);
-        
+
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
-        fpsController.Initialize(this);
+        
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
         
@@ -91,8 +88,8 @@ public class CharacterFacade : MonoBehaviour
     }
     public void SetPosition(BaseSpawnZone.SpawnLocation position)
     {
-        manager.character.position = position;
-        switcher.Initialize(this);
+        stats.character.position = position;
+        movement.Initialize(this);
     }
 
     public void GainControl()
@@ -102,9 +99,9 @@ public class CharacterFacade : MonoBehaviour
     }
     
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat) =>
-        manager.GetStatistic(baseStatistic, out outStat);
-    public Alignment Alignment => manager.character.alignment;
-    public string Name => manager.character.data.characterName;
+        stats.GetStatistic(baseStatistic, out outStat);
+    public Alignment Alignment => stats.character.alignment;
+    public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 
     public void DeSpawnCharacter()

@@ -14,9 +14,9 @@ public class TurnStatsManager : TurnsSubscriber
     public override Result OnEnter()
     {
         var result = Result.Success;
-        for (var index = _facade.manager.character.Effect.Count - 1; index >= 0; index--)
+        for (var index = _facade.stats.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = _facade.manager.character.Effect[index];
+            var effect = _facade.stats.character.Effect[index];
             if (effect.applyOnEnterCycle)
             {
                 result = ActivateEffectInTurn(effect);
@@ -35,9 +35,9 @@ public class TurnStatsManager : TurnsSubscriber
     {
         var result = Result.Success;
 
-        for (var index = _facade.manager.character.Effect.Count - 1; index >= 0; index--)
+        for (var index = _facade.stats.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = _facade.manager.character.Effect[index];
+            var effect = _facade.stats.character.Effect[index];
             if (effect.applyOnExitCycle)
             {
                 result = ActivateEffectInTurn(effect);
@@ -51,7 +51,7 @@ public class TurnStatsManager : TurnsSubscriber
     {
         if (_facade.Turns.ShouldWork(_facade, effect.workOnOppositeTurn))
         {
-            return _facade.manager.ActivateEffect(effect);
+            return _facade.stats.ActivateEffect(effect);
         }
         return Result.Success;
     }
