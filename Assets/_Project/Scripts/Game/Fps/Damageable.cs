@@ -4,10 +4,20 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour
 {
-    [SerializeField] protected CharacterFacade Facade;
- 
+    private CharacterFacade _facade;
+
+    private void Awake()
+    {
+        _facade ??= GetComponent<CharacterFacade>();
+    }
+
     public void TakeDamage(CharacterFacade shooter, List<Modifier> modifiers)
     {
-        Facade.Modify(shooter, modifiers);
+        _facade.Modify(shooter, modifiers);
+    }
+
+    private void OnValidate()
+    {
+        _facade ??= GetComponent<CharacterFacade>();
     }
 }

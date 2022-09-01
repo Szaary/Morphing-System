@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace StarterAssets
@@ -13,10 +14,10 @@ namespace StarterAssets
         public float SprintSpeed = 6.0f;
 
         [Tooltip("Rotation speed of the character")]
-        public float RotationSpeedX = 1.0f;
+        public float RotationSpeedX = 40.0f;
 
         [Tooltip("Rotation speed of the character")]
-        public float RotationSpeedY = 1.0f;
+        public float RotationSpeedY = 20.0f;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -44,7 +45,7 @@ namespace StarterAssets
         public float GroundedRadius = 0.5f;
 
         [Tooltip("What layers the character uses as ground")]
-        public LayerMask GroundLayers;
+        public LayerMask GroundLayers = (1 << 7);
 
         [Header("Cinemachine")]
         [Tooltip("The follow target set in the Cinemachine Virtual Camera that the camera will follow")]
@@ -56,6 +57,9 @@ namespace StarterAssets
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -90.0f;
 
+        
+        [SerializeField] private AnimatorManager _animatorManager;
+        
         // cinemachine
         private float _cinemachineTargetPitch;
 
@@ -73,7 +77,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
-        [SerializeField] private CharacterController controller;
+        public CharacterController controller;
 
         private GameObject _mainCamera;
         private MovementInput _input;
@@ -96,6 +100,9 @@ namespace StarterAssets
             _facade = characterFacade;
             _playerInput = characterFacade.playerInput;
             _input = characterFacade.movementInput;
+            _animatorManager = characterFacade.animatorManager;
+            
+            CinemachineCameraTarget = _facade.movement.cameraFpsFollowPoint.gameObject;
         }
 
 
@@ -166,6 +173,10 @@ namespace StarterAssets
             float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
+
+            var movement = Mathf.Clamp01(currentHorizontalSpeed);
+            _animatorManager.Move(movement, delta);
+            
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
@@ -184,6 +195,7 @@ namespace StarterAssets
                 _speed = targetSpeed;
             }
 
+            
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
@@ -192,7 +204,12 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 // move
+                _animatorManager.SetMoving(true);
                 inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+            }
+            else
+            {
+                _animatorManager.SetMoving(false);
             }
 
             // move the player
@@ -268,5 +285,6 @@ namespace StarterAssets
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
         }
+
     }
 }

@@ -7,43 +7,36 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
-    public CharacterModeSwitcher switcher;
-    public StatisticsManager manager;
-    public RelativeController relativeController;
-    
-    [Header("Weapons")]
-    public MeleeWeaponController meleeWeaponController;
+    public MovementManager movement;
+    public StatisticsManager stats;
+    public AnimatorManager animatorManager;
+
+    [Header("Weapons")] public MeleeWeaponController meleeWeaponController;
     public RangedWeaponController rangedWeaponController;
-    
-    [Header("Turn Based Logic")]
-    public TurnController turnController;
+
+    [Header("Turn Based Logic")] public TurnController turnController;
     public TurnStatsManager turnStatsManager;
     public TurnReferences Turns;
-    
-    
-    [Header("Realtime Logic")]
-    public RealtimeController realTimeController;
+
+
+    [Header("Realtime Logic")] public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
 
 
     #region 2D Logic
-    public int GetActionPoints() => manager.character.maxNumberOfActions;
-    public BaseSpawnZone.SpawnLocation GetPosition() => manager.character.position;
-    public int PositionIndex => manager.character.position.index;
-    public TurnBasedStrategy GetTurnBasedStrategy() => manager.character.turnBasedStrategy;
-    public RealTimeStrategy GetRealTimeStrategy() => manager.character.realTimeStrategy;
-    public ActiveManager ActiveSkillsManager => manager.character.active;
-    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => manager.Modify(user, modifiers);
-    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => manager.UnModify(user, modifiers);
+
+    public int GetActionPoints() => stats.character.maxNumberOfActions;
+    public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
+    public int PositionIndex => stats.character.position.index;
+    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.turnBasedStrategy;
+    public RealTimeStrategy GetRealTimeStrategy() => stats.character.realTimeStrategy;
+    public ActiveManager ActiveSkillsManager => stats.character.active;
+    public Result Modify(CharacterFacade user, List<Modifier> modifiers) => stats.Modify(user, modifiers);
+    public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
+
     #endregion
 
-    
-    [Header("Fps Logic")]
-    public Transform cameraFpsFollowPoint;
-    public Transform cameraFppFollowPoint;
-    public FirstPersonController fpsController;
-    
-    
+
     [HideInInspector] public TurnBasedInput turnBasedInput;
     public CharactersLibrary Library;
     [HideInInspector] public CameraManager cameraManager;
@@ -73,26 +66,26 @@ public class CharacterFacade : MonoBehaviour
         this.cameraManager = cameraManager;
         this.gameManager = gameManager;
         this.timeManager = timeManager;
-        
-        manager.SetCharacter(this, characterTemplate);
-        
+
+        stats.SetCharacter(this, characterTemplate);
+
         turnStatsManager.SetCharacter(this);
         turnController.Initialize(this);
-        relativeController.Initialize(this);
-        
+
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
-        fpsController.Initialize(this);
+
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-        
-        
+
+
         Library.AddCharacter(this);
     }
+
     public void SetPosition(BaseSpawnZone.SpawnLocation position)
     {
-        manager.character.position = position;
-        switcher.Initialize(this);
+        stats.character.position = position;
+        movement.Initialize(this);
     }
 
     public void GainControl()
@@ -100,11 +93,12 @@ public class CharacterFacade : MonoBehaviour
         isControlled = true;
         Library.SetControlledCharacter(this);
     }
-    
+
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat) =>
-        manager.GetStatistic(baseStatistic, out outStat);
-    public Alignment Alignment => manager.character.alignment;
-    public string Name => manager.character.data.characterName;
+        stats.GetStatistic(baseStatistic, out outStat);
+
+    public Alignment Alignment => stats.character.alignment;
+    public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 
     public void DeSpawnCharacter()
@@ -114,9 +108,20 @@ public class CharacterFacade : MonoBehaviour
         Debug.Log("Destroying character: " + name);
         Destroy(gameObject);
     }
-    
+
     public class Factory : PlaceholderFactory<UnityEngine.Object, Character, CharacterFacade>
     {
     }
 
+    private void OnValidate()
+    {
+        stats ??= GetComponentInChildren<StatisticsManager>();
+        meleeWeaponController ??= GetComponentInChildren<MeleeWeaponController>();
+        rangedWeaponController ??= GetComponentInChildren<RangedWeaponController>();
+        turnController ??= GetComponentInChildren<TurnController>();
+        turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
+        realTimeController ??= GetComponentInChildren<RealtimeController>();
+        realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
+        animatorManager ??= GetComponentInChildren<AnimatorManager>();
+    }
 }

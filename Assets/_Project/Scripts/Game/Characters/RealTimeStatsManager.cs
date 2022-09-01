@@ -4,12 +4,12 @@ public class RealTimeStatsManager : RealtimeSubscriber
     public override Result OnEnter()
     {
         var result = Result.Success;
-        for (var index = Facade.manager.character.Effect.Count - 1; index >= 0; index--)
+        for (var index = Facade.stats.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = Facade.manager.character.Effect[index];
+            var effect = Facade.stats.character.Effect[index];
             if (effect.applyOnEnterCycle)
             {
-                Facade.manager.ActivateEffect(effect);
+                Facade.stats.ActivateEffect(effect);
             }
         }
 
@@ -25,12 +25,12 @@ public class RealTimeStatsManager : RealtimeSubscriber
     {
         var result = Result.Success;
 
-        for (var index = Facade.manager.character.Effect.Count - 1; index >= 0; index--)
+        for (var index = Facade.stats.character.Effect.Count - 1; index >= 0; index--)
         {
-            var effect = Facade.manager.character.Effect[index];
+            var effect = Facade.stats.character.Effect[index];
             if (effect.applyOnExitCycle)
             {
-                Facade.manager.ActivateEffect(effect);
+                Facade.stats.ActivateEffect(effect);
             }
         }
 

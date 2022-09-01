@@ -4,7 +4,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
-    public CharacterFacade prefab;
+    public GameObject prefab;
     
     public const int MAXActionPoints = 100;
     
@@ -17,15 +17,10 @@ public class Character : ScriptableObject
     public TurnBasedStrategy turnBasedStrategy;
     public RealTimeStrategy realTimeStrategy;
 
-    [Header("Movement")] 
-    public MovementSettings fpsMovement;
-    public MovementSettings turnBasedMovement;
+   
+    [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
     
-    
-    [Range(1, MAXActionPoints)] public int maxNumberOfActions;
-    
-    [Header("Statistics")] [SerializeField]
-    private List<Statistic> statisticsTemplate;
+    [Header("Statistics")] public List<Statistic> statisticsTemplate= new();
 
     [Header("Abilities")] public ActiveManager active;
     public List<Passive> templatePassives;
@@ -40,7 +35,7 @@ public class Character : ScriptableObject
     [HideInInspector] public ItemsHolder backpack;
     [HideInInspector] public ItemsEquipment equipment;
     
-    [Header("Do not set anything here, zone will change in playmode")]
+    [Header("Playmode settings. Do not set anything here, visible for debug reasons.")]
     public BaseSpawnZone.SpawnLocation position;
     public List<Statistic> statistics;
 

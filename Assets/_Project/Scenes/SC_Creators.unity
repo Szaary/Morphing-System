@@ -167,8 +167,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 895432d09201bdb4e8e966e4b29cfc01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statistics:
-  - {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
-  - {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
-  - {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
+  config:
+    statistics:
+    - {fileID: 11400000, guid: 920f418e2c496374eba65144276715e2, type: 2}
+    - {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
+    - {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
+    - {fileID: 11400000, guid: 6b872694f6ecf384b9f9a951c1538ccd, type: 2}
+    logicModule: {fileID: 7965258816660215715, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
+    uiModule: {fileID: 620574421069397038, guid: 73b9d38520651124aa53abfa3bace8b7, type: 3}
+    animator: {fileID: 9100000, guid: d21f49f80beee36488b38e387f4b1912, type: 2}
   characterName: 
+  characterFbxModel: {fileID: 919132149155446097, guid: 7457538718633694285c138185cd594d, type: 3}

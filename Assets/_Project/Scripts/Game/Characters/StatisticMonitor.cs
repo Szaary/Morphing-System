@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class StatisticMonitor : MonoBehaviour
@@ -8,10 +9,14 @@ public abstract class StatisticMonitor : MonoBehaviour
 
     protected Statistic ChosenStat;
     
-    
     public virtual void Start()
     {
-        Facade.GetStatistic(statistic, out ChosenStat);
+        OnValidate();
+        var result = Facade.GetStatistic(statistic, out ChosenStat);
+        if (result != Result.Success)
+        {
+            Debug.Log(typeof(StatisticMonitor) + " "+ result);
+        }
         
         ChosenStat.OnValueChanged -= OnValueChanged;
         ChosenStat.OnValueChanged += OnValueChanged;
@@ -22,5 +27,11 @@ public abstract class StatisticMonitor : MonoBehaviour
     protected void OnDestroy()
     {
         if (ChosenStat != null) ChosenStat.OnValueChanged -= OnValueChanged;
+    }
+
+    private void OnValidate()
+    {
+        Facade ??= GetComponent<CharacterFacade>();
+        Facade ??= GetComponentInParent<CharacterFacade>();
     }
 }

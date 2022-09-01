@@ -66,7 +66,7 @@ public class StatisticsManager : MonoBehaviour
         var result = effect.ActivateEffect();
         if (result == Result.ToDestroy)
         {
-            _facade.manager.character.RemoveEffect(effect);
+            _facade.stats.character.RemoveEffect(effect);
             Destroy(effect);
             result = Result.Success;
         }

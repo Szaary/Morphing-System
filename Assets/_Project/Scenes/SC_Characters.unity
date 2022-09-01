@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 919ed12bf9edc2f46b11040b10c6b421, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 11400000, guid: 9c11319dc2d83e74d91a128655269046, type: 2}
+  player: {fileID: 11400000, guid: 48636e7348b4b2e4c8b5c36fad722787, type: 2}
   spawnZone: {fileID: 1154362606}
 --- !u!114 &1154362606
 MonoBehaviour:
