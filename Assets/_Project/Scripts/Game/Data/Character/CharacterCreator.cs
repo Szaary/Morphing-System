@@ -14,7 +14,7 @@ public class CharacterCreator : MonoBehaviour
 {
 #if UNITY_EDITOR
 
-
+    private readonly Vector3 capsule = new Vector3(0, 1, 0);
     [Header("Creator configuration data")] [SerializeField]
     private CharacterConfiguratorData config;
 
@@ -24,6 +24,7 @@ public class CharacterCreator : MonoBehaviour
 
     public void CreateCharacter()
     {
+        
         var folderPath = "Assets/_Project/Characters";
         var characterFolder = folderPath + "/" + characterName;
         var statsFolder = characterFolder + "/Stats";
@@ -109,6 +110,12 @@ public class CharacterCreator : MonoBehaviour
 
         var facade = prefabVariant.AddComponent<CharacterFacade>();
         var controller = prefabVariant.AddComponent<CharacterController>();
+        controller.center = capsule;
+        
+        var capsuleCollider = prefabVariant.AddComponent<CapsuleCollider>();
+        capsuleCollider.center = capsule;
+        capsuleCollider.height = 2;
+        
         var fps = prefabVariant.AddComponent<FirstPersonController>();
         var agent = prefabVariant.AddComponent<NavMeshAgent>();
         var relative = prefabVariant.AddComponent<RelativeController>();
