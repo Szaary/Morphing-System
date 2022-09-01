@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class AnimatorMovementController : MonoBehaviour
 {
-    public Animator animator;
+    [SerializeField] private Animator animator;
 
     [SerializeField] private float rotationSpeed;
 
@@ -116,5 +116,10 @@ public class AnimatorMovementController : MonoBehaviour
         velocity.y = ySpeed * _delta;
 
         characterController.Move(velocity);
+    }
+
+    private void OnValidate()
+    {
+        animator ??= GetComponent<Animator>();
     }
 }

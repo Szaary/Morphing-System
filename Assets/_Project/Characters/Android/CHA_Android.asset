@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
-  m_Name: CHA_sdfsdf
+  m_Name: CHA_Android
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
-  data: {fileID: 0}
-  vfx: {fileID: 0}
-  sfx: {fileID: 0}
+  prefab: {fileID: 1284626168650224275, guid: 499722e166388ee4ab9ad81c8979b5a0, type: 3}
+  data: {fileID: 11400000, guid: 66cd2b4a228a9fe4ba3dc852a70a403d, type: 2}
+  vfx: {fileID: 11400000, guid: 77ec161d70b00e44cbd4631d19c0a888, type: 2}
+  sfx: {fileID: 11400000, guid: d6e50c874b0c6de4b8e51654c19037a6, type: 2}
   alignment: {fileID: 0}
   turnBasedStrategy: {fileID: 0}
   realTimeStrategy: {fileID: 0}

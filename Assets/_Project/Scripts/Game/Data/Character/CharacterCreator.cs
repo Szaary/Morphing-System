@@ -117,14 +117,7 @@ public class CharacterCreator : MonoBehaviour
         var movement = prefabVariant.GetComponentInChildren<MovementManager>();
         
         facade.movement = movement;
-        facade.stats = GetComponentInChildren<StatisticsManager>();
-        facade.meleeWeaponController = GetComponentInChildren<MeleeWeaponController>();
-        facade.rangedWeaponController = GetComponentInChildren<RangedWeaponController>();
-        facade.turnController = GetComponentInChildren<TurnController>();
-        facade.turnStatsManager = GetComponentInChildren<TurnStatsManager>();
-        facade.realTimeController = GetComponentInChildren<RealtimeController>();
-        facade.realTimeStatsManager = GetComponentInChildren<RealTimeStatsManager>();
-        
+       
         
         movement.agent = agent;
         movement.controller = controller;
@@ -132,7 +125,6 @@ public class CharacterCreator : MonoBehaviour
         movement.relativeController = relative;
         movement.animatorController = animatorMovementController;
 
-        animatorMovementController.animator = GetComponent<Animator>();
         fps.controller = controller;
         
 

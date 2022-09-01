@@ -175,5 +175,5 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6b872694f6ecf384b9f9a951c1538ccd, type: 2}
     logicModule: {fileID: 7965258816660215715, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
     uiModule: {fileID: 620574421069397038, guid: 73b9d38520651124aa53abfa3bace8b7, type: 3}
-  characterName: sdfsdf
+  characterName: 
   characterFbxModel: {fileID: 919132149155446097, guid: 7457538718633694285c138185cd594d, type: 3}

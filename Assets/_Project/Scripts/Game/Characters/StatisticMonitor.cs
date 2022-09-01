@@ -26,9 +26,7 @@ public abstract class StatisticMonitor : MonoBehaviour
 
     private void OnValidate()
     {
-        if (Facade == null)
-        {
-            Debug.LogError(name + " facade is not set");
-        }
+        Facade ??= GetComponent<CharacterFacade>();
+        Facade ??= GetComponentInParent<CharacterFacade>();
     }
 }

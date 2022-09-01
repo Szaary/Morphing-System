@@ -96,6 +96,7 @@ namespace StarterAssets
             _facade = characterFacade;
             _playerInput = characterFacade.playerInput;
             _input = characterFacade.movementInput;
+            CinemachineCameraTarget = _facade.cameraFpsFollowPoint.gameObject;
         }
 
 
