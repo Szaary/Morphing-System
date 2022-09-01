@@ -9,7 +9,7 @@ public class AnimatorMovementController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
 
-    [SerializeField] private float rotationSpeed;
+    [SerializeField] private float rotationSpeed=200;
 
     [SerializeField] private float jumpSpeed;
 
