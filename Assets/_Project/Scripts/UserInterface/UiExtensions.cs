@@ -6,29 +6,10 @@ using UnityEngine;
 /// </summary>
 public static class UiExtensions
 {
-    public static void ChangeFpsPosition(RectTransform selectedTransform, Vector2 startPosition, Vector2 outPosition, GameMode newMode)
+    public static void ChangePosition(RectTransform selectedTransform, Vector2 outPosition)
     {
-        if (newMode == GameMode.TurnBasedFight)
-        {
-            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
-
-        }
-        else if (newMode == GameMode.Fps)
-        {
-            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
-        }
+        selectedTransform.DOAnchorPos(outPosition, 1.5f, false).SetEase(Ease.InCirc).SetUpdate(true);
     }
     
-    public static void ChangeTurnBasedPosition(RectTransform selectedTransform, Vector2 startPosition, Vector2 outPosition, GameMode newMode)
-    {
-        if (newMode == GameMode.Fps)
-        {
-            selectedTransform.DOAnchorPos(outPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
-            
-        }
-        else if (newMode == GameMode.TurnBasedFight)
-        {
-            selectedTransform.DOAnchorPos(startPosition, 2, false).SetEase(Ease.InCirc).SetUpdate(true);
-        }
-    }
+   
 }

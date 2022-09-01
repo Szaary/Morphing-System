@@ -84,7 +84,7 @@ public class MovementManager : MonoBehaviour
                 TurnOnNavMeshControl();
             }
         }
-        else if (gameMode == GameMode.Platform)
+        else if (gameMode is GameMode.Platform or GameMode.Tpp )
         {
             SetRealtimeLogic(true);
             TurnOffCharacterControl();

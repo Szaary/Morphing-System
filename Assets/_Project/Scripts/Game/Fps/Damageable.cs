@@ -5,7 +5,7 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     private CharacterFacade _facade;
-
+    
     private void Awake()
     {
         _facade ??= GetComponent<CharacterFacade>();
@@ -13,6 +13,7 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(CharacterFacade shooter, List<Modifier> modifiers)
     {
+        if (shooter.Alignment.id == _facade.Alignment.id) return;
         _facade.Modify(shooter, modifiers);
     }
 
