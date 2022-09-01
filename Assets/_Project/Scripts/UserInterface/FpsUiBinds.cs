@@ -34,6 +34,11 @@ public class FpsUiBinds : MonoBehaviour
 
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;
+
+        if (_library.GetControlledCharacter(out var facade)== Result.Success)
+        {
+            OnControlledCharacterChanged(facade);
+        }
         _library.ControlledCharacterChanged += OnControlledCharacterChanged;
     }
 
