@@ -4,6 +4,7 @@ Morph is a game with many control systems that you can switch between at any tim
 Currently implemented:
  - Jrpg turn based rpg,
  - Fps
+ - 2,5 D Platformer
 
 
 # Basic Structure
