@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class StatisticMonitor : MonoBehaviour
@@ -7,7 +8,6 @@ public abstract class StatisticMonitor : MonoBehaviour
     [SerializeField] protected bool isSilent = false;
 
     protected Statistic ChosenStat;
-    
     
     public virtual void Start()
     {
@@ -22,5 +22,13 @@ public abstract class StatisticMonitor : MonoBehaviour
     protected void OnDestroy()
     {
         if (ChosenStat != null) ChosenStat.OnValueChanged -= OnValueChanged;
+    }
+
+    private void OnValidate()
+    {
+        if (Facade == null)
+        {
+            Debug.LogError(name + " facade is not set");
+        }
     }
 }

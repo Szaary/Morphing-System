@@ -73,7 +73,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
-        [SerializeField] private CharacterController controller;
+        public CharacterController controller;
 
         private GameObject _mainCamera;
         private MovementInput _input;

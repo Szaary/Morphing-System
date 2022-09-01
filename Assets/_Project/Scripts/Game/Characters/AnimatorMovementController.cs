@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class AnimatorMovementController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
+    public Animator animator;
 
     [SerializeField] private float rotationSpeed;
 

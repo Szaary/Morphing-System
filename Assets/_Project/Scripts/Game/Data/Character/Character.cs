@@ -17,12 +17,8 @@ public class Character : ScriptableObject
     public TurnBasedStrategy turnBasedStrategy;
     public RealTimeStrategy realTimeStrategy;
 
-    [Header("Movement")] 
-    public MovementSettings fpsMovement;
-    public MovementSettings turnBasedMovement;
-    
-    
-    [Range(1, MAXActionPoints)] public int maxNumberOfActions;
+   
+    [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
     
     [Header("Statistics")] [SerializeField]
     private List<Statistic> statisticsTemplate;
@@ -40,7 +36,7 @@ public class Character : ScriptableObject
     [HideInInspector] public ItemsHolder backpack;
     [HideInInspector] public ItemsEquipment equipment;
     
-    [Header("Do not set anything here, zone will change in playmode")]
+    [Header("Playmode settings. Do not set anything here, visible for debug reasons.")]
     public BaseSpawnZone.SpawnLocation position;
     public List<Statistic> statistics;
 

@@ -99,21 +99,42 @@ public class CharacterCreator : MonoBehaviour
         if (uiModule == null) throw new Exception("Prefabs were not created;");
         uiModule.transform.parent = objSource.transform;
 
-        // Saving prefab variant
         var prefabVariant =
             PrefabUtility.SaveAsPrefabAsset(objSource, characterFolder + "/" + characterName + ".prefab");
         DestroyImmediate(objSource);
 
-        
-        
-        prefabVariant.AddComponent<CharacterFacade>();
-        prefabVariant.AddComponent<CharacterController>();
-        prefabVariant.AddComponent<FirstPersonController>();
-        prefabVariant.AddComponent<NavMeshAgent>();
-        prefabVariant.AddComponent<RelativeController>();
-        prefabVariant.AddComponent<AnimatorMovementController>();
+
+        var facade = prefabVariant.AddComponent<CharacterFacade>();
+        var controller = prefabVariant.AddComponent<CharacterController>();
+        var fps = prefabVariant.AddComponent<FirstPersonController>();
+        var agent = prefabVariant.AddComponent<NavMeshAgent>();
+        var relative = prefabVariant.AddComponent<RelativeController>();
+        var animatorMovementController =prefabVariant.AddComponent<AnimatorMovementController>();
         prefabVariant.AddComponent<BasicRigidBodyPush>();
         prefabVariant.AddComponent<Damageable>();
+
+        // Saving prefab variant
+        var movement = prefabVariant.GetComponentInChildren<MovementManager>();
+        
+        facade.movement = movement;
+        facade.stats = GetComponentInChildren<StatisticsManager>();
+        facade.meleeWeaponController = GetComponentInChildren<MeleeWeaponController>();
+        facade.rangedWeaponController = GetComponentInChildren<RangedWeaponController>();
+        facade.turnController = GetComponentInChildren<TurnController>();
+        facade.turnStatsManager = GetComponentInChildren<TurnStatsManager>();
+        facade.realTimeController = GetComponentInChildren<RealtimeController>();
+        facade.realTimeStatsManager = GetComponentInChildren<RealTimeStatsManager>();
+        
+        
+        movement.agent = agent;
+        movement.controller = controller;
+        movement.fps = fps;
+        movement.relativeController = relative;
+        movement.animatorController = animatorMovementController;
+
+        animatorMovementController.animator = GetComponent<Animator>();
+        fps.controller = controller;
+        
 
         return prefabVariant;
     }
