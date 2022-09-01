@@ -1,14 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using StarterAssets;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class AnimatorMovementController : MonoBehaviour
 {
-    [SerializeField] private Animator animator;
-
     [SerializeField] private float rotationSpeed=200;
 
     [SerializeField] private float jumpSpeed;
@@ -26,12 +20,12 @@ public class AnimatorMovementController : MonoBehaviour
 
     private MovementInput _input;
     private CharacterFacade _facade;
-    private static readonly int Movement = Animator.StringToHash("movement");
-    private static readonly int IsMoving = Animator.StringToHash("isMoving");
+    private AnimatorManager _animatorManager;
 
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
+        _animatorManager = _facade.animatorManager;
         cameraTransform = characterFacade.cameraManager.MainCamera.transform;
         _input = characterFacade.movementInput;
     }
@@ -52,19 +46,20 @@ public class AnimatorMovementController : MonoBehaviour
         float verticalInput = _input.move.y; //Input.GetAxis("Vertical");
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
-
-
-        animator.SetFloat(Movement, inputMagnitude, 0.05f, _delta);
 
 
         // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
         // {
         //     inputMagnitude /= 2;
         // }
+        
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        _animatorManager.Move(inputMagnitude, _delta);
 
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
+        
+
 
         ySpeed += Physics.gravity.y * _delta;
 
@@ -94,32 +89,28 @@ public class AnimatorMovementController : MonoBehaviour
         {
             characterController.stepOffset = 0;
         }
+        
 
 
         if (movementDirection != Vector3.zero)
         {
             
-            animator.SetBool(IsMoving,true);
+            _animatorManager.SetMoving(true);
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * _delta);
         }
         else
         {
-            animator.SetBool(IsMoving,false);
+            _animatorManager.SetMoving(false);
         }
     }
 
     private void OnAnimatorMove()
     {
-        Vector3 velocity = animator.deltaPosition;
+        Vector3 velocity = _animatorManager.DeltaPosition;
         velocity.y = ySpeed * _delta;
 
         characterController.Move(velocity);
-    }
-
-    private void OnValidate()
-    {
-        animator ??= GetComponent<Animator>();
     }
 }

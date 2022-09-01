@@ -122,10 +122,10 @@ public class CharacterCreator : MonoBehaviour
         var animatorMovementController = prefabVariant.AddComponent<AnimatorMovementController>();
         prefabVariant.AddComponent<BasicRigidBodyPush>();
         prefabVariant.AddComponent<Damageable>();
-
+        var navMeshMovement= prefabVariant.AddComponent<NavMeshAgentMovement>();
+        
         // Saving prefab variant
         var movement = prefabVariant.GetComponentInChildren<MovementManager>();
-
         facade.movement = movement;
 
 
@@ -134,7 +134,12 @@ public class CharacterCreator : MonoBehaviour
         movement.fps = fps;
         movement.relativeController = relative;
         movement.animatorController = animatorMovementController;
+        movement.navMeshAgentMovement = navMeshMovement;
 
+        var animatorManager = prefabVariant.GetComponentInChildren<AnimatorManager>();
+        var animator = prefabVariant.GetComponent<Animator>();
+        animatorManager.animator = animator;
+        
         fps.controller = controller;
         return prefabVariant;
     }

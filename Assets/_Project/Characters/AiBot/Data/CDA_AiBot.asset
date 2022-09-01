@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
-  m_Name: STA_Health
+  m_Script: {fileID: 11500000, guid: 0e5f7d8e85ad412e832149cc59cc271a, type: 3}
+  m_Name: CDA_AiBot
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
-  maxValue: 150
-  minValue: 0
-  currentValue: 150
+  characterName: AiBot
+  description: 

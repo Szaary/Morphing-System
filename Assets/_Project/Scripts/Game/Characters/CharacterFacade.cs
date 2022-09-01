@@ -9,6 +9,7 @@ public class CharacterFacade : MonoBehaviour
 {
     public MovementManager movement;
     public StatisticsManager stats;
+    public AnimatorManager animatorManager;
 
     [Header("Weapons")] public MeleeWeaponController meleeWeaponController;
     public RangedWeaponController rangedWeaponController;
@@ -34,8 +35,6 @@ public class CharacterFacade : MonoBehaviour
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
 
     #endregion
-
-
 
 
     [HideInInspector] public TurnBasedInput turnBasedInput;
@@ -123,5 +122,6 @@ public class CharacterFacade : MonoBehaviour
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
         realTimeController ??= GetComponentInChildren<RealtimeController>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
+        animatorManager ??= GetComponentInChildren<AnimatorManager>();
     }
 }

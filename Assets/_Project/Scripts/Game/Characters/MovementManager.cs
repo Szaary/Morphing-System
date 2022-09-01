@@ -17,7 +17,8 @@ public class MovementManager : MonoBehaviour
     public FirstPersonController fps;
     public RelativeController relativeController;
     public AnimatorMovementController animatorController;
-
+    public NavMeshAgentMovement navMeshAgentMovement;
+    
     private GameManager _gameManager;
     private CharacterFacade _facade;
 
@@ -33,6 +34,7 @@ public class MovementManager : MonoBehaviour
         fps.Initialize(_facade);
         relativeController.Initialize(_facade);
         animatorController.Initialize(_facade);
+        navMeshAgentMovement.Initialize(_facade);
     }
 
 
@@ -102,6 +104,8 @@ public class MovementManager : MonoBehaviour
     private void TurnOnNavMeshControl()
     {
         agent.enabled = true;
+        navMeshAgentMovement.enabled = true;
+        
         controller.enabled = false;
 
         animatorController.enabled = false;
@@ -116,6 +120,7 @@ public class MovementManager : MonoBehaviour
         animatorController.enabled = false;
         fps.enabled = false;
         relativeController.enabled = false;
+        navMeshAgentMovement.enabled = false;
     }
 
 

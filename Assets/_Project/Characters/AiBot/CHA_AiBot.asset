@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
+  m_Name: CHA_AiBot
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4297425826058565277, guid: 15a4701c4723dee4f959953525512c34, type: 3}
+  data: {fileID: 11400000, guid: 277672a7c57f9d24cb37e973663c19e2, type: 2}
+  vfx: {fileID: 11400000, guid: 94cfd4028d7c32143bff22e6e52421ef, type: 2}
+  sfx: {fileID: 11400000, guid: 1e1b826e608a07746b07b1c835bfa3ef, type: 2}
+  alignment: {fileID: 11400000, guid: 1db1abac2da571c41885d66506e0c1c8, type: 2}
+  turnBasedStrategy: {fileID: 11400000, guid: 6e47fa2090a40b44d91c3fb9a92b5a27, type: 2}
+  realTimeStrategy: {fileID: 11400000, guid: 0f8fcc8813faa1e49841dded31a84586, type: 2}
+  maxNumberOfActions: 1
+  statisticsTemplate:
+  - {fileID: 11400000, guid: 0f003f7b21a494c47817044317338792, type: 2}
+  - {fileID: 11400000, guid: 7fb0690aa6955e34abefdbe8ca3414a8, type: 2}
+  - {fileID: 11400000, guid: 425f7103a759f754381ecaffb2152bc5, type: 2}
+  - {fileID: 11400000, guid: 2e8d1859852030140a17258c115f0129, type: 2}
+  active:
+    abilities:
+    - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+    abilitiesInUnitLibrary:
+    - {fileID: 11400000, guid: c0c922d9a619a4d4fae9e890c3c8f2cb, type: 2}
+    - {fileID: 11400000, guid: 85d7cb5e263c4cd4482d18e503661da3, type: 2}
+  templatePassives: []
+  templateEffects: []
+  backpackTemplate: {fileID: 11400000, guid: 9489e2da2926b9245980b1d66d6becb4, type: 2}
+  equipmentTemplate: {fileID: 11400000, guid: df7bae9c0a509a3449be0bf42ddcf3a4, type: 2}
+  backpack: {fileID: 0}
+  equipment: {fileID: 0}
+  position:
+    transform: {fileID: 0}
+    occupied: 0
+    index: 0
+  statistics: []

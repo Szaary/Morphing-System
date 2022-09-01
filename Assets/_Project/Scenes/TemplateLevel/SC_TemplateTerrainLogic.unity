@@ -215,10 +215,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleSpawnZone: {fileID: 1457399897}
   charactersToSpawn:
-  - {fileID: 11400000, guid: d8a2e7bb52c52f2489eef82c2eff864c, type: 2}
-  - {fileID: 11400000, guid: d8a2e7bb52c52f2489eef82c2eff864c, type: 2}
-  - {fileID: 11400000, guid: d8a2e7bb52c52f2489eef82c2eff864c, type: 2}
-  - {fileID: 11400000, guid: d8a2e7bb52c52f2489eef82c2eff864c, type: 2}
+  - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
+  - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
+  - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
+  - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
   randomizeEnemies: 0
   forceGameMode: 1
   gameMode: 1

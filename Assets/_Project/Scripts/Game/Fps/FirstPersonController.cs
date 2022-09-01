@@ -58,7 +58,7 @@ namespace StarterAssets
         public float BottomClamp = -90.0f;
 
         
-        [SerializeField] private Animator animator;
+        [SerializeField] private AnimatorManager _animatorManager;
         
         // cinemachine
         private float _cinemachineTargetPitch;
@@ -81,8 +81,6 @@ namespace StarterAssets
 
         private GameObject _mainCamera;
         private MovementInput _input;
-        private static readonly int Movement = Animator.StringToHash("movement");
-        private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private const float _threshold = 0.01f;
 
         private bool IsCurrentDeviceMouse
@@ -97,16 +95,13 @@ namespace StarterAssets
             }
         }
 
-        private void Awake()
-        {
-            animator ??= GetComponent<Animator>();
-        }
-
         public void Initialize(CharacterFacade characterFacade)
         {
             _facade = characterFacade;
             _playerInput = characterFacade.playerInput;
             _input = characterFacade.movementInput;
+            _animatorManager = characterFacade.animatorManager;
+            
             CinemachineCameraTarget = _facade.movement.cameraFpsFollowPoint.gameObject;
         }
 
@@ -180,7 +175,7 @@ namespace StarterAssets
             float speedOffset = 0.1f;
 
             var movement = Mathf.Clamp01(currentHorizontalSpeed);
-            animator.SetFloat(Movement, movement, 0.05f, delta);
+            _animatorManager.Move(movement, delta);
             
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
@@ -209,12 +204,12 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 // move
-                animator.SetBool(IsMoving,true);
+                _animatorManager.SetMoving(true);
                 inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
             }
             else
             {
-                animator.SetBool(IsMoving,false);
+                _animatorManager.SetMoving(false);
             }
 
             // move the player
@@ -290,9 +285,6 @@ namespace StarterAssets
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
         }
-        private void OnValidate()
-        {
-            animator ??= GetComponent<Animator>();
-        }
+
     }
 }

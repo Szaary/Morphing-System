@@ -7,7 +7,7 @@ public class RelativeController : MonoBehaviour
     private float maximumSpeed;
 
     [SerializeField]
-    private float rotationSpeed;
+    private float rotationSpeed=200;
 
     [SerializeField]
     private float jumpSpeed;

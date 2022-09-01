@@ -8,7 +8,10 @@ public class BaseAiRealTimeStrategy : RealTimeStrategy
         var result = currentFightState.Library.GetControlledCharacter(out var controlled);
         if (result == Result.Success)
         {
-            currentFightState.Agent.SetDestination(controlled.transform.position);
+            if (currentFightState.Agent.enabled)
+            {
+                currentFightState.Agent.SetDestination(controlled.transform.position);
+            }
         }
         return Result.Success;
     }
