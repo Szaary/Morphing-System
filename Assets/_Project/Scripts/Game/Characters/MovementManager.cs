@@ -55,7 +55,7 @@ public class MovementManager : MonoBehaviour
             TurnOffCharacterControl();
             SetTurnBasedLogic(false);
             SetRealtimeLogic(false);
-            animatorController.enabled = false;
+            
         }
         if (gameMode == GameMode.TurnBasedFight)
         {
@@ -70,6 +70,8 @@ public class MovementManager : MonoBehaviour
         else if (gameMode == GameMode.Fps)
         {
             SetRealtimeLogic(true);
+            TurnOffCharacterControl();
+            
             if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
             {
                 controller.enabled = true;
@@ -77,13 +79,14 @@ public class MovementManager : MonoBehaviour
             }
             else
             {
-                TurnOffCharacterControl();
                 TurnOnNavMeshControl();
             }
         }
         else if (gameMode == GameMode.Platform)
         {
             SetRealtimeLogic(true);
+            TurnOffCharacterControl();
+            
             if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
             {
                 controller.enabled = true;
@@ -91,7 +94,6 @@ public class MovementManager : MonoBehaviour
             }
             else
             {
-                TurnOffCharacterControl();
                 TurnOnNavMeshControl();
             }
         }
@@ -102,6 +104,7 @@ public class MovementManager : MonoBehaviour
         agent.enabled = true;
         controller.enabled = false;
 
+        animatorController.enabled = false;
         fps.enabled = false;
         relativeController.enabled = false;
     }
@@ -110,7 +113,7 @@ public class MovementManager : MonoBehaviour
     {
         agent.enabled = false;
         controller.enabled = false;
-
+        animatorController.enabled = false;
         fps.enabled = false;
         relativeController.enabled = false;
     }

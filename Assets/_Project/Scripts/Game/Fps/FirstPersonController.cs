@@ -13,7 +13,7 @@ namespace StarterAssets
         public float SprintSpeed = 6.0f;
 
         [Tooltip("Rotation speed of the character")]
-        public float RotationSpeedX = 80.0f;
+        public float RotationSpeedX = 40.0f;
 
         [Tooltip("Rotation speed of the character")]
         public float RotationSpeedY = 20.0f;
