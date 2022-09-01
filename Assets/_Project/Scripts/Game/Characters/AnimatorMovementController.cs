@@ -103,7 +103,6 @@ public class AnimatorMovementController : MonoBehaviour
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * _delta);
-            Debug.Log(transform.rotation);
         }
         else
         {

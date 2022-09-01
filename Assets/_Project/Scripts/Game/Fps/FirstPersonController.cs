@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace StarterAssets
@@ -56,6 +57,9 @@ namespace StarterAssets
         [Tooltip("How far in degrees can you move the camera down")]
         public float BottomClamp = -90.0f;
 
+        
+        [SerializeField] private Animator animator;
+        
         // cinemachine
         private float _cinemachineTargetPitch;
 
@@ -77,6 +81,8 @@ namespace StarterAssets
 
         private GameObject _mainCamera;
         private MovementInput _input;
+        private static readonly int Movement = Animator.StringToHash("movement");
+        private static readonly int IsMoving = Animator.StringToHash("isMoving");
         private const float _threshold = 0.01f;
 
         private bool IsCurrentDeviceMouse
@@ -89,6 +95,11 @@ namespace StarterAssets
 				return false;
 #endif
             }
+        }
+
+        private void Awake()
+        {
+            animator ??= GetComponent<Animator>();
         }
 
         public void Initialize(CharacterFacade characterFacade)
@@ -167,6 +178,10 @@ namespace StarterAssets
             float currentHorizontalSpeed = new Vector3(controller.velocity.x, 0.0f, controller.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
+
+            var movement = Mathf.Clamp01(currentHorizontalSpeed);
+            animator.SetFloat(Movement, movement, 0.05f, delta);
+            
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
@@ -185,6 +200,7 @@ namespace StarterAssets
                 _speed = targetSpeed;
             }
 
+            
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
 
@@ -193,7 +209,12 @@ namespace StarterAssets
             if (_input.move != Vector2.zero)
             {
                 // move
+                animator.SetBool(IsMoving,true);
                 inputDirection = transform.right * _input.move.x + transform.forward * _input.move.y;
+            }
+            else
+            {
+                animator.SetBool(IsMoving,false);
             }
 
             // move the player
@@ -268,6 +289,10 @@ namespace StarterAssets
             Gizmos.DrawSphere(
                 new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z),
                 GroundedRadius);
+        }
+        private void OnValidate()
+        {
+            animator ??= GetComponent<Animator>();
         }
     }
 }
