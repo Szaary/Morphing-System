@@ -293,6 +293,8 @@ MonoBehaviour:
   fps: {fileID: 0}
   relativeController: {fileID: 0}
   animatorController: {fileID: 0}
+  cameraFpsFollowPoint: {fileID: 1914082534358763669}
+  cameraFppFollowPoint: {fileID: 4712217095810675322}
 --- !u!114 &4781969420679510077
 MonoBehaviour:
   m_ObjectHideFlags: 0

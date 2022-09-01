@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ae2abf5293d13b43928a8dbdbbca464, type: 3}
   m_Name: CHA_Android
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1284626168650224275, guid: 499722e166388ee4ab9ad81c8979b5a0, type: 3}
+  prefab: {fileID: 8824159725191669441, guid: 499722e166388ee4ab9ad81c8979b5a0, type: 3}
   data: {fileID: 11400000, guid: 66cd2b4a228a9fe4ba3dc852a70a403d, type: 2}
   vfx: {fileID: 11400000, guid: 77ec161d70b00e44cbd4631d19c0a888, type: 2}
   sfx: {fileID: 11400000, guid: d6e50c874b0c6de4b8e51654c19037a6, type: 2}
@@ -20,7 +20,11 @@ MonoBehaviour:
   turnBasedStrategy: {fileID: 0}
   realTimeStrategy: {fileID: 0}
   maxNumberOfActions: 1
-  statisticsTemplate: []
+  statisticsTemplate:
+  - {fileID: 11400000, guid: 80e579fa4fb8fd1478ffb2a81b923381, type: 2}
+  - {fileID: 11400000, guid: f2074adad5a08f647a8000528176e61d, type: 2}
+  - {fileID: 11400000, guid: 1025e1bb14317624d970c8e44b4944cf, type: 2}
+  - {fileID: 11400000, guid: 03e042bfca191074384adc85f31c8731, type: 2}
   active:
     abilities: []
     abilitiesInUnitLibrary: []

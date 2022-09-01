@@ -4,7 +4,7 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "CHA_", menuName = "Character/Base")]
 public class Character : ScriptableObject
 {
-    public CharacterFacade prefab;
+    public GameObject prefab;
     
     public const int MAXActionPoints = 100;
     
@@ -20,8 +20,7 @@ public class Character : ScriptableObject
    
     [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
     
-    [Header("Statistics")] [SerializeField]
-    private List<Statistic> statisticsTemplate;
+    [Header("Statistics")] public List<Statistic> statisticsTemplate= new();
 
     [Header("Abilities")] public ActiveManager active;
     public List<Passive> templatePassives;

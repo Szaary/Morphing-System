@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using StarterAssets;
@@ -11,15 +13,17 @@ using UnityEngine.AI;
 public class CharacterCreator : MonoBehaviour
 {
 #if UNITY_EDITOR
+
+    
+    
     [Header("Creator configuration data")] [SerializeField]
     private CharacterConfiguratorData config;
-
+    
 
     [Header("Character creator")] 
     public string characterName;
     public GameObject characterFbxModel;
-
-
+    
     public void CreateCharacter()
     {
         var folderPath = "Assets/_Project/Characters";
@@ -41,7 +45,9 @@ public class CharacterCreator : MonoBehaviour
     {
         var character = ScriptableObject.CreateInstance<Character>();
         AssetDatabase.CreateAsset(character, characterFolder + "/CHA_" + characterName + ".asset");
-        character.prefab = prefabVariant.GetComponent<CharacterFacade>();
+
+        character.prefab = prefabVariant;
+
         
 
         var data = ScriptableObject.CreateInstance<CharacterData>();
@@ -63,6 +69,7 @@ public class CharacterCreator : MonoBehaviour
             var stat = ScriptableObject.CreateInstance<Statistic>();
             AssetDatabase.CreateAsset(stat, statsFolder + "/STA_" + baseStat.statName + ".asset");
             stat.baseStatistic = baseStat;
+            character.statisticsTemplate.Add(stat);
         }
 
 
@@ -99,6 +106,8 @@ public class CharacterCreator : MonoBehaviour
         if (uiModule == null) throw new Exception("Prefabs were not created;");
         uiModule.transform.parent = objSource.transform;
 
+        objSource.GetComponent<Animator>().runtimeAnimatorController = config.animator;
+        
         var prefabVariant =
             PrefabUtility.SaveAsPrefabAsset(objSource, characterFolder + "/" + characterName + ".prefab");
         DestroyImmediate(objSource);
@@ -126,8 +135,6 @@ public class CharacterCreator : MonoBehaviour
         movement.animatorController = animatorMovementController;
 
         fps.controller = controller;
-        
-
         return prefabVariant;
     }
 
@@ -192,4 +199,5 @@ public struct CharacterConfiguratorData
     public List<BaseStatistic> statistics;
     public GameObject logicModule;
     public GameObject uiModule;
+    public AnimatorController animator;
 }

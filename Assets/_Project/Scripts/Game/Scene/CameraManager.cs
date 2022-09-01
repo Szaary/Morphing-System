@@ -68,7 +68,7 @@ public class CameraManager : MonoBehaviour
             return;
         }
 
-        var cameraFpsFollowPoint = facade.cameraFpsFollowPoint;
+        var cameraFpsFollowPoint = facade.movement.cameraFpsFollowPoint;
 
         foreach (var cam in cameras)
         {
@@ -95,15 +95,15 @@ public class CameraManager : MonoBehaviour
             Debug.Log(typeof(CameraManager) + " " + result);
             return;
         }
-        var cameraFpsFollowPoint = facade.cameraFpsFollowPoint;
+        var cameraFpsFollowPoint = facade.movement.cameraFpsFollowPoint;
 
         foreach (var cam in cameras)
         {
             if (cam.camera == platformCamera)
             {
                 cam.camera.Priority = MaxCameraPriority;
-                cam.camera.LookAt = facade.transform;
-                cam.camera.Follow = facade.transform;
+                cam.camera.LookAt = cameraFpsFollowPoint;
+                cam.camera.Follow = cameraFpsFollowPoint;
             }
             else
             {

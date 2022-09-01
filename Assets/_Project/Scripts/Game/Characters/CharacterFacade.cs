@@ -36,8 +36,6 @@ public class CharacterFacade : MonoBehaviour
     #endregion
 
 
-    [Header("Camera Logic")] public Transform cameraFpsFollowPoint;
-    public Transform cameraFppFollowPoint;
 
 
     [HideInInspector] public TurnBasedInput turnBasedInput;

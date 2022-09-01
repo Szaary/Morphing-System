@@ -11,10 +11,10 @@ public class Statistic : ScriptableObject, IEquatable<Statistic>
     public event Action<float, float, float, Result> OnValueChanged;
 
     public BaseStatistic baseStatistic;
-    public float maxValue;
-    public float minValue;
+    public float maxValue = 10;
+    public float minValue = 0;
 
-    [SerializeField] private float currentValue;
+    [SerializeField] private float currentValue= 5;
 
 
     public float CurrentValue

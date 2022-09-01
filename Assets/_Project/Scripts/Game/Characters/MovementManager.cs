@@ -21,6 +21,10 @@ public class MovementManager : MonoBehaviour
     private GameManager _gameManager;
     private CharacterFacade _facade;
 
+    [Header("Camera Logic")] public Transform cameraFpsFollowPoint;
+    public Transform cameraFppFollowPoint;
+
+    
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
@@ -51,6 +55,7 @@ public class MovementManager : MonoBehaviour
             TurnOffCharacterControl();
             SetTurnBasedLogic(false);
             SetRealtimeLogic(false);
+            animatorController.enabled = false;
         }
         if (gameMode == GameMode.TurnBasedFight)
         {
