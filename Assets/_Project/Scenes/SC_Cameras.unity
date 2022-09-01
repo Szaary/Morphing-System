@@ -935,6 +935,7 @@ GameObject:
   - component: {fileID: 1494389770}
   - component: {fileID: 1494389769}
   - component: {fileID: 1494389771}
+  - component: {fileID: 1494389772}
   m_Layer: 0
   m_Name: FppCamera
   m_TagString: Untagged
@@ -1094,6 +1095,22 @@ MonoBehaviour:
   m_Damping: 2
   m_DampingWhenOccluded: 2
   m_OptimalTargetDistance: 0
+--- !u!114 &1494389772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494389768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb7194dc27b9df64c8beca7482ee8e0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+  XYAxis: {fileID: -6378022283290745367, guid: 2caebf08f22c5d04186044979581990b, type: 3}
+  ZAxis: {fileID: 0}
 --- !u!1 &1798679622
 GameObject:
   m_ObjectHideFlags: 0
