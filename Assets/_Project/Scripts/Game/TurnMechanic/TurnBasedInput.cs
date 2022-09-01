@@ -64,6 +64,12 @@ public class TurnBasedInput : MonoBehaviour
         UseSkill(3);
     }
 
+    public void OnUiButton(int button)
+    {
+        if (StopInWrongTurn(button) != Result.Success) return;
+        UseSkill(button);
+    }
+    
     private void UseSkill(int index)
     {
         // 1. Check possible actions based on list of targets. - show possible skills

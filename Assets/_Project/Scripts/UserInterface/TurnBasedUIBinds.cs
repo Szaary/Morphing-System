@@ -33,7 +33,7 @@ public class TurnBasedUIBinds : MonoBehaviour
         for (var index = 0; index < binds.Count; index++)
         {
             var bind = binds[index];
-            bind.Initialize(index);
+            bind.Initialize(index, _input);
         }
 
         OnGameModeChanged(_gameManager.GameMode);

@@ -16,23 +16,20 @@ public class BindRepresentation
     public int position;
     private Vector2 _startingPosition;
     private Vector2 _outPosition;
+    private TurnBasedInput _input;
 
-    public void Initialize(int buttonPosition)
+    public void Initialize(int buttonPosition, TurnBasedInput turnBasedInput)
     {
         button.onClick.AddListener(OnButtonClicked);
         this.position = buttonPosition;
         _startingPosition = statTextPosition.anchoredPosition;
         _outPosition = outPosition.anchoredPosition;
+        _input = turnBasedInput;
     }
 
     private void OnButtonClicked()
     {
-        Debug.Log("Animate button");
-    }
-
-    public void PressButton(Result result)
-    {
-        button.onClick.Invoke();
+        _input.OnUiButton(position);
     }
 
     public void ShowButton(Active active)
