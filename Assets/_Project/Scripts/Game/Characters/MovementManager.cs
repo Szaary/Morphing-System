@@ -90,7 +90,7 @@ public class MovementManager : MonoBehaviour
             if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
             {
                 controller.enabled = true;
-                relativeController.enabled = true;
+                animatorController.enabled = true;
             }
             else
             {

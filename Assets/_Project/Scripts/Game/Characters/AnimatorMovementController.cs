@@ -63,8 +63,7 @@ public class AnimatorMovementController : MonoBehaviour
         //     inputMagnitude /= 2;
         // }
 
-        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) *
-                            movementDirection;
+        movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
 
         ySpeed += Physics.gravity.y * _delta;
@@ -99,10 +98,12 @@ public class AnimatorMovementController : MonoBehaviour
 
         if (movementDirection != Vector3.zero)
         {
+            
             animator.SetBool(IsMoving,true);
             Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
 
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * _delta);
+            Debug.Log(transform.rotation);
         }
         else
         {
