@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor.Animations;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -210,7 +212,7 @@ public class LevelScriptEditor : Editor
         }
     }
 }
-#endif
+
 [Serializable]
 public struct CharacterConfiguratorData
 {
@@ -219,3 +221,4 @@ public struct CharacterConfiguratorData
     public GameObject uiModule;
     public AnimatorController animator;
 }
+#endif

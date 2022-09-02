@@ -15,6 +15,7 @@ namespace StarterAssets
 
         public bool shoot;
         public bool melee;
+        public bool walk;
 
 
         [Header("Movement Settings")] public bool analogMovement;
@@ -57,6 +58,11 @@ namespace StarterAssets
             MeleeInput(value.isPressed);
         }
 
+        public void OnWalk(InputValue value)
+        {
+            WalkInput(value.isPressed);
+        }
+
 
 #endif
 
@@ -87,7 +93,13 @@ namespace StarterAssets
 
         private void SprintInput(bool newSprintState)
         {
-            sprint = newSprintState;
+            //sprint = newSprintState;
+            sprint = !sprint;
+        }
+
+        private void WalkInput(bool newWalkState)
+        {
+            walk = !walk;
         }
     }
 }

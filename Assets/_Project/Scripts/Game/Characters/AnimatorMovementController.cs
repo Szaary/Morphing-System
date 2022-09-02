@@ -46,15 +46,22 @@ public class AnimatorMovementController : MonoBehaviour
         float verticalInput = _input.move.y; //Input.GetAxis("Vertical");
 
         Vector3 movementDirection = new Vector3(horizontalInput, 0, verticalInput);
-
-
-        // if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        // {
-        //     inputMagnitude /= 2;
-        // }
+        
         
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+        
+
+        if (_input.walk)
+        {
+            inputMagnitude /= 2;
+        }
+        if (_input.sprint)
+        {
+            inputMagnitude *= 2;
+        }
+
         _animatorManager.Move(inputMagnitude, _delta);
+
 
         movementDirection = Quaternion.AngleAxis(cameraTransform.rotation.eulerAngles.y, Vector3.up) * movementDirection;
         movementDirection.Normalize();
