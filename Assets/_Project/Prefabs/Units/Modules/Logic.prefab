@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1914082534358763669}
   m_Layer: 8
-  m_Name: cameraFpsFollowPoint
+  m_Name: DefaultFpsCameraFollow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,7 +157,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4712217095810675322}
   m_Layer: 8
-  m_Name: cameraFppFollowPoint
+  m_Name: DefaultFppCameraFollow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -289,7 +289,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   realtime: {fileID: 4354044618363415004}
   turnBased: {fileID: 7894274995515560214}
-  agent: {fileID: 0}
   controller: {fileID: 0}
   fps: {fileID: 0}
   relativeController: {fileID: 0}
@@ -337,3 +336,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204037ffab4e56d4d80dea6325cb57fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}

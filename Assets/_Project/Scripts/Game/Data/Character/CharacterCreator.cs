@@ -120,9 +120,9 @@ public class CharacterCreator : MonoBehaviour
         
         var fps = prefabVariant.AddComponent<FirstPersonController>();
         var agent = prefabVariant.AddComponent<NavMeshAgent>();
-        agent.acceleration = 12;
+        agent.acceleration = 7;
         agent.angularSpeed = 360;
-        agent.stoppingDistance = 0.2f;
+        agent.stoppingDistance = 0.5f;
         
         var relative = prefabVariant.AddComponent<RelativeController>();
         var animatorMovementController = prefabVariant.AddComponent<AnimatorMovementController>();
