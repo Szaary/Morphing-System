@@ -36,7 +36,13 @@ public class MovementManager : MonoBehaviour
         navMeshAgentMovement.Initialize(_facade);
     }
 
-
+    public void SetPosition(BaseSpawnZone.SpawnLocation playerPosition)
+    {
+        if (navMeshAgentMovement.enabled)
+        {
+            navMeshAgentMovement.SetDestination(playerPosition.transform.position);
+        }
+    }
     private void Start()
     {
         OnGameModeChanged(_gameManager.GameMode);
@@ -128,4 +134,6 @@ public class MovementManager : MonoBehaviour
     {
         realtime.SetActive(isEnabled);
     }
+
+
 }

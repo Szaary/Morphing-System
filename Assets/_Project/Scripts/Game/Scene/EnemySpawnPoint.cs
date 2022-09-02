@@ -9,7 +9,7 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     [SerializeField] private TurnBasedSpawnZone battleSpawnZone;
     [SerializeField] private List<Character> charactersToSpawn;
-
+    [SerializeField] private BoxCollider boxCollider;
     [SerializeField] private bool randomizeEnemies;
 
     [SerializeField] private bool forceGameMode;
@@ -53,8 +53,9 @@ public class EnemySpawnPoint : MonoBehaviour
                 _characterFactory.SpawnCharacter(character, battleSpawnZone);
             }
 
-            battleSpawnZone.PlaceCharacter(facade);
-
+            var playerPosition = battleSpawnZone.GetSpawnPosition(facade.stats.character);
+            facade.SetBattlePosition(playerPosition);
+            
             _library.SpawnedAllCharacters = true;
             isSpawned = true;
         }
@@ -65,5 +66,11 @@ public class EnemySpawnPoint : MonoBehaviour
     {
         if (charactersToSpawn.Count > 4) Debug.LogError("Only 4 enemies possible");
         if (gameMode == GameMode.InMenu && forceGameMode) Debug.LogError("You need to select game mode");
+    }
+    
+    private void OnDrawGizmos()
+    {
+        if (boxCollider == null) return;
+        GizmosExtensions.DrawBoxCollider(Color.yellow, boxCollider, 0.1f, transform);
     }
 }

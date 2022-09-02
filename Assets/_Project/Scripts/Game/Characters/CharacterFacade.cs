@@ -97,6 +97,10 @@ public class CharacterFacade : MonoBehaviour
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat) =>
         stats.GetStatistic(baseStatistic, out outStat);
 
+    public void SetBattlePosition(BaseSpawnZone.SpawnLocation playerPosition)
+    {
+        movement.SetPosition(playerPosition);
+    }
     public Alignment Alignment => stats.character.alignment;
     public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);

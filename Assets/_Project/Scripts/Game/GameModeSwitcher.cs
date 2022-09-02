@@ -28,10 +28,12 @@ public class GameModeSwitcher : AbstractGameModeSwitcherMono
             
     }
 
+    
     private void OnDrawGizmos()
     {
         if (boxCollider == null) return;
-        Gizmos.color= Color.red;
-        Gizmos.DrawCube(boxCollider.center, boxCollider.size);
+        GizmosExtensions.DrawBoxCollider(Color.red, boxCollider, 0.2f, transform);
     }
+ 
+
 }

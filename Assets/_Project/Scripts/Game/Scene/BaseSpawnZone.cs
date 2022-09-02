@@ -9,19 +9,19 @@ public abstract class BaseSpawnZone : MonoBehaviour
     [SerializeField] protected List<SpawnLocation> playerCharactersSpawnLocations = new List<SpawnLocation>();
     [SerializeField] protected List<SpawnLocation> enemySpawnLocations = new List<SpawnLocation>();
     
-    public void PlaceCharacter(CharacterFacade facade)
+    public SpawnLocation GetSpawnPosition(Character character)
     {
-        if (facade.Alignment.id == 0)
+        if (character.alignment.id == 0)
         {
-            SetPosition(facade, playerCharactersSpawnLocations);
+            return GetPosition(character, playerCharactersSpawnLocations);
         }
         else
         {
-            SetPosition(facade, enemySpawnLocations);
+            return GetPosition(character, enemySpawnLocations);
         }
     }
-
-    protected abstract void SetPosition(CharacterFacade facade, List<SpawnLocation> spawnLocations);
+    
+    protected abstract SpawnLocation GetPosition(Character character, List<SpawnLocation> spawnLocations);
 
 
     void OnDrawGizmos()
@@ -51,5 +51,6 @@ public abstract class BaseSpawnZone : MonoBehaviour
         public int occupied;
         public int index;
     }
+
 
 }    

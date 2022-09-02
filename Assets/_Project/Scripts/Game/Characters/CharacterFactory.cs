@@ -12,15 +12,12 @@ public class CharacterFactory: ICharacterFactory
 
     public void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone)
     {
+        var position =  turnBasedSpawnZone.GetSpawnPosition(character);
         var facade = _characterFactory.Create(character.prefab, character);
+        
+        facade.transform.position = position.transform.position;
         facade.gameObject.name = character.name;
-        SetSpawnZone(facade, turnBasedSpawnZone);
-    }
-
-    public void SetSpawnZone(CharacterFacade facade, BaseSpawnZone battleSpawnZone)
-    {
-        if (facade.Alignment.Id == 0) battleSpawnZone.PlaceCharacter(facade);
-        else battleSpawnZone.PlaceCharacter(facade);
+        facade.SetPosition(position);
     }
 }
 
