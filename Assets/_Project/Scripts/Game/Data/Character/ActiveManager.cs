@@ -85,4 +85,13 @@ public struct ActiveManager
             if (ability == null) abilitiesInUnitLibrary.Remove(ability);
         }
     }
+
+    public void Initialize()
+    {
+        for (var index = 0; index < abilities.Count; index++)
+        {
+            var ability = abilities[index];
+            ability.Position = index;
+        }
+    }
 }

@@ -193,21 +193,21 @@
                 },
                 {
                     "name": "Jump",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "91e80e68-7dfb-4014-a998-2f035687890f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Sprint",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "456bc4e4-680d-4c15-9c95-a999353e2b81",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Walk",
@@ -1025,13 +1025,31 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "FPS",
+                    "name": "Fps",
                     "type": "Button",
                     "id": "a03c8eb3-4ffb-4e86-aa97-12b69c2db0ae",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Tpp",
+                    "type": "Button",
+                    "id": "16ec7807-193e-4560-ac31-496a68fd0cef",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Console",
+                    "type": "Value",
+                    "id": "1e7d2fa5-9fba-4a7b-ae53-7b5582adb0ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -1064,7 +1082,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "FPS",
+                    "action": "Fps",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6542b099-7621-42b9-89bd-1d0b70fefa2f",
+                    "path": "<Keyboard>/f12",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Console",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "89cec2d4-0180-4390-afb7-70790160c82d",
+                    "path": "<Keyboard>/f3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tpp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

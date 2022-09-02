@@ -79,8 +79,9 @@ public class TurnBasedUIBinds : MonoBehaviour
         {
             foreach (var bind in binds)
             {
-                if (bind.position == target.PositionIndex)
+                if (bind.position == target.Position)
                 {
+                    Debug.Log("Target Position: " + target.Position+" bind position: " + bind.position);
                     bind.ShowButton(target);
                 }
             }
@@ -97,6 +98,7 @@ public class TurnBasedUIBinds : MonoBehaviour
             {
                 if (bind.position == active.Position)
                 {
+                    Debug.Log("Active Position: " + active.Position+" bind position: " + bind.position);
                     bind.ShowButton(active);
                 }
             }

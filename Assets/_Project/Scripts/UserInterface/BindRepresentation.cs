@@ -21,10 +21,11 @@ public class BindRepresentation
     public void Initialize(int buttonPosition, TurnBasedInput turnBasedInput)
     {
         button.onClick.AddListener(OnButtonClicked);
-        this.position = buttonPosition;
+        position = buttonPosition;
         _startingPosition = statTextPosition.anchoredPosition;
         _outPosition = outPosition.anchoredPosition;
         _input = turnBasedInput;
+        Debug.Log("Bind initialized with position: "+ position);
     }
 
     private void OnButtonClicked()
