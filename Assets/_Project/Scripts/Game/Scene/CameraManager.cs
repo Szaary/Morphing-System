@@ -48,7 +48,7 @@ public class CameraManager : MonoBehaviour
         {
             SetFpsCamera();
         }
-        else if (newMode == GameMode.Platform)
+        else if (newMode == GameMode.Adventure)
         {
             SetFollowLookCamera(platformCamera);
         }

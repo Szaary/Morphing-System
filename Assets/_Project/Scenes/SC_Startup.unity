@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: a053e2bf50ed9cc4b9665552d54fc43c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 1762760445}
   - component: {fileID: 1762760444}
   - component: {fileID: 1762760447}
+  - component: {fileID: 1762760448}
   m_Layer: 0
   m_Name: TimeManager
   m_TagString: Untagged
@@ -359,8 +360,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeManager: {fileID: 1762760445}
+  volume: {fileID: 1762760448}
   timeScale: 0.2
   slowDuration: 1
+--- !u!114 &1762760448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762760443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 0
+  sharedProfile: {fileID: 11400000, guid: 6ca9277380c34864cb2e4abb5d91b240, type: 2}
 --- !u!1 &1835526036
 GameObject:
   m_ObjectHideFlags: 0

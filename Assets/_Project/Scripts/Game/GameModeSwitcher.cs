@@ -3,8 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class GameModeSwitcher : AbstractGameModeSwitcherMono
 {
+    [SerializeField] private BoxCollider boxCollider;
+    
+
     [SerializeField] private GameMode gameMode;
     
     protected override void OnGameModeChanged(GameMode newMode)
@@ -22,5 +26,12 @@ public class GameModeSwitcher : AbstractGameModeSwitcherMono
             }
         }
             
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (boxCollider == null) return;
+        Gizmos.color= Color.red;
+        Gizmos.DrawCube(boxCollider.center, boxCollider.size);
     }
 }

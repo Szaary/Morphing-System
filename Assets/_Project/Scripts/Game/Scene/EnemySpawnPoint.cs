@@ -9,12 +9,13 @@ public class EnemySpawnPoint : MonoBehaviour
 {
     [SerializeField] private TurnBasedSpawnZone battleSpawnZone;
     [SerializeField] private List<Character> charactersToSpawn;
-    
+
     [SerializeField] private bool randomizeEnemies;
-    
+
     [SerializeField] private bool forceGameMode;
     [SerializeField] private GameMode gameMode;
 
+    [SerializeField] private bool isSpawned;
     private CharactersLibrary _library;
     private ICharacterFactory _characterFactory;
     private GameManager _gameManager;
@@ -30,6 +31,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isSpawned) return;
         if (_library.SpawnedAllCharacters) return;
 
 
@@ -37,9 +39,9 @@ public class EnemySpawnPoint : MonoBehaviour
         {
             if (facade.Alignment.id != 0) return;
 
-            if(forceGameMode)_gameManager.SetGameMode(gameMode);
-                
-            int numberOfEnemies=charactersToSpawn.Count;
+            if (forceGameMode) _gameManager.SetGameMode(gameMode);
+
+            int numberOfEnemies = charactersToSpawn.Count;
             if (randomizeEnemies)
             {
                 numberOfEnemies = Random.Range(0, 3);
@@ -50,17 +52,18 @@ public class EnemySpawnPoint : MonoBehaviour
                 var character = charactersToSpawn[index];
                 _characterFactory.SpawnCharacter(character, battleSpawnZone);
             }
-            
+
             battleSpawnZone.PlaceCharacter(facade);
 
             _library.SpawnedAllCharacters = true;
+            isSpawned = true;
         }
     }
 
-  
+
     private void OnValidate()
     {
-        if(charactersToSpawn.Count>4) Debug.LogError("Only 4 enemies possible");
-        if(gameMode==GameMode.InMenu && forceGameMode) Debug.LogError("You need to select game mode");
+        if (charactersToSpawn.Count > 4) Debug.LogError("Only 4 enemies possible");
+        if (gameMode == GameMode.InMenu && forceGameMode) Debug.LogError("You need to select game mode");
     }
 }

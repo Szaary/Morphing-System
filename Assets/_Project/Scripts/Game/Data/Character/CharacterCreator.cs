@@ -129,7 +129,6 @@ public class CharacterCreator : MonoBehaviour
         facade.movement = movement;
 
 
-        movement.agent = agent;
         movement.controller = controller;
         movement.fps = fps;
         movement.relativeController = relative;

@@ -3,6 +3,6 @@ public enum GameMode
     InMenu,
     TurnBasedFight,
     Fps,
-    Platform,
+    Adventure,
     Tpp
 }

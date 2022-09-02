@@ -28,7 +28,7 @@ public abstract class BaseState
     protected void OnExitBaseImplementation()
     {
         if (!isSilent)
-            Debug.Log("Ended state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
+            Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
         foreach (var subscriber in OnExitSubscribers)
         {
             var result = subscriber.OnExit();

@@ -30,7 +30,7 @@ public class UILevelManager : MonoBehaviour
 
     private void NewGame()
     {
-        _gameManager.SetGameMode(GameMode.Fps);
+        _gameManager.SetGameMode(GameMode.Adventure);
         _sceneLoader.LoadGameState();
     }
 

@@ -96,5 +96,19 @@ public class NavMeshAgentMovement : MonoBehaviour
         transform.position = position;
     }
 
+    public void SetDestination(Vector3 position)
+    {
+        agent.destination = position;
+    }
 
+    private void OnEnable()
+    {
+        agent ??= GetComponent<NavMeshAgent>();
+        agent.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+        agent.enabled = false;
+    }
 }

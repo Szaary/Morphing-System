@@ -11,7 +11,6 @@ public class MovementManager : MonoBehaviour
 
 
     [Header("Movement")] 
-    public NavMeshAgent agent;
     public CharacterController controller;
     
     public FirstPersonController fps;
@@ -66,8 +65,6 @@ public class MovementManager : MonoBehaviour
 
             TurnOffCharacterControl();
             TurnOnNavMeshControl();
-
-            agent.SetDestination(_facade.GetPosition().transform.position);
         }
         else if (gameMode == GameMode.Fps)
         {
@@ -84,7 +81,7 @@ public class MovementManager : MonoBehaviour
                 TurnOnNavMeshControl();
             }
         }
-        else if (gameMode is GameMode.Platform or GameMode.Tpp )
+        else if (gameMode is GameMode.Adventure or GameMode.Tpp )
         {
             SetRealtimeLogic(true);
             TurnOffCharacterControl();
@@ -103,7 +100,6 @@ public class MovementManager : MonoBehaviour
 
     private void TurnOnNavMeshControl()
     {
-        agent.enabled = true;
         navMeshAgentMovement.enabled = true;
         
         controller.enabled = false;
@@ -115,7 +111,6 @@ public class MovementManager : MonoBehaviour
 
     private void TurnOffCharacterControl()
     {
-        agent.enabled = false;
         controller.enabled = false;
         animatorController.enabled = false;
         fps.enabled = false;

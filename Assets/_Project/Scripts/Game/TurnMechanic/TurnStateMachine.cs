@@ -14,7 +14,7 @@ public class TurnStateMachine : MonoBehaviour
     private Victory _victory;
     private Defeat _defeat;
     private GameManager _gameManager;
-    private Victory _paused;
+    private Paused _paused;
 
     private TurnState _lastState;
 
@@ -27,7 +27,7 @@ public class TurnStateMachine : MonoBehaviour
         BattleStart battleStart,
         PlayerTurn playerTurn,
         AiTurn aiTurn,
-        Victory paused,
+        Paused paused,
         Victory victory,
         Defeat defeat)
     {
@@ -90,6 +90,7 @@ public class TurnStateMachine : MonoBehaviour
 
     internal void SetState(TurnState state)
     {
+        Debug.Log("set nev state: "+ state);
         _currentState = state;
     }
 

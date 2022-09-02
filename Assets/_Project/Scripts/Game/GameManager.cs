@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public event Action<GameMode> GameModeChanged;
 
+    private GameMode _lastMode;
     [SerializeField] private GameMode gameMode;
     public GameMode GameMode => gameMode;
 
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
 
     private void OnNoEnemies()
     {
-        SetGameMode(GameMode.Fps);
+        if(gameMode== GameMode.TurnBasedFight) SetPreviousGameMode();
     }
 
     private void OnNoAllies()
@@ -44,10 +45,15 @@ public class GameManager : MonoBehaviour
     public void SetGameMode(GameMode newMode)
     {
         if (gameMode == newMode) return;
-        
+        _lastMode = gameMode;
         Debug.Log("Game Mode Changed to: " + newMode);
         gameMode = newMode;
         GameModeChanged?.Invoke(gameMode);
+    }
+
+    public void SetPreviousGameMode()
+    {
+        SetGameMode(_lastMode);
     }
 
 }

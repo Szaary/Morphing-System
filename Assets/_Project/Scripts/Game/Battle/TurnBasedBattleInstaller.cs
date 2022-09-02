@@ -11,7 +11,10 @@ public class TurnBasedBattleInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AiTurn>().AsSingle();
         Container.BindInterfacesAndSelfTo<Victory>().AsSingle();
         Container.BindInterfacesAndSelfTo<Defeat>().AsSingle();
+        Container.BindInterfacesAndSelfTo<Paused>().AsSingle();
+        
         Container.BindInterfacesAndSelfTo<TurnReferences>().AsSingle();
+       
 
     }
 }
