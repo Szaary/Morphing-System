@@ -15,7 +15,6 @@ public class RangedWeaponController : WeaponController
             FireWeapon();
 
             ShootTimeoutDelta = 1 / rangedWeapon.attacksPerSecond;
-            Input.shoot = false;
         }
 
         if (ShootTimeoutDelta >= 0.0f)
