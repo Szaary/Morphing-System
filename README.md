@@ -17,3 +17,4 @@ Currently implemented:
 Latest changes on development branch.
 
 - Project GDD: https://github.com/Szaary/Morphing-System/blob/main/GDD.md
+- Project Discord with CI/CD setup https://discord.gg/xNedg5JPRQ (recent project builds)
