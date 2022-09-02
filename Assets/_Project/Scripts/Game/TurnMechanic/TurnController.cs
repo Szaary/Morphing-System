@@ -78,7 +78,7 @@ public class TurnController : TurnsSubscriber, IDoActions
         }
         else
         {
-            var target = targets.FirstOrDefault(x => x.PositionIndex == chosenTarget);
+            var target = targets.FirstOrDefault(x => x.Position == chosenTarget);
             _facade.LookAt(target.transform);
             Debug.Log("Activating effect: " + active + "on " + target);
             points = active.ActivateEffect(target, _facade);

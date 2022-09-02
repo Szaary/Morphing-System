@@ -216,6 +216,67 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a82cddc7aa378fb4c9be08b6e4def55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &26967834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26967836}
+  - component: {fileID: 26967835}
+  - component: {fileID: 26967837}
+  m_Layer: 0
+  m_Name: Debuggers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &26967835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26967834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 607a75192a776a74099a9aa18adbf451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 1835526044}
+  gameManager: {fileID: 1193592227}
+--- !u!4 &26967836
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26967834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.52304995, y: 2.8575428, z: -19.836432}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &26967837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26967834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdef03907388b904f993f3168e1e55fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 1835526044}
+  writeToFile: 0
 --- !u!1 &1193592224
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,6 +562,7 @@ MonoBehaviour:
   sprint: 0
   shoot: 0
   melee: 0
+  walk: 0
   analogMovement: 0
   cursorInputForLook: 0
 --- !u!114 &1835526043
@@ -529,7 +591,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e5b346b957e44389043af1e52dbb26d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1193592227}
+  onTurn: 0
+  onFps: 0
+  onMenu: 0
+  onConsole: 0
+  onTpp: 0
 --- !u!1 &1890154475
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,9 @@ public class ConsoleToGUI : MonoBehaviour
     string filename = "";
     bool doShow;
     int kChars = 700;
-
+    [SerializeField] private UniversalInput input;
+    [SerializeField] private bool writeToFile;
+    
     void OnEnable()
     {
         Application.logMessageReceived += Log;
@@ -22,10 +24,7 @@ public class ConsoleToGUI : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            doShow = !doShow;
-        }
+        doShow = input.onConsole;
     }
 
     private void Awake()
@@ -42,6 +41,7 @@ public class ConsoleToGUI : MonoBehaviour
             myLog = myLog.Substring(myLog.Length - kChars);
         }
 
+        if (!writeToFile) return;
         // for the file ...
         if (filename == "")
         {

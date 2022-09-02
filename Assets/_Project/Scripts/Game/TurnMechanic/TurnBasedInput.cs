@@ -142,7 +142,7 @@ public class TurnBasedInput : MonoBehaviour
 
     private Result StopWrongTarget(int index)
     {
-        if (chosenTargets.Count(x => x.PositionIndex == index) == 0)
+        if (chosenTargets.Count(x => x.Position == index) == 0)
         {
             var result = Result.NoTarget;
             WrongWSADPressed?.Invoke(result);

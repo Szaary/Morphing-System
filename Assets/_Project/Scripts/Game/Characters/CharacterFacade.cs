@@ -27,7 +27,7 @@ public class CharacterFacade : MonoBehaviour
 
     public int GetActionPoints() => stats.character.maxNumberOfActions;
     public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
-    public int PositionIndex => stats.character.position.index;
+    public int Position => stats.character.position.index;
     public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.turnBasedStrategy;
     public RealTimeStrategy GetRealTimeStrategy() => stats.character.realTimeStrategy;
     public ActiveManager ActiveSkillsManager => stats.character.active;

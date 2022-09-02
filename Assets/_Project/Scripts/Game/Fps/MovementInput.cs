@@ -93,13 +93,12 @@ namespace StarterAssets
 
         private void SprintInput(bool newSprintState)
         {
-            //sprint = newSprintState;
-            sprint = !sprint;
+            sprint = newSprintState;
         }
 
         private void WalkInput(bool newWalkState)
         {
-            walk = !walk;
+            walk = newWalkState;
         }
     }
 }

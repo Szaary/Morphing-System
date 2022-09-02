@@ -58,7 +58,7 @@ public class NavMeshAgentMovement : MonoBehaviour
         if (Time.deltaTime > 1e-5f)
             velocity = smoothDeltaPosition / Time.deltaTime;
 
-        var shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > agent.radius;
+        var shouldMove = velocity.magnitude > 0.5f && agent.remainingDistance > 1;
 
         // Update animation parameters
         animatorManager.SetMoving(shouldMove);
@@ -67,6 +67,7 @@ public class NavMeshAgentMovement : MonoBehaviour
         animatorManager.Move(magnitude, delta);
 
         lookAtTargetPosition = agent.steeringTarget + transform.forward;
+        
         
         if (worldDeltaPosition.magnitude > agent.radius)
             agent.nextPosition = transform.position + 0.9f*worldDeltaPosition;
