@@ -1,5 +1,5 @@
 # Morphing System
-Morph is a game with many control systems that you can switch between at any time.
+Morphing System is a game that plays with different genres, between which the player is switched by in-game events.
 
 Currently implemented:
  - Jrpg turn based rpg,
