@@ -26,3 +26,5 @@ MonoBehaviour:
   attacksPerSecond: 10
   range: 50
   projectile: {fileID: 4860517555801637927, guid: 9cc037181f081894e8dc7eedf38a2fe7, type: 3}
+  magazineSize: 30
+  reloadTime: 2

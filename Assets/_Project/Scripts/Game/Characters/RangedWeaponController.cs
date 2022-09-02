@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class RangedWeaponController : WeaponController
 {
+    public event Action<int, int> magazineChanged;
     public RangedWeapon rangedWeapon;
+
+    public int Magazine { get; private set; }
+
+    private void Start()
+    {
+        Magazine = rangedWeapon.MagazineSize;
+    }
 
     private void Update()
     {
+        if (rangedWeapon == null) return;
         var delta = Facade.timeManager.GetDeltaTime(this);
-        
-        if (Input.shoot && ShootTimeoutDelta <= 0.0f)
+
+        if (Input.shoot && ShootTimeoutDelta <= 0.0f && Magazine > 0)
         {
             FireWeapon();
-
             ShootTimeoutDelta = 1 / rangedWeapon.attacksPerSecond;
+
+            Magazine--;
+            magazineChanged?.Invoke(Magazine, rangedWeapon.MagazineSize);
+            Debug.Log(Magazine);
+            if (Magazine == 0)
+            {
+                StartCoroutine(ReloadWeapon());
+            }
         }
 
         if (ShootTimeoutDelta >= 0.0f)
@@ -22,6 +38,14 @@ public class RangedWeaponController : WeaponController
             ShootTimeoutDelta -= delta;
         }
     }
+
+    private IEnumerator ReloadWeapon()
+    {
+        yield return new WaitForSeconds(rangedWeapon.reloadTime);
+        Magazine = rangedWeapon.MagazineSize;
+        magazineChanged?.Invoke(Magazine, rangedWeapon.MagazineSize);
+    }
+
 
     public void FireWeapon()
     {
