@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
 public class RangedWeaponController : WeaponController
 {
     public event Action<int, int> magazineChanged;
     public RangedWeapon rangedWeapon;
-
+    [SerializeField] private CinemachineImpulseSource source; 
     public int Magazine { get; private set; }
 
     private void Start()
@@ -26,7 +27,7 @@ public class RangedWeaponController : WeaponController
 
             Magazine--;
             magazineChanged?.Invoke(Magazine, rangedWeapon.MagazineSize);
-            Debug.Log(Magazine);
+            source.GenerateImpulse();
             if (Magazine == 0)
             {
                 StartCoroutine(ReloadWeapon());
