@@ -271,13 +271,7 @@ MonoBehaviour:
   turnStatsManager: {fileID: 8849680591221904509}
   realTimeController: {fileID: 8352321441520449077}
   realTimeStatsManager: {fileID: 5706179076024692222}
-  turnBasedInput: {fileID: 0}
-  cameraManager: {fileID: 0}
-  playerInput: {fileID: 0}
-  movementInput: {fileID: 0}
   isControlled: 0
-  gameManager: {fileID: 0}
-  timeManager: {fileID: 0}
 --- !u!114 &4998019477385992253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,6 +350,10 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 3539457513156320637}
+    - target: {fileID: 6706027144805238988, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
+      propertyPath: weapons
+      value: 
+      objectReference: {fileID: 8406388887819385262}
     - target: {fileID: 6706027144805238988, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
       propertyPath: controller
       value: 
@@ -438,7 +436,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4891123773654719537, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
   m_PrefabInstance: {fileID: 8030455168116244758}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8406388887819385262}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2000f0b565148479ca75624a9f0a293, type: 3}
@@ -499,12 +497,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211b6b3ca5f12ce4c8dd64b268abcaa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8406388887819385262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2006518879337527480, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
+  m_PrefabInstance: {fileID: 8030455168116244758}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8511989192239341935 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1824311341119643769, guid: 5a406089ec6bde84abc39d510ee93fb6, type: 3}
   m_PrefabInstance: {fileID: 8030455168116244758}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8406388887819385262}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 131f601505a24bfc998e4022062658e2, type: 3}

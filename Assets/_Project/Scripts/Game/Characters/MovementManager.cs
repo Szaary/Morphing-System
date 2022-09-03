@@ -8,7 +8,9 @@ public class MovementManager : MonoBehaviour
 {
     [Header("Logic")] [SerializeField] private GameObject realtime;
     [SerializeField] private GameObject turnBased;
-
+    [SerializeField] private GameObject weapons;
+    
+    
 
     [Header("Movement")] 
     public CharacterController controller;
@@ -76,7 +78,7 @@ public class MovementManager : MonoBehaviour
         {
             SetRealtimeLogic(true);
             TurnOffCharacterControl();
-            
+            weapons.SetActive(true);
             if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
             {
                 controller.enabled = true;
@@ -113,6 +115,7 @@ public class MovementManager : MonoBehaviour
         animatorController.enabled = false;
         fps.enabled = false;
         relativeController.enabled = false;
+        weapons.SetActive(false);
     }
 
     private void TurnOffCharacterControl()
@@ -122,6 +125,7 @@ public class MovementManager : MonoBehaviour
         fps.enabled = false;
         relativeController.enabled = false;
         navMeshAgentMovement.enabled = false;
+        weapons.SetActive(false);
     }
 
 

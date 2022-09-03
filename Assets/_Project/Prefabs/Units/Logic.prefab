@@ -278,6 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a9848fdc4e48d49b47b1cb5873382e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationEnded: 0
+  animationWorked: 0
 --- !u!114 &1558678616629810539
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -344,6 +346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   realtime: {fileID: 4354044618363415004}
   turnBased: {fileID: 7894274995515560214}
+  weapons: {fileID: 2006518879337527480}
   controller: {fileID: 0}
   fps: {fileID: 0}
   relativeController: {fileID: 0}
