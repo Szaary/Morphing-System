@@ -3,8 +3,10 @@ using UnityEngine;
 //[CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/PlayerStrategy")]
 public class PlayerTurnBasedStrategy : TurnBasedStrategy
 {
-    public override Result SelectTactic(CurrentFightState currentFightState)
+    public override Result SelectTactic(CurrentFightState currentFightState, out SelectedStrategy selectedStrategy)
     {
+        selectedStrategy = new SelectedStrategy();
+        
         currentFightState.Character.GainControl();
         currentFightState.TurnBasedInputManager.ResetInputs();
 

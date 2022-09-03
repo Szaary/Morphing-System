@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatisticsManager : MonoBehaviour
+public class StatisticsManager : MonoBehaviour , ICharacterSystem
 {
     [Header("Do not set anything here, will be changed ad app start.")]
     public Character character;
@@ -18,13 +18,11 @@ public class StatisticsManager : MonoBehaviour
         ApplyStartupPassives();
         ApplyStartupEffects();
         ApplyStartupItems();
+        
+        _facade.CharacterSystems.Add(this);
     }
     
-    private void OnDestroy()
-    {
-        character.RemoveInstances();
-        Destroy(character);
-    }
+
     
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
     {
@@ -142,5 +140,16 @@ public class StatisticsManager : MonoBehaviour
     private void HandlePassivesAddingError(Result result)
     {
         Debug.LogError(typeof(TurnStatsManager) + " apply passive result: " + result);
+    }
+
+    public void Disable()
+    {
+        enabled = false;
+    }
+    
+    private void OnDestroy()
+    {
+        character.RemoveInstances();
+        Destroy(character);
     }
 }

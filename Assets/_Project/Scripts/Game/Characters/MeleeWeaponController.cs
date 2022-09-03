@@ -43,4 +43,8 @@ public class MeleeWeaponController : WeaponController
     }
 #endif
 
+    public override void Disable()
+    {
+        enabled = false;
+    }
 }

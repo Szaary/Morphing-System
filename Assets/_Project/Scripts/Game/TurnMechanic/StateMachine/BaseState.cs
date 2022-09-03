@@ -29,8 +29,9 @@ public abstract class BaseState
     {
         if (!isSilent)
             Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
-        foreach (var subscriber in OnExitSubscribers)
+        for (var index = OnExitSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = OnExitSubscribers[index];
             var result = subscriber.OnExit();
             HandleSubscriberResult(result, subscriber);
         }
@@ -38,8 +39,9 @@ public abstract class BaseState
 
     protected void TickBaseImplementation()
     {
-        foreach (var subscriber in TickSubscribers)
+        for (var index = TickSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = TickSubscribers[index];
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
         }
@@ -49,8 +51,9 @@ public abstract class BaseState
     {
         if (!isSilent)
             Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
-        foreach (var subscriber in OnEnterSubscribers)
+        for (var index = OnEnterSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = OnEnterSubscribers[index];
             var result = subscriber.OnEnter();
             HandleSubscriberResult(result, subscriber);
         }

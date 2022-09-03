@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "AA_", menuName = "Abilities/Active Ability/ChangeStatsValue")]
 public class ChangeStatsValue : Active
 {
     [Header("Statistics")] [SerializeField]
     private List<Modifier> modifiers;
-
-    [SerializeField]private AnimatorManager.AnimationsType animationType;
+    
     public List<Modifier> Modifiers
     {
         get => modifiers;
@@ -17,30 +17,25 @@ public class ChangeStatsValue : Active
     
     public override Result ActivateEffect(List<CharacterFacade> targets, CharacterFacade user)
     {
-        user.turnController.ApplyCost(cost);
-        
         foreach (var target in targets)
         {
             var result = OnApplyStatus(target, user);
             user.LookAt(target.transform);
             ReportError(result);
         }
+        
         return Result.Success;
     }
 
-    public override Result ActivateEffect(CharacterFacade target, CharacterFacade user)
-    {
-        user.turnController.ApplyCost(cost);
-        var result = OnApplyStatus(target, user);
-        user.LookAt(target.transform);
-        ReportError(result);
-        return result;
-    }
-
+  
     private Result OnApplyStatus(CharacterFacade target, CharacterFacade user)
     {
         if (target == null) return Result.NoTarget;
         if (user == null) return Result.NoUser;
+        if (IsAttack())
+        {
+            target.animatorManager.GetHit();
+        }
         return target.Modify(user, Modifiers);
     }
     

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
@@ -7,6 +8,8 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
+    public List<ICharacterSystem> CharacterSystems { get; }= new List<ICharacterSystem>();
+    
     public MovementManager movement;
     public StatisticsManager stats;
     public AnimatorManager animatorManager;
@@ -70,14 +73,13 @@ public class CharacterFacade : MonoBehaviour
         GameManager = gameManager;
         TimeManager = timeManager;
         BasedInputManager = turnBasedInputManager;
+        
         stats.SetCharacter(this, characterTemplate);
 
-        turnStatsManager.SetCharacter(this);
+        turnStatsManager.Initialize(this);
         turnController.Initialize(this);
-
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
-
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
 
@@ -108,12 +110,16 @@ public class CharacterFacade : MonoBehaviour
     public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 
-    public void DeSpawnCharacter()
+    public void RemoveCharacter()
     {
         Library.RemoveCharacter(this);
         GetPosition().occupied -= 1;
         Debug.Log("Destroying character: " + name);
-        Destroy(gameObject);
+
+        foreach (var system in CharacterSystems)
+        {
+            system.Disable();
+        }
     }
 
     public class Factory : PlaceholderFactory<UnityEngine.Object, Character, CharacterFacade>
@@ -131,4 +137,20 @@ public class CharacterFacade : MonoBehaviour
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
         animatorManager ??= GetComponentInChildren<AnimatorManager>();
     }
+    
+    
+    
+    //TODO Temporary here
+    public void AnimationWorked()
+    {
+        turnController.animationWorked = true;
+    }
+
+    public void AnimationEnded()
+    {
+        Debug.Log("Animation ended");
+        turnController.animationEnded = true;
+    }
+    
+    
 }

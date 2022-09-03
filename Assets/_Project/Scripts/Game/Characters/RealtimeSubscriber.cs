@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public abstract class RealtimeSubscriber : MonoBehaviour
+public abstract class RealtimeSubscriber : MonoBehaviour, ICharacterSystem
 {
     private float _elapsedTime;
     private const float CycleTime = 3;
@@ -10,6 +10,7 @@ public abstract class RealtimeSubscriber : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         Facade = characterFacade;
+        Facade.CharacterSystems.Add(this);
     }
 
     
@@ -36,4 +37,6 @@ public abstract class RealtimeSubscriber : MonoBehaviour
     public abstract Result Tick();
     public abstract Result OnEnter();
     public abstract Result OnExit();
+    public abstract void Disable();
+    
 }

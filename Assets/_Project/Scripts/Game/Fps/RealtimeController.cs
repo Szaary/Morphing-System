@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RealtimeController : RealtimeSubscriber
+public class RealtimeController : RealtimeSubscriber, ICharacterSystem
 {
     public override Result Tick()
     {
@@ -27,5 +27,10 @@ public class RealtimeController : RealtimeSubscriber
             Library = Facade.Library,
             Agent = Facade.movement.navMeshAgentMovement
         };
+    }
+
+    public override void Disable()
+    {
+        enabled = false;
     }
 }

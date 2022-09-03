@@ -13,13 +13,14 @@ public class PlayerTurn : BaseState
     public override void Tick()
     {
         _hasAnyoneActions = false;
-        
-        foreach (var subscriber in TickSubscribers)
+
+        for (var index = TickSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = TickSubscribers[index];
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-            if (subscriber is IDoActions {ActionPoints: > 0})
+            if (subscriber is IDoActions { ActionPoints: > 0 })
             {
                 _hasAnyoneActions = true;
             }

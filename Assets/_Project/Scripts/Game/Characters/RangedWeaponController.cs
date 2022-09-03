@@ -3,7 +3,7 @@ using System.Collections;
 using Cinemachine;
 using UnityEngine;
 
-public class RangedWeaponController : WeaponController
+public class RangedWeaponController : WeaponController, ICharacterSystem
 {
     public event Action<int, int> magazineChanged;
     public RangedWeapon rangedWeapon;
@@ -71,4 +71,8 @@ public class RangedWeaponController : WeaponController
         Gizmos.DrawRay(transform.position, transform.forward * rangedWeapon.range);
     }
 #endif
+    public override void Disable()
+    {
+        enabled = false;
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
 
-public abstract class WeaponController : MonoBehaviour
+public abstract class WeaponController : MonoBehaviour, ICharacterSystem
 {
     protected MovementInput Input;
     protected float ShootTimeoutDelta;
@@ -15,5 +15,9 @@ public abstract class WeaponController : MonoBehaviour
         Facade = characterFacade;
         Input = characterFacade.MovementInput;
         MainCamera = characterFacade.CameraManager.MainCamera;
+        Facade.CharacterSystems.Add(this);
     }
+
+    public abstract void Disable();
+
 }

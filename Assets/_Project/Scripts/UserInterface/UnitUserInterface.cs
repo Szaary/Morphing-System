@@ -24,6 +24,8 @@ public class UnitUserInterface : StatisticMonitor
     protected override void OnValueChanged(float modifier, float currentValue, float maxValue, Result result)
     {
         SetBar(currentValue, maxValue);
+        if (result == Result.BelowMin) pivot.gameObject.SetActive(false);
+        else pivot.gameObject.SetActive(true);
     }
 
     private void SetBar(float currentValue, float maxValue)

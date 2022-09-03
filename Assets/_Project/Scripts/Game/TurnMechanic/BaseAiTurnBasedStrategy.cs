@@ -5,7 +5,7 @@ using UnityEngine;
 //CreateAssetMenu(fileName = "AIS_", menuName = "Strategy/BaseAiStrategy")]
 public class BaseAiTurnBasedStrategy : TurnBasedStrategy
 {
-    public override Result SelectTactic(CurrentFightState currentFightState)
+    public override Result SelectTactic(CurrentFightState currentFightState, out SelectedStrategy selectedStrategy)
     {
         Debug.Log("Entered Ai turn, selecting move.");
         var result = TacticsLibrary.GetPossibleActions(currentFightState, out var active, out var targets);
@@ -13,17 +13,25 @@ public class BaseAiTurnBasedStrategy : TurnBasedStrategy
         Debug.Log("Result: " + result);
         Debug.Log("Possible Actions count: " + active.Count);
         Debug.Log("Possible Targets count: " + targets.Count);
-        
-        if (result == TacticsLibrary.Possible.NoSuitableSkillsToUse) return Result.NoSuitableSkillsToUse;
+
+        if (result == TacticsLibrary.Possible.NoSuitableSkillsToUse)
+        {
+            selectedStrategy = new SelectedStrategy();
+            return Result.NoSuitableSkillsToUse;
+        }
         if (result == TacticsLibrary.Possible.Both)
         {
             var offensive = active.Where(x => x.IsAttack()).ToList();
-            return ActivateRandomSkill(currentFightState, offensive, targets);
+            return SelectSkillForTarget(currentFightState, offensive, targets, out selectedStrategy);
         }
-        return ActivateRandomSkill(currentFightState, active, targets);
+        return SelectSkillForTarget(currentFightState, active, targets, out selectedStrategy);
     }
 
-    private static Result ActivateRandomSkill(CurrentFightState currentFightState, List<Active> active, List<CharacterFacade> targets)
+    private Result SelectSkillForTarget(CurrentFightState currentFightState, 
+        List<Active> active, 
+        List<CharacterFacade> targets,
+        out SelectedStrategy strategy
+    )
     {
         var selectedSkillNumber = Random.Range(0, active.Count);
         var selectedSkill = active[selectedSkillNumber];
@@ -32,11 +40,15 @@ public class BaseAiTurnBasedStrategy : TurnBasedStrategy
         if (!selectedSkill.IsMultiTarget())
         {
             var randomTarget = Random.Range(0, selectTargets.Count);
-            return selectedSkill.ActivateEffect(selectTargets[randomTarget], currentFightState.Character);
+            var list = new List<CharacterFacade> { selectTargets[randomTarget] };
+            strategy = new SelectedStrategy(currentFightState.Character, selectedSkill, list);
         }
         else
         {
-            return selectedSkill.ActivateEffect(selectTargets, currentFightState.Character);
+            strategy = new SelectedStrategy(currentFightState.Character, selectedSkill, selectTargets);
         }
+        return Result.Success;
     }
+
+
 }

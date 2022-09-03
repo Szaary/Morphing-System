@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class TurnBasedStrategy : ScriptableObject
 {
-    public abstract Result SelectTactic(CurrentFightState currentFightState);
+    public abstract Result SelectTactic(CurrentFightState currentFightState, out SelectedStrategy selectedStrategy);
 
 
     public struct CurrentFightState
@@ -14,4 +14,26 @@ public abstract class TurnBasedStrategy : ScriptableObject
         public int Points;
         public TurnBasedInputManager TurnBasedInputManager { get; set; }
     }
+
+    public struct SelectedStrategy
+    {
+        public SelectedStrategy(CharacterFacade character, Active selectedSkill, List<CharacterFacade> selectTargets)
+        {
+            this.character = character;
+            this.selectedSkill = selectedSkill;
+            this.selectTargets = selectTargets;
+            selected = true;
+        }
+        public bool selected;
+        public CharacterFacade character;
+        public Active selectedSkill;
+        public List<CharacterFacade> selectTargets;
+    }
+
+    
+        
+    
+
+
+
 }

@@ -15,7 +15,6 @@ public abstract class Active : ScriptableObject
     public int Position { get; set; }
 
     public abstract Result ActivateEffect(List<CharacterFacade> targets, CharacterFacade user);
-    public abstract Result ActivateEffect(CharacterFacade target, CharacterFacade character);
     
     public bool IsRanged()
     {
