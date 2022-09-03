@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 #endif
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
@@ -103,7 +104,7 @@ public class CharacterCreator : MonoBehaviour
         if (uiModule == null) throw new Exception("Prefabs were not created;");
         uiModule.transform.parent = objSource.transform;
 
-        objSource.GetComponent<Animator>().runtimeAnimatorController = config.animator;
+        objSource.GetComponent<Animator>().runtimeAnimatorController = config.riffleAnimator;
 
         var prefabVariant =
             PrefabUtility.SaveAsPrefabAsset(objSource, characterFolder + "/" + characterName + ".prefab");
@@ -223,6 +224,6 @@ public struct CharacterConfiguratorData
     public List<BaseStatistic> statistics;
     public GameObject logicModule;
     public GameObject uiModule;
-    public AnimatorController animator;
+    public AnimatorOverrideController riffleAnimator;
 }
 #endif

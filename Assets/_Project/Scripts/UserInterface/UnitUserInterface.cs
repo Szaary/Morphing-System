@@ -18,7 +18,7 @@ public class UnitUserInterface : StatisticMonitor
     private void Update()
     {
         transform.rotation =
-            Quaternion.LookRotation(pivot.position - Facade.cameraManager.MainCamera.transform.position);
+            Quaternion.LookRotation(pivot.position - Facade.CameraManager.MainCamera.transform.position);
     }
 
     protected override void OnValueChanged(float modifier, float currentValue, float maxValue, Result result)

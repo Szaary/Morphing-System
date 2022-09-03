@@ -26,8 +26,8 @@ public class AnimatorMovementController : MonoBehaviour
     {
         _facade = characterFacade;
         _animatorManager = _facade.animatorManager;
-        cameraTransform = characterFacade.cameraManager.MainCamera.transform;
-        _input = characterFacade.movementInput;
+        cameraTransform = characterFacade.CameraManager.MainCamera.transform;
+        _input = characterFacade.MovementInput;
     }
 
     // Start is called before the first frame update
@@ -40,7 +40,7 @@ public class AnimatorMovementController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _delta = _facade.timeManager.GetDeltaTime(this);
+        _delta = _facade.TimeManager.GetDeltaTime(this);
 
         float horizontalInput = _input.move.x; // Input.GetAxis("Horizontal");
         float verticalInput = _input.move.y; //Input.GetAxis("Vertical");

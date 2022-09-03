@@ -1,19 +1,17 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public abstract class TurnBasedStrategy : ScriptableObject
 {
-    public abstract Result OnEnter(CurrentFightState currentFightState);
-    public abstract Result OnExit(CurrentFightState currentFightState);
-    public abstract Result Tick();
+    public abstract Result SelectTactic(CurrentFightState currentFightState);
+
 
     public struct CurrentFightState
     {
         public CharacterFacade Character;
         public CharactersLibrary Library;
-        
         public int Points;
-        public ChangeActionPointsDelegate ChangeActionPoints;
-        public TurnBasedInput Inputs;
+        public TurnBasedInputManager TurnBasedInputManager { get; set; }
     }
 }

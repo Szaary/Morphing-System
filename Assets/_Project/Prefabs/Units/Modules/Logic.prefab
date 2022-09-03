@@ -392,3 +392,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+  riffleAnimator: {fileID: 22100000, guid: 0f5113fdd3c998c478fb09bea582a508, type: 2}

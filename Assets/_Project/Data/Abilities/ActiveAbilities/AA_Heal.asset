@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Heal
   icon: {fileID: 0}
   targetType: 4
-  actions: 1
+  cost: 1
   distance: 1
   modifiers:
   - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
@@ -23,3 +23,4 @@ MonoBehaviour:
     baseAmount: 30
     modifierStatistic: {fileID: 11400000, guid: 6b872694f6ecf384b9f9a951c1538ccd, type: 2}
     ratio: 1
+  animationType: 0

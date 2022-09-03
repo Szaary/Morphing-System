@@ -42,7 +42,7 @@ public class NavMeshAgentMovement : MonoBehaviour
 
     void Update()
     {
-        var delta = _facade.timeManager.GetDeltaTime(this);
+        var delta = _facade.TimeManager.GetDeltaTime(this);
         var worldDeltaPosition = agent.nextPosition - transform.position;
 
         // Map 'worldDeltaPosition' to local space

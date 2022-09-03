@@ -18,7 +18,7 @@ public class RangedWeaponController : WeaponController
     private void Update()
     {
         if (rangedWeapon == null) return;
-        var delta = Facade.timeManager.GetDeltaTime(this);
+        var delta = Facade.TimeManager.GetDeltaTime(this);
 
         if (Input.shoot && ShootTimeoutDelta <= 0.0f && Magazine > 0)
         {
@@ -53,7 +53,7 @@ public class RangedWeaponController : WeaponController
         var position = MainCamera.transform.position + MainCamera.transform.forward;
         var direction = MainCamera.transform.forward;
         var newProjectile = Instantiate(rangedWeapon.projectile, position, Quaternion.identity);
-        newProjectile.Fire(direction, Facade, rangedWeapon.Modifiers, Facade.timeManager);
+        newProjectile.Fire(direction, Facade, rangedWeapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
 

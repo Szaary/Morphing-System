@@ -28,7 +28,7 @@ public class MovementManager : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
-        _gameManager = _facade.gameManager;
+        _gameManager = _facade.GameManager;
         
         fps.Initialize(_facade);
         relativeController.Initialize(_facade);

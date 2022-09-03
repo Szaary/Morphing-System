@@ -29,8 +29,8 @@ public class RelativeController : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
-        cameraTransform = characterFacade.cameraManager.MainCamera.transform;
-        _input = characterFacade.movementInput;
+        cameraTransform = characterFacade.CameraManager.MainCamera.transform;
+        _input = characterFacade.MovementInput;
     }
     
     // Start is called before the first frame update
@@ -43,7 +43,7 @@ public class RelativeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var delta = _facade.timeManager.GetDeltaTime(this);
+        var delta = _facade.TimeManager.GetDeltaTime(this);
         
         float horizontalInput = _input.move.x;// Input.GetAxis("Horizontal");
         float verticalInput = _input.move.y;//Input.GetAxis("Vertical");

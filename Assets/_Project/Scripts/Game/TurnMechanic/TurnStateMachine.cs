@@ -90,7 +90,6 @@ public class TurnStateMachine : MonoBehaviour
 
     internal void SetState(TurnState state)
     {
-        Debug.Log("set nev state: "+ state);
         _currentState = state;
     }
 

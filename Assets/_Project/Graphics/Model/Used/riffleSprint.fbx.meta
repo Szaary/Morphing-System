@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 96cec1b8304cfc644b41bd5d16f443b6
+guid: 47070536b5b9c9446be066a08e1f125a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: walking to dying
+    second: sprint
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,23 +36,23 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: walking to dying
+      name: sprint
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 92
+      lastFrame: 15
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0

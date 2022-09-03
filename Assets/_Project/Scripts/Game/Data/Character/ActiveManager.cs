@@ -12,7 +12,7 @@ public struct ActiveManager
 
     public Result GetRandomAttack(int points, out Active active)
     {
-        var selected = abilities.Where(x => x.IsAttack() && x.actions>=points).ToList();
+        var selected = abilities.Where(x => x.IsAttack() && x.cost>=points).ToList();
         if (selected.Count == 0)
         {
             active = null;
@@ -25,7 +25,7 @@ public struct ActiveManager
 
     public Result GetDefensive(int points, out List<Active> actives)
     {
-        var selected = abilities.Where(x => x.IsDefensive() && x.actions>=points).ToList();
+        var selected = abilities.Where(x => x.IsDefensive() && x.cost>=points).ToList();
         if (selected.Count == 0)
         {
             actives = new List<Active>();
@@ -38,7 +38,7 @@ public struct ActiveManager
     
     public Result GetAttacks(int points, out List<Active> actives)
     {
-        var selected = abilities.Where(x => x.IsAttack() && x.actions>=points).ToList();
+        var selected = abilities.Where(x => x.IsAttack() && x.cost>=points).ToList();
         if (selected.Count == 0)
         {
             actives = new List<Active>();
@@ -51,7 +51,7 @@ public struct ActiveManager
     
     public Result GetActions(int points, out List<Active> actives)
     {
-        var selected = abilities.Where(x => x.actions>=points).ToList();
+        var selected = abilities.Where(x => x.cost>=points).ToList();
         if (selected.Count == 0)
         {
             actives = new List<Active>();

@@ -98,8 +98,8 @@ namespace StarterAssets
         public void Initialize(CharacterFacade characterFacade)
         {
             _facade = characterFacade;
-            _playerInput = characterFacade.playerInput;
-            _input = characterFacade.movementInput;
+            _playerInput = characterFacade.PlayerInput;
+            _input = characterFacade.MovementInput;
             _animatorManager = characterFacade.animatorManager;
             
             CinemachineCameraTarget = _facade.movement.cameraFpsFollowPoint.gameObject;
@@ -115,7 +115,7 @@ namespace StarterAssets
 
         private void Update()
         {
-            var delta = _facade.timeManager.GetDeltaTime(this);
+            var delta = _facade.TimeManager.GetDeltaTime(this);
 
             JumpAndGravity(delta);
             GroundedCheck();
@@ -142,7 +142,7 @@ namespace StarterAssets
             if (_input.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by delta
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : _facade.timeManager.GetUnscaledDeltaTime();
+                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : _facade.TimeManager.GetUnscaledDeltaTime();
 
                 _cinemachineTargetPitch += _input.look.y * RotationSpeedY * deltaTimeMultiplier;
                 _rotationVelocity = _input.look.x * RotationSpeedX * deltaTimeMultiplier;

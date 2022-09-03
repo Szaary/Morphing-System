@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Riffle
+  m_Controller: {fileID: 9100000, guid: d21f49f80beee36488b38e387f4b1912, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 80589615919a9764f96657945e170046, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 80589615919a9764f96657945e170046, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 96cec1b8304cfc644b41bd5d16f443b6, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 96cec1b8304cfc644b41bd5d16f443b6, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: ce7a6dc9854a8cd4586e9a377585a554, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: ce7a6dc9854a8cd4586e9a377585a554, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: a508274bb9b7d0b4b814e20ef64d80c7, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: a508274bb9b7d0b4b814e20ef64d80c7, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 47070536b5b9c9446be066a08e1f125a, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 47070536b5b9c9446be066a08e1f125a, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 54fabb1a7e405794085f3a8fbaf30822, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 54fabb1a7e405794085f3a8fbaf30822, type: 3}

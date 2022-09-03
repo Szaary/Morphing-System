@@ -10,16 +10,19 @@ public class CharacterFacade : MonoBehaviour
     public MovementManager movement;
     public StatisticsManager stats;
     public AnimatorManager animatorManager;
-
-    [Header("Weapons")] public MeleeWeaponController meleeWeaponController;
+    
+    [Header("Weapons")]
+    public MeleeWeaponController meleeWeaponController;
     public RangedWeaponController rangedWeaponController;
 
-    [Header("Turn Based Logic")] public TurnController turnController;
+    [Header("Turn Based Logic")]
+    public TurnController turnController;
     public TurnStatsManager turnStatsManager;
     public TurnReferences Turns;
 
 
-    [Header("Realtime Logic")] public RealtimeController realTimeController;
+    [Header("Realtime Logic")] 
+    public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
 
 
@@ -37,36 +40,36 @@ public class CharacterFacade : MonoBehaviour
     #endregion
 
 
-    [HideInInspector] public TurnBasedInput turnBasedInput;
-    public CharactersLibrary Library;
-    [HideInInspector] public CameraManager cameraManager;
-    [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public MovementInput movementInput;
+    public CharactersLibrary Library { get; private set; }
+    public CameraManager CameraManager { get; private set; }
+    public PlayerInput PlayerInput { get; private set; }
+    public MovementInput MovementInput { get; private set; }
 
     [HideInInspector] public bool isControlled;
-    [HideInInspector] public GameManager gameManager;
-    [HideInInspector] public TimeManager timeManager;
+    public GameManager GameManager { get; private set; }
+    public TimeManager TimeManager { get; private set; }
+    public TurnBasedInputManager BasedInputManager { get; private set; }
 
+    
     [Inject]
     public void Construct(Character characterTemplate,
         TurnReferences turns,
-        TurnBasedInput turnBasedInput,
         CharactersLibrary library,
         CameraManager cameraManager,
         PlayerInput playerInput,
         MovementInput starterInputs,
         GameManager gameManager,
-        TimeManager timeManager)
+        TimeManager timeManager,
+        TurnBasedInputManager turnBasedInputManager)
     {
-        this.movementInput = starterInputs;
-        this.playerInput = playerInput;
+        MovementInput = starterInputs;
+        PlayerInput = playerInput;
         Turns = turns;
-        this.turnBasedInput = turnBasedInput;
         Library = library;
-        this.cameraManager = cameraManager;
-        this.gameManager = gameManager;
-        this.timeManager = timeManager;
-
+        CameraManager = cameraManager;
+        GameManager = gameManager;
+        TimeManager = timeManager;
+        BasedInputManager = turnBasedInputManager;
         stats.SetCharacter(this, characterTemplate);
 
         turnStatsManager.SetCharacter(this);

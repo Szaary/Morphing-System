@@ -15,7 +15,7 @@ public abstract class RealtimeSubscriber : MonoBehaviour
     
     private void Update()
     {
-        var delta = Facade.timeManager.GetDeltaTime(this);
+        var delta = Facade.TimeManager.GetDeltaTime(this);
             
         _elapsedTime += delta;
         if (_elapsedTime >= CycleTime)

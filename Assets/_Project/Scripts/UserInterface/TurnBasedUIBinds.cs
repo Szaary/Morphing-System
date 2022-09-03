@@ -15,20 +15,22 @@ public class TurnBasedUIBinds : MonoBehaviour
 
     private TurnBasedInput _input;
     private GameManager _gameManager;
+    private TurnBasedInputManager _inputManager;
 
     [Inject]
-    public void Construct(TurnBasedInput input, GameManager gameManager)
+    public void Construct(TurnBasedInput input, GameManager gameManager, TurnBasedInputManager inputManager)
     {
         _input = input;
         _gameManager = gameManager;
+        _inputManager = inputManager;
     }
 
     private void Start()
     {
-        _input.WrongWSADPressed += HandleWrongInputs;
-        _input.InputsPopulated += OnInputsPopulated;
-        _input.ActionSelected += OnActionSelected;
-        _input.ActionActivated += OnActionActivated;
+        _inputManager.WrongButtonPressed += HandleWrongInputs;
+        _inputManager.InputsPopulated += OnInputsPopulated;
+        _inputManager.ActionSelected += OnActionSelected;
+        _inputManager.ActionActivated += OnActionActivated;
 
         for (var index = 0; index < binds.Count; index++)
         {
@@ -44,10 +46,10 @@ public class TurnBasedUIBinds : MonoBehaviour
     {
         _gameManager.GameModeChanged -= OnGameModeChanged;
         
-        _input.WrongWSADPressed -= HandleWrongInputs;
-        _input.InputsPopulated -= OnInputsPopulated;
-        _input.ActionSelected -= OnActionSelected;
-        _input.ActionActivated -= OnActionActivated;
+        _inputManager.WrongButtonPressed -= HandleWrongInputs;
+        _inputManager.InputsPopulated -= OnInputsPopulated;
+        _inputManager.ActionSelected -= OnActionSelected;
+        _inputManager.ActionActivated -= OnActionActivated;
     }
 
     private void OnGameModeChanged(GameMode obj)
@@ -81,7 +83,6 @@ public class TurnBasedUIBinds : MonoBehaviour
             {
                 if (bind.position == target.Position)
                 {
-                    Debug.Log("Target Position: " + target.Position+" bind position: " + bind.position);
                     bind.ShowButton(target);
                 }
             }
@@ -98,7 +99,6 @@ public class TurnBasedUIBinds : MonoBehaviour
             {
                 if (bind.position == active.Position)
                 {
-                    Debug.Log("Active Position: " + active.Position+" bind position: " + bind.position);
                     bind.ShowButton(active);
                 }
             }

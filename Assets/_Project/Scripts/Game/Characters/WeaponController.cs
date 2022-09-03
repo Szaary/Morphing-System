@@ -13,7 +13,7 @@ public abstract class WeaponController : MonoBehaviour
     public void Initialize(CharacterFacade characterFacade)
     {
         Facade = characterFacade;
-        Input = characterFacade.movementInput;
-        MainCamera = characterFacade.cameraManager.MainCamera;
+        Input = characterFacade.MovementInput;
+        MainCamera = characterFacade.CameraManager.MainCamera;
     }
 }

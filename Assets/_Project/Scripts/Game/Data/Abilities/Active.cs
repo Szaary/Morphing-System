@@ -9,14 +9,14 @@ public abstract class Active : ScriptableObject
 
     public TargetType targetType;
     [Header("Amount of action points need to use action")]
-    public int actions;
+    public int cost;
 
     public float distance;
-    
     public int Position { get; set; }
-    
-    public abstract int ActivateEffect(CharacterFacade target, CharacterFacade user);
 
+    public abstract Result ActivateEffect(List<CharacterFacade> targets, CharacterFacade user);
+    public abstract Result ActivateEffect(CharacterFacade target, CharacterFacade character);
+    
     public bool IsRanged()
     {
         return distance > 1.5f;
@@ -45,4 +45,6 @@ public abstract class Active : ScriptableObject
         Allies,
         All
     }
+
+   
 }
