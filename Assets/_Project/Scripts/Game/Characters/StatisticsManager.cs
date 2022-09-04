@@ -13,6 +13,7 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         _facade = characterFacade;
         character = template.Clone();
         character.CreateInstances();
+        SetFaction(character.Alignment);
         
         character.active.Initialize();
         ApplyStartupPassives();
@@ -21,9 +22,13 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         
         _facade.CharacterSystems.Add(this);
     }
-    
 
-    
+    public void SetFaction(Alignment characterAlignment)
+    {
+        _facade.gameObject.layer = characterAlignment.FactionLayerMask;
+    }
+
+
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
     {
         foreach (var stat in character.statistics)

@@ -21,7 +21,7 @@
 
     public bool ShouldWork(CharacterFacade facade, bool isOpposite)
     {
-        if (facade.Alignment.id == 0)
+        if (facade.Alignment.ID == 0)
         {
             var should = StateMachine.GetCurrentState() != TurnState.AiTurn;
             if (isOpposite) return !should;

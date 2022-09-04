@@ -16,7 +16,7 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     public void Initialize(CharacterFacade character)
     {
         _facade = character;
-        if (character.Alignment.Id == 0)
+        if (character.Alignment.ID == 0)
             SubscribeToState(_facade.Turns.PlayerTurn);
         else
             SubscribeToState(_facade.Turns.AiTurn);

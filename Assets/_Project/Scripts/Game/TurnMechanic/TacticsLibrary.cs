@@ -17,11 +17,11 @@ public static class TacticsLibrary
     {
         if (selectedActive.IsAttack())
         {
-            return possibleTargets.Where(x => x.Alignment.id != AlignmentId).ToList();
+            return possibleTargets.Where(x => x.Alignment.ID != AlignmentId).ToList();
         }
         else if (selectedActive.IsDefensive())
         {
-            return possibleTargets.Where(x => x.Alignment.id == AlignmentId).ToList();
+            return possibleTargets.Where(x => x.Alignment.ID == AlignmentId).ToList();
         }
 
         return new List<CharacterFacade>();

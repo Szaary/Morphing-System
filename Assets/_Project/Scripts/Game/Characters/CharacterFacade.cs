@@ -34,8 +34,8 @@ public class CharacterFacade : MonoBehaviour
     public int GetActionPoints() => stats.character.maxNumberOfActions;
     public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
     public int Position => stats.character.position.index;
-    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.turnBasedStrategy;
-    public RealTimeStrategy GetRealTimeStrategy() => stats.character.realTimeStrategy;
+    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.TurnBasedStrategy;
+    public RealTimeStrategy GetRealTimeStrategy() => stats.character.RealTimeStrategy;
     public ActiveManager ActiveSkillsManager => stats.character.active;
     public Result Modify(CharacterFacade user, List<Modifier> modifiers) => stats.Modify(user, modifiers);
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
@@ -106,7 +106,7 @@ public class CharacterFacade : MonoBehaviour
     {
         movement.SetPosition(playerPosition);
     }
-    public Alignment Alignment => stats.character.alignment;
+    public Alignment Alignment => stats.character.Alignment;
     public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 

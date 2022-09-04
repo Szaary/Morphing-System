@@ -12,10 +12,16 @@ public class Character : ScriptableObject
     public CharacterVFX vfx;
     public CharacterSFX sfx;
 
-    [Header("Basic")] public Alignment alignment;
-
-    public TurnBasedStrategy turnBasedStrategy;
-    public RealTimeStrategy realTimeStrategy;
+    [Header("Basic")] 
+    [SerializeField] private Alignment alignment;
+    public Alignment Alignment => alignment;
+    
+    
+    [SerializeField] private TurnBasedStrategy turnBasedStrategy;
+    [SerializeField] private RealTimeStrategy realTimeStrategy;
+    
+    public TurnBasedStrategy TurnBasedStrategy { get; private set; }
+    public RealTimeStrategy RealTimeStrategy{ get; private set; }
 
    
     [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
@@ -49,6 +55,9 @@ public class Character : ScriptableObject
             statistics.Add(clone);
         }
 
+        TurnBasedStrategy = turnBasedStrategy.Clone();
+        RealTimeStrategy = realTimeStrategy.Clone();
+        
         Debug.LogWarning("Check if Items are instantiated");
         backpack = backpackTemplate.Clone();
         equipment = equipmentTemplate.Clone();
@@ -87,8 +96,10 @@ public class Character : ScriptableObject
     public void RemoveEffect(Effect status) => _effects.Remove(status);
     public List<Effect> Effect => _effects;
     public List<Passive> Passives => _passives;
+
     
-    
+
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -97,7 +108,7 @@ public class Character : ScriptableObject
             Debug.LogError("No data assigned to character");
         }
 
-        if (alignment == null)
+        if (Alignment == null)
         {
             Debug.LogError("No alignment assigned to character");
         }

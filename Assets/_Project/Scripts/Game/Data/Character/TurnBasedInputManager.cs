@@ -99,7 +99,8 @@ public class TurnBasedInputManager : MonoBehaviour
     private void SelectSkill(int index)
     {
         _selectedActive = _possibleActives.First(x => x.Position == index);
-        _selectedTargets = TacticsLibrary.SelectTargetsBasedOnActive(_selectedActive, _possibleTargets, _facade.Alignment.id);
+        _selectedTargets = TacticsLibrary.SelectTargetsBasedOnActive(_selectedActive, 
+            _possibleTargets, _facade.Alignment.ID);
 
         if (_selectedTargets.Count > 0)
         {

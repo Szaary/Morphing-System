@@ -56,6 +56,14 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         newProjectile.Fire(direction, Facade, rangedWeapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
+    
+    public void FireWeapon(Vector3 shootDirection)
+    {
+        var newProjectile = Instantiate(rangedWeapon.projectile, transform.position, Quaternion.identity);
+        newProjectile.Fire(shootDirection, Facade, rangedWeapon.Modifiers, Facade.TimeManager);
+        newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
+    }
+    
 
     private IEnumerator DestroyAfterTime(Projectile projectile)
     {

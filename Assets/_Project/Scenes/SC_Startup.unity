@@ -607,9 +607,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnBasedInput: {fileID: 1835526038}
-  possibleTargets: []
-  possibleActives: []
-  chosenTargets: []
 --- !u!1 &1890154475
 GameObject:
   m_ObjectHideFlags: 0

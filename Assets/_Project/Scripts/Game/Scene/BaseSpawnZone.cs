@@ -11,7 +11,7 @@ public abstract class BaseSpawnZone : MonoBehaviour
     
     public SpawnLocation GetSpawnPosition(Character character)
     {
-        if (character.alignment.id == 0)
+        if (character.Alignment.ID == 0)
         {
             return GetPosition(character, playerCharactersSpawnLocations);
         }
