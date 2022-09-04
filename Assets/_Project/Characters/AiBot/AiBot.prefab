@@ -299,13 +299,7 @@ MonoBehaviour:
   turnStatsManager: {fileID: 5796303832144655054}
   realTimeController: {fileID: 6433834230722105478}
   realTimeStatsManager: {fileID: 7318509507392506701}
-  turnBasedInput: {fileID: 0}
-  cameraManager: {fileID: 0}
-  playerInput: {fileID: 0}
-  movementInput: {fileID: 0}
   isControlled: 0
-  gameManager: {fileID: 0}
-  timeManager: {fileID: 0}
 --- !u!114 &7455391313001905286
 MonoBehaviour:
   m_ObjectHideFlags: 0

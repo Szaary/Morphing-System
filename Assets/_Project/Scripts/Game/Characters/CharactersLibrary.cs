@@ -24,7 +24,7 @@ public class CharactersLibrary
 
     private void GainControl(CharacterFacade newCharacter)
     {
-        if (newCharacter.Alignment.ID != 0) return;
+        if (newCharacter.Alignment.IsPlayer) return;
 
         if (GetControlledCharacter(out var facade) != Result.Success)
         {
@@ -82,28 +82,28 @@ public class CharactersLibrary
 
     private void CountCharacters()
     {
-        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.ID == 0).ToList().Count;
-        AiCharacters = _spawnedCharacters.Where(x => x.Alignment.ID != 0).ToList().Count;
+        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.IsPlayer).ToList().Count;
+        AiCharacters = _spawnedCharacters.Where(x => !x.Alignment.IsPlayer).ToList().Count;
     }
 
 
-    public CharacterFacade SelectRandomEnemy(int userAlignmentId)
+    public CharacterFacade SelectRandomEnemy(Alignment alignment)
     {
-        var enemies = _spawnedCharacters.Where(x => x.Alignment.ID != userAlignmentId).ToList();
+        var enemies = _spawnedCharacters.Where(x => !x.Alignment.IsAlly(alignment)).ToList();
         if (enemies.Count == 0) return null;
         var index = Random.Range(0, enemies.Count);
         return enemies[index];
     }
 
-    public List<CharacterFacade> SelectAllEnemies(Alignment userAlignment)
+    public List<CharacterFacade> SelectAllEnemies(Alignment alignment)
     {
-        var enemies = _spawnedCharacters.Where(x => x.Alignment.ID != userAlignment.ID).ToList();
+        var enemies = _spawnedCharacters.Where(x =>!x.Alignment.IsAlly(alignment)).ToList();
         return enemies;
     }
 
-    public List<CharacterFacade> SelectAllAllies(Alignment userAlignment)
+    public List<CharacterFacade> SelectAllAllies(Alignment alignment)
     {
-        var allies = _spawnedCharacters.Where(x => x.Alignment.ID == userAlignment.ID).ToList();
+        var allies = _spawnedCharacters.Where(x => x.Alignment.IsAlly(alignment)).ToList();
         return allies;
     }
 

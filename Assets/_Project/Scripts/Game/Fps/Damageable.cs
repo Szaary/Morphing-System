@@ -13,7 +13,7 @@ public class Damageable : MonoBehaviour
 
     public void TakeDamage(CharacterFacade shooter, List<Modifier> modifiers)
     {
-        if (shooter.Alignment.ID == _facade.Alignment.ID) return;
+        if (shooter.Alignment.IsAlly(_facade.Alignment)) return;
         _facade.Modify(shooter, modifiers);
     }
 

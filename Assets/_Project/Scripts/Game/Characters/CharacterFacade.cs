@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
@@ -52,7 +50,8 @@ public class CharacterFacade : MonoBehaviour
     public GameManager GameManager { get; private set; }
     public TimeManager TimeManager { get; private set; }
     public TurnBasedInputManager BasedInputManager { get; private set; }
-
+    
+    public AiGraphFacade AiGraphFacade { get; private set; }
     
     [Inject]
     public void Construct(Character characterTemplate,
@@ -82,7 +81,7 @@ public class CharacterFacade : MonoBehaviour
         meleeWeaponController.Initialize(this);
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-
+        AiGraphFacade.Initialize(this);
 
         Library.AddCharacter(this);
     }
@@ -135,6 +134,7 @@ public class CharacterFacade : MonoBehaviour
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
         realTimeController ??= GetComponentInChildren<RealtimeController>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
+        AiGraphFacade ??= GetComponentInChildren<AiGraphFacade>();
         animatorManager ??= GetComponentInChildren<AnimatorManager>();
     }
     

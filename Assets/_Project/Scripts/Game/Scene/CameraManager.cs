@@ -18,8 +18,8 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineVirtualCameraBase turnBasedCamera;
     [SerializeField] private CinemachineVirtualCameraBase platformCamera;
     [SerializeField] private CinemachineVirtualCameraBase fppCamera;
-    
-    
+
+  
     public Camera MainCamera => mainCamera;
     private GameManager _gameManager;
     private CharactersLibrary _library;
@@ -82,9 +82,9 @@ public class CameraManager : MonoBehaviour
             {
                 cam.camera.Priority = MaxCameraPriority;
                 SetupCameraAfterTarget(cam.camera, cameraFpsFollowPoint);
-                if (_library.SelectRandomEnemy(0) != null)
+                if (_library.SelectRandomEnemy(facade.Alignment) != null)
                 {
-                    facade.LookAt(_library.SelectRandomEnemy(0).transform);
+                    facade.LookAt(_library.SelectRandomEnemy(facade.Alignment).transform);
                 }
             }
             else

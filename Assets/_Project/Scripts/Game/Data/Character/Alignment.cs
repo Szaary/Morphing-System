@@ -7,7 +7,23 @@ public class Alignment : ScriptableObject
     [SerializeField] private int id;
     [SerializeField] private LayerMask factionLayerMask;
     
-    public int ID => id;
+    public bool IsAlly(Alignment alignment)
+    {
+        if (alignment == this) return true;
+        else return false;
+    }
+
+    public bool IsPlayer
+    {
+        get
+        {
+            if (id == 0) return true;
+            else return false;
+        }
+    }
+
 
     public LayerMask FactionLayerMask => factionLayerMask;
+    
+    
 }

@@ -35,7 +35,7 @@ public class BaseAiTurnBasedStrategy : TurnBasedStrategy
     {
         var selectedSkillNumber = Random.Range(0, active.Count);
         var selectedSkill = active[selectedSkillNumber];
-        var selectTargets = TacticsLibrary.SelectTargetsBasedOnActive(selectedSkill, targets, currentFightState.Character.Alignment.ID);
+        var selectTargets = TacticsLibrary.SelectTargetsBasedOnActive(selectedSkill, targets, currentFightState.Character.Alignment);
         
         if (!selectedSkill.IsMultiTarget())
         {

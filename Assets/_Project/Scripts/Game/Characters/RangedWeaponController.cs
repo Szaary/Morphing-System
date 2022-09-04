@@ -75,6 +75,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (rangedWeapon == null) return;
         Gizmos.color = Color.yellow;
         Gizmos.DrawRay(transform.position, transform.forward * rangedWeapon.range);
     }

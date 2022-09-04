@@ -37,7 +37,7 @@ public class EnemySpawnPoint : MonoBehaviour
 
         if (other.TryGetComponent(out CharacterFacade facade))
         {
-            if (facade.Alignment.ID != 0) return;
+            if (facade.Alignment.IsPlayer) return;
 
             if (forceGameMode) _gameManager.SetGameMode(gameMode);
 

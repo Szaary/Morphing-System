@@ -13,15 +13,15 @@ public static class TacticsLibrary
         SkillsListIsEmpty
     }
 
-    public static List<CharacterFacade> SelectTargetsBasedOnActive(Active selectedActive, List<CharacterFacade> possibleTargets, int AlignmentId)
+    public static List<CharacterFacade> SelectTargetsBasedOnActive(Active selectedActive, List<CharacterFacade> possibleTargets, Alignment alignment)
     {
         if (selectedActive.IsAttack())
         {
-            return possibleTargets.Where(x => x.Alignment.ID != AlignmentId).ToList();
+            return possibleTargets.Where(x => x.Alignment.IsAlly(alignment)).ToList();
         }
         else if (selectedActive.IsDefensive())
         {
-            return possibleTargets.Where(x => x.Alignment.ID == AlignmentId).ToList();
+            return possibleTargets.Where(x => x.Alignment.IsAlly(alignment)).ToList();
         }
 
         return new List<CharacterFacade>();

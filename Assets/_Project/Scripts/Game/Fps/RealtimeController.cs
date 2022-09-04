@@ -35,6 +35,7 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
     {
         if (player is not null) _playerSet = true;
         _player = player;
+        
     }
 
 
