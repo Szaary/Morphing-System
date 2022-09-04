@@ -8,8 +8,9 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
     private NavMeshAgentMovement _agent;
     private RangedWeaponController _weapon;
     private LayerMask playerLayer;
-    
-    
+
+    public float DeltaTime => _facade.TimeManager.GetDeltaTime(this);
+
     public CharacterFacade Facade
     {
         get => _facade;
@@ -40,11 +41,7 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
         set => _weapon = value;
     }
 
-    public LayerMask PlayerLayer
-    {
-        get => playerLayer;
-        private set => playerLayer = value;
-    }
+    public LayerMask PlayerLayer => _player.Alignment.FactionLayerMask;
 
     public void Initialize(CharacterFacade characterFacade)
     {
@@ -61,7 +58,6 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
     private void OnControlledCharacterChanged(CharacterFacade player)
     {
         Player = player;
-        PlayerLayer = _player.Alignment.FactionLayerMask;
     }
 
     private void OnDestroy()

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784e7a323315442bbfb120e9463cdf56, type: 3}
   m_Name: ALI_Player
   m_EditorClassIdentifier: 
-  alignment: 0
+  id: 0
+  factionLayerMask: 8
+  ally:
+  - {fileID: 11400000, guid: 911a946b21ad3a949a519cc48a2d3920, type: 2}

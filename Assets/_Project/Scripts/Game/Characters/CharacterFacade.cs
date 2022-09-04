@@ -19,28 +19,27 @@ public class CharacterFacade : MonoBehaviour
     [Header("Turn Based Logic")]
     public TurnController turnController;
     public TurnStatsManager turnStatsManager;
-    public TurnReferences Turns;
+    
 
 
     [Header("Realtime Logic")] 
     public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
-
+    public AiGraphFacade aiGraphFacade;
 
     #region 2D Logic
 
     public int GetActionPoints() => stats.character.maxNumberOfActions;
     public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
     public int Position => stats.character.position.index;
-    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.TurnBasedStrategy;
-    public RealTimeStrategy GetRealTimeStrategy() => stats.character.RealTimeStrategy;
+    public TurnBasedStrategy GetStrategy() => stats.GetTurnStrategy();
     public ActiveManager ActiveSkillsManager => stats.character.active;
     public Result Modify(CharacterFacade user, List<Modifier> modifiers) => stats.Modify(user, modifiers);
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
 
     #endregion
 
-
+    public TurnReferences Turns{ get; private set; }
     public CharactersLibrary Library { get; private set; }
     public CameraManager CameraManager { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
@@ -50,8 +49,8 @@ public class CharacterFacade : MonoBehaviour
     public GameManager GameManager { get; private set; }
     public TimeManager TimeManager { get; private set; }
     public TurnBasedInputManager BasedInputManager { get; private set; }
-    
-    public AiGraphFacade AiGraphFacade { get; private set; }
+
+ 
     
     [Inject]
     public void Construct(Character characterTemplate,
@@ -74,14 +73,13 @@ public class CharacterFacade : MonoBehaviour
         BasedInputManager = turnBasedInputManager;
         
         stats.SetCharacter(this, characterTemplate);
-
         turnStatsManager.Initialize(this);
         turnController.Initialize(this);
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
         realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-        AiGraphFacade.Initialize(this);
+        aiGraphFacade.Initialize(this);
 
         Library.AddCharacter(this);
     }
@@ -134,7 +132,7 @@ public class CharacterFacade : MonoBehaviour
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
         realTimeController ??= GetComponentInChildren<RealtimeController>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
-        AiGraphFacade ??= GetComponentInChildren<AiGraphFacade>();
+        aiGraphFacade ??= GetComponentInChildren<AiGraphFacade>();
         animatorManager ??= GetComponentInChildren<AnimatorManager>();
     }
     

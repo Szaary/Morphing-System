@@ -28,6 +28,21 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         _facade.gameObject.layer = characterAlignment.FactionLayerMask;
     }
 
+    public TurnBasedStrategy GetTurnStrategy()
+    {
+        Debug.Log("Is it character controlled by player: " + character.Alignment.IsPlayer);
+        if (character.Alignment.IsPlayer)
+        {
+            Debug.Log("Selected player strategy");
+            return character.turnBasedPlayerControls;
+        }
+        else
+        {
+            Debug.Log("Selected ai strategy");
+            return character.turnBasedAiStrategy;
+        }
+    }
+    
 
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
     {

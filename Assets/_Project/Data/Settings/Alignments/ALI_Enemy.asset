@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 784e7a323315442bbfb120e9463cdf56, type: 3}
   m_Name: ALI_Enemy
   m_EditorClassIdentifier: 
-  id: 1
+  id: 2
+  factionLayerMask: 9
+  ally: []

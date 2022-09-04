@@ -17,7 +17,7 @@ public static class TacticsLibrary
     {
         if (selectedActive.IsAttack())
         {
-            return possibleTargets.Where(x => x.Alignment.IsAlly(alignment)).ToList();
+            return possibleTargets.Where(x => !x.Alignment.IsAlly(alignment)).ToList();
         }
         else if (selectedActive.IsDefensive())
         {
@@ -47,14 +47,15 @@ public static class TacticsLibrary
         var enemiesArePresent = currentFightState.Library.AiCharacters != 0;
         var alliesArePresent = currentFightState.Library.PlayerCharacters != 0;
         var bothEnemiesAndAllies = enemiesArePresent && alliesArePresent;
-
+        var anyEnemiesOrAllies = enemiesArePresent || alliesArePresent;
+        
         if (!anySkillsArePresent)
         {
             ReturnEmptyList(out actives, out targets);
             return Possible.SkillsListIsEmpty;
         }
 
-        if (!bothEnemiesAndAllies)
+        if (!anyEnemiesOrAllies)
         {
             ReturnEmptyList(out actives, out targets);
             return Possible.NoSuitableSkillsToUse;

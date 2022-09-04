@@ -41,6 +41,7 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
 
     private void Update()
     {
+        return;
         if (_playerSet) return;
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, _player.Alignment.FactionLayerMask);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, _player.Alignment.FactionLayerMask);

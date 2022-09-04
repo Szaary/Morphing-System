@@ -1,6 +1,3 @@
-using UnityEngine;
-using Zenject;
-
 public class CharacterFactory: ICharacterFactory
 {
     private readonly CharacterFacade.Factory _characterFactory;

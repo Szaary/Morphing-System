@@ -14,21 +14,19 @@ public class TurnBasedInputManager : MonoBehaviour
     public event Action<Result> WrongButtonPressed;
 
 
-
     private List<CharacterFacade> _possibleTargets = new();
     private List<Active> _possibleActives = new();
-    
+
     private List<CharacterFacade> _selectedTargets = new();
     private Active _selectedActive;
-    
+
     private int _selectedActiveIndex = -1;
 
     private TurnStateMachine _stateMachine;
     private CharactersLibrary _library;
     private CharacterFacade _facade;
-    private PlayerTurnBasedStrategy _strategy;
     private bool isInputLockedAfterAction;
-    
+
     [Inject]
     public void Construct(CharactersLibrary library, TurnStateMachine stateMachine)
     {
@@ -54,9 +52,9 @@ public class TurnBasedInputManager : MonoBehaviour
             _stateMachine.SetState(TurnState.AiTurn);
             return;
         }
-        
+
         if (StopInWrongTurn(index) != Result.Success) return;
-        
+
         // 1. Check possible actions based on list of targets. - show possible skills
         // 2. Select skill - show possible targets
         // 3. Select target based on skills
@@ -64,7 +62,7 @@ public class TurnBasedInputManager : MonoBehaviour
         if (_selectedActiveIndex >= 0)
         {
             if (StopWrongTarget(index) != Result.Success) return;
-            
+
             ActionActivated?.Invoke();
 
             TurnBasedStrategy.SelectedStrategy strategy;
@@ -75,9 +73,10 @@ public class TurnBasedInputManager : MonoBehaviour
             else
             {
                 var target = _selectedTargets.Find(x => x.Position == index);
-                var selected = new List<CharacterFacade> { target };
+                var selected = new List<CharacterFacade> {target};
                 strategy = new TurnBasedStrategy.SelectedStrategy(_facade, _selectedActive, selected);
             }
+
             _facade.turnController.SelectStrategy(strategy);
             isInputLockedAfterAction = true;
             return;
@@ -99,7 +98,7 @@ public class TurnBasedInputManager : MonoBehaviour
     private void SelectSkill(int index)
     {
         _selectedActive = _possibleActives.First(x => x.Position == index);
-        _selectedTargets = TacticsLibrary.SelectTargetsBasedOnActive(_selectedActive, 
+        _selectedTargets = TacticsLibrary.SelectTargetsBasedOnActive(_selectedActive,
             _possibleTargets, _facade.Alignment);
 
         if (_selectedTargets.Count > 0)
@@ -170,8 +169,6 @@ public class TurnBasedInputManager : MonoBehaviour
     private void OnControlledCharacterChanged(CharacterFacade character)
     {
         _facade = character;
-        if (character.GetTurnBasedStrategy() is PlayerTurnBasedStrategy playerStrategy)
-            _strategy = playerStrategy;
     }
 
     private void OnDestroy()

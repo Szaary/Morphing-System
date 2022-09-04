@@ -16,7 +16,7 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     public void Initialize(CharacterFacade character)
     {
         _facade = character;
-        if (character.Alignment.IsPlayer)
+        if (character.Alignment.IsAlly(character.Alignment))
             SubscribeToState(_facade.Turns.PlayerTurn);
         else
             SubscribeToState(_facade.Turns.AiTurn);
@@ -35,14 +35,14 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         animationWorked = false;
         ActionPoints = _facade.GetActionPoints();
 
-        var unitStrategy = _facade.GetTurnBasedStrategy();
+        var unitStrategy = _facade.GetStrategy();
         var result = unitStrategy.SelectTactic(CreateFightState(), out var selectedStrategy);
         if (result != Result.Success)
         {
             Debug.LogError(typeof(TurnController) + " " + result);
         }
 
-        if (unitStrategy is not PlayerTurnBasedStrategy)
+        if (!_facade.Alignment.IsPlayer)
         {
             StartCoroutine(WaitForAttack(selectedStrategy));
         }

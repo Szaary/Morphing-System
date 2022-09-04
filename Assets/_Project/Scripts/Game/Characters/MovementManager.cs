@@ -79,7 +79,7 @@ public class MovementManager : MonoBehaviour
             SetRealtimeLogic(true);
             TurnOffCharacterControl();
             weapons.SetActive(true);
-            if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
+            if (_facade.Alignment.IsPlayer)
             {
                 controller.enabled = true;
                 fps.enabled = true;
@@ -94,7 +94,7 @@ public class MovementManager : MonoBehaviour
             SetRealtimeLogic(true);
             TurnOffCharacterControl();
             
-            if (_facade.GetRealTimeStrategy() is PlayerRealTimeStrategy)
+            if (_facade.Alignment.IsPlayer)
             {
                 controller.enabled = true;
                 animatorController.enabled = true;

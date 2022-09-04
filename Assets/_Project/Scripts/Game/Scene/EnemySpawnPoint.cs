@@ -37,16 +37,18 @@ public class EnemySpawnPoint : MonoBehaviour
 
         if (other.TryGetComponent(out CharacterFacade facade))
         {
-            if (facade.Alignment.IsPlayer) return;
+            if (!facade.Alignment.IsPlayer) return;
 
             if (forceGameMode) _gameManager.SetGameMode(gameMode);
-
+            
             int numberOfEnemies = charactersToSpawn.Count;
             if (randomizeEnemies)
             {
                 numberOfEnemies = Random.Range(0, 3);
             }
 
+            Debug.Log("Spawning " + numberOfEnemies);
+            
             for (var index = 0; index < numberOfEnemies; index++)
             {
                 var character = charactersToSpawn[index];

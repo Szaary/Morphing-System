@@ -17,11 +17,13 @@ public class Character : ScriptableObject
     public Alignment Alignment => alignment;
     
     
-    [SerializeField] private TurnBasedStrategy turnBasedStrategy;
-    [SerializeField] private RealTimeStrategy realTimeStrategy;
+    public PlayerTurnBasedStrategy turnBasedPlayerControls;
+    public BaseAiTurnBasedStrategy turnBasedAiStrategy;
     
-    public TurnBasedStrategy TurnBasedStrategy { get; private set; }
-    public RealTimeStrategy RealTimeStrategy{ get; private set; }
+    
+    
+    [SerializeField] private RealTimeStrategy realTimeStrategy;
+  
 
    
     [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
@@ -54,11 +56,8 @@ public class Character : ScriptableObject
             var clone = stat.Clone();
             statistics.Add(clone);
         }
-
-        TurnBasedStrategy = turnBasedStrategy.Clone();
-        RealTimeStrategy = realTimeStrategy.Clone();
         
-        Debug.LogWarning("Check if Items are instantiated");
+       // Debug.LogWarning("Check if Items are instantiated");
         backpack = backpackTemplate.Clone();
         equipment = equipmentTemplate.Clone();
     }
@@ -127,11 +126,7 @@ public class Character : ScriptableObject
         {
             Debug.LogError("No base stats assigned to character");
         }
-
-        if (turnBasedStrategy == null)
-        {
-            Debug.LogError("No strategy assigned to character");
-        }
+  
 
         if (backpackTemplate == null)
         {

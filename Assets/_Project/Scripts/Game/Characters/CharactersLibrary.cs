@@ -24,7 +24,7 @@ public class CharactersLibrary
 
     private void GainControl(CharacterFacade newCharacter)
     {
-        if (newCharacter.Alignment.IsPlayer) return;
+        if (!newCharacter.Alignment.IsPlayer) return;
 
         if (GetControlledCharacter(out var facade) != Result.Success)
         {
@@ -82,8 +82,8 @@ public class CharactersLibrary
 
     private void CountCharacters()
     {
-        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.IsPlayer).ToList().Count;
-        AiCharacters = _spawnedCharacters.Where(x => !x.Alignment.IsPlayer).ToList().Count;
+        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.IsPlayerAlly).ToList().Count;
+        AiCharacters = _spawnedCharacters.Where(x => !x.Alignment.IsPlayerAlly).ToList().Count;
     }
 
 
