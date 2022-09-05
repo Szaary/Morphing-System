@@ -30,11 +30,14 @@ public class NavMeshAgentMovement : MonoBehaviour
         animatorManager = facade.animatorManager;
         _facade = facade;
     }
-    
-    void Start()
+
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+    }
+
+    void Start()
+    {
         agent.updatePosition = false;
         lookAtTargetPosition = head.position + transform.forward;
         lookAtPosition = lookAtTargetPosition;

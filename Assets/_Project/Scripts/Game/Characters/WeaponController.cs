@@ -20,4 +20,6 @@ public abstract class WeaponController : MonoBehaviour, ICharacterSystem
 
     public abstract void Disable();
 
+   
+    
 }

@@ -166,12 +166,12 @@ GameObject:
   - component: {fileID: 132843189}
   - component: {fileID: 132843191}
   m_Layer: 0
-  m_Name: FightTrigger
+  m_Name: BattleTrigger jRPG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &132843188
 Transform:
   m_ObjectHideFlags: 0
@@ -179,12 +179,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132843186}
-  m_LocalRotation: {x: -0, y: -0.48960423, z: 0, w: 0.8719448}
-  m_LocalPosition: {x: 0.077690005, y: 0, z: -0.41044396}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1457399896}
+  m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &132843189
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 604216149}
   - component: {fileID: 604216148}
   m_Layer: 0
-  m_Name: FpsInitializer
+  m_Name: UnitPositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -591,9 +591,8 @@ Transform:
   m_Children:
   - {fileID: 231952226}
   - {fileID: 1209737071}
-  - {fileID: 1269940969}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 58.629, z: 0}
 --- !u!1 &611239165
 GameObject:
@@ -973,7 +972,7 @@ GameObject:
   - component: {fileID: 1269940967}
   - component: {fileID: 1269940968}
   m_Layer: 0
-  m_Name: FightTrigger
+  m_Name: BattleTrigger Fps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1022,13 +1021,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269940966}
-  m_LocalRotation: {x: -0, y: -0.48960423, z: 0, w: 0.8719448}
-  m_LocalPosition: {x: 25.35, y: 0, z: -15.82}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.0007786155, y: 6, z: -27.869732}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 604216150}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1382923781
 GameObject:
@@ -1073,7 +1072,7 @@ GameObject:
   - component: {fileID: 1457399899}
   - component: {fileID: 1457399897}
   m_Layer: 0
-  m_Name: TurnBasedInitializer
+  m_Name: UnitPositons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,9 +1092,8 @@ Transform:
   m_Children:
   - {fileID: 492374336}
   - {fileID: 1921461152}
-  - {fileID: 132843188}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 58.629, z: 0}
 --- !u!114 &1457399897
 MonoBehaviour:

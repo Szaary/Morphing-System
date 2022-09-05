@@ -24,7 +24,6 @@ public class Alignment : ScriptableObject
         {
             if (id == 0)
             {
-                Debug.Log("It is player character");
                 return true;
             }
             else return false;

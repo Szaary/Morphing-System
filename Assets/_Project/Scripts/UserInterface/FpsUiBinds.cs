@@ -63,7 +63,7 @@ public class FpsUiBinds : MonoBehaviour
         if(weapon!=null) weapon.magazineChanged -= OnMagazineChanged;
         weapon = facade.rangedWeaponController;
         weapon.magazineChanged += OnMagazineChanged;
-        OnMagazineChanged(weapon.Magazine, weapon.rangedWeapon.MagazineSize);
+        OnMagazineChanged(weapon.Magazine, weapon.weapon.MagazineSize);
 
         if (_chosenStat != null) _chosenStat.OnValueChanged -= OnValueChanged;
         facade.GetStatistic(statistic, out _chosenStat);

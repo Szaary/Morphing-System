@@ -12,7 +12,7 @@ public class MeleeWeaponController : WeaponController
         
         if (Input.melee && ShootTimeoutDelta <= 0.0f)
         {
-            SwingWeapon();
+            Attack();
 
             ShootTimeoutDelta = 1 / meleeWeapon.attacksPerSecond;
             Input.melee = false;
@@ -24,7 +24,7 @@ public class MeleeWeaponController : WeaponController
         }
     }
 
-    public void SwingWeapon()
+    public void Attack()
     {
         if (Physics.SphereCast(transform.position, meleeWeapon.range, transform.forward, out var hit, 100))
         {
@@ -35,6 +35,8 @@ public class MeleeWeaponController : WeaponController
             }
         }
     }
+    
+    
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

@@ -14,10 +14,10 @@ namespace StarterAssets
         public float SprintSpeed = 6.0f;
 
         [Tooltip("Rotation speed of the character")]
-        public float RotationSpeedX = 40.0f;
+        public float RotationSpeedX = 1.0f;
 
         [Tooltip("Rotation speed of the character")]
-        public float RotationSpeedY = 20.0f;
+        public float RotationSpeedY = 1.0f;
 
         [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
@@ -142,11 +142,11 @@ namespace StarterAssets
             if (_input.look.sqrMagnitude >= _threshold)
             {
                 //Don't multiply mouse input by delta
-                float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : _facade.TimeManager.GetUnscaledDeltaTime();
+                float deltaTimeMultiplier = 1;//_facade.TimeManager.GetUnscaledDeltaTime();
 
                 _cinemachineTargetPitch += _input.look.y * RotationSpeedY * deltaTimeMultiplier;
                 _rotationVelocity = _input.look.x * RotationSpeedX * deltaTimeMultiplier;
-
+          
                 // clamp our pitch rotation
                 _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
 

@@ -135,7 +135,7 @@ public class CharacterCreator : MonoBehaviour
         
         
         // Saving prefab variant
-        var movement = prefabVariant.GetComponentInChildren<MovementManager>();
+        var movement = prefabVariant.GetComponentInChildren<LogicController>();
         facade.movement = movement;
 
 

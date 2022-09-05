@@ -8,7 +8,7 @@ public class CharacterFacade : MonoBehaviour
 {
     public List<ICharacterSystem> CharacterSystems { get; }= new List<ICharacterSystem>();
     
-    public MovementManager movement;
+    public LogicController movement;
     public StatisticsManager stats;
     public AnimatorManager animatorManager;
     
@@ -19,11 +19,9 @@ public class CharacterFacade : MonoBehaviour
     [Header("Turn Based Logic")]
     public TurnController turnController;
     public TurnStatsManager turnStatsManager;
-    
-
 
     [Header("Realtime Logic")] 
-    public RealtimeController realTimeController;
+  //  public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
     public AiGraphFacade aiGraphFacade;
 
@@ -77,10 +75,7 @@ public class CharacterFacade : MonoBehaviour
         turnController.Initialize(this);
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
-        realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-        aiGraphFacade.Initialize(this);
-
         Library.AddCharacter(this);
     }
 
@@ -130,9 +125,7 @@ public class CharacterFacade : MonoBehaviour
         rangedWeaponController ??= GetComponentInChildren<RangedWeaponController>();
         turnController ??= GetComponentInChildren<TurnController>();
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
-        realTimeController ??= GetComponentInChildren<RealtimeController>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
-        aiGraphFacade ??= GetComponentInChildren<AiGraphFacade>();
         animatorManager ??= GetComponentInChildren<AnimatorManager>();
     }
     
