@@ -1,7 +1,10 @@
 # Morphing System
 Morphing System is a game that plays with different genres, between which the player is switched by in-game events.
 
-Currently implemented:
+# Keybinds
+WSAD, Mouse 
+
+# Currently implemented:
  - Jrpg turn based rpg,
  - Fps
  - 2,5 D Platformer
