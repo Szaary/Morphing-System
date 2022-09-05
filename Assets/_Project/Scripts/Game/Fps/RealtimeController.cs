@@ -54,7 +54,7 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
     private void Patrolling()
     {
         if (!isDestinationSet) Search();
-        if(isDestinationSet) _agent.SetDestination(destinationPoint);
+        //if(isDestinationSet) _agent.MoveToLocation(destinationPoint);
 
         Vector3 distanceToDestination = transform.position - destinationPoint;
         if (distanceToDestination.magnitude < 1f) isDestinationSet = false;
@@ -77,13 +77,13 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
 
     private void ChasePlayer()
     {
-        _agent.SetDestination(_player.transform.position);
+//        _agent.MoveToLocation(_player.transform.position);
     }
 
 
     private void AttackPlayer()
     {
-        _agent.SetDestination(transform.position);   
+        //_agent.MoveToLocation(transform.position);   
         transform.LookAt(_facade.transform);
 
         if (!attacked)

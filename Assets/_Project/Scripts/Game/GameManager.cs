@@ -4,14 +4,17 @@ using Zenject;
 
 public class GameManager : MonoBehaviour
 {
-    public event Action<GameMode> GameModeChanged;
-
-    private GameMode _lastMode;
+    [SerializeField] private float gameModeChangeCooldown;
     [SerializeField] private GameMode gameMode;
+    
+    public event Action<GameMode> GameModeChanged;
     public GameMode GameMode => gameMode;
-
+    
+    
+    private GameMode _lastMode;
     private CharactersLibrary _library;
     private SceneLoader _sceneLoader;
+    private bool isOnCooldown;
 
     [Inject]
     public void Construct(CharactersLibrary library, SceneLoader sceneLoader)
@@ -45,11 +48,20 @@ public class GameManager : MonoBehaviour
     public void SetGameMode(GameMode newMode)
     {
         if (gameMode == newMode) return;
+        if (isOnCooldown) return;
         _lastMode = gameMode;
         Debug.Log("Game Mode Changed to: " + newMode);
         gameMode = newMode;
         GameModeChanged?.Invoke(gameMode);
+        isOnCooldown = true;
+        Invoke(nameof(Reset), gameModeChangeCooldown);
     }
+    
+    public void Reset()
+    {
+        isOnCooldown = false;
+    }
+
 
     public void SetPreviousGameMode()
     {

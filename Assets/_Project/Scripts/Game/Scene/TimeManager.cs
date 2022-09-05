@@ -10,7 +10,6 @@ using UnityEngine;
 public class TimeManager : MonoBehaviour
 {
     private readonly Dictionary<MonoBehaviour, float> timescaleExclusions = new();
-
     [SerializeField] private float currentlySetTimescale = 1;
     [SerializeField] private float slowDownAnimationTime = 0.3f;
 
@@ -34,6 +33,7 @@ public class TimeManager : MonoBehaviour
 
         if (slowDuration == 0) return;
         StartCoroutine(ReturnToNormal(slowDuration));
+        
     }
 
     private IEnumerator ReturnToNormal(float slowDuration)

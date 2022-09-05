@@ -10,7 +10,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
     [SerializeField] private CinemachineImpulseSource source; 
     public int Magazine { get; private set; }
     
-    public float TimeBetweenAttacks => weapon.attacksPerSecond;
+    public float TimeBetweenAttacks => weapon.timeBetweenAttacks;
     public float Range => weapon.range;
     
     private void Start()
@@ -22,13 +22,11 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
     {
         if (weapon == null) return;
         var delta = Facade.TimeManager.GetDeltaTime(this);
-
-        if (Input.shoot && ShootTimeoutDelta <= 0.0f && Magazine > 0)
+        if (Input.shoot && AttackTimeout >= TimeBetweenAttacks && Magazine > 0)
         {
+            AttackTimeout = 0;
+            
             FireWeapon();
-            ShootTimeoutDelta = 1 / TimeBetweenAttacks;
-
-            Magazine--;
             magazineChanged?.Invoke(Magazine, weapon.MagazineSize);
             source.GenerateImpulse();
             if (Magazine == 0)
@@ -37,9 +35,9 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
             }
         }
 
-        if (ShootTimeoutDelta >= 0.0f)
+        if (AttackTimeout < TimeBetweenAttacks)
         {
-            ShootTimeoutDelta -= delta;
+            AttackTimeout += delta;
         }
     }
 
@@ -53,6 +51,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
 
     public void FireWeapon()
     {
+        Magazine--;
         var position = MainCamera.transform.position + MainCamera.transform.forward;
         var direction = MainCamera.transform.forward;
         var newProjectile = Instantiate(weapon.projectile, position, Quaternion.identity);

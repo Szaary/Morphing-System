@@ -37,17 +37,12 @@ public class LogicController : MonoBehaviour
         navMeshAgentMovement.Initialize(_facade);
         graphFacade.Initialize(_facade);
     }
-
-    public void SetDestination(Vector3 position)
-    {
-        navMeshAgentMovement.SetDestination(position);
-    }
-
+ 
     public void SetPosition(BaseSpawnZone.SpawnLocation playerPosition)
     {
         if (navMeshAgentMovement.enabled)
         {
-            navMeshAgentMovement.SetDestination(playerPosition.transform.position);
+            navMeshAgentMovement.RunToLocation(playerPosition.transform.position);
         }
     }
 

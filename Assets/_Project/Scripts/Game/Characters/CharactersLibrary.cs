@@ -87,23 +87,23 @@ public class CharactersLibrary
     }
 
 
-    public CharacterFacade SelectRandomEnemy(Alignment alignment)
+    public CharacterFacade SelectRandomEnemy(Alignment userAlignment)
     {
-        var enemies = _spawnedCharacters.Where(x => !x.Alignment.IsAlly(alignment)).ToList();
+        var enemies = _spawnedCharacters.Where(x => !x.Alignment.IsAlly(userAlignment)).ToList();
         if (enemies.Count == 0) return null;
         var index = Random.Range(0, enemies.Count);
         return enemies[index];
     }
 
-    public List<CharacterFacade> SelectAllEnemies(Alignment alignment)
+    public List<CharacterFacade> SelectAllEnemies(Alignment userAlignment)
     {
-        var enemies = _spawnedCharacters.Where(x =>!x.Alignment.IsAlly(alignment)).ToList();
+        var enemies = _spawnedCharacters.Where(x =>!x.Alignment.IsAlly(userAlignment)).ToList();
         return enemies;
     }
 
-    public List<CharacterFacade> SelectAllAllies(Alignment alignment)
+    public List<CharacterFacade> SelectAllAllies(Alignment userAlignment)
     {
-        var allies = _spawnedCharacters.Where(x => x.Alignment.IsAlly(alignment)).ToList();
+        var allies = _spawnedCharacters.Where(x => x.Alignment.IsAlly(userAlignment)).ToList();
         return allies;
     }
 

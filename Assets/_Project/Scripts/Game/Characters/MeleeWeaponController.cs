@@ -6,23 +6,27 @@ public class MeleeWeaponController : WeaponController
     public MeleeWeapon meleeWeapon; 
     
     
+    /*
     private void Update()
     {
         var delta = Facade.TimeManager.GetDeltaTime(this);
         
-        if (Input.melee && ShootTimeoutDelta <= 0.0f)
+        if (Input.melee && AttackTimeout <= 0.0f)
         {
             Attack();
 
-            ShootTimeoutDelta = 1 / meleeWeapon.attacksPerSecond;
+           // AttackTimeout = 1 / meleeWeapon.;
             Input.melee = false;
         }
 
-        if (ShootTimeoutDelta >= 0.0f)
+        if (AttackTimeout >= 0.0f)
         {
-            ShootTimeoutDelta -= delta;
+            AttackTimeout -= delta;
         }
     }
+    */
+    
+    
 
     public void Attack()
     {
