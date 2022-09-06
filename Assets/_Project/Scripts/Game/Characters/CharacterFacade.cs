@@ -46,8 +46,9 @@ public class CharacterFacade : MonoBehaviour
     public GameManager GameManager { get; private set; }
     public TimeManager TimeManager { get; private set; }
     public TurnBasedInputManager BasedInputManager { get; private set; }
-
-
+    public SoundManager SoundManager { get; private set; }
+    
+    
     public bool IsDead { get; private set; }
 
 
@@ -60,7 +61,8 @@ public class CharacterFacade : MonoBehaviour
         MovementInput starterInputs,
         GameManager gameManager,
         TimeManager timeManager,
-        TurnBasedInputManager turnBasedInputManager)
+        TurnBasedInputManager turnBasedInputManager,
+        SoundManager soundManager)
     {
         MovementInput = starterInputs;
         PlayerInput = playerInput;
@@ -70,7 +72,8 @@ public class CharacterFacade : MonoBehaviour
         GameManager = gameManager;
         TimeManager = timeManager;
         BasedInputManager = turnBasedInputManager;
-
+        SoundManager = soundManager;
+        
         stats.SetCharacter(this, characterTemplate);
         turnStatsManager.Initialize(this);
         turnController.Initialize(this);

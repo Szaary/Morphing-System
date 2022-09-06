@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2a488112-648f-4692-83fa-37f48940a2ac}">
+		<property name="assetPath">
+			<value>SFX/Weapons/Hand Gun 1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.60158333333333336</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8850e2bd-baa3-4324-998e-aef678e73173}</destination>
+		</relationship>
+	</object>
+</objects>

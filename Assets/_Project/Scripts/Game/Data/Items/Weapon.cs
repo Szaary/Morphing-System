@@ -1,4 +1,5 @@
 using System.Collections;
+using FMODUnity;
 using StarterAssets;
 using UnityEngine;
 
@@ -7,4 +8,6 @@ public abstract class Weapon : Item
 {
     public float timeBetweenAttacks = 0.5f;
     public float range = 1.5f;
+    public EventReference eventReference;
+    
 }

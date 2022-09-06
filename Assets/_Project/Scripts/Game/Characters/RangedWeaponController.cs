@@ -95,6 +95,10 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         Destroy(projectile);
     }
 
+    public override void PlaySfx()
+    {
+        soundEmitter.Play(weapon.eventReference);
+    }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()

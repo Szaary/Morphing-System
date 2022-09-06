@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: -0.34943914, y: 0.16921961, z: 1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8920316191157895005}
   m_Father: {fileID: 8152043638391086604}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 131f601505a24bfc998e4022062658e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundEmitter: {fileID: 2013224081549134266}
   weapon: {fileID: 11400000, guid: aeef26a69b1c3a646a3dd628f5853870, type: 2}
   source: {fileID: 3752593048626889185}
 --- !u!114 &4891123773654719537
@@ -60,7 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2000f0b565148479ca75624a9f0a293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeapon: {fileID: 11400000, guid: 95ba79c22c823be4cbcc43963457ebf3, type: 2}
+  soundEmitter: {fileID: 2013224081549134266}
+  weapon: {fileID: 11400000, guid: 95ba79c22c823be4cbcc43963457ebf3, type: 2}
 --- !u!114 &3752593048626889185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,6 +117,68 @@ MonoBehaviour:
     m_DissipationDistance: 100
     m_PropagationSpeed: 343
   m_DefaultVelocity: {x: 0, y: 0.1, z: 0}
+--- !u!1 &2209766504042648144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8920316191157895005}
+  - component: {fileID: 2013224081549134266}
+  m_Layer: 0
+  m_Name: SoundEmiter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8920316191157895005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209766504042648144}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8566033711816757744}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2013224081549134266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2209766504042648144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1 &3035475354430882515
 GameObject:
   m_ObjectHideFlags: 0

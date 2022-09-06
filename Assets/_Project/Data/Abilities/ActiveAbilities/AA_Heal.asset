@@ -17,6 +17,13 @@ MonoBehaviour:
   targetType: 3
   cost: 1
   distance: 1
+  eventReference:
+    Guid:
+      Data1: 1787467270
+      Data2: 1288336243
+      Data3: -1921649736
+      Data4: 799339251
+    Path: event:/Effects/Heal
   modifiers:
   - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
     algorithm: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}

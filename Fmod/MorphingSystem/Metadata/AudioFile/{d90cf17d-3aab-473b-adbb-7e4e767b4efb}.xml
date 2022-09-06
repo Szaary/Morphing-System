@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d90cf17d-3aab-473b-adbb-7e4e767b4efb}">
+		<property name="assetPath">
+			<value>Music/Cafofo - MUSIC - Irish vibes.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>42.75</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8850e2bd-baa3-4324-998e-aef678e73173}</destination>
+		</relationship>
+	</object>
+</objects>
