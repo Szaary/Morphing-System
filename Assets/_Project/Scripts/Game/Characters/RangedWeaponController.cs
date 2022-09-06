@@ -59,7 +59,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
     
-    public void FireWeapon(Vector3 shootDirection)
+    public void FireWeaponForward()
     {
         var newProjectile = Instantiate(weapon.projectile, transform.position, Quaternion.identity);
         newProjectile.Fire(transform.forward, Facade, weapon.Modifiers, Facade.TimeManager);

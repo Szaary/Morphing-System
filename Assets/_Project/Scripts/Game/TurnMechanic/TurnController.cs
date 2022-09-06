@@ -36,7 +36,7 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         foreach (var target in SelectedStrategy.selectTargets)
         {
             _facade.LookAt(target.transform);
-            _facade.rangedWeaponController.FireWeapon(target.transform.position);
+            _facade.rangedWeaponController.FireWeaponForward();
         }
         
     }

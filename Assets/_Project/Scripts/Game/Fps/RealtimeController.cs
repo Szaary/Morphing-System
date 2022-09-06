@@ -88,7 +88,7 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
 
         if (!attacked)
         {
-            _weapon.FireWeapon(transform.forward);
+            //_weapon.FireWeaponForward(transform.forward);
             attacked = true;
             
             //TODO implement time dependent timer;
