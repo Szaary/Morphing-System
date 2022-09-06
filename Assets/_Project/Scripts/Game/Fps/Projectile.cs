@@ -35,6 +35,7 @@ public class Projectile : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
+        if (_facade.GameManager.GameMode == GameMode.TurnBasedFight) return;
         if (other.TryGetComponent(out Damageable damageable))
         {
             damageable.TakeDamage(_facade, _modifiers);

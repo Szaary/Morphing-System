@@ -20,7 +20,6 @@ public class ChangeStatsValue : Active
         foreach (var target in targets)
         {
             var result = OnApplyStatus(target, user);
-            user.LookAt(target.transform);
             ReportError(result);
         }
         

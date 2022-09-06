@@ -27,11 +27,17 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         _animator = character.animatorManager;
         _animator.animationEnded += OnAnimationEnded;
         _animator.animationWorked += OnAnimationWorked;
+        
     }
 
     private void OnAnimationWorked()
     {
         SelectedStrategy.selectedSkill.ActivateEffect(SelectedStrategy.selectTargets, SelectedStrategy.character);
+        foreach (var target in SelectedStrategy.selectTargets)
+        {
+            _facade.LookAt(target.transform);
+            _facade.rangedWeaponController.FireWeapon(target.transform.position);
+        }
         
     }
 
@@ -62,7 +68,8 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         {
             Debug.LogError(typeof(TurnController) + " " + result);
         }
-
+   
+        
         if (!_facade.Alignment.IsPlayer)
         {
             StartCoroutine(WaitForAttack(selectedStrategy));
@@ -82,7 +89,10 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     public void SelectStrategy(TurnBasedStrategy.SelectedStrategy strategy)
     {
         SelectedStrategy = strategy;
-        if (strategy.selectedSkill.IsAttack()) _animator.Attack();
+        if (strategy.selectedSkill.IsAttack())
+        {
+            _animator.Attack();
+        }
         else if (strategy.selectedSkill.IsDefensive()) _animator.Defensive();
     }
 
