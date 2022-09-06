@@ -1,0 +1,317 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7479538005369810282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Weapons/Gunfire
+  m_EditorClassIdentifier: 
+  Path: event:/Weapons/Gunfire
+  Guid:
+    Data1: 1324395515
+    Data2: 1119607577
+    Data3: -828504168
+    Data4: -1624152571
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1375
+--- !u!114 &-6589738862657871800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/MenuMusic
+  m_EditorClassIdentifier: 
+  Path: event:/Music/MenuMusic
+  Guid:
+    Data1: -814347618
+    Data2: 1264687254
+    Data3: 1168787603
+    Data4: -2122672405
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 42750
+--- !u!114 &-4337693955237740730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Ambient/City Ambient
+  m_EditorClassIdentifier: 
+  Path: event:/Ambient/City Ambient
+  Guid:
+    Data1: 1942244950
+    Data2: 1158903081
+    Data3: -1281628519
+    Data4: 416927364
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 62000
+--- !u!114 &-3240004430363851149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Adventure
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Adventure
+  Guid:
+    Data1: -1996175337
+    Data2: 1314268864
+    Data3: 361591452
+    Data4: -1676324233
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 51428
+--- !u!114 &-2613126803009094933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/MorphingSystem/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 637980958170299916
+  FileSizes:
+  - Name: Desktop
+    Value: 1412
+  Exists: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32cf7c32a3ed8347bac48ef5ed56d82, type: 3}
+  m_Name: FMODStudioCache
+  m_EditorClassIdentifier: 
+  EditorBanks:
+  - {fileID: -2613126803009094933}
+  - {fileID: 7740167263925344489}
+  EditorEvents:
+  - {fileID: 1502716941601316290}
+  - {fileID: -4337693955237740730}
+  - {fileID: 277496118992353738}
+  - {fileID: 1386735008542251570}
+  - {fileID: 2938884752225262144}
+  - {fileID: 3214220436770898056}
+  - {fileID: -7479538005369810282}
+  - {fileID: -3240004430363851149}
+  - {fileID: -6589738862657871800}
+  EditorParameters: []
+  MasterBanks:
+  - {fileID: 7740167263925344489}
+  StringsBanks:
+  - {fileID: -2613126803009094933}
+  cacheTime: 637980958170299916
+  cacheVersion: 131592
+--- !u!114 &277496118992353738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/jRPG
+  m_EditorClassIdentifier: 
+  Path: event:/Music/jRPG
+  Guid:
+    Data1: 1237726586
+    Data2: 1130343716
+    Data3: -1989301093
+    Data4: 1338762503
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 24935
+--- !u!114 &1386735008542251570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/Disco
+  m_EditorClassIdentifier: 
+  Path: event:/Music/Disco
+  Guid:
+    Data1: -270162540
+    Data2: 1330728735
+    Data3: -802408295
+    Data4: 1285529573
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14769
+--- !u!114 &1502716941601316290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Effects/Heal
+  m_EditorClassIdentifier: 
+  Path: event:/Effects/Heal
+  Guid:
+    Data1: 1787467270
+    Data2: 1288336243
+    Data3: -1921649736
+    Data4: 799339251
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 9325
+--- !u!114 &2938884752225262144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/FPS
+  m_EditorClassIdentifier: 
+  Path: event:/Music/FPS
+  Guid:
+    Data1: 1996178125
+    Data2: 1329128454
+    Data3: -2026612316
+    Data4: -850205228
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 23991
+--- !u!114 &3214220436770898056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/FPS Fight
+  m_EditorClassIdentifier: 
+  Path: event:/Music/FPS Fight
+  Guid:
+    Data1: 2075593692
+    Data2: 1288287718
+    Data3: -49495374
+    Data4: 483459699
+  Banks:
+  - {fileID: 7740167263925344489}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 14747
+--- !u!114 &7740167263925344489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.bank
+  m_EditorClassIdentifier: 
+  Path: Fmod/MorphingSystem/Build/Desktop/Master.bank
+  Name: Master
+  StudioPath: bank:/Master
+  lastModified: 637980958170289908
+  FileSizes:
+  - Name: Desktop
+    Value: 3336576
+  Exists: 1
