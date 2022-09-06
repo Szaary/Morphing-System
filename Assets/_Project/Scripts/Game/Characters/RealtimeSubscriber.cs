@@ -11,11 +11,12 @@ public abstract class RealtimeSubscriber : MonoBehaviour, ICharacterSystem
     public void Initialize(CharacterFacade characterFacade)
     {
         Facade = characterFacade;
-        Facade.CharacterSystems.Add(this);
-        
-        
+        SubscribeToCharacterSystems();
     }
-
+    public void SubscribeToCharacterSystems()
+    {
+        Facade.CharacterSystems.Add(this);
+    }
 
     private void Update()
     {

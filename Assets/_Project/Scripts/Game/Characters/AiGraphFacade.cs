@@ -79,6 +79,8 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
 
         Library.GetControlledCharacter(out _player);
         Library.ControlledCharacterChanged += OnControlledCharacterChanged;
+
+        SubscribeToCharacterSystems();
     }
 
     private void OnControlledCharacterChanged(CharacterFacade player)
@@ -93,6 +95,11 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
 
     public void Disable()
     {
-        enabled = false;
+        gameObject.SetActive(false);
+    }
+
+    public void SubscribeToCharacterSystems()
+    {
+        _facade.CharacterSystems.Add(this);
     }
 }

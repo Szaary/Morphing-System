@@ -8,9 +8,12 @@ public class TurnStatsManager : TurnsSubscriber, ICharacterSystem
 
         SubscribeToStateChanges(_facade.Turns.PlayerTurn);
         SubscribeToStateChanges(_facade.Turns.AiTurn);
+        SubscribeToCharacterSystems();
+    }
+    public void SubscribeToCharacterSystems()
+    {
         _facade.CharacterSystems.Add(this);
     }
-
 
     public override Result OnEnter()
     {

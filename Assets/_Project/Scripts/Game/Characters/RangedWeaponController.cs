@@ -65,6 +65,28 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         newProjectile.Fire(transform.forward, Facade, weapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
+
+    private bool attacked;
+    
+    // USED BY GRAPH 
+    public void FireWeaponWithCooldown()
+    {
+        if (!attacked)
+        {
+            attacked = true;
+
+            var newProjectile = Instantiate(weapon.projectile, transform.position, Quaternion.identity);
+            newProjectile.Fire(transform.forward, Facade, weapon.Modifiers, Facade.TimeManager);
+            newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
+            Invoke(nameof(Reset), TimeBetweenAttacks);
+        }
+    }
+    
+    public void Reset()
+    {
+        attacked = false;
+    }
+
     
 
     private IEnumerator DestroyAfterTime(Projectile projectile)

@@ -22,13 +22,18 @@ public class RealtimeController : MonoBehaviour, ICharacterSystem
     public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
-        _facade.CharacterSystems.Add(this);
+        SubscribeToCharacterSystems();
         _library = _facade.Library;
         _agent = _facade.movement.navMeshAgentMovement;
         _weapon = _facade.rangedWeaponController;
         
         _library.GetControlledCharacter(out _player);
         _library.ControlledCharacterChanged += OnControlledCharacterChanged;
+    }
+    
+    public void SubscribeToCharacterSystems()
+    {
+        _facade.CharacterSystems.Add(this);
     }
 
     private void OnControlledCharacterChanged(CharacterFacade player)

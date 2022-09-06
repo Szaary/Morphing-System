@@ -60,6 +60,8 @@ public class LogicController : MonoBehaviour
 
     private void OnGameModeChanged(GameMode gameMode)
     {
+        if (_facade.IsDead) return;
+        
         if (gameMode == GameMode.InMenu)
         {
             TurnOffCharacterControl();

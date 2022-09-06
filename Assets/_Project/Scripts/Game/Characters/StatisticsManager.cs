@@ -20,9 +20,13 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         ApplyStartupEffects();
         ApplyStartupItems();
         
+        SubscribeToCharacterSystems();
+    }
+    public void SubscribeToCharacterSystems()
+    {
         _facade.CharacterSystems.Add(this);
     }
-
+    
     public void SetFaction(Alignment characterAlignment)
     {
         _facade.gameObject.layer = characterAlignment.FactionLayerMask;

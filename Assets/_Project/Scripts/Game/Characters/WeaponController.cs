@@ -15,6 +15,10 @@ public abstract class WeaponController : MonoBehaviour, ICharacterSystem
         Facade = characterFacade;
         Input = characterFacade.MovementInput;
         MainCamera = characterFacade.CameraManager.MainCamera;
+        SubscribeToCharacterSystems();
+    }
+    public void SubscribeToCharacterSystems()
+    {
         Facade.CharacterSystems.Add(this);
     }
 

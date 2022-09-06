@@ -21,6 +21,7 @@ public class UnitUserInterface : StatisticMonitor
 
     private void OnGameModeChanged(GameMode newMode)
     {
+        if (Facade.IsDead) return;
         if (newMode == GameMode.TurnBasedFight)
         {
             pivot.gameObject.SetActive(true);

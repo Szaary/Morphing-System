@@ -22,14 +22,17 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         else
             SubscribeToState(_facade.Turns.AiTurn);
         
-        _facade.CharacterSystems.Add(this);
+        
         
         _animator = character.animatorManager;
         _animator.animationEnded += OnAnimationEnded;
         _animator.animationWorked += OnAnimationWorked;
-        
+        SubscribeToCharacterSystems();
     }
-
+    public void SubscribeToCharacterSystems()
+    {
+        _facade.CharacterSystems.Add(this);
+    }
     private void OnAnimationWorked()
     {
         SelectedStrategy.selectedSkill.ActivateEffect(SelectedStrategy.selectTargets, SelectedStrategy.character);

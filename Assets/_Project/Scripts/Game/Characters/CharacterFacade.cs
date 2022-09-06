@@ -6,25 +6,24 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
-    public List<ICharacterSystem> CharacterSystems { get; }= new List<ICharacterSystem>();
-    
+    public List<ICharacterSystem> CharacterSystems { get; } = new List<ICharacterSystem>();
+
     public LogicController movement;
     public StatisticsManager stats;
     public AnimatorManager animatorManager;
-    
-    [Header("Weapons")]
-    public MeleeWeaponController meleeWeaponController;
+
+    [Header("Weapons")] public MeleeWeaponController meleeWeaponController;
     public RangedWeaponController rangedWeaponController;
 
-    [Header("Turn Based Logic")]
-    public TurnController turnController;
+    [Header("Turn Based Logic")] public TurnController turnController;
     public TurnStatsManager turnStatsManager;
 
-    [Header("Realtime Logic")] 
-  //  public RealtimeController realTimeController;
+    [Header("Realtime Logic")]
+    //  public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
+
     public AiGraphFacade aiGraphFacade;
-    
+
     #region 2D Logic
 
     public int GetActionPoints() => stats.character.maxNumberOfActions;
@@ -37,7 +36,7 @@ public class CharacterFacade : MonoBehaviour
 
     #endregion
 
-    public TurnReferences Turns{ get; private set; }
+    public TurnReferences Turns { get; private set; }
     public CharactersLibrary Library { get; private set; }
     public CameraManager CameraManager { get; private set; }
     public PlayerInput PlayerInput { get; private set; }
@@ -48,8 +47,10 @@ public class CharacterFacade : MonoBehaviour
     public TimeManager TimeManager { get; private set; }
     public TurnBasedInputManager BasedInputManager { get; private set; }
 
- 
-    
+
+    public bool IsDead { get; private set; }
+
+
     [Inject]
     public void Construct(Character characterTemplate,
         TurnReferences turns,
@@ -69,7 +70,7 @@ public class CharacterFacade : MonoBehaviour
         GameManager = gameManager;
         TimeManager = timeManager;
         BasedInputManager = turnBasedInputManager;
-        
+
         stats.SetCharacter(this, characterTemplate);
         turnStatsManager.Initialize(this);
         turnController.Initialize(this);
@@ -98,12 +99,14 @@ public class CharacterFacade : MonoBehaviour
     {
         movement.SetPosition(playerPosition);
     }
+
     public Alignment Alignment => stats.character.Alignment;
     public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 
     public void RemoveCharacter()
     {
+        IsDead = true;
         Library.RemoveCharacter(this);
         GetPosition().occupied -= 1;
         Debug.Log("Destroying character: " + name);
