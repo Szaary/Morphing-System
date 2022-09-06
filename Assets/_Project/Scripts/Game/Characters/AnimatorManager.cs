@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
-
+// https://answers.unity.com/questions/1012013/why-is-mecanim-animation-event-not-firing-when-on.html
+// FIX TO ANIMATION EVENTS DO NOT TRIGGER
 public class AnimatorManager : MonoBehaviour , IDoActions
 {
     public event Action animationEnded;
