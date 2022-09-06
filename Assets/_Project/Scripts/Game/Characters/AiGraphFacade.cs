@@ -59,7 +59,11 @@ public class AiGraphFacade : MonoBehaviour, ICharacterSystem
         //TODO Change this to support enemy units instead of player.
         return _player.transform;
     }
-    
+
+    public float GetAttackRange()
+    {
+        return _facade.rangedWeaponController.Range;
+    }
     
 
     public Alignment Alignment => Facade.Alignment;

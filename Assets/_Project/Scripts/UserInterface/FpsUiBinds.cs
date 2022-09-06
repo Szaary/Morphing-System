@@ -30,6 +30,10 @@ public class FpsUiBinds : MonoBehaviour
 
         magazine.StartingPositionVector = magazine.statTextPosition.anchoredPosition;
         magazine.OutPositionVector = magazine.outPosition.anchoredPosition;
+
+
+        health.statTextPosition.anchoredPosition = health.OutPositionVector;
+        magazine.statTextPosition.anchoredPosition = magazine.OutPositionVector;
         
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;

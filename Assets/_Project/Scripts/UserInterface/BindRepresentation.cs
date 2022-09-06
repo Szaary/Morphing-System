@@ -24,6 +24,7 @@ public class BindRepresentation
         position = buttonPosition;
         _startingPosition = statTextPosition.anchoredPosition;
         _outPosition = outPosition.anchoredPosition;
+        statTextPosition.anchoredPosition = _outPosition;
         _input = turnBasedInput;
     }
 
