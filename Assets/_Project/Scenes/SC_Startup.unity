@@ -563,6 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9866751823f376469d08b4e824127a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hideLogs: 1
   currentlySetTimescale: 1
   slowDownAnimationTime: 0.3
 --- !u!4 &1762760446

@@ -381,7 +381,6 @@ GameObject:
   - component: {fileID: 6706027144805238988}
   - component: {fileID: 4781969420679510077}
   - component: {fileID: 3682989344776726175}
-  - component: {fileID: 2556676576281944508}
   m_Layer: 0
   m_Name: Logic
   m_TagString: Untagged
@@ -461,17 +460,3 @@ MonoBehaviour:
   statistic: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
   Facade: {fileID: 0}
   isSilent: 1
---- !u!114 &2556676576281944508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7965258816660215715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204037ffab4e56d4d80dea6325cb57fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  riffleAnimator: {fileID: 22100000, guid: 0f5113fdd3c998c478fb09bea582a508, type: 2}

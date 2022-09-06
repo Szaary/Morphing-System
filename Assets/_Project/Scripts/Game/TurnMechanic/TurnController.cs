@@ -6,22 +6,40 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
 {
     public int ActionPoints { get; private set; }
 
-    public bool animationEnded;
-    public bool animationWorked;
-
     private CharacterFacade _facade;
     public TurnBasedStrategy.SelectedStrategy SelectedStrategy = new();
+    private AnimatorManager _animator;
 
 
     public void Initialize(CharacterFacade character)
     {
         _facade = character;
-        if (character.Alignment.IsAlly(character.Alignment))
+        if (character.Alignment.IsPlayerAlly)
+        {
             SubscribeToState(_facade.Turns.PlayerTurn);
+            Debug.Log("Subscribe to player turn by: "+ character.name);
+        }
         else
             SubscribeToState(_facade.Turns.AiTurn);
         
         _facade.CharacterSystems.Add(this);
+        
+        _animator = character.animatorManager;
+        _animator.animationEnded += OnAnimationEnded;
+        _animator.animationWorked += OnAnimationWorked;
+    }
+
+    private void OnAnimationWorked()
+    {
+        SelectedStrategy.selectedSkill.ActivateEffect(SelectedStrategy.selectTargets, SelectedStrategy.character);
+        
+    }
+
+    private void OnAnimationEnded()
+    {
+        ActionPoints -= SelectedStrategy.selectedSkill.cost;
+        
+        SelectedStrategy = new TurnBasedStrategy.SelectedStrategy();
     }
 
     private void SubscribeToState(BaseState state)
@@ -29,10 +47,13 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         SubscribeToStateChanges(state);
     }
 
+    public override Result Tick()
+    {
+        return Result.Success;
+    }
+
     public override Result OnEnter()
     {
-        animationEnded = false;
-        animationWorked = false;
         ActionPoints = _facade.GetActionPoints();
 
         var unitStrategy = _facade.GetStrategy();
@@ -61,38 +82,10 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     public void SelectStrategy(TurnBasedStrategy.SelectedStrategy strategy)
     {
         SelectedStrategy = strategy;
-        if (strategy.selectedSkill.IsAttack()) _facade.animatorManager.Attack();
-        else if (strategy.selectedSkill.IsDefensive()) _facade.animatorManager.Defensive();
+        if (strategy.selectedSkill.IsAttack()) _animator.Attack();
+        else if (strategy.selectedSkill.IsDefensive()) _animator.Defensive();
     }
 
-
-    public override Result Tick()
-    {
-        if (SelectedStrategy.selected && animationWorked)
-        {
-            ActivateEffect();
-        }
-
-        ManageActionPoints();
-
-        return Result.Success;
-    }
-
-    private void ActivateEffect()
-    {
-        SelectedStrategy.selectedSkill.ActivateEffect(SelectedStrategy.selectTargets, SelectedStrategy.character);
-        animationWorked = false;
-    }
-
-    private void ManageActionPoints()
-    {
-        if (animationEnded)
-        {
-            ActionPoints -= SelectedStrategy.selectedSkill.cost;
-            animationEnded = false;
-            SelectedStrategy = new TurnBasedStrategy.SelectedStrategy();
-        }
-    }
 
     public override Result OnExit()
     {
@@ -114,6 +107,8 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     private void OnDestroy()
     {
         UnsubscribeFromStates();
+        _animator.animationEnded -= OnAnimationEnded;
+        _animator.animationWorked -= OnAnimationWorked;
     }
 
     public void Disable()

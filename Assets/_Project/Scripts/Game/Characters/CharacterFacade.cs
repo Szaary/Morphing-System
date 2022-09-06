@@ -24,7 +24,7 @@ public class CharacterFacade : MonoBehaviour
   //  public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
     public AiGraphFacade aiGraphFacade;
-
+    
     #region 2D Logic
 
     public int GetActionPoints() => stats.character.maxNumberOfActions;
@@ -126,22 +126,6 @@ public class CharacterFacade : MonoBehaviour
         turnController ??= GetComponentInChildren<TurnController>();
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
-        animatorManager ??= GetComponentInChildren<AnimatorManager>();
+        animatorManager ??= GetComponent<AnimatorManager>();
     }
-    
-    
-    
-    //TODO Temporary here
-    public void AnimationWorked()
-    {
-        turnController.animationWorked = true;
-    }
-
-    public void AnimationEnded()
-    {
-        Debug.Log("Animation ended");
-        turnController.animationEnded = true;
-    }
-    
-    
 }

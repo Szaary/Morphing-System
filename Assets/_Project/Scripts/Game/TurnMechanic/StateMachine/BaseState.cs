@@ -5,21 +5,16 @@ using UnityEngine;
 public abstract class BaseState
 {
     protected readonly TurnStateMachine _stateMachine;
-    private bool isSilent = false;
 
     public List<TurnsSubscriber> TickSubscribers { get; }
     public List<TurnsSubscriber> OnEnterSubscribers { get; }
     public List<TurnsSubscriber> OnExitSubscribers { get; }
-
-    public List<IDoActions> DoActions { get; }
-
     protected BaseState(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
         TickSubscribers = new List<TurnsSubscriber>();
         OnEnterSubscribers = new List<TurnsSubscriber>();
         OnExitSubscribers = new List<TurnsSubscriber>();
-        DoActions = new List<IDoActions>();
         
         stateMachine.States.Add(this);
     }
@@ -31,8 +26,7 @@ public abstract class BaseState
 
     protected void OnExitBaseImplementation()
     {
-        if (!isSilent)
-            Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
+        Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
         for (var index = OnExitSubscribers.Count - 1; index >= 0; index--)
         {
             var subscriber = OnExitSubscribers[index];
@@ -53,8 +47,7 @@ public abstract class BaseState
 
     protected void OnEnterBaseImplementation()
     {
-        if (!isSilent)
-            Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
+        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         for (var index = OnEnterSubscribers.Count - 1; index >= 0; index--)
         {
             var subscriber = OnEnterSubscribers[index];
@@ -70,8 +63,6 @@ public abstract class BaseState
             TickSubscribers.Remove(subscriber);
             OnEnterSubscribers.Remove(subscriber);
             OnExitSubscribers.Remove(subscriber);
-            if (subscriber == null) return;
-            if (!isSilent) Debug.Log("Destroying effect: " + subscriber);
         }
     }
 }

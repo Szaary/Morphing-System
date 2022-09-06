@@ -18,12 +18,6 @@ public abstract class TurnsSubscriber : MonoBehaviour
         SubscribeToTick(state);
         SubscribeToOnEnter(state);
         SubscribeToOnExit(state);
-
-        if (this is IDoActions doActions)
-        {
-            state.DoActions.Add(doActions);
-        }
-        
         SubscribedTo ??= new List<BaseState>();
         SubscribedTo.Add(state);
     }
@@ -41,10 +35,6 @@ public abstract class TurnsSubscriber : MonoBehaviour
             var state = SubscribedTo[index];
             UnsubscribeFromStateChanges(state);
             SubscribedTo.Remove(state);
-            if (this is IDoActions doActions)
-            {
-                state.DoActions.Remove(doActions);
-            }
         }
     }
     

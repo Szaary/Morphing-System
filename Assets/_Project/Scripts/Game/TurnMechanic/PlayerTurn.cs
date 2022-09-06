@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerTurn : BaseState
 {
@@ -18,21 +19,13 @@ public class PlayerTurn : BaseState
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-       
+            if (subscriber is IDoActions doActions)
+            {
+                if (doActions.ActionPoints > 0) _hasAnyoneActions = true;
+            }
         }
 
-        foreach (var doAction in DoActions)
-        {
-            if(doAction.ActionPoints>0)_hasAnyoneActions = true;
-        }
-        
-        
-
-        if (_hasAnyoneActions == false)
-        {
-            _stateMachine.SetState(TurnState.AiTurn);
-            return;
-        }
+        if (_hasAnyoneActions == false) _stateMachine.SetState(TurnState.AiTurn);
     }
 
     public override void OnEnter()

@@ -8,16 +8,16 @@
     
     public override void Tick()
     {
-        
+        TickBaseImplementation();
     }
 
     public override void OnEnter()
     {
-        
+        OnEnterBaseImplementation();
     }
 
     public override void OnExit()
     {
-        
+        OnExitBaseImplementation();
     }
 }

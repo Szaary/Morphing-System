@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
-public class AnimatorManager : MonoBehaviour, IDoActions
+public class AnimatorManager : MonoBehaviour , IDoActions
 {
+    public event Action animationEnded;
+    public event Action animationWorked;
+    
     public int ActionPoints { get; private set; }
     
     public enum AnimationsType
@@ -15,7 +19,7 @@ public class AnimatorManager : MonoBehaviour, IDoActions
     public Animator animator;
     [SerializeField] private AnimatorOverrideController riffleAnimator;
 
-
+    
     private static readonly int Movement = Animator.StringToHash("movement");
     private static readonly int IsMoving = Animator.StringToHash("isMoving");
     private static readonly int RangedAttack = Animator.StringToHash("rangedStrongAttack");
@@ -23,9 +27,10 @@ public class AnimatorManager : MonoBehaviour, IDoActions
     private static readonly int DefensiveSkill = Animator.StringToHash("defensiveSkill");
     private static readonly int Dead = Animator.StringToHash("dead");
 
+    
     public Vector3 DeltaPosition => animator.deltaPosition;
     public Vector3 RootPosition => animator.rootPosition;
-
+    
     private void Awake()
     {
         ChangeOverrideAnimator(AnimationsType.Riffle);
@@ -75,5 +80,15 @@ public class AnimatorManager : MonoBehaviour, IDoActions
         animator.SetTrigger(Dead);
     }
 
-    
+    public void AnimationWorked()
+    {
+        animationWorked?.Invoke();
+        Debug.Log("Animation worked");
+    }
+
+    public void AnimationEnded()
+    {
+        animationEnded?.Invoke();
+        Debug.Log("Animation ended");
+    }
 }

@@ -9,6 +9,7 @@ using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
+    [SerializeField] private bool hideLogs = true;
     private readonly Dictionary<MonoBehaviour, float> timescaleExclusions = new();
     [SerializeField] private float currentlySetTimescale = 1;
     [SerializeField] private float slowDownAnimationTime = 0.3f;
@@ -22,7 +23,7 @@ public class TimeManager : MonoBehaviour
 
     public void Slow(float requestedTimeScale, float slowDuration = 0)
     {
-        Debug.Log("Slowing time");
+        if(!hideLogs) Debug.Log("Slowing time");
         DOTween.To(value => Time.timeScale = value, currentlySetTimescale, requestedTimeScale, slowDownAnimationTime)
             .OnUpdate(() =>
             {
@@ -39,7 +40,7 @@ public class TimeManager : MonoBehaviour
     private IEnumerator ReturnToNormal(float slowDuration)
     {
         yield return new WaitForSecondsRealtime(slowDuration);
-        Debug.Log("Returning time to normal");
+        if(!hideLogs) Debug.Log("Returning time to normal");
         Return();
     }
 
