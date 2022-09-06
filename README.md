@@ -20,3 +20,9 @@ WSAD, Mouse
 Latest changes on development branch.
 
 - Project GDD: https://github.com/Szaary/Morphing-System/blob/main/GDD.md
+
+
+Assets:
+- https://www.fmod.com/
+- https://assetstore.unity.com/packages/audio/music/unreleased-game-music-pack-62626
+- https://assetstore.unity.com/packages/audio/sound-fx/free-sound-effects-pack-155776
