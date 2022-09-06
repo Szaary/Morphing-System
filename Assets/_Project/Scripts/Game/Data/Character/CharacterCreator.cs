@@ -145,8 +145,6 @@ public class CharacterCreator : MonoBehaviour
         movement.animatorController = animatorMovementController;
         movement.navMeshAgentMovement = navMeshMovement;
 
-        fps.controller = controller;
-        
         var animatorManager = prefabVariant.GetComponentInChildren<AnimatorManager>();
         var animator = prefabVariant.GetComponent<Animator>();
         animatorManager.animator = animator;

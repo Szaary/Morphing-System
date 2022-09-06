@@ -11,12 +11,16 @@ public abstract class BaseState
     public List<TurnsSubscriber> OnEnterSubscribers { get; }
     public List<TurnsSubscriber> OnExitSubscribers { get; }
 
+    public List<IDoActions> DoActions { get; }
+
     protected BaseState(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
         TickSubscribers = new List<TurnsSubscriber>();
         OnEnterSubscribers = new List<TurnsSubscriber>();
         OnExitSubscribers = new List<TurnsSubscriber>();
+        DoActions = new List<IDoActions>();
+        
         stateMachine.States.Add(this);
     }
 

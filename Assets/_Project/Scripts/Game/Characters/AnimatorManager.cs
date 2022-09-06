@@ -1,9 +1,9 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatorManager : MonoBehaviour
+public class AnimatorManager : MonoBehaviour, IDoActions
 {
+    public int ActionPoints { get; private set; }
+    
     public enum AnimationsType
     {
         Universal,
@@ -55,11 +55,13 @@ public class AnimatorManager : MonoBehaviour
 
     public void Attack()
     {
+        ActionPoints++;
         animator.SetTrigger(RangedAttack);
     }
 
     public void Defensive()
     {
+        ActionPoints++;
         animator.SetTrigger(DefensiveSkill);
     }
 
@@ -72,4 +74,6 @@ public class AnimatorManager : MonoBehaviour
     {
         animator.SetTrigger(Dead);
     }
+
+    
 }

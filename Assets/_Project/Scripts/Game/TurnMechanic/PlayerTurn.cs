@@ -3,11 +3,9 @@ using System.Threading.Tasks;
 public class PlayerTurn : BaseState
 {
     private bool _hasAnyoneActions;
-    private readonly CharactersLibrary _charactersLibrary;
 
-    public PlayerTurn(TurnStateMachine stateMachine, CharactersLibrary charactersLibrary) : base(stateMachine)
+    public PlayerTurn(TurnStateMachine stateMachine) : base(stateMachine)
     {
-        _charactersLibrary = charactersLibrary;
     }
 
     public override void Tick()
@@ -20,11 +18,15 @@ public class PlayerTurn : BaseState
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-            if (subscriber is IDoActions { ActionPoints: > 0 })
-            {
-                _hasAnyoneActions = true;
-            }
+       
         }
+
+        foreach (var doAction in DoActions)
+        {
+            if(doAction.ActionPoints>0)_hasAnyoneActions = true;
+        }
+        
+        
 
         if (_hasAnyoneActions == false)
         {
@@ -32,7 +34,7 @@ public class PlayerTurn : BaseState
             return;
         }
     }
-    
+
     public override void OnEnter()
     {
         OnEnterBaseImplementation();
