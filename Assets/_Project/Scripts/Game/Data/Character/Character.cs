@@ -12,10 +12,18 @@ public class Character : ScriptableObject
     public CharacterVFX vfx;
     public CharacterSFX sfx;
 
-    [Header("Basic")] public Alignment alignment;
-
-    public TurnBasedStrategy turnBasedStrategy;
-    public RealTimeStrategy realTimeStrategy;
+    [Header("Basic")] 
+    [SerializeField] private Alignment alignment;
+    public Alignment Alignment => alignment;
+    
+    
+    public PlayerTurnBasedStrategy turnBasedPlayerControls;
+    public BaseAiTurnBasedStrategy turnBasedAiStrategy;
+    
+    
+    
+    [SerializeField] private RealTimeStrategy realTimeStrategy;
+  
 
    
     [Range(1, MAXActionPoints)] public int maxNumberOfActions=1;
@@ -48,8 +56,8 @@ public class Character : ScriptableObject
             var clone = stat.Clone();
             statistics.Add(clone);
         }
-
-        Debug.LogWarning("Check if Items are instantiated");
+        
+       // Debug.LogWarning("Check if Items are instantiated");
         backpack = backpackTemplate.Clone();
         equipment = equipmentTemplate.Clone();
     }
@@ -87,8 +95,10 @@ public class Character : ScriptableObject
     public void RemoveEffect(Effect status) => _effects.Remove(status);
     public List<Effect> Effect => _effects;
     public List<Passive> Passives => _passives;
+
     
-    
+
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
@@ -97,7 +107,7 @@ public class Character : ScriptableObject
             Debug.LogError("No data assigned to character");
         }
 
-        if (alignment == null)
+        if (Alignment == null)
         {
             Debug.LogError("No alignment assigned to character");
         }
@@ -116,11 +126,7 @@ public class Character : ScriptableObject
         {
             Debug.LogError("No base stats assigned to character");
         }
-
-        if (turnBasedStrategy == null)
-        {
-            Debug.LogError("No strategy assigned to character");
-        }
+  
 
         if (backpackTemplate == null)
         {

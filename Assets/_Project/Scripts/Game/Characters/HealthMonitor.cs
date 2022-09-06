@@ -4,7 +4,7 @@ using Zenject;
 public class HealthMonitor : StatisticMonitor
 {
     private ToUiEventsHandler _eventsHandler;
-
+    private bool isDead;
     [Inject]
     public void Construct(ToUiEventsHandler eventsHandler)
     {
@@ -24,11 +24,16 @@ public class HealthMonitor : StatisticMonitor
         
         if (result == Result.BelowMin)
         {
-            ChosenStat.OnValueChanged -= OnValueChanged;
-            Facade.DeSpawnCharacter();
+            if (isDead) return;
+            isDead = true;
+            //ChosenStat.OnValueChanged -= OnValueChanged;
+            Facade.animatorManager.Death();
+            Facade.RemoveCharacter();
+        }
+        else
+        {
+            isDead = false;
         }
     }
-
-   
 }
 

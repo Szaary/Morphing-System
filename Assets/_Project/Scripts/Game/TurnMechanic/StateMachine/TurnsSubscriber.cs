@@ -12,12 +12,12 @@ public abstract class TurnsSubscriber : MonoBehaviour
         if (state == null)
         {
             Debug.Log("Subscribing : " + name + " to empty state");
+            return;
         }
         
         SubscribeToTick(state);
         SubscribeToOnEnter(state);
         SubscribeToOnExit(state);
-
         SubscribedTo ??= new List<BaseState>();
         SubscribedTo.Add(state);
     }

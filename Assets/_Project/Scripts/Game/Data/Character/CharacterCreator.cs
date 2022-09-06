@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor.Animations;
 #endif
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
@@ -103,7 +104,7 @@ public class CharacterCreator : MonoBehaviour
         if (uiModule == null) throw new Exception("Prefabs were not created;");
         uiModule.transform.parent = objSource.transform;
 
-        objSource.GetComponent<Animator>().runtimeAnimatorController = config.animator;
+        objSource.GetComponent<Animator>().runtimeAnimatorController = config.riffleAnimator;
 
         var prefabVariant =
             PrefabUtility.SaveAsPrefabAsset(objSource, characterFolder + "/" + characterName + ".prefab");
@@ -120,13 +121,14 @@ public class CharacterCreator : MonoBehaviour
         
         var fps = prefabVariant.AddComponent<FirstPersonController>();
         var agent = prefabVariant.AddComponent<NavMeshAgent>();
-        agent.acceleration = 12;
+        agent.acceleration = 7;
         agent.angularSpeed = 360;
-        agent.stoppingDistance = 0.2f;
+        agent.stoppingDistance = 0.5f;
         
         var relative = prefabVariant.AddComponent<RelativeController>();
         var animatorMovementController = prefabVariant.AddComponent<AnimatorMovementController>();
         var navMeshMovement= prefabVariant.AddComponent<NavMeshAgentMovement>();
+        var animatorManager = prefabVariant.AddComponent<AnimatorManager>();
         
         
         prefabVariant.AddComponent<BasicRigidBodyPush>();
@@ -134,7 +136,7 @@ public class CharacterCreator : MonoBehaviour
         
         
         // Saving prefab variant
-        var movement = prefabVariant.GetComponentInChildren<MovementManager>();
+        var movement = prefabVariant.GetComponentInChildren<LogicController>();
         facade.movement = movement;
 
 
@@ -144,9 +146,7 @@ public class CharacterCreator : MonoBehaviour
         movement.animatorController = animatorMovementController;
         movement.navMeshAgentMovement = navMeshMovement;
 
-        fps.controller = controller;
         
-        var animatorManager = prefabVariant.GetComponentInChildren<AnimatorManager>();
         var animator = prefabVariant.GetComponent<Animator>();
         animatorManager.animator = animator;
 
@@ -223,6 +223,6 @@ public struct CharacterConfiguratorData
     public List<BaseStatistic> statistics;
     public GameObject logicModule;
     public GameObject uiModule;
-    public AnimatorController animator;
+    public AnimatorOverrideController riffleAnimator;
 }
 #endif

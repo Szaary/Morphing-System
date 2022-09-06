@@ -24,7 +24,7 @@ public abstract class StatisticMonitor : MonoBehaviour
     
     protected abstract void OnValueChanged(float modifier, float currentValue, float maxValue, Result result);
     
-    protected void OnDestroy()
+    protected virtual void OnDestroy()
     {
         if (ChosenStat != null) ChosenStat.OnValueChanged -= OnValueChanged;
     }

@@ -48,9 +48,8 @@ public class TurnStateMachine : MonoBehaviour
         At(_battleStart, _playerTurn, () => _currentState == TurnState.PlayerTurn);
         
         At(_playerTurn, _aiTurn, () => _currentState == TurnState.AiTurn);
-        
         At(_aiTurn, _playerTurn, () => _currentState == TurnState.PlayerTurn);
-        At(_paused, _playerTurn, () => _currentState == TurnState.PlayerTurn);
+        
         
         _battleStateMachine.AddAnyTransition(_victory, () => _currentState == TurnState.Victory);
         _battleStateMachine.AddAnyTransition(_defeat, () => _currentState == TurnState.Defeat);
@@ -60,22 +59,15 @@ public class TurnStateMachine : MonoBehaviour
         
         _battleStateMachine.SetState(_battleStart);
 
-        void At(BaseState to, BaseState from, Func<bool> condition) =>
-            _battleStateMachine.AddTransition(to, from, condition);
+        void At(BaseState from, BaseState to, Func<bool> condition) =>
+            _battleStateMachine.AddTransition(from, to, condition);
     }
 
     private void OnGameModeChanged(GameMode mode)
     {
         if (mode == GameMode.TurnBasedFight)
         {
-            if (GetCurrentState() == TurnState.Paused)
-            {
-                SetState(TurnState.PlayerTurn);
-            }
-            else
-            {
-                SetState(TurnState.BattleStart);
-            }
+            SetState(TurnState.BattleStart);
         }
         else
         {
@@ -90,7 +82,6 @@ public class TurnStateMachine : MonoBehaviour
 
     internal void SetState(TurnState state)
     {
-        Debug.Log("set nev state: "+ state);
         _currentState = state;
     }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatisticsManager : MonoBehaviour
+public class StatisticsManager : MonoBehaviour , ICharacterSystem
 {
     [Header("Do not set anything here, will be changed ad app start.")]
     public Character character;
@@ -13,19 +13,37 @@ public class StatisticsManager : MonoBehaviour
         _facade = characterFacade;
         character = template.Clone();
         character.CreateInstances();
+        SetFaction(character.Alignment);
         
         character.active.Initialize();
         ApplyStartupPassives();
         ApplyStartupEffects();
         ApplyStartupItems();
+        
+        _facade.CharacterSystems.Add(this);
     }
-    
-    private void OnDestroy()
+
+    public void SetFaction(Alignment characterAlignment)
     {
-        character.RemoveInstances();
-        Destroy(character);
+        _facade.gameObject.layer = characterAlignment.FactionLayerMask;
+    }
+
+    public TurnBasedStrategy GetTurnStrategy()
+    {
+        Debug.Log("Is it character controlled by player: " + character.Alignment.IsPlayer);
+        if (character.Alignment.IsPlayer)
+        {
+            Debug.Log("Selected player strategy");
+            return character.turnBasedPlayerControls;
+        }
+        else
+        {
+            Debug.Log("Selected ai strategy");
+            return character.turnBasedAiStrategy;
+        }
     }
     
+
     public Result GetStatistic(BaseStatistic baseStatistic, out Statistic outStat)
     {
         foreach (var stat in character.statistics)
@@ -142,5 +160,16 @@ public class StatisticsManager : MonoBehaviour
     private void HandlePassivesAddingError(Result result)
     {
         Debug.LogError(typeof(TurnStatsManager) + " apply passive result: " + result);
+    }
+
+    public void Disable()
+    {
+        enabled = false;
+    }
+    
+    private void OnDestroy()
+    {
+        character.RemoveInstances();
+        Destroy(character);
     }
 }

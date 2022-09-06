@@ -17,8 +17,9 @@ MonoBehaviour:
   vfx: {fileID: 11400000, guid: 77ec161d70b00e44cbd4631d19c0a888, type: 2}
   sfx: {fileID: 11400000, guid: d6e50c874b0c6de4b8e51654c19037a6, type: 2}
   alignment: {fileID: 11400000, guid: 489e74780685eb542bf9a2b06d6d97bd, type: 2}
-  turnBasedStrategy: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
-  realTimeStrategy: {fileID: 11400000, guid: 4d29961f8c742214f9f22692509c8fe3, type: 2}
+  turnBasedPlayerControls: {fileID: 11400000, guid: 11f135e6a48e6154baad5cf3979b64af, type: 2}
+  turnBasedAiStrategy: {fileID: 11400000, guid: 6e47fa2090a40b44d91c3fb9a92b5a27, type: 2}
+  realTimeStrategy: {fileID: 11400000, guid: 0f8fcc8813faa1e49841dded31a84586, type: 2}
   maxNumberOfActions: 1
   statisticsTemplate:
   - {fileID: 11400000, guid: 80e579fa4fb8fd1478ffb2a81b923381, type: 2}

@@ -6,25 +6,29 @@ public class MeleeWeaponController : WeaponController
     public MeleeWeapon meleeWeapon; 
     
     
+    /*
     private void Update()
     {
-        var delta = Facade.timeManager.GetDeltaTime(this);
+        var delta = Facade.TimeManager.GetDeltaTime(this);
         
-        if (Input.melee && ShootTimeoutDelta <= 0.0f)
+        if (Input.melee && AttackTimeout <= 0.0f)
         {
-            SwingWeapon();
+            Attack();
 
-            ShootTimeoutDelta = 1 / meleeWeapon.attacksPerSecond;
+           // AttackTimeout = 1 / meleeWeapon.;
             Input.melee = false;
         }
 
-        if (ShootTimeoutDelta >= 0.0f)
+        if (AttackTimeout >= 0.0f)
         {
-            ShootTimeoutDelta -= delta;
+            AttackTimeout -= delta;
         }
     }
+    */
+    
+    
 
-    public void SwingWeapon()
+    public void Attack()
     {
         if (Physics.SphereCast(transform.position, meleeWeapon.range, transform.forward, out var hit, 100))
         {
@@ -35,6 +39,8 @@ public class MeleeWeaponController : WeaponController
             }
         }
     }
+    
+    
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
@@ -43,4 +49,8 @@ public class MeleeWeaponController : WeaponController
     }
 #endif
 
+    public override void Disable()
+    {
+        enabled = false;
+    }
 }

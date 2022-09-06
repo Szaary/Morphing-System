@@ -1,13 +1,14 @@
-public class TurnStatsManager : TurnsSubscriber
+public class TurnStatsManager : TurnsSubscriber, ICharacterSystem
 {
     private CharacterFacade _facade;
 
-    public void SetCharacter(CharacterFacade characterFacade)
+    public void Initialize(CharacterFacade characterFacade)
     {
         _facade = characterFacade;
 
         SubscribeToStateChanges(_facade.Turns.PlayerTurn);
         SubscribeToStateChanges(_facade.Turns.AiTurn);
+        _facade.CharacterSystems.Add(this);
     }
 
 
@@ -60,5 +61,11 @@ public class TurnStatsManager : TurnsSubscriber
     private void OnDestroy()
     {
         UnsubscribeFromStates();
+    }
+
+    public void Disable()
+    {
+        UnsubscribeFromStates();
+        enabled = false;
     }
 }

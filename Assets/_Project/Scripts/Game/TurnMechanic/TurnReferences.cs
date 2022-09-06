@@ -19,35 +19,22 @@
         StateMachine = stateMachine;
     }
 
-    public BaseState GetPlayTurn(CharacterFacade facade, bool workOnOppositeTurn)
-    {
-        if (workOnOppositeTurn)
-        {
-            if (facade.Alignment.id == 0)
-                return AiTurn;
-            else
-                return PlayerTurn;
-        }
-        else
-        {
-            if (facade.Alignment.id == 0)
-                return PlayerTurn;
-            else
-                return AiTurn;
-        }
-    }
-
     public bool ShouldWork(CharacterFacade facade, bool isOpposite)
     {
-        if (facade.Alignment.id == 0)
+        // SHOULD WORK in turn
+        // is a player - oposite enemy turn -> if false (should work in player turn)
+        
+        // if in enemy turn for player
+        
+        if (facade.Alignment.IsPlayer)
         {
-            var should = StateMachine.GetCurrentState() != TurnState.AiTurn;
-            if (isOpposite) return !should;
-            return should;
+            var should = StateMachine.GetCurrentState() == TurnState.PlayerTurn; // will be not working
+            if (isOpposite) return !should; //  is oposite then will be working
+            return should; //if is ok
         }
         else
         {
-            var should = StateMachine.GetCurrentState() != TurnState.AiTurn;
+            var should = StateMachine.GetCurrentState() == TurnState.AiTurn;
             if (isOpposite) return !should;
             return should;
         }

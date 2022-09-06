@@ -1,37 +1,71 @@
 ﻿using System;
 using System.Collections;
+using Cinemachine;
 using UnityEngine;
 
-public class RangedWeaponController : WeaponController
+public class RangedWeaponController : WeaponController, ICharacterSystem
 {
-    public RangedWeapon rangedWeapon;
+    public event Action<int, int> magazineChanged;
+    public RangedWeapon weapon;
+    [SerializeField] private CinemachineImpulseSource source; 
+    public int Magazine { get; private set; }
+    
+    public float TimeBetweenAttacks => weapon.timeBetweenAttacks;
+    public float Range => weapon.range;
+    
+    private void Start()
+    {
+        Magazine = weapon.MagazineSize;
+    }
 
     private void Update()
     {
-        var delta = Facade.timeManager.GetDeltaTime(this);
-        
-        if (Input.shoot && ShootTimeoutDelta <= 0.0f)
+        if (weapon == null) return;
+        var delta = Facade.TimeManager.GetDeltaTime(this);
+        if (Input.shoot && AttackTimeout >= TimeBetweenAttacks && Magazine > 0)
         {
+            AttackTimeout = 0;
+            
             FireWeapon();
-
-            ShootTimeoutDelta = 1 / rangedWeapon.attacksPerSecond;
-            Input.shoot = false;
+            magazineChanged?.Invoke(Magazine, weapon.MagazineSize);
+            source.GenerateImpulse();
+            if (Magazine == 0)
+            {
+                StartCoroutine(ReloadWeapon());
+            }
         }
 
-        if (ShootTimeoutDelta >= 0.0f)
+        if (AttackTimeout < TimeBetweenAttacks)
         {
-            ShootTimeoutDelta -= delta;
+            AttackTimeout += delta;
         }
     }
+
+    private IEnumerator ReloadWeapon()
+    {
+        yield return new WaitForSeconds(weapon.reloadTime);
+        Magazine = weapon.MagazineSize;
+        magazineChanged?.Invoke(Magazine, weapon.MagazineSize);
+    }
+
 
     public void FireWeapon()
     {
+        Magazine--;
         var position = MainCamera.transform.position + MainCamera.transform.forward;
         var direction = MainCamera.transform.forward;
-        var newProjectile = Instantiate(rangedWeapon.projectile, position, Quaternion.identity);
-        newProjectile.Fire(direction, Facade, rangedWeapon.Modifiers, Facade.timeManager);
+        var newProjectile = Instantiate(weapon.projectile, position, Quaternion.identity);
+        newProjectile.Fire(direction, Facade, weapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
     }
+    
+    public void FireWeapon(Vector3 shootDirection)
+    {
+        var newProjectile = Instantiate(weapon.projectile, transform.position, Quaternion.identity);
+        newProjectile.Fire(shootDirection, Facade, weapon.Modifiers, Facade.TimeManager);
+        newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
+    }
+    
 
     private IEnumerator DestroyAfterTime(Projectile projectile)
     {
@@ -43,8 +77,13 @@ public class RangedWeaponController : WeaponController
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        if (weapon == null) return;
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, transform.forward * rangedWeapon.range);
+        Gizmos.DrawRay(transform.position, transform.forward * weapon.range);
     }
 #endif
+    public override void Disable()
+    {
+        enabled = false;
+    }
 }

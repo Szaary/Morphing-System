@@ -36,4 +36,9 @@ public class RealTimeStatsManager : RealtimeSubscriber
 
         return result;
     }
+
+    public override void Disable()
+    {
+        enabled = false;
+    }
 }

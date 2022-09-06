@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class CharactersLibrary
@@ -24,7 +23,7 @@ public class CharactersLibrary
 
     private void GainControl(CharacterFacade newCharacter)
     {
-        if (newCharacter.Alignment.id != 0) return;
+        if (!newCharacter.Alignment.IsPlayer) return;
 
         if (GetControlledCharacter(out var facade) != Result.Success)
         {
@@ -82,14 +81,14 @@ public class CharactersLibrary
 
     private void CountCharacters()
     {
-        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.id == 0).ToList().Count;
-        AiCharacters = _spawnedCharacters.Where(x => x.Alignment.id != 0).ToList().Count;
+        PlayerCharacters = _spawnedCharacters.Where(x => x.Alignment.IsPlayerAlly).ToList().Count;
+        AiCharacters = _spawnedCharacters.Where(x => !x.Alignment.IsPlayerAlly).ToList().Count;
     }
 
 
-    public CharacterFacade SelectRandomEnemy(int userAlignmentId)
+    public CharacterFacade SelectRandomEnemy(Alignment userAlignment)
     {
-        var enemies = _spawnedCharacters.Where(x => x.Alignment.id != userAlignmentId).ToList();
+        var enemies = _spawnedCharacters.Where(x => !x.Alignment.IsAlly(userAlignment)).ToList();
         if (enemies.Count == 0) return null;
         var index = Random.Range(0, enemies.Count);
         return enemies[index];
@@ -97,13 +96,13 @@ public class CharactersLibrary
 
     public List<CharacterFacade> SelectAllEnemies(Alignment userAlignment)
     {
-        var enemies = _spawnedCharacters.Where(x => x.Alignment.id != userAlignment.id).ToList();
+        var enemies = _spawnedCharacters.Where(x =>!x.Alignment.IsAlly(userAlignment)).ToList();
         return enemies;
     }
 
     public List<CharacterFacade> SelectAllAllies(Alignment userAlignment)
     {
-        var allies = _spawnedCharacters.Where(x => x.Alignment.id == userAlignment.id).ToList();
+        var allies = _spawnedCharacters.Where(x => x.Alignment.IsAlly(userAlignment)).ToList();
         return allies;
     }
 

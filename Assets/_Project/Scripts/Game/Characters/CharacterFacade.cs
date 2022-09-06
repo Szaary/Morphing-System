@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
@@ -7,78 +6,76 @@ using Zenject;
 
 public class CharacterFacade : MonoBehaviour
 {
-    public MovementManager movement;
+    public List<ICharacterSystem> CharacterSystems { get; }= new List<ICharacterSystem>();
+    
+    public LogicController movement;
     public StatisticsManager stats;
     public AnimatorManager animatorManager;
-
-    [Header("Weapons")] public MeleeWeaponController meleeWeaponController;
+    
+    [Header("Weapons")]
+    public MeleeWeaponController meleeWeaponController;
     public RangedWeaponController rangedWeaponController;
 
-    [Header("Turn Based Logic")] public TurnController turnController;
+    [Header("Turn Based Logic")]
+    public TurnController turnController;
     public TurnStatsManager turnStatsManager;
-    public TurnReferences Turns;
 
-
-    [Header("Realtime Logic")] public RealtimeController realTimeController;
+    [Header("Realtime Logic")] 
+  //  public RealtimeController realTimeController;
     public RealTimeStatsManager realTimeStatsManager;
-
-
+    public AiGraphFacade aiGraphFacade;
+    
     #region 2D Logic
 
     public int GetActionPoints() => stats.character.maxNumberOfActions;
     public BaseSpawnZone.SpawnLocation GetPosition() => stats.character.position;
     public int Position => stats.character.position.index;
-    public TurnBasedStrategy GetTurnBasedStrategy() => stats.character.turnBasedStrategy;
-    public RealTimeStrategy GetRealTimeStrategy() => stats.character.realTimeStrategy;
+    public TurnBasedStrategy GetStrategy() => stats.GetTurnStrategy();
     public ActiveManager ActiveSkillsManager => stats.character.active;
     public Result Modify(CharacterFacade user, List<Modifier> modifiers) => stats.Modify(user, modifiers);
     public Result UnModify(CharacterFacade user, List<Modifier> modifiers) => stats.UnModify(user, modifiers);
 
     #endregion
 
-
-    [HideInInspector] public TurnBasedInput turnBasedInput;
-    public CharactersLibrary Library;
-    [HideInInspector] public CameraManager cameraManager;
-    [HideInInspector] public PlayerInput playerInput;
-    [HideInInspector] public MovementInput movementInput;
+    public TurnReferences Turns{ get; private set; }
+    public CharactersLibrary Library { get; private set; }
+    public CameraManager CameraManager { get; private set; }
+    public PlayerInput PlayerInput { get; private set; }
+    public MovementInput MovementInput { get; private set; }
 
     [HideInInspector] public bool isControlled;
-    [HideInInspector] public GameManager gameManager;
-    [HideInInspector] public TimeManager timeManager;
+    public GameManager GameManager { get; private set; }
+    public TimeManager TimeManager { get; private set; }
+    public TurnBasedInputManager BasedInputManager { get; private set; }
 
+ 
+    
     [Inject]
     public void Construct(Character characterTemplate,
         TurnReferences turns,
-        TurnBasedInput turnBasedInput,
         CharactersLibrary library,
         CameraManager cameraManager,
         PlayerInput playerInput,
         MovementInput starterInputs,
         GameManager gameManager,
-        TimeManager timeManager)
+        TimeManager timeManager,
+        TurnBasedInputManager turnBasedInputManager)
     {
-        this.movementInput = starterInputs;
-        this.playerInput = playerInput;
+        MovementInput = starterInputs;
+        PlayerInput = playerInput;
         Turns = turns;
-        this.turnBasedInput = turnBasedInput;
         Library = library;
-        this.cameraManager = cameraManager;
-        this.gameManager = gameManager;
-        this.timeManager = timeManager;
-
+        CameraManager = cameraManager;
+        GameManager = gameManager;
+        TimeManager = timeManager;
+        BasedInputManager = turnBasedInputManager;
+        
         stats.SetCharacter(this, characterTemplate);
-
-        turnStatsManager.SetCharacter(this);
+        turnStatsManager.Initialize(this);
         turnController.Initialize(this);
-
         rangedWeaponController.Initialize(this);
         meleeWeaponController.Initialize(this);
-
-        realTimeController.Initialize(this);
         realTimeStatsManager.Initialize(this);
-
-
         Library.AddCharacter(this);
     }
 
@@ -101,16 +98,20 @@ public class CharacterFacade : MonoBehaviour
     {
         movement.SetPosition(playerPosition);
     }
-    public Alignment Alignment => stats.character.alignment;
+    public Alignment Alignment => stats.character.Alignment;
     public string Name => stats.character.data.characterName;
     public void LookAt(Transform position) => transform.LookAt(position);
 
-    public void DeSpawnCharacter()
+    public void RemoveCharacter()
     {
         Library.RemoveCharacter(this);
         GetPosition().occupied -= 1;
         Debug.Log("Destroying character: " + name);
-        Destroy(gameObject);
+
+        foreach (var system in CharacterSystems)
+        {
+            system.Disable();
+        }
     }
 
     public class Factory : PlaceholderFactory<UnityEngine.Object, Character, CharacterFacade>
@@ -124,8 +125,7 @@ public class CharacterFacade : MonoBehaviour
         rangedWeaponController ??= GetComponentInChildren<RangedWeaponController>();
         turnController ??= GetComponentInChildren<TurnController>();
         turnStatsManager ??= GetComponentInChildren<TurnStatsManager>();
-        realTimeController ??= GetComponentInChildren<RealtimeController>();
         realTimeStatsManager ??= GetComponentInChildren<RealTimeStatsManager>();
-        animatorManager ??= GetComponentInChildren<AnimatorManager>();
+        animatorManager ??= GetComponent<AnimatorManager>();
     }
 }

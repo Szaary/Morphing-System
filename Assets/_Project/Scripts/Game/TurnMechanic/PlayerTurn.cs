@@ -1,37 +1,33 @@
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class PlayerTurn : BaseState
 {
     private bool _hasAnyoneActions;
-    private readonly CharactersLibrary _charactersLibrary;
 
-    public PlayerTurn(TurnStateMachine stateMachine, CharactersLibrary charactersLibrary) : base(stateMachine)
+    public PlayerTurn(TurnStateMachine stateMachine) : base(stateMachine)
     {
-        _charactersLibrary = charactersLibrary;
     }
 
     public override void Tick()
     {
         _hasAnyoneActions = false;
-        
-        foreach (var subscriber in TickSubscribers)
+
+        for (var index = TickSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = TickSubscribers[index];
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
 
-            if (subscriber is IDoActions {ActionPoints: > 0})
+            if (subscriber is IDoActions doActions)
             {
-                _hasAnyoneActions = true;
+                if (doActions.ActionPoints > 0) _hasAnyoneActions = true;
             }
         }
 
-        if (_hasAnyoneActions == false)
-        {
-            _stateMachine.SetState(TurnState.AiTurn);
-            return;
-        }
+        if (_hasAnyoneActions == false) _stateMachine.SetState(TurnState.AiTurn);
     }
-    
+
     public override void OnEnter()
     {
         OnEnterBaseImplementation();

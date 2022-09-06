@@ -5,18 +5,17 @@ using UnityEngine;
 public abstract class BaseState
 {
     protected readonly TurnStateMachine _stateMachine;
-    private bool isSilent = false;
 
     public List<TurnsSubscriber> TickSubscribers { get; }
     public List<TurnsSubscriber> OnEnterSubscribers { get; }
     public List<TurnsSubscriber> OnExitSubscribers { get; }
-
     protected BaseState(TurnStateMachine stateMachine)
     {
         _stateMachine = stateMachine;
         TickSubscribers = new List<TurnsSubscriber>();
         OnEnterSubscribers = new List<TurnsSubscriber>();
         OnExitSubscribers = new List<TurnsSubscriber>();
+        
         stateMachine.States.Add(this);
     }
 
@@ -27,10 +26,10 @@ public abstract class BaseState
 
     protected void OnExitBaseImplementation()
     {
-        if (!isSilent)
-            Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
-        foreach (var subscriber in OnExitSubscribers)
+        Debug.Log("Exit state: " + GetType().Name + " Number of state subscribers: " + OnExitSubscribers.Count);
+        for (var index = OnExitSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = OnExitSubscribers[index];
             var result = subscriber.OnExit();
             HandleSubscriberResult(result, subscriber);
         }
@@ -38,8 +37,9 @@ public abstract class BaseState
 
     protected void TickBaseImplementation()
     {
-        foreach (var subscriber in TickSubscribers)
+        for (var index = TickSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = TickSubscribers[index];
             var result = subscriber.Tick();
             HandleSubscriberResult(result, subscriber);
         }
@@ -47,10 +47,10 @@ public abstract class BaseState
 
     protected void OnEnterBaseImplementation()
     {
-        if (!isSilent)
-            Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
-        foreach (var subscriber in OnEnterSubscribers)
+        Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
+        for (var index = OnEnterSubscribers.Count - 1; index >= 0; index--)
         {
+            var subscriber = OnEnterSubscribers[index];
             var result = subscriber.OnEnter();
             HandleSubscriberResult(result, subscriber);
         }
@@ -63,8 +63,6 @@ public abstract class BaseState
             TickSubscribers.Remove(subscriber);
             OnEnterSubscribers.Remove(subscriber);
             OnExitSubscribers.Remove(subscriber);
-            if (subscriber == null) return;
-            if (!isSilent) Debug.Log("Destroying effect: " + subscriber);
         }
     }
 }
