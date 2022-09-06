@@ -9,7 +9,7 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
     private CharacterFacade _facade;
     public TurnBasedStrategy.SelectedStrategy SelectedStrategy = new();
     private AnimatorManager _animator;
-
+    private bool isUsingSkill;
 
     public void Initialize(CharacterFacade character)
     {
@@ -17,38 +17,42 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         if (character.Alignment.IsPlayerAlly)
         {
             SubscribeToState(_facade.Turns.PlayerTurn);
-            Debug.Log("Subscribe to player turn by: "+ character.name);
+            Debug.Log("Subscribe to player turn by: " + character.name);
         }
         else
             SubscribeToState(_facade.Turns.AiTurn);
-        
-        
-        
+
+
         _animator = character.animatorManager;
         _animator.animationEnded += OnAnimationEnded;
         _animator.animationWorked += OnAnimationWorked;
         SubscribeToCharacterSystems();
     }
+
     public void SubscribeToCharacterSystems()
     {
         _facade.CharacterSystems.Add(this);
     }
+
     private void OnAnimationWorked()
     {
         SelectedStrategy.selectedSkill.ActivateEffect(SelectedStrategy.selectTargets, SelectedStrategy.character);
         foreach (var target in SelectedStrategy.selectTargets)
         {
             _facade.LookAt(target.transform);
-            _facade.rangedWeaponController.FireWeaponForward();
+            if (SelectedStrategy.selectedSkill.IsAttack())
+            {
+                _facade.rangedWeaponController.FireWeaponForward();
+            }
         }
-        
     }
 
     private void OnAnimationEnded()
     {
         ActionPoints -= SelectedStrategy.selectedSkill.cost;
-        
+
         SelectedStrategy = new TurnBasedStrategy.SelectedStrategy();
+        isUsingSkill = false;
     }
 
     private void SubscribeToState(BaseState state)
@@ -58,6 +62,12 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
 
     public override Result Tick()
     {
+        if (!_facade.movement.navMeshAgentMovement.IsMoving && !isUsingSkill)
+        {
+            if (SelectedStrategy.selected)
+                _facade.LookAt(SelectedStrategy.selectTargets[0].transform);
+        }
+
         return Result.Success;
     }
 
@@ -71,8 +81,8 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
         {
             Debug.LogError(typeof(TurnController) + " " + result);
         }
-   
-        
+
+
         if (!_facade.Alignment.IsPlayer)
         {
             StartCoroutine(WaitForAttack(selectedStrategy));
@@ -91,7 +101,9 @@ public class TurnController : TurnsSubscriber, IDoActions, ICharacterSystem
 
     public void SelectStrategy(TurnBasedStrategy.SelectedStrategy strategy)
     {
+        isUsingSkill = true;
         SelectedStrategy = strategy;
+
         if (strategy.selectedSkill.IsAttack())
         {
             _animator.Attack();

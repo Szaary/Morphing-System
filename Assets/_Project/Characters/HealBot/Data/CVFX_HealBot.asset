@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
-  m_Name: STA_Strength
+  m_Script: {fileID: 11500000, guid: 4e3d6ef613674a0597c16fb55fb6b0b9, type: 3}
+  m_Name: CVFX_HealBot
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
-  maxValue: 10
-  minValue: 0
-  currentValue: 7
+  icon: {fileID: 0}
+  animatorOverrideController: {fileID: 0}

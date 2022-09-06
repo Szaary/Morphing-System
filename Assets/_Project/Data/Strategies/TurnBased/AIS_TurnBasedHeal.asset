@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c88f871c533146bcb6573772d90e55f6, type: 3}
-  m_Name: STA_Strength
+  m_Script: {fileID: 11500000, guid: 6fe5fe4b7f2480c45b4c14ec34f8fad7, type: 3}
+  m_Name: AIS_TurnBasedHeal
   m_EditorClassIdentifier: 
-  baseStatistic: {fileID: 11400000, guid: 2486a9103be780c4297fec93722a3388, type: 2}
-  maxValue: 10
-  minValue: 0
-  currentValue: 7
+  health: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}

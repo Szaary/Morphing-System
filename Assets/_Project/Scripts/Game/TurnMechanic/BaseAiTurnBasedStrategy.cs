@@ -21,13 +21,13 @@ public class BaseAiTurnBasedStrategy : TurnBasedStrategy
         if (result == TacticsLibrary.Possible.Both)
         {
             var offensive = active.Where(x => x.IsAttack()).ToList();
-            return SelectSkillForTarget(currentFightState, offensive, targets, out selectedStrategy);
+            return SelectRandomSkillForTarget(currentFightState, offensive, targets, out selectedStrategy);
         }
 
-        return SelectSkillForTarget(currentFightState, active, targets, out selectedStrategy);
+        return SelectRandomSkillForTarget(currentFightState, active, targets, out selectedStrategy);
     }
 
-    private Result SelectSkillForTarget(CurrentFightState currentFightState,
+    protected Result SelectRandomSkillForTarget(CurrentFightState currentFightState,
         List<Active> active,
         List<CharacterFacade> targets,
         out SelectedStrategy strategy

@@ -8,12 +8,16 @@ public class Alignment : ScriptableObject
 {
     [SerializeField] private int id;
     [SerializeField, Layer] private int factionLayerMask;
-    
+    public int ID => id;
     public bool IsAlly(Alignment alignment)
     {
-        if (alignment == this) return true;
-        
-        if (ally.Contains(alignment)) return true;
+        if (alignment.ID == ID) return true;
+
+        if (ally.Contains(alignment))
+        {
+            Debug.Log(id + "is ally to: " + alignment.id);
+            return true;
+        }
         
         return false;
     }
