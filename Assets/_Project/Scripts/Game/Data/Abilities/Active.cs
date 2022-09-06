@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using FMODUnity;
 using UnityEngine;
 
 public abstract class Active : ScriptableObject
@@ -14,6 +15,8 @@ public abstract class Active : ScriptableObject
     public float distance;
     public int Position { get; set; }
 
+    public EventReference eventReference;
+    
     public abstract Result ActivateEffect(List<CharacterFacade> targets, CharacterFacade user);
     
     public bool IsRanged()

@@ -204,7 +204,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
   - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
   - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
-  - {fileID: 11400000, guid: 8d757ff1495e4e9498c022057b545917, type: 2}
+  - {fileID: 11400000, guid: 6892e1dbae631b04a91e169ce99deb5c, type: 2}
   boxCollider: {fileID: 132843191}
   randomizeEnemies: 0
   forceGameMode: 1

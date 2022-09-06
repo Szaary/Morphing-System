@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{2f6fabe4-4ea6-4da8-abac-4eab498f70c7}">
+		<property name="assetPath">
+			<value>Music/Cafofo - MUSIC - Shameless Reggae.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>24.935034013605442</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{8850e2bd-baa3-4324-998e-aef678e73173}</destination>
+		</relationship>
+	</object>
+</objects>

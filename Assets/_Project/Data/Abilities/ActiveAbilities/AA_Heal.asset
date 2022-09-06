@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Heal
   icon: {fileID: 0}
-  targetType: 4
+  targetType: 3
   cost: 1
   distance: 1
+  eventReference:
+    Guid:
+      Data1: 1787467270
+      Data2: 1288336243
+      Data3: -1921649736
+      Data4: 799339251
+    Path: event:/Effects/Heal
   modifiers:
   - statisticToModify: {fileID: 11400000, guid: 1433fc1dfe634c643b8efcffb6dfa3b2, type: 2}
     algorithm: {fileID: 11400000, guid: e9090ef64e2d9394c9684017efd9b5a6, type: 2}
-    baseAmount: 30
+    baseAmount: 3
     modifierStatistic: {fileID: 11400000, guid: 6b872694f6ecf384b9f9a951c1538ccd, type: 2}
-    ratio: 1
-  animationType: 0
+    ratio: 2

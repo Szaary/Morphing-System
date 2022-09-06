@@ -36,6 +36,22 @@ public class CameraManager : MonoBehaviour
     {
         OnGameModeChanged(_gameManager.GameMode);
         _gameManager.GameModeChanged += OnGameModeChanged;
+
+
+        if (_library.GetControlledCharacter(out var facade) == Result.Success)
+        {
+            OnControlledCharacterChanged(facade);
+        }
+        _library.ControlledCharacterChanged += OnControlledCharacterChanged;
+    }
+
+    private void OnControlledCharacterChanged(CharacterFacade player)
+    {
+        platformCamera.Follow = player.transform;
+        platformCamera.LookAt = player.transform;
+
+        fppCamera.Follow = player.transform;
+        fppCamera.LookAt = player.transform;
     }
 
     private void OnGameModeChanged(GameMode newMode)
@@ -63,6 +79,7 @@ public class CameraManager : MonoBehaviour
     private void OnDestroy()
     {
         _gameManager.GameModeChanged -= OnGameModeChanged;
+        _library.ControlledCharacterChanged -= OnControlledCharacterChanged;
     }
 
     public void SetFpsCamera()

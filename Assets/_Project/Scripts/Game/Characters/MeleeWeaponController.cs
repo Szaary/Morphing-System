@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MeleeWeaponController : WeaponController
 {
-    public MeleeWeapon meleeWeapon; 
+    public MeleeWeapon weapon; 
     
     
     /*
@@ -30,12 +30,12 @@ public class MeleeWeaponController : WeaponController
 
     public void Attack()
     {
-        if (Physics.SphereCast(transform.position, meleeWeapon.range, transform.forward, out var hit, 100))
+        if (Physics.SphereCast(transform.position, weapon.range, transform.forward, out var hit, 100))
         {
             if (hit.transform.parent.TryGetComponent(out Damageable damageable))
             {
                 Debug.Log("Target hit");
-                damageable.TakeDamage(Facade, meleeWeapon.Modifiers);
+                damageable.TakeDamage(Facade, weapon.Modifiers);
             }
         }
     }
@@ -45,12 +45,17 @@ public class MeleeWeaponController : WeaponController
     private void OnDrawGizmos()
     {
         Gizmos.color= Color.green;
-        Gizmos.DrawWireSphere(transform.position, meleeWeapon.range);
+        Gizmos.DrawWireSphere(transform.position, weapon.range);
     }
 #endif
 
     public override void Disable()
     {
         enabled = false;
+    }
+
+    public override void PlaySfx()
+    {
+        soundEmitter.Play(weapon.eventReference);
     }
 }

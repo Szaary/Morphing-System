@@ -147,6 +147,7 @@ public class NavMeshAgentMovement : MonoBehaviour
         moveType = MoveType.Sprint;
     }
 
+    public bool IsMoving => agent.velocity.magnitude > 0.1f;
 
     public bool RandomNavmeshLocation(Vector3 center, float range, LayerMask mask, out Vector3 position)
     {

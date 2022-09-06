@@ -47,6 +47,7 @@ public abstract class BaseState
 
     protected void OnEnterBaseImplementation()
     {
+        Debug.Log("----------------------------------------");
         Debug.Log("Entered state: " + GetType().Name + " Number of state subscribers: " + OnEnterSubscribers.Count);
         for (var index = OnEnterSubscribers.Count - 1; index >= 0; index--)
         {
