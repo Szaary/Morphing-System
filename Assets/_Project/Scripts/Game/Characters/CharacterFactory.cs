@@ -7,7 +7,7 @@ public class CharacterFactory: ICharacterFactory
         _characterFactory = characterFactory;
     }
 
-    public void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone)
+    public void Spawn(Character character, BaseSpawnZone turnBasedSpawnZone)
     {
         var position =  turnBasedSpawnZone.GetSpawnPosition(character);
         var facade = _characterFactory.Create(character.prefab, character);
@@ -20,5 +20,5 @@ public class CharacterFactory: ICharacterFactory
 
 public interface ICharacterFactory
 {
-    void SpawnCharacter(Character character, BaseSpawnZone turnBasedSpawnZone);
+    void Spawn(Character character, BaseSpawnZone turnBasedSpawnZone);
 }

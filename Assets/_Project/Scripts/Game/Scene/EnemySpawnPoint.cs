@@ -52,7 +52,7 @@ public class EnemySpawnPoint : MonoBehaviour
             for (var index = 0; index < numberOfEnemies; index++)
             {
                 var character = charactersToSpawn[index];
-                _characterFactory.SpawnCharacter(character, battleSpawnZone);
+                _characterFactory.Spawn(character, battleSpawnZone);
             }
 
             var playerPosition = battleSpawnZone.GetSpawnPosition(facade.stats.character);

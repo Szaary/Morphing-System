@@ -65,6 +65,7 @@ public class SoundManager : MonoBehaviour
     }
     public void PlayLevelSounds(EventReference ambience, EventReference music)
     {
+        StopAllSounds();
         PlayAmbient(ambience);
         PlayMusicWithFadeOut(music);
     }
