@@ -18,7 +18,7 @@ WSAD, Mouse
 
 
 Latest changes on development branch.
-
+- Project Kanban: https://github.com/users/Szaary/projects/5/views/1
 - Project GDD: https://github.com/Szaary/Morphing-System/blob/main/GDD.md
 
 
