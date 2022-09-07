@@ -5,8 +5,4 @@ public interface ICharacterSystem
     void Disable();
 
     void SubscribeToCharacterSystems();
-    
-    
-    
-
 }

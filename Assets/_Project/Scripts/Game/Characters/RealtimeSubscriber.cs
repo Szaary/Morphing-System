@@ -4,13 +4,14 @@ public abstract class RealtimeSubscriber : MonoBehaviour, ICharacterSystem
 {
     private float waitTime = 3.0f;
     private float timer = 0.0f;
-    
+    protected TimeManager TimeManager;
     
     protected CharacterFacade Facade;
 
     public void Initialize(CharacterFacade characterFacade)
     {
         Facade = characterFacade;
+        TimeManager = characterFacade.TimeManager;
         SubscribeToCharacterSystems();
     }
     public void SubscribeToCharacterSystems()
@@ -20,7 +21,7 @@ public abstract class RealtimeSubscriber : MonoBehaviour, ICharacterSystem
 
     private void Update()
     {
-        var delta = Facade.TimeManager.GetDeltaTime(this);
+        var delta = TimeManager.GetDeltaTime(this);
         timer += delta;
         
         if (timer > waitTime)

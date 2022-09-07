@@ -15,7 +15,6 @@ public class Alignment : ScriptableObject
 
         if (ally.Contains(alignment))
         {
-            Debug.Log(id + "is ally to: " + alignment.id);
             return true;
         }
         

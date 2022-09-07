@@ -45,6 +45,9 @@ public class FpsUiBinds : MonoBehaviour
 
         _library.ControlledCharacterChanged += OnControlledCharacterChanged;
     }
+    
+    
+    
 
     private void OnGameModeChanged(GameMode obj)
     {

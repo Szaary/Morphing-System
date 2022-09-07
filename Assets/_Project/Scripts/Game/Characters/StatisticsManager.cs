@@ -22,6 +22,22 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         
         SubscribeToCharacterSystems();
     }
+    
+    
+    public void Disable()
+    {
+        enabled = false;
+    }
+    
+    private void OnDestroy()
+    {
+        character.RemoveInstances();
+        Destroy(character);
+    }
+    
+    
+    
+    
     public void SubscribeToCharacterSystems()
     {
         _facade.CharacterSystems.Add(this);
@@ -166,14 +182,5 @@ public class StatisticsManager : MonoBehaviour , ICharacterSystem
         Debug.LogError(typeof(TurnStatsManager) + " apply passive result: " + result);
     }
 
-    public void Disable()
-    {
-        enabled = false;
-    }
-    
-    private void OnDestroy()
-    {
-        character.RemoveInstances();
-        Destroy(character);
-    }
+
 }
