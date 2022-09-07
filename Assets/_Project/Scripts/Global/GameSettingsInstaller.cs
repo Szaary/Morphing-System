@@ -10,14 +10,13 @@ public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInsta
     [Serializable]
     public class GameSettings
     {
-        public SoundManager.Settings sound;
         public SceneLoader.Settings scene;
     }
 
 
     public override void InstallBindings()
     {
-        Container.BindInstance(settings.sound).IfNotBound();
+        
         Container.BindInstance(settings.scene).IfNotBound();
     }
 }

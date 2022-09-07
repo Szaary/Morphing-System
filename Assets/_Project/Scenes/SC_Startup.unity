@@ -465,6 +465,7 @@ GameObject:
   - component: {fileID: 1454033448}
   - component: {fileID: 1454033449}
   - component: {fileID: 1454033450}
+  - component: {fileID: 1454033451}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -524,6 +525,68 @@ MonoBehaviour:
   _useSceneContext: 0
   _context: {fileID: 0}
   _bindType: 0
+--- !u!114 &1454033451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454033447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af57035142fb5db4bb776f3d37511b1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    adventure:
+      Guid:
+        Data1: -1996175337
+        Data2: 1314268864
+        Data3: 361591452
+        Data4: -1676324233
+      Path: event:/Music/Adventure
+    disco:
+      Guid:
+        Data1: -270162540
+        Data2: 1330728735
+        Data3: -802408295
+        Data4: 1285529573
+      Path: event:/Music/Disco
+    fpsFight:
+      Guid:
+        Data1: 2075593692
+        Data2: 1288287718
+        Data3: -49495374
+        Data4: 483459699
+      Path: event:/Music/FPS Fight
+    fps:
+      Guid:
+        Data1: 1996178125
+        Data2: 1329128454
+        Data3: -2026612316
+        Data4: -850205228
+      Path: event:/Music/FPS
+    jRPG:
+      Guid:
+        Data1: 1237726586
+        Data2: 1130343716
+        Data3: -1989301093
+        Data4: 1338762503
+      Path: event:/Music/jRPG
+    ambient:
+      Guid:
+        Data1: 1942244950
+        Data2: 1158903081
+        Data3: -1281628519
+        Data4: 416927364
+      Path: event:/Ambient/City Ambient
+    menuMusic:
+      Guid:
+        Data1: -814347618
+        Data2: 1264687254
+        Data3: 1168787603
+        Data4: -2122672405
+      Path: event:/Music/MenuMusic
 --- !u!1 &1762760443
 GameObject:
   m_ObjectHideFlags: 0

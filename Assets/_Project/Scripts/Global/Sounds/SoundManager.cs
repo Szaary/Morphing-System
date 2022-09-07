@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
     private Bus _effects;
     private Bus _ambient;
 
-    [SerializeField] public Settings settings;
+    [SerializeField] private Settings settings;
     
     public void Start()
     {
@@ -137,6 +137,7 @@ public class SoundManager : MonoBehaviour
     public void PlayMusicWithFadeOut(EventReference sound)
     {
         _musicEvent.stop(STOP_MODE.ALLOWFADEOUT);
+        
         if (sound.IsNull) return;
 
         _musicEvent = RuntimeManager.CreateInstance(sound);

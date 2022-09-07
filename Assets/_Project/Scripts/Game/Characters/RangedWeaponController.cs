@@ -57,6 +57,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         var newProjectile = Instantiate(weapon.projectile, position, Quaternion.identity);
         newProjectile.Fire(direction, Facade, weapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
+        PlaySfx();
     }
     
     public void FireWeaponForward()
@@ -64,6 +65,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
         var newProjectile = Instantiate(weapon.projectile, transform.position, Quaternion.identity);
         newProjectile.Fire(transform.forward, Facade, weapon.Modifiers, Facade.TimeManager);
         newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
+        PlaySfx();
     }
 
     private bool attacked;
@@ -79,6 +81,7 @@ public class RangedWeaponController : WeaponController, ICharacterSystem
             newProjectile.Fire(transform.forward, Facade, weapon.Modifiers, Facade.TimeManager);
             newProjectile.StartCoroutine(DestroyAfterTime(newProjectile));
             Invoke(nameof(Reset), TimeBetweenAttacks);
+            PlaySfx();
         }
     }
     
