@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using DG.Tweening;
 using TMPro;
@@ -12,6 +11,8 @@ public class CombatText : MonoBehaviour
     [SerializeField] private TextMeshPro textReference;
     [SerializeField] private float tweenDuration = 2;
     [SerializeField] private float spawnRangeAroundTarget=0.1f;
+
+    public event Action<CombatText> endedLife;
     
     private void Reset(float value, Vector3 position)
     {
@@ -23,13 +24,14 @@ public class CombatText : MonoBehaviour
         
         transform.position = position;
         var endPosition = new Vector3(position.x, position.y+2, position.z);
-        var handler = transform.DOMove(endPosition, tweenDuration).SetEase(Ease.InOutSine);
+        var handler = transform.DOMove(endPosition, tweenDuration)
+            .SetEase(Ease.InOutSine);
         handler.onComplete += OnTweenComplete;
     }
 
     private void OnTweenComplete()
     {
-        Destroy(gameObject);
+        endedLife?.Invoke(this);
     }
 
     public class Pool : MonoMemoryPool<float, Vector3, CombatText>
@@ -38,48 +40,5 @@ public class CombatText : MonoBehaviour
         {
             pooled.Reset(value, position);
         }
-    }
-
-
-}
-
-public class CombatTextFactory : IInitializable, IDisposable
-{
-    private readonly CombatText.Pool _pool;
-    private readonly ToUiEventsHandler _eventsHandler;
-
-    private readonly List<CombatText> _pooled = new();
-
-    public CombatTextFactory(CombatText.Pool pool, ToUiEventsHandler eventsHandler)
-    {
-        _pool = pool;
-        _eventsHandler = eventsHandler;
-    }
-
-   
-    public void Initialize()
-    {
-        _eventsHandler.HealthChanged += OnHealthChanged;
-    }
-    public void Dispose()
-    {
-        _eventsHandler.HealthChanged -= OnHealthChanged;
-    }
-
-    public void Add(float value, Vector3 position)
-    {
-        _pooled.Add(_pool.Spawn(value, position));
-    }
-    
-    public void Remove()
-    {
-        var pooled = _pooled[0];
-        _pool.Despawn(pooled);
-        _pooled.Remove(pooled);
-    }
-
-    void OnHealthChanged(HealthChanged args)
-    {
-        Add(args.Modifier, args.Position);
     }
 }

@@ -17,6 +17,6 @@ public class CharacterSpawner : MonoBehaviour
 
     private void Start()
     {
-        _characterFactory.SpawnCharacter(player, spawnZone);
+        _characterFactory.Spawn(player, spawnZone);
     }
 }

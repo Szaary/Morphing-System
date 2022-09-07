@@ -48,6 +48,7 @@ public class CharacterFacade : MonoBehaviour
     public TurnBasedInputManager BasedInputManager { get; private set; }
     public SoundManager SoundManager { get; private set; }
     
+    public ProjectileMemoryPool ProjectilePool { get; private set; }
     
     public bool IsDead { get; private set; }
 
@@ -62,7 +63,8 @@ public class CharacterFacade : MonoBehaviour
         GameManager gameManager,
         TimeManager timeManager,
         TurnBasedInputManager turnBasedInputManager,
-        SoundManager soundManager)
+        SoundManager soundManager,
+        ProjectileMemoryPool projectilePool)
     {
         MovementInput = starterInputs;
         PlayerInput = playerInput;
@@ -73,6 +75,7 @@ public class CharacterFacade : MonoBehaviour
         TimeManager = timeManager;
         BasedInputManager = turnBasedInputManager;
         SoundManager = soundManager;
+        ProjectilePool = projectilePool;
         
         stats.SetCharacter(this, characterTemplate);
         turnStatsManager.Initialize(this);
@@ -82,6 +85,8 @@ public class CharacterFacade : MonoBehaviour
         realTimeStatsManager.Initialize(this);
         Library.AddCharacter(this);
     }
+
+    
 
     public void SetPosition(BaseSpawnZone.SpawnLocation position)
     {

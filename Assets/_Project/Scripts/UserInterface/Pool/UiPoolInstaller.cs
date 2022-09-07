@@ -7,7 +7,7 @@ public class UiPoolInstaller : MonoInstaller<UiPoolInstaller>
 
     public override void InstallBindings()
     {
-        Container.BindInterfacesAndSelfTo<CombatTextFactory>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<CombatTextMemoryPool>().AsSingle().NonLazy();
 
         Container.BindMemoryPool<CombatText, CombatText.Pool>()
             .WithInitialSize(15)

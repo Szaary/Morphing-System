@@ -1,27 +1,39 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Projectile : MonoBehaviour
 {
-    // Change to factory implementation and add agility modifier
     [SerializeField] private float speed = 20;
 
     private bool canMove;
     private Vector3 _direction;
 
-    private CharacterFacade _facade;
+    private CharacterFacade _shooter;
     private List<Modifier> _modifiers;
+
     private TimeManager _timeManager;
+    private GameManager _gameManager;
 
-
-    public void Fire(Vector3 direction, CharacterFacade shooterFacade, List<Modifier> rangedWeaponModifiers,
-        TimeManager timeManager)
+    [Inject]
+    public void Construct(TimeManager timeManager, GameManager gameManager)
     {
         _timeManager = timeManager;
-        _facade = shooterFacade;
+        _gameManager = gameManager;
+    }
+
+
+    private void Reset(Vector3 position, Vector3 direction, CharacterFacade facade, List<Modifier> modifiers)
+    {
+        _shooter = facade;
         _direction = direction;
         canMove = true;
-        _modifiers = rangedWeaponModifiers;
+        _modifiers = modifiers;
+        
+        transform.rotation = Quaternion.identity;
+        transform.position = position;
+        canMove = true;
     }
 
     private void Update()
@@ -35,10 +47,21 @@ public class Projectile : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (_facade.GameManager.GameMode == GameMode.TurnBasedFight) return;
+        if (_gameManager.GameMode == GameMode.TurnBasedFight) return;
         if (other.TryGetComponent(out Damageable damageable))
         {
-            damageable.TakeDamage(_facade, _modifiers);
+            damageable.TakeDamage(_shooter, _modifiers);
+        }
+    }
+
+
+    public class Pool : MonoMemoryPool<Vector3, Vector3, CharacterFacade, List<Modifier>, Projectile>
+    {
+        protected override void Reinitialize(Vector3 position, Vector3 direction, CharacterFacade facade,
+            List<Modifier> modifiers, Projectile pooled)
+        {
+            //  base.Reinitialize(p1, p2, p3, p4, item);
+            pooled.Reset(position, direction, facade, modifiers);
         }
     }
 }
